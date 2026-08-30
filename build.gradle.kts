@@ -209,14 +209,22 @@ subprojects {
                 // Maven Central will be configured via nexus publish plugin
                 // This is kept for local development
                 mavenLocal()
-                
-                // GitHub Packages
-                maven {
-                    name = "GitHubPackages"
-                    url = uri("https://maven.pkg.github.com/bhangun/tafkir")
-                    credentials {
-                        username = System.getenv("GITHUB_ACTOR")
-                        password = System.getenv("GITHUB_TOKEN")
+
+                // GitHub Packages. GitHub Packages expects the repository URL to be scoped to the
+                // GitHub org/user, not to a specific repository path.
+                val githubOwner = System.getenv("GITHUB_REPOSITORY_OWNER")
+                    ?: System.getenv("GITHUB_ACTOR")
+                    ?: "bhangun"
+                val githubActor = System.getenv("GITHUB_ACTOR") ?: providers.gradleProperty("gpr.user").orNull
+                val githubToken = System.getenv("GITHUB_TOKEN") ?: providers.gradleProperty("gpr.key").orNull
+                if (!githubActor.isNullOrBlank() && !githubToken.isNullOrBlank()) {
+                    maven {
+                        name = "GitHubPackages"
+                        url = uri("https://maven.pkg.github.com/$githubOwner")
+                        credentials {
+                            username = githubActor
+                            password = githubToken
+                        }
                     }
                 }
             }
