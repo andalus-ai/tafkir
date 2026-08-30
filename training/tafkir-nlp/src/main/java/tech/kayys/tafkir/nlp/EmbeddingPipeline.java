@@ -1,7 +1,7 @@
 package tech.kayys.tafkir.nlp;
 
-import tech.kayys.alkhawarizm.sdk.api.AljabrSdk;
-import tech.kayys.alkhawarizm.sdk.api.AljabrSdkProvider;
+import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdk;
+import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdkProvider;
 import tech.kayys.alkhawarizm.spi.embedding.EmbeddingRequest;
 import tech.kayys.alkhawarizm.spi.embedding.EmbeddingResponse;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * Embedding pipeline that computes dense vector representations of text.
  *
  * <p>
- * Uses the Aljabr embedding engine to produce fixed-size {@code float[]}
+ * Uses the Alkhawarizm embedding engine to produce fixed-size {@code float[]}
  * vectors
  * that capture semantic meaning. Vectors can be compared with
  * {@link #similarity}
@@ -30,7 +30,7 @@ import java.util.List;
 public class EmbeddingPipeline implements Pipeline<String, float[]> {
 
     private final String modelId;
-    private final AljabrSdk sdk;
+    private final AlkhawarizmSdk sdk;
 
     /**
      * Creates an embedding pipeline for the given model.
@@ -65,7 +65,7 @@ public class EmbeddingPipeline implements Pipeline<String, float[]> {
      */
     public List<float[]> batchEmbed(List<String> inputs) {
         if (sdk == null) {
-            throw new PipelineException("No AljabrSdk provider available on classpath");
+            throw new PipelineException("No AlkhawarizmSdk provider available on classpath");
         }
         try {
             EmbeddingRequest request = EmbeddingRequest.builder()
@@ -137,10 +137,10 @@ public class EmbeddingPipeline implements Pipeline<String, float[]> {
         return dot / ((float) Math.sqrt(normA * normB) + 1e-8f);
     }
 
-    /** Resolves a {@link AljabrSdk} via {@link java.util.ServiceLoader}. */
-    private AljabrSdk resolveSdk() {
+    /** Resolves a {@link AlkhawarizmSdk} via {@link java.util.ServiceLoader}. */
+    private AlkhawarizmSdk resolveSdk() {
         try {
-            return java.util.ServiceLoader.load(AljabrSdkProvider.class)
+            return java.util.ServiceLoader.load(AlkhawarizmSdkProvider.class)
                     .findFirst()
                     .map(p -> p.create(null))
                     .orElse(null);

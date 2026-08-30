@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPromotionGateArtifactPackageTest {
@@ -29,7 +29,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 TrainingReportPromotionGate.Result result = gateResult("package");
                 Instant generatedAt = Instant.parse("2026-05-21T09:10:11Z");
 
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("package-artifacts"),
                                                 result,
@@ -48,7 +48,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertEquals(bundle.artifacts().directory(), bundle.directory());
                 bundle.requirePassed();
 
-                TrainingReportPromotionGateArtifactPackage.PackageInspection inspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGateArtifactPackage(bundle.directory());
                 assertTrue(inspection.passed());
                 assertTrue(inspection.promotable());
@@ -69,9 +69,9 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .orElseThrow()
                                 .file()));
                 assertEquals(2, inspection.sourceReportSnapshots().size());
-                assertEquals(2, Aljabr.DL.trainingReportPromotionGatePackageSourceSnapshots(inspection).size());
+                assertEquals(2, Alkhawarizm.DL.trainingReportPromotionGatePackageSourceSnapshots(inspection).size());
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(bundle);
                 assertTrue(verification.passed());
                 assertTrue(verification.manifestSha256Matches());
@@ -80,7 +80,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(verification.artifactVerification().junitXmlWellFormed());
                 verification.requirePassed();
 
-                TrainingReportPromotionGateArtifactPackage.PackageVerification completeVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageVerification completeVerification = Alkhawarizm.DL
                                 .verifyCompleteTrainingReportPromotionGateArtifactPackage(bundle);
                 assertTrue(completeVerification.passed());
                 assertTrue(completeVerification.manifestVerification().passed());
@@ -88,7 +88,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(completeVerification.toMap().containsKey("sourceSnapshotVerification"));
                 completeVerification.requirePassed();
 
-                TrainingReportPromotionGateArtifactPackage.VerificationReport report = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReport report = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGatePackageVerificationReport(
                                                 tempDir.resolve("package-verification.json"),
                                                 completeVerification);
@@ -100,14 +100,14 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(reportJson.contains(
                                 "\"format\":\"alkhawarizm.training.promotion.package.verification.report.v1\""));
                 assertTrue(reportJson.contains("\"expectedSourceReportArtifacts\""));
-                TrainingReportPromotionGateArtifactPackage.VerificationReportInspection reportInspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportInspection reportInspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGatePackageVerificationReport(report.reportFile());
                 assertEquals(
                                 TrainingReportPromotionGateArtifactPackage.VERIFICATION_REPORT_FORMAT,
                                 reportInspection.format());
                 assertEquals(bundle.directory(), reportInspection.packageDirectory());
                 assertEquals(bundle.manifest().manifestSha256(), reportInspection.manifestSha256());
-                TrainingReportPromotionGateArtifactPackage.VerificationReportVerification reportVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportVerification reportVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationReport(
                                                 report.reportFile(),
                                                 report.reportSha256());
@@ -118,7 +118,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(reportVerification.packageVerification().passed());
                 reportVerification.requirePassed();
 
-                TrainingReportPromotionGateArtifactPackage.VerificationReport defaultReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReport defaultReport = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationReport(bundle.directory());
                 assertTrue(defaultReport.passed());
                 assertEquals(
@@ -130,7 +130,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(defaultReportJson.contains("\"sourceSnapshotVerification\""));
                 assertTrue(defaultReportJson.contains("\"unexpectedSourceReportArtifacts\""));
 
-                TrainingReportPromotionGateArtifactPackage.VerificationMarkdownReport markdownReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationMarkdownReport markdownReport = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGatePackageVerificationMarkdownReport(
                                                 tempDir.resolve("package-verification.md"),
                                                 completeVerification);
@@ -138,13 +138,13 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertEquals(TrainerCheckpointIO.sha256Hex(markdownReport.markdownFile()),
                                 markdownReport.markdownSha256());
                 String markdown = Files.readString(markdownReport.markdownFile(), StandardCharsets.UTF_8);
-                assertTrue(markdown.contains("# Aljabr Promotion Gate Package Verification"));
+                assertTrue(markdown.contains("# Alkhawarizm Promotion Gate Package Verification"));
                 assertTrue(markdown.contains("| Status | PASS |"));
                 assertTrue(markdown.contains("| Source report snapshots | PASS |"));
                 assertTrue(markdown.contains("## Package Artifacts"));
                 assertTrue(markdown.contains("## Source Report Snapshots"));
 
-                TrainingReportPromotionGateArtifactPackage.VerificationMarkdownReport defaultMarkdownReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationMarkdownReport defaultMarkdownReport = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationMarkdownReport(
                                                 bundle.directory());
                 assertTrue(defaultMarkdownReport.passed());
@@ -155,7 +155,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(Files.readString(defaultMarkdownReport.markdownFile(), StandardCharsets.UTF_8)
                                 .contains("## Failures"));
 
-                TrainingReportPromotionGateArtifactPackage.VerificationJUnitXmlReport junitXmlReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationJUnitXmlReport junitXmlReport = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGatePackageVerificationJUnitXmlReport(
                                                 tempDir.resolve("package-verification.junit.xml"),
                                                 completeVerification);
@@ -170,7 +170,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(junitXml.contains("name=\"complete-package\""));
                 assertTrue(junitXml.contains("property name=\"sourceSnapshots.expected\" value=\"2\""));
 
-                TrainingReportPromotionGateArtifactPackage.VerificationJUnitXmlReport defaultJunitXmlReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationJUnitXmlReport defaultJunitXmlReport = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationJUnitXmlReport(
                                                 bundle.directory());
                 assertTrue(defaultJunitXmlReport.passed());
@@ -182,7 +182,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .contains("property name=\"package.passed\" value=\"true\""));
 
                 Path reportBundleDirectory = tempDir.resolve("package-verification-bundle");
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundle reportBundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundle reportBundle = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGatePackageVerificationReports(
                                                 reportBundleDirectory,
                                                 completeVerification);
@@ -199,7 +199,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(reportBundle.toMap().containsKey("junitXml"));
                 assertEquals(reportBundle.artifactMap(), reportBundle.toMap().get("artifact"));
 
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleInspection reportBundleInspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleInspection reportBundleInspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGatePackageVerificationReports(reportBundleDirectory);
                 assertEquals(reportBundleDirectory.toAbsolutePath().normalize(), reportBundleInspection.directory());
                 assertEquals(reportBundle.json().reportFile(), reportBundleInspection.json().reportFile());
@@ -207,7 +207,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertEquals(reportBundle.junitXml().junitXmlFile(), reportBundleInspection.junitXmlFile());
                 assertEquals(reportBundle.artifactMap(), reportBundleInspection.artifactMap());
 
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleVerification reportBundleVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleVerification reportBundleVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationReports(
                                                 reportBundleDirectory,
                                                 reportBundle.json().reportSha256());
@@ -220,7 +220,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertEquals(reportBundleVerification.artifactMap(), reportBundleVerification.toMap().get("artifact"));
                 reportBundleVerification.requirePassed();
 
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleVerification uppercaseShaVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleVerification uppercaseShaVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationReports(
                                                 reportBundleDirectory,
                                                 reportBundle.json().reportSha256().toUpperCase(java.util.Locale.ROOT));
@@ -233,7 +233,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 reportBundle.json().reportSha256(),
                                 uppercaseShaVerification.jsonVerification().toMap().get("expectedReportSha256"));
 
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundle defaultReportBundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundle defaultReportBundle = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationReports(
                                                 bundle.directory());
                 assertTrue(defaultReportBundle.passed());
@@ -250,7 +250,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 .defaultVerificationJunitXmlFile(bundle.directory()),
                                 defaultReportBundle.junitXml().junitXmlFile());
 
-                TrainingReportPromotionGateArtifactPackage.SourceSnapshotVerification sourceVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.SourceSnapshotVerification sourceVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageSourceSnapshots(inspection);
                 assertTrue(sourceVerification.passed());
                 assertEquals(2, sourceVerification.snapshots().size());
@@ -269,7 +269,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void refreshCompletePackageRebuildsDerivedGateArtifactsAndManifest() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("refresh-package-artifacts"),
                                                 gateResult("refresh-package"),
@@ -287,16 +287,16 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactPackage.PackageVerification stale = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageVerification stale = Alkhawarizm.DL
                                 .verifyCompleteTrainingReportPromotionGateArtifactPackage(bundle.directory());
                 assertFalse(stale.passed());
                 assertFalse(stale.manifestVerification().artifactSha256Match());
                 assertFalse(stale.manifestVerification().artifactVerification().markdownMatchesJson());
                 assertFalse(stale.manifestVerification().artifactVerification().junitXmlMatchesJson());
 
-                TrainingReportPromotionGateArtifactPackage.PackageRefresh refresh = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageRefresh refresh = Alkhawarizm.DL
                                 .refreshTrainingReportPromotionGateArtifactPackage(bundle.directory());
-                TrainingReportPromotionGateArtifactPackage.PackageVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageVerification verification = Alkhawarizm.DL
                                 .verifyCompleteTrainingReportPromotionGateArtifactPackage(bundle.directory());
 
                 assertTrue(refresh.passed(), () -> refresh.toMap().toString());
@@ -316,7 +316,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void refreshCompletePackageRejectsChangedNonRefreshableArtifact() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("refresh-reject-package-artifacts"),
                                                 gateResult("refresh-reject-package"),
@@ -330,7 +330,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
                 IOException error = assertThrows(
                                 IOException.class,
-                                () -> Aljabr.DL.refreshTrainingReportPromotionGateArtifactPackage(bundle.directory()));
+                                () -> Alkhawarizm.DL.refreshTrainingReportPromotionGateArtifactPackage(bundle.directory()));
                 assertTrue(error.getMessage().contains("non-refreshable artifact"));
         }
 
@@ -340,7 +340,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 Path outputDirectory = tempDir.resolve("verified-package-artifacts");
                 Path reportDirectory = tempDir.resolve("verified-package-reports");
 
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 outputDirectory,
                                                 gateResult("verified-package"),
@@ -373,7 +373,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(reportBundleReceiptJson.contains(
                                 "\"format\":\"alkhawarizm.training.promotion.package.verification.reports.receipt.v1\""));
                 assertTrue(reportBundleReceiptJson.contains("\"markdownMatchesRendered\":true"));
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceiptInspection reportBundleReceiptInspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceiptInspection reportBundleReceiptInspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGatePackageVerificationReportsReceipt(
                                                 verified.reportBundleReceipt().receiptFile());
                 assertEquals(
@@ -383,7 +383,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertEquals(verified.reports().json().reportFile(), reportBundleReceiptInspection.jsonReportFile());
                 assertEquals(verified.reports().json().reportSha256(),
                                 reportBundleReceiptInspection.jsonReportSha256());
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceiptVerification reportBundleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceiptVerification reportBundleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationReportsReceipt(
                                                 verified.reportBundleReceipt().receiptFile(),
                                                 verified.reportBundleReceipt().receiptSha256());
@@ -393,7 +393,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(reportBundleReceiptVerification.schemaValid());
                 assertTrue(reportBundleReceiptVerification.reportBundleRevalidated());
                 assertTrue(reportBundleReceiptVerification.reportBundleVerification().passed());
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceiptVerification uppercaseReportBundleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceiptVerification uppercaseReportBundleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationReportsReceipt(
                                                 verified.reportBundleReceipt().receiptFile(),
                                                 verified.reportBundleReceipt().receiptSha256()
@@ -408,7 +408,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 reportBundleReceiptVerification.requirePassed();
                 Path manualReportBundleReceiptFile = reportDirectory
                                 .resolve("manual-promotion-gate-package-verification.reports.receipt.json");
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceipt manualReportBundleReceipt = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceipt manualReportBundleReceipt = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationReportsReceipt(
                                                 verified.reports().directory(),
                                                 verified.reports().json().reportSha256(),
@@ -430,14 +430,14 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(indexJson.contains("\"reportDirectory\""));
                 assertTrue(indexJson.contains("\"receipt\""));
                 assertTrue(indexJson.contains("\"sourceReportSnapshots\""));
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexInspection indexInspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexInspection indexInspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGatePackageVerificationIndex(verified.index().indexFile());
                 assertEquals(TrainingReportPromotionGateArtifactPackage.VERIFICATION_INDEX_FORMAT,
                                 indexInspection.format());
                 assertEquals(outputDirectory.toAbsolutePath().normalize(), indexInspection.packageDirectory());
                 assertEquals(reportDirectory.toAbsolutePath().normalize(), indexInspection.reportDirectory());
                 assertEquals("candidate", indexInspection.decisionCandidate().orElseThrow());
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexVerification indexVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexVerification indexVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndex(
                                                 verified.index().indexFile(),
                                                 verified.index().indexSha256());
@@ -454,7 +454,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(verified.receipt().passed());
                 Path receiptFile = reportDirectory
                                 .resolve("manual-promotion-gate-package-verification.index.receipt.json");
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceipt receipt = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceipt receipt = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationIndexReceipt(
                                                 verified.index().indexFile(),
                                                 verified.index().indexSha256(),
@@ -467,14 +467,14 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(receiptJson.contains(
                                 "\"format\":\"alkhawarizm.training.promotion.package.verification.index.receipt.v1\""));
                 assertTrue(receiptJson.contains("\"referencedSha256Match\":true"));
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptInspection receiptInspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptInspection receiptInspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGatePackageVerificationIndexReceipt(receipt.receiptFile());
                 assertEquals(
                                 TrainingReportPromotionGateArtifactPackage.VERIFICATION_INDEX_RECEIPT_FORMAT,
                                 receiptInspection.format());
                 assertEquals(verified.index().indexFile(), receiptInspection.indexFile());
                 assertEquals(verified.index().indexSha256(), receiptInspection.indexSha256());
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification receiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification receiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndexReceipt(
                                                 receipt.receiptFile(),
                                                 receipt.receiptSha256());
@@ -483,7 +483,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(receiptVerification.schemaValid());
                 assertTrue(receiptVerification.indexRevalidated());
                 assertTrue(receiptVerification.indexVerification().passed());
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification uppercaseReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification uppercaseReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndexReceipt(
                                                 receipt.receiptFile(),
                                                 receipt.receiptSha256().toUpperCase(java.util.Locale.ROOT));
@@ -494,7 +494,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 uppercaseReceiptVerification.toMap().get("expectedReceiptSha256"));
                 receiptVerification.requirePassed();
                 receipt.requirePassed();
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAudit packageAudit = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAudit packageAudit = Alkhawarizm.DL
                                 .auditTrainingReportPromotionGatePackageVerificationIndex(
                                                 verified.index().indexFile(),
                                                 verified.index().indexSha256());
@@ -511,7 +511,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(verified.packageAuditReport().passed());
                 Path auditReportFile = reportDirectory
                                 .resolve("manual-promotion-gate-package-verification.index.package-audit.json");
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReport auditReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReport auditReport = Alkhawarizm.DL
                                 .auditAndWriteTrainingReportPromotionGatePackageVerificationIndexPackageAuditReport(
                                                 verified.index().indexFile(),
                                                 verified.index().indexSha256(),
@@ -523,7 +523,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(auditReportJson.contains(
                                 "\"format\":\"alkhawarizm.training.promotion.package.verification.index.package-audit.v1\""));
                 assertTrue(auditReportJson.contains("\"packagePassed\":true"));
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReportInspection auditReportInspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReportInspection auditReportInspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGatePackageVerificationIndexPackageAuditReport(
                                                 auditReport.reportFile());
                 assertEquals(
@@ -531,7 +531,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 auditReportInspection.format());
                 assertEquals(verified.index().indexFile(), auditReportInspection.indexFile());
                 assertEquals(verified.index().indexSha256(), auditReportInspection.indexSha256());
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReportVerification auditReportVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReportVerification auditReportVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndexPackageAuditReport(
                                                 auditReport.reportFile(),
                                                 auditReport.reportSha256());
@@ -556,7 +556,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(evidenceJson.contains("\"verificationReportBundleReceipt\""));
                 assertTrue(evidenceJson.contains("\"packageArtifacts\""));
                 assertTrue(evidenceJson.contains("\"sourceReportSnapshots\""));
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceInspection evidenceInspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceInspection evidenceInspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile());
                 assertEquals(
@@ -564,7 +564,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 evidenceInspection.format());
                 assertEquals(verified.directory(), evidenceInspection.packageDirectory());
                 assertTrue(evidenceInspection.passed());
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification evidenceVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification evidenceVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile(),
                                                 verified.evidence().evidenceSha256());
@@ -591,7 +591,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 "\"format\":\"alkhawarizm.training.promotion.package.verification.evidence.receipt.v1\""));
                 assertTrue(evidenceReceiptJson.contains("\"packageArtifactsSha256Match\":true"));
                 verified.evidenceReceipt().requirePassed();
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptInspection evidenceReceiptInspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptInspection evidenceReceiptInspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile());
                 assertEquals(
@@ -599,7 +599,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 evidenceReceiptInspection.format());
                 assertEquals(verified.evidence().evidenceFile(), evidenceReceiptInspection.evidenceFile());
                 assertEquals(verified.evidence().evidenceSha256(), evidenceReceiptInspection.evidenceSha256());
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification evidenceReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification evidenceReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -608,7 +608,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(evidenceReceiptVerification.schemaValid());
                 assertTrue(evidenceReceiptVerification.evidenceRevalidated());
                 assertTrue(evidenceReceiptVerification.evidenceVerification().passed());
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification uppercaseEvidenceReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification uppercaseEvidenceReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256()
@@ -623,7 +623,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 evidenceReceiptVerification.requirePassed();
                 Path manualEvidenceReceiptFile = reportDirectory
                                 .resolve("manual-promotion-gate-package-verification.evidence.receipt.json");
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceipt manualEvidenceReceipt = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceipt manualEvidenceReceipt = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidence().evidenceFile(),
                                                 verified.evidence().evidenceSha256(),
@@ -642,7 +642,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationIndexReceiptRejectsEmbeddedVerificationMismatch() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("index-receipt-embedded-mismatch-artifacts"),
                                                 gateResult("index-receipt-embedded-mismatch"),
@@ -657,7 +657,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "\"actualIndexSha256\":\"" + wrongSha256 + "\"");
                 Files.writeString(verified.receipt().receiptFile(), receiptJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndexReceipt(
                                                 verified.receipt().receiptFile());
 
@@ -673,7 +673,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void detectsVerificationIndexReferencedReportTampering() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("tamper-package-artifacts"),
                                                 gateResult("tamper-package"),
@@ -687,7 +687,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndex(
                                                 verified.index().indexFile(),
                                                 verified.index().indexSha256());
@@ -698,7 +698,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertFalse(verification.referencedSha256Match());
                 assertTrue(String.join("\n", verification.failures()).contains("reports.markdown checksum mismatch"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceiptVerification staleReportBundleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleReceiptVerification staleReportBundleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationReportsReceipt(
                                                 verified.reportBundleReceipt().receiptFile(),
                                                 verified.reportBundleReceipt().receiptSha256());
@@ -710,7 +710,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(String.join("\n", staleReportBundleReceiptVerification.failures())
                                 .contains("markdown content mismatch"));
                 assertThrows(IllegalStateException.class, staleReportBundleReceiptVerification::requirePassed);
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndexReceipt(
                                                 verified.receipt().receiptFile(),
                                                 verified.receipt().receiptSha256());
@@ -724,7 +724,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertThrows(IllegalStateException.class, staleReceiptVerification::requirePassed);
                 Path receiptFile = TrainingReportPromotionGateArtifactPackage.defaultVerificationIndexReceiptFile(
                                 verified.reports().directory());
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceipt receipt = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceipt receipt = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGatePackageVerificationIndexReceipt(
                                                 receiptFile,
                                                 verification);
@@ -733,7 +733,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(Files.readString(receipt.receiptFile(), StandardCharsets.UTF_8)
                                 .contains("\"referencedSha256Match\":false"));
                 assertThrows(IllegalStateException.class, receipt::requirePassed);
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAudit audit = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAudit audit = Alkhawarizm.DL
                                 .auditTrainingReportPromotionGatePackageVerificationIndex(
                                                 verified.index().indexFile(),
                                                 verified.index().indexSha256());
@@ -746,7 +746,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void detectsVerificationIndexReferencedReportBundleReceiptTampering() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("tamper-report-receipt-artifacts"),
                                                 gateResult("tamper-report-receipt"),
@@ -760,7 +760,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndex(
                                                 verified.index().indexFile(),
                                                 verified.index().indexSha256());
@@ -772,7 +772,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(String.join("\n", verification.failures()).contains("reports.receipt checksum mismatch"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndexReceipt(
                                                 verified.receipt().receiptFile(),
                                                 verified.receipt().receiptSha256());
@@ -787,7 +787,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void auditVerificationIndexDetectsPackageArtifactTampering() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("package-audit-artifacts"),
                                                 gateResult("package-audit"),
@@ -801,7 +801,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationReportVerification staleReportVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportVerification staleReportVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationReport(
                                                 verified.reports().json().reportFile(),
                                                 verified.reports().json().reportSha256());
@@ -813,7 +813,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(String.join("\n", staleReportVerification.failures()).contains("artifact SHA-256 mismatch"));
                 assertThrows(IllegalStateException.class, staleReportVerification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleVerification staleReportBundleVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundleVerification staleReportBundleVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationReports(
                                                 verified.reports().directory(),
                                                 verified.reports().json().reportSha256());
@@ -829,7 +829,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .contains("JUnit XML content mismatch"));
                 assertThrows(IllegalStateException.class, staleReportBundleVerification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAudit audit = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAudit audit = Alkhawarizm.DL
                                 .auditTrainingReportPromotionGatePackageVerificationIndex(
                                                 verified.index().indexFile(),
                                                 verified.index().indexSha256());
@@ -839,7 +839,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertFalse(audit.packageVerification().passed());
                 assertTrue(String.join("\n", audit.failures()).contains("artifact SHA-256 mismatch"));
                 assertThrows(IllegalStateException.class, audit::requirePassed);
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReportVerification staleAuditReportVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReportVerification staleAuditReportVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationIndexPackageAuditReport(
                                                 verified.packageAuditReport().reportFile(),
                                                 verified.packageAuditReport().reportSha256());
@@ -854,7 +854,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 Path auditReportFile = TrainingReportPromotionGateArtifactPackage
                                 .defaultVerificationIndexPackageAuditFile(
                                                 verified.reports().directory());
-                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReport auditReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationIndexPackageAuditReport auditReport = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGatePackageVerificationIndexPackageAuditReport(
                                                 auditReportFile,
                                                 audit);
@@ -867,7 +867,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceDetectsReportBundleReceiptTampering() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-report-receipt-tamper-artifacts"),
                                                 gateResult("evidence-report-receipt-tamper"),
@@ -881,7 +881,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile(),
                                                 verified.evidence().evidenceSha256());
@@ -895,7 +895,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .contains("evidenceFiles.verificationReportBundleReceipt"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -910,7 +910,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceRejectsMalformedSourceSnapshotSummary() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-source-snapshot-schema-artifacts"),
                                                 gateResult("evidence-source-snapshot-schema"),
@@ -923,7 +923,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "\"expectedSourceReportArtifactsMissing\"");
                 Files.writeString(verified.evidence().evidenceFile(), evidenceJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile());
 
@@ -933,7 +933,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(String.join("\n", verification.failures()).contains("expectedSourceReportArtifacts"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -949,7 +949,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceRejectsSourceSnapshotInventoryMismatch() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-source-snapshot-inventory-artifacts"),
                                                 gateResult("evidence-source-snapshot-inventory"),
@@ -963,7 +963,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "\"presentSourceReportArtifacts\":[\"sourceReport.baseline.baseline\",\"sourceReport.baseline.baseline\"]");
                 Files.writeString(verified.evidence().evidenceFile(), evidenceJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile());
 
@@ -978,7 +978,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 "missingSourceReportArtifacts does not match expected-minus-present artifacts"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -994,7 +994,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceRejectsMalformedEmbeddedSourceReport() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-source-report-schema-artifacts"),
                                                 gateResult("evidence-source-report-schema"),
@@ -1006,7 +1006,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .replace("\"role\":\"baseline\"", "\"roleMissing\":\"baseline\"");
                 Files.writeString(verified.evidence().evidenceFile(), evidenceJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile());
 
@@ -1017,7 +1017,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .contains("sourceReport is missing string field role"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -1033,7 +1033,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceRejectsSourceSnapshotArtifactMismatch() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-source-snapshot-artifact-mismatch-artifacts"),
                                                 gateResult("evidence-source-snapshot-artifact-mismatch"),
@@ -1047,7 +1047,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "\"snapshotArtifact\":\"markdown\"");
                 Files.writeString(verified.evidence().evidenceFile(), evidenceJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile());
 
@@ -1060,7 +1060,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(failures.contains("snapshotSha256 does not match packageArtifacts.markdown.sha256"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -1076,7 +1076,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceRejectsMalformedPackageArtifactMetadata() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-package-artifact-schema-artifacts"),
                                                 gateResult("evidence-package-artifact-schema"),
@@ -1090,7 +1090,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "$1not-a-sha256$2");
                 Files.writeString(verified.evidence().evidenceFile(), evidenceJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile());
 
@@ -1102,7 +1102,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(String.join("\n", verification.failures()).contains("invalid SHA-256 field sha256"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -1119,7 +1119,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceRejectsMalformedDecisionMetadata() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-decision-schema-artifacts"),
                                                 gateResult("evidence-decision-schema"),
@@ -1134,7 +1134,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .replaceFirst("\"decisionCandidate\":\"candidate\"", "\"decisionCandidate\":123");
                 Files.writeString(verified.evidence().evidenceFile(), evidenceJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile());
 
@@ -1148,7 +1148,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(failures.contains("invalid string field decisionCandidate"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -1164,7 +1164,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceRejectsReferencesOutsideDeclaredDirectories() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-reference-root-artifacts"),
                                                 gateResult("evidence-reference-root"),
@@ -1188,7 +1188,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "\"reportDirectory\":\"" + fakeReportDirectory + "\"");
                 Files.writeString(verified.evidence().evidenceFile(), evidenceJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile());
 
@@ -1203,7 +1203,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(failures.contains("evidenceFiles.verificationJson.file is outside reportDirectory"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -1219,7 +1219,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceReceiptRejectsEmbeddedVerificationMismatch() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-receipt-embedded-mismatch-artifacts"),
                                                 gateResult("evidence-receipt-embedded-mismatch"),
@@ -1234,7 +1234,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "\"actualEvidenceSha256\":\"" + wrongSha256 + "\"");
                 Files.writeString(verified.evidenceReceipt().receiptFile(), receiptJson, StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile());
 
@@ -1250,7 +1250,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void verificationEvidenceDetectsPackageArtifactTampering() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .writeAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("evidence-tamper-artifacts"),
                                                 gateResult("evidence-tamper"),
@@ -1264,7 +1264,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceManifest(
                                                 verified.evidence().evidenceFile(),
                                                 verified.evidence().evidenceSha256());
@@ -1276,7 +1276,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertFalse(verification.packageArtifactsSha256Match());
                 assertTrue(String.join("\n", verification.failures()).contains("packageArtifacts.markdown"));
                 assertThrows(IllegalStateException.class, verification::requirePassed);
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceiptVerification staleReceiptVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 verified.evidenceReceipt().receiptFile(),
                                                 verified.evidenceReceipt().receiptSha256());
@@ -1287,7 +1287,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(String.join("\n", staleReceiptVerification.failures())
                                 .contains("packageArtifacts.markdown"));
                 assertThrows(IllegalStateException.class, staleReceiptVerification::requirePassed);
-                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceipt receipt = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationEvidenceReceipt receipt = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGatePackageVerificationEvidenceReceipt(
                                                 tempDir.resolve("evidence-tamper-receipt.json"),
                                                 verification);
@@ -1302,7 +1302,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
         void runsGateAndWritesCompletePackageInOneCall() throws IOException {
                 Instant generatedAt = Instant.parse("2026-05-21T09:10:11Z");
 
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .runTrainingReportPromotionGateArtifactPackage(
                                                 promotionReports("run-package"),
                                                 "baseline",
@@ -1323,12 +1323,12 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertEquals("candidate", bundle.artifacts().result().decision().candidate().orElseThrow().name());
                 assertTrue(bundle.manifest().toMap().containsKey("artifacts"));
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(bundle);
                 assertTrue(verification.passed());
                 assertTrue(verification.artifactVerification().junitXmlWellFormed());
 
-                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerifiedPackageBundle verified = Alkhawarizm.DL
                                 .runAndVerifyTrainingReportPromotionGateArtifactPackage(
                                                 promotionReports("run-verified-package"),
                                                 "baseline",
@@ -1361,7 +1361,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "severity-gate.xml"),
                                 new TrainingReportPromotionGateArtifactManifest.Options("severity-gate.manifest"));
 
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .runTrainingReportPromotionGateArtifactPackage(
                                                 promotionReports("severity-package"),
                                                 "baseline",
@@ -1374,14 +1374,14 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(bundle.artifacts().jsonFile().endsWith("severity-gate.json"));
                 assertTrue(bundle.manifest().manifestFile().endsWith("severity-gate.manifest"));
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(
                                                 bundle.directory(),
                                                 bundle.manifest().manifestSha256(),
                                                 options);
                 assertTrue(verification.passed());
 
-                TrainingReportPromotionGateArtifactPackage.PackageVerification completeVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageVerification completeVerification = Alkhawarizm.DL
                                 .verifyCompleteTrainingReportPromotionGateArtifactPackage(
                                                 bundle.directory(),
                                                 bundle.manifest().manifestSha256(),
@@ -1389,7 +1389,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(completeVerification.passed());
 
                 Path reportFile = tempDir.resolve("severity-package-verification.json");
-                TrainingReportPromotionGateArtifactPackage.VerificationReport report = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReport report = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationReport(
                                                 bundle.directory(),
                                                 bundle.manifest().manifestSha256(),
@@ -1400,7 +1400,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(Files.readString(report.reportFile(), StandardCharsets.UTF_8).contains("\"passed\":true"));
 
                 Path markdownFile = tempDir.resolve("severity-package-verification.md");
-                TrainingReportPromotionGateArtifactPackage.VerificationMarkdownReport markdownReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationMarkdownReport markdownReport = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationMarkdownReport(
                                                 bundle.directory(),
                                                 bundle.manifest().manifestSha256(),
@@ -1412,7 +1412,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .contains("| Manifest checksum | match |"));
 
                 Path junitXmlFile = tempDir.resolve("severity-package-verification.junit.xml");
-                TrainingReportPromotionGateArtifactPackage.VerificationJUnitXmlReport junitXmlReport = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationJUnitXmlReport junitXmlReport = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationJUnitXmlReport(
                                                 bundle.directory(),
                                                 bundle.manifest().manifestSha256(),
@@ -1424,7 +1424,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .contains("property name=\"manifest.checksumMatches\" value=\"true\""));
 
                 Path reportBundleDirectory = tempDir.resolve("severity-package-verification-bundle");
-                TrainingReportPromotionGateArtifactPackage.VerificationReportBundle reportBundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.VerificationReportBundle reportBundle = Alkhawarizm.DL
                                 .verifyAndWriteTrainingReportPromotionGatePackageVerificationReports(
                                                 bundle.directory(),
                                                 bundle.manifest().manifestSha256(),
@@ -1449,7 +1449,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "gate-result.xml"),
                                 new TrainingReportPromotionGateArtifactManifest.Options("gate-result.manifest"));
 
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("custom-package-artifacts"),
                                                 gateResult("custom-package"),
@@ -1460,11 +1460,11 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(bundle.artifacts().junitXmlFile().endsWith("gate-result.xml"));
                 assertTrue(bundle.manifest().manifestFile().endsWith("gate-result.manifest"));
 
-                TrainingReportPromotionGateArtifactPackage.PackageInspection inspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGateArtifactPackage(bundle.directory(), options);
                 assertEquals("candidate", inspection.artifacts().decisionCandidate().orElseThrow());
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(
                                                 bundle.directory(),
                                                 bundle.manifest().manifestSha256(),
@@ -1484,7 +1484,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 "gate-result.xml"),
                                 new TrainingReportPromotionGateArtifactManifest.Options("gate-result.manifest"));
 
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .runTrainingReportPromotionGateArtifactPackage(
                                                 promotionReports("custom-review-package"),
                                                 "baseline",
@@ -1497,7 +1497,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(bundle.review().markdownFile().endsWith("review-result.md"));
                 assertTrue(bundle.artifacts().jsonFile().endsWith("gate-result.json"));
 
-                TrainingReportPromotionGateArtifactPackage.PackageInspection inspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGateArtifactPackage(bundle.directory(), options);
                 assertEquals("candidate", inspection.review().decisionCandidate().orElseThrow());
                 assertTrue(inspection.manifest().artifact("reviewJson").orElseThrow().file()
@@ -1505,7 +1505,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                 assertTrue(inspection.manifest().artifact("reviewMarkdown").orElseThrow().file()
                                 .endsWith("review-result.md"));
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(
                                                 bundle.directory(),
                                                 bundle.manifest().manifestSha256(),
@@ -1515,7 +1515,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void packageVerificationDetectsTamperedArtifact() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportPromotionGateArtifactPackage(
                                                 tempDir.resolve("tampered-package-artifacts"),
                                                 gateResult("tampered-package"),
@@ -1527,7 +1527,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(bundle);
 
                 assertFalse(verification.passed());
@@ -1542,7 +1542,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void packageVerificationDetectsTamperedReviewArtifact() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .runTrainingReportPromotionGateArtifactPackage(
                                                 promotionReports("tampered-review-package"),
                                                 "baseline",
@@ -1557,7 +1557,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(bundle);
 
                 assertFalse(verification.passed());
@@ -1570,7 +1570,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void packageVerificationDetectsTamperedSourceReportSnapshot() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .runTrainingReportPromotionGateArtifactPackage(
                                                 promotionReports("tampered-source-snapshot-package"),
                                                 "baseline",
@@ -1578,7 +1578,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 tempDir.resolve("tampered-source-snapshot-package-artifacts"),
                                                 TrainingReportPromotionGateArtifactPackage.Options.defaults(),
                                                 Instant.parse("2026-05-21T09:10:11Z"));
-                TrainingReportPromotionGateArtifactPackage.PackageInspection inspection = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportPromotionGateArtifactPackage(bundle.directory());
                 Path sourceSnapshot = inspection.manifest()
                                 .artifact("sourceReport.candidate.candidate")
@@ -1591,7 +1591,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(bundle);
 
                 assertFalse(verification.passed());
@@ -1602,14 +1602,14 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 .anyMatch(failure -> failure.contains(
                                                 "sourceReport.candidate.candidate artifact SHA-256 mismatch")));
 
-                TrainingReportPromotionGateArtifactPackage.SourceSnapshotVerification sourceVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.SourceSnapshotVerification sourceVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGatePackageSourceSnapshots(inspection);
                 assertFalse(sourceVerification.passed());
                 assertTrue(sourceVerification.failures().stream()
                                 .anyMatch(failure -> failure
                                                 .contains("Packaged source report snapshot SHA-256 mismatch")));
 
-                TrainingReportPromotionGateArtifactPackage.PackageVerification completeVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageVerification completeVerification = Alkhawarizm.DL
                                 .verifyCompleteTrainingReportPromotionGateArtifactPackage(bundle);
                 assertFalse(completeVerification.passed());
                 assertTrue(completeVerification.manifestVerification().failures().stream()
@@ -1623,7 +1623,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
 
         @Test
         void completePackageVerificationDetectsUnexpectedSourceReportSnapshot() throws IOException {
-                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageBundle bundle = Alkhawarizm.DL
                                 .runTrainingReportPromotionGateArtifactPackage(
                                                 promotionReports("unexpected-source-snapshot-package"),
                                                 "baseline",
@@ -1646,11 +1646,11 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifactManifest.ManifestVerification manifestOnlyVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactManifest.ManifestVerification manifestOnlyVerification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionGateArtifactPackage(bundle.directory());
                 assertTrue(manifestOnlyVerification.passed());
 
-                TrainingReportPromotionGateArtifactPackage.PackageVerification completeVerification = Aljabr.DL
+                TrainingReportPromotionGateArtifactPackage.PackageVerification completeVerification = Alkhawarizm.DL
                                 .verifyCompleteTrainingReportPromotionGateArtifactPackage(bundle.directory());
                 assertFalse(completeVerification.passed());
                 assertTrue(completeVerification.sourceSnapshotVerification()
@@ -1662,7 +1662,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
                                                 .unexpectedSourceReportArtifactNames());
                 assertEquals(
                                 List.of("sourceReport.candidate.shadow"),
-                                Aljabr.DL.unexpectedTrainingReportPromotionGatePackageSourceArtifacts(
+                                Alkhawarizm.DL.unexpectedTrainingReportPromotionGatePackageSourceArtifacts(
                                                 completeVerification.inspection()));
                 assertTrue(completeVerification.sourceSnapshotVerification().failures().stream()
                                 .anyMatch(failure -> failure.contains(
@@ -1670,7 +1670,7 @@ class TrainingReportPromotionGateArtifactPackageTest {
         }
 
         private TrainingReportPromotionGate.Result gateResult(String prefix) throws IOException {
-                return Aljabr.DL.runTrainingReportPromotionGate(
+                return Alkhawarizm.DL.runTrainingReportPromotionGate(
                                 promotionReports(prefix),
                                 "baseline",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),

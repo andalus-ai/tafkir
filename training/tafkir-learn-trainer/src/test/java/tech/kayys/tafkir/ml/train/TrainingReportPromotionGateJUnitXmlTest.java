@@ -18,7 +18,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPromotionGateJUnitXmlTest {
@@ -41,14 +41,14 @@ class TrainingReportPromotionGateJUnitXmlTest {
                                                 Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                                                 Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
 
-                TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
+                TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
                                 reports,
                                 "base&line",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
                                 tempDir.resolve("gate"));
                 String xml = result.junitXml();
 
-                assertEquals(xml, Aljabr.DL.trainingReportPromotionGateJUnitXml(result));
+                assertEquals(xml, Alkhawarizm.DL.trainingReportPromotionGateJUnitXml(result));
                 assertWellFormedXml(xml);
                 assertTrue(xml.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
                 assertTrue(xml.contains(
@@ -59,7 +59,7 @@ class TrainingReportPromotionGateJUnitXmlTest {
                 assertTrue(xml.contains("name=\"artifacts.verified\" value=\"true\""));
                 assertTrue(xml.contains("name=\"sourceReports.verified\" value=\"true\""));
                 assertTrue(xml.contains("name=\"sourceReports.count\" value=\"2\""));
-                assertTrue(xml.contains("<system-out># Aljabr Training Promotion Gate"));
+                assertTrue(xml.contains("<system-out># Alkhawarizm Training Promotion Gate"));
                 assertFalse(xml.contains("<failure"));
         }
 
@@ -79,12 +79,12 @@ class TrainingReportPromotionGateJUnitXmlTest {
                                                 Map.of("epoch", 0, "trainLoss", 0.8, "validationLoss", 0.9),
                                                 Map.of("epoch", 1, "trainLoss", 0.7, "validationLoss", 0.85))));
 
-                TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
+                TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
                                 reports,
                                 "baseline",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
                                 tempDir.resolve("hold"));
-                String xml = Aljabr.DL.trainingReportPromotionGateJUnitXml(result);
+                String xml = Alkhawarizm.DL.trainingReportPromotionGateJUnitXml(result);
 
                 assertWellFormedXml(xml);
                 assertTrue(xml.contains(
@@ -110,7 +110,7 @@ class TrainingReportPromotionGateJUnitXmlTest {
                                 List.of(
                                                 Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                                                 Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
-                TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
+                TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
                                 reports,
                                 "baseline",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -120,7 +120,7 @@ class TrainingReportPromotionGateJUnitXmlTest {
                                 result.artifacts().markdownFile(),
                                 Files.readString(result.artifacts().markdownFile()) + "\nTampered after promotion.\n",
                                 StandardCharsets.UTF_8);
-                TrainingReportPromotionArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportPromotionArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportPromotionArtifacts(result.artifacts());
                 TrainingReportPromotionGate.Result tamperedResult = new TrainingReportPromotionGate.Result(
                                 result.review(), result.artifacts(), verification);
@@ -148,7 +148,7 @@ class TrainingReportPromotionGateJUnitXmlTest {
                                 List.of(
                                                 Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                                                 Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
-                TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
+                TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
                                 reports,
                                 "baseline",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),

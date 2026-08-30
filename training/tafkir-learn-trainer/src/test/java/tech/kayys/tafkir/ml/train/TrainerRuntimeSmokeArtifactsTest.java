@@ -68,7 +68,7 @@ class TrainerRuntimeSmokeArtifactsTest {
                 assertTrue(verification.passed(), () -> verification.failures().toString());
                 assertTrue(verification.markdownMatchesJson());
                 assertTrue(verification.junitXmlMatchesJson());
-                assertTrue(Files.readString(refreshed.markdownFile()).contains("# Aljabr Trainer Runtime Smoke"));
+                assertTrue(Files.readString(refreshed.markdownFile()).contains("# Alkhawarizm Trainer Runtime Smoke"));
                 assertTrue(Files.readString(refreshed.junitXmlFile()).contains("alkhawarizm.trainer.runtime.smoke"));
         }
 

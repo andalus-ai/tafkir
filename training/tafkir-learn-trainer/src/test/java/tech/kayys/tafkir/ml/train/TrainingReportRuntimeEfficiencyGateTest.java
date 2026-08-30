@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportRuntimeEfficiencyGateTest {
@@ -71,9 +71,9 @@ class TrainingReportRuntimeEfficiencyGateTest {
                 assertTrue(result.junitXml().contains("type=\"RUNTIME_EFFICIENCY_LOW_ACCOUNTED_WALL_TIME\""));
                 assertTrue(result.junitXml().contains("<system-out># Runtime Efficiency Gate"));
                 assertTrue(result.junitXml().contains("# Runtime Efficiency Gate"));
-                assertEquals(result.toMap(), Aljabr.DL.trainingReportRuntimeEfficiencyGate(report, policy).toMap());
-                assertEquals(result.markdown(), Aljabr.DL.trainingReportRuntimeEfficiencyGateMarkdown(report, policy));
-                assertEquals(result.junitXml(), Aljabr.DL.trainingReportRuntimeEfficiencyGateJUnitXml(report, policy));
+                assertEquals(result.toMap(), Alkhawarizm.DL.trainingReportRuntimeEfficiencyGate(report, policy).toMap());
+                assertEquals(result.markdown(), Alkhawarizm.DL.trainingReportRuntimeEfficiencyGateMarkdown(report, policy));
+                assertEquals(result.junitXml(), Alkhawarizm.DL.trainingReportRuntimeEfficiencyGateJUnitXml(report, policy));
                 assertThrows(IllegalStateException.class, result::requirePassed);
         }
 

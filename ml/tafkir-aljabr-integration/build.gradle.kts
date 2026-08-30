@@ -38,7 +38,7 @@ publishing {
             from(components["java"])
             pom {
                 name.set("Tafkir Engine")
-                description.set("Java ML/AI Framework built on Aljabr")
+                description.set("Java ML/AI Framework built on Alkhawarizm")
                 url.set("https://github.com/n90d1n9/tafkir")
                 licenses {
                     license {

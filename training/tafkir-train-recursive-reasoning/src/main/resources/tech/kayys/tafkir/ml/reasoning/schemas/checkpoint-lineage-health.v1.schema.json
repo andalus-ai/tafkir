@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health.v1.schema.json",
-  "title": "Aljabr checkpoint lineage health",
+  "title": "Alkhawarizm checkpoint lineage health",
   "description": "Stable checkpoint lineage health payload emitted by recursive-reasoning checkpoint inspectors.",
   "type": "object",
   "additionalProperties": true,

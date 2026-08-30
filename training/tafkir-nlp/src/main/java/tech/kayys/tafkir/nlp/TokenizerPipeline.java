@@ -6,7 +6,7 @@ import tech.kayys.alkhawarizm.tokenizer.spi.*;
 import java.util.Arrays;
 
 /**
- * Tokenization pipeline that bridges the SDK NLP layer to the Aljabr tokenizer
+ * Tokenization pipeline that bridges the SDK NLP layer to the Alkhawarizm tokenizer
  * core.
  *
  * <p>

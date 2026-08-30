@@ -1,9 +1,9 @@
 package tech.kayys.tafkir.ml;
 
 /**
- * Compatibility facade inherited by {@link Aljabr.DL}.
+ * Compatibility facade inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlFactoryFacade extends AljabrDlTrainerFactoryFacade {
-    protected AljabrDlFactoryFacade() {
+public class AlkhawarizmDlFactoryFacade extends AlkhawarizmDlTrainerFactoryFacade {
+    protected AlkhawarizmDlFactoryFacade() {
     }
 }

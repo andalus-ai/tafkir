@@ -1,9 +1,9 @@
 package tech.kayys.tafkir.ml;
 
 /**
- * Compatibility optimizer facade inherited by {@link Aljabr.DL}.
+ * Compatibility optimizer facade inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlOptimizerFactoryFacade extends AljabrDlAdvancedOptimizerFactoryFacade {
-    protected AljabrDlOptimizerFactoryFacade() {
+public class AlkhawarizmDlOptimizerFactoryFacade extends AlkhawarizmDlAdvancedOptimizerFactoryFacade {
+    protected AlkhawarizmDlOptimizerFactoryFacade() {
     }
 }

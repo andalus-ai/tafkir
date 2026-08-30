@@ -19,7 +19,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportValidationPolicyTest {
@@ -33,7 +33,7 @@ class TrainingReportValidationPolicyTest {
                 Files.writeString(reportFile, TrainerJson.toJson(report.payload()), StandardCharsets.UTF_8);
 
                 TrainingReportValidationPolicy.Result result = report.validate();
-                TrainingReportValidationPolicy.Result facadeResult = Aljabr.DL.validateTrainingReport(reportFile);
+                TrainingReportValidationPolicy.Result facadeResult = Alkhawarizm.DL.validateTrainingReport(reportFile);
 
                 assertTrue(result.passed());
                 assertFalse(result.failed());
@@ -50,9 +50,9 @@ class TrainingReportValidationPolicyTest {
                 String markdown = result.markdown();
                 String xml = result.junitXml();
 
-                assertEquals(markdown, Aljabr.DL.trainingReportValidationMarkdown(reportFile));
-                assertEquals(xml, Aljabr.DL.trainingReportValidationJUnitXml(reportFile));
-                assertTrue(markdown.contains("# Aljabr Training Report Validation"));
+                assertEquals(markdown, Alkhawarizm.DL.trainingReportValidationMarkdown(reportFile));
+                assertEquals(xml, Alkhawarizm.DL.trainingReportValidationJUnitXml(reportFile));
+                assertTrue(markdown.contains("# Alkhawarizm Training Report Validation"));
                 assertTrue(markdown.contains("**Validation:** `PASS`"));
                 assertTrue(markdown.contains("**Data health:** `not-recorded`"));
                 assertTrue(markdown.contains("**Diagnostics provenance:** `FRESH`"));
@@ -65,7 +65,7 @@ class TrainingReportValidationPolicyTest {
                 assertTrue(xml.contains("name=\"policy.requireDataHealthGate\" value=\"true\""));
                 assertTrue(xml.contains("name=\"policy.requireDataHealthAvailable\" value=\"false\""));
                 assertTrue(xml.contains("name=\"dataHealth.available\" value=\"false\""));
-                assertTrue(xml.contains("<system-out># Aljabr Training Report Validation"));
+                assertTrue(xml.contains("<system-out># Alkhawarizm Training Report Validation"));
                 assertFalse(xml.contains("<failure"));
         }
 
@@ -101,8 +101,8 @@ class TrainingReportValidationPolicyTest {
                 assertFalse(result.checkpointIntegrityPassed());
                 assertEquals(List.of("checkpointManifestIntegrityMismatch"), result.checkpointIntegrityFailureKeys());
 
-                String markdown = Aljabr.DL.trainingReportValidationMarkdown(result);
-                String xml = Aljabr.DL.trainingReportValidationJUnitXml(result);
+                String markdown = Alkhawarizm.DL.trainingReportValidationMarkdown(result);
+                String xml = Alkhawarizm.DL.trainingReportValidationJUnitXml(result);
 
                 assertTrue(markdown.contains("**Validation:** `FAIL`"));
                 assertTrue(markdown.contains("`checkpoint_integrity.failed`"));
@@ -212,9 +212,9 @@ class TrainingReportValidationPolicyTest {
                 TrainingReport report = TrainingReport.of(validatedPayload(Map.of()));
                 Path reportFile = tempDir.resolve("artifact-source-report.json");
                 Files.writeString(reportFile, TrainerJson.toJson(report.payload()), StandardCharsets.UTF_8);
-                TrainingReportValidationPolicy.Result result = Aljabr.DL.validateTrainingReport(reportFile);
+                TrainingReportValidationPolicy.Result result = Alkhawarizm.DL.validateTrainingReport(reportFile);
 
-                TrainingReportValidationArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportValidationArtifacts(tempDir.resolve("validation-artifacts"),
                                                 result);
 
@@ -225,16 +225,16 @@ class TrainingReportValidationPolicyTest {
                 assertDoesNotThrow(bundle::requirePassed);
                 assertEquals(bundle.artifactMap(), bundle.toMap().get("artifact"));
 
-                TrainingReportValidationArtifacts.ArtifactInspection inspection = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportValidationArtifacts(bundle.directory());
                 assertTrue(inspection.passed());
                 assertEquals(List.of(), inspection.failureCodes());
                 assertEquals(bundle.jsonSha256(), inspection.jsonSha256());
-                assertTrue(inspection.markdown().contains("# Aljabr Training Report Validation"));
+                assertTrue(inspection.markdown().contains("# Alkhawarizm Training Report Validation"));
                 assertTrue(inspection.junitXml().contains("alkhawarizm.training.report.validation"));
                 assertEquals(bundle.artifactMap(), inspection.artifactMap());
 
-                TrainingReportValidationArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportValidationArtifacts(bundle);
                 assertTrue(verification.passed());
                 assertTrue(verification.jsonSha256Matches());
@@ -252,7 +252,7 @@ class TrainingReportValidationPolicyTest {
                                 "\nTampered after artifact verification.\n",
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
-                TrainingReportValidationArtifacts.ArtifactVerification tampered = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactVerification tampered = Alkhawarizm.DL
                                 .verifyTrainingReportValidationArtifacts(bundle);
 
                 assertFalse(tampered.passed());
@@ -267,7 +267,7 @@ class TrainingReportValidationPolicyTest {
         void validationArtifactVerificationAndRefreshUseJsonAsSourceOfTruth() throws IOException {
                 TrainingReportValidationPolicy.Result result = TrainingReport.of(validatedPayload(Map.of())).validate();
                 Path artifacts = tempDir.resolve("refresh-validation-artifacts");
-                TrainingReportValidationArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportValidationArtifacts(artifacts, result);
 
                 Files.writeString(
@@ -281,7 +281,7 @@ class TrainingReportValidationPolicyTest {
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
 
-                TrainingReportValidationArtifacts.ArtifactVerification stale = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactVerification stale = Alkhawarizm.DL
                                 .verifyTrainingReportValidationArtifacts(artifacts, null, null, null);
 
                 assertFalse(stale.passed());
@@ -291,9 +291,9 @@ class TrainingReportValidationPolicyTest {
                                 .anyMatch(failure -> failure
                                                 .contains("Markdown report does not match validation JSON")));
 
-                TrainingReportValidationArtifacts.ArtifactBundle refreshed = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactBundle refreshed = Alkhawarizm.DL
                                 .refreshTrainingReportValidationArtifacts(artifacts);
-                TrainingReportValidationArtifacts.ArtifactVerification refreshedVerification = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactVerification refreshedVerification = Alkhawarizm.DL
                                 .verifyTrainingReportValidationArtifacts(refreshed);
 
                 assertEquals(bundle.jsonSha256(), refreshed.jsonSha256());
@@ -309,13 +309,13 @@ class TrainingReportValidationPolicyTest {
         @Test
         void validationArtifactVerificationRejectsXmlDoctype() throws IOException {
                 TrainingReportValidationPolicy.Result result = TrainingReport.of(validatedPayload(Map.of())).validate();
-                TrainingReportValidationArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportValidationArtifacts(tempDir.resolve("xxe-validation-artifacts"),
                                                 result);
 
                 Files.writeString(bundle.junitXmlFile(), xmlWithDoctype(), StandardCharsets.UTF_8);
 
-                TrainingReportValidationArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportValidationArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportValidationArtifacts(bundle.directory(), null, null, null);
 
                 assertFalse(verification.passed());

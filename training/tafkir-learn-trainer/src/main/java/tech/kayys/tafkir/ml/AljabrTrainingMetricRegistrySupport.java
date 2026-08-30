@@ -11,8 +11,8 @@ import java.util.function.Supplier;
  * Base metric registry shared by training option builders.
  */
 @SuppressWarnings("deprecation")
-public abstract class AljabrTrainingMetricRegistrySupport<B extends AljabrTrainingMetricRegistrySupport<B>>
-        extends AljabrTrainingLossBuilderSupport<B> {
+public abstract class AlkhawarizmTrainingMetricRegistrySupport<B extends AlkhawarizmTrainingMetricRegistrySupport<B>>
+        extends AlkhawarizmTrainingLossBuilderSupport<B> {
     protected final List<Supplier<? extends CanonicalTrainer.Metric>> metricFactories = new ArrayList<>();
 
     public B metric(Supplier<? extends CanonicalTrainer.Metric> metricFactory) {

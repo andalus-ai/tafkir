@@ -4,10 +4,10 @@ import tech.kayys.tafkir.ml.autograd.Acceleration;
 import tech.kayys.tafkir.ml.train.CanonicalTrainer;
 
 /**
- * Trainer and runtime construction helpers inherited by {@link Aljabr.DL}.
+ * Trainer and runtime construction helpers inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlTrainerFactoryFacade extends AljabrDlLossFactoryFacade {
-    protected AljabrDlTrainerFactoryFacade() {
+public class AlkhawarizmDlTrainerFactoryFacade extends AlkhawarizmDlLossFactoryFacade {
+    protected AlkhawarizmDlTrainerFactoryFacade() {
     }
 
     public static CanonicalTrainer.Builder trainer() {

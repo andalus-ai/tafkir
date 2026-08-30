@@ -1,10 +1,10 @@
 package tech.kayys.tafkir.ml;
 
 /**
- * Validation and normalization helpers for {@link Aljabr.DL.TrainingOptions}.
+ * Validation and normalization helpers for {@link Alkhawarizm.DL.TrainingOptions}.
  */
-final class AljabrTrainingOptionValidators {
-    private AljabrTrainingOptionValidators() {
+final class AlkhawarizmTrainingOptionValidators {
+    private AlkhawarizmTrainingOptionValidators() {
     }
 
     static Float normalizeFocalGamma(Float gamma) {

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.ml.nn.NNModule;
 
@@ -13,7 +13,7 @@ class TrainerMultiLabelConfusionMatrixTest {
 
     @Test
     void evaluationCarriesMultilabelConfusionMatrixDetails() {
-        var loader = Aljabr.DL.multiLabelBinaryDataLoader(
+        var loader = Alkhawarizm.DL.multiLabelBinaryDataLoader(
                 GradTensor.of(new float[] {
                         2.0f, -1.0f, 0.5f,
                         -2.0f, 3.0f, -0.5f,
@@ -26,12 +26,12 @@ class TrainerMultiLabelConfusionMatrixTest {
                 },
                 3);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.multiLabelConfusionMatrixMetric());
+                Alkhawarizm.DL.multiLabelConfusionMatrixMetric());
 
         assertEquals(3, summary.sampleCount());
         assertEquals(7.0 / 9.0, summary.metric("multilabel_confusion_matrix_macro_f1"), 1e-6);
@@ -55,7 +55,7 @@ class TrainerMultiLabelConfusionMatrixTest {
 
     @Test
     void evaluationReportsMultilabelMicroMetricsFromDlFacade() {
-        var loader = Aljabr.DL.multiLabelBinaryDataLoader(
+        var loader = Alkhawarizm.DL.multiLabelBinaryDataLoader(
                 GradTensor.of(new float[] {
                         2.0f, -1.0f, 0.5f,
                         -2.0f, 3.0f, -0.5f,
@@ -68,14 +68,14 @@ class TrainerMultiLabelConfusionMatrixTest {
                 },
                 3);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.multiLabelMicroPrecisionMetric(),
-                Aljabr.DL.multiLabelMicroRecallMetric(),
-                Aljabr.DL.multiLabelMicroF1Metric());
+                Alkhawarizm.DL.multiLabelMicroPrecisionMetric(),
+                Alkhawarizm.DL.multiLabelMicroRecallMetric(),
+                Alkhawarizm.DL.multiLabelMicroF1Metric());
 
         assertEquals(0.8, summary.metric("multilabel_micro_precision"), 1e-6);
         assertEquals(0.8, summary.metric("multilabel_micro_recall"), 1e-6);
@@ -84,7 +84,7 @@ class TrainerMultiLabelConfusionMatrixTest {
 
     @Test
     void evaluationReportsMultilabelSampleMetricsFromDlFacade() {
-        var loader = Aljabr.DL.multiLabelBinaryDataLoader(
+        var loader = Alkhawarizm.DL.multiLabelBinaryDataLoader(
                 GradTensor.of(new float[] {
                         2.0f, -1.0f, 0.5f,
                         -2.0f, 3.0f, -0.5f,
@@ -97,15 +97,15 @@ class TrainerMultiLabelConfusionMatrixTest {
                 },
                 3);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.multiLabelSamplePrecisionMetric(),
-                Aljabr.DL.multiLabelSampleRecallMetric(),
-                Aljabr.DL.multiLabelSampleF1Metric(),
-                Aljabr.DL.multiLabelSampleJaccardMetric());
+                Alkhawarizm.DL.multiLabelSamplePrecisionMetric(),
+                Alkhawarizm.DL.multiLabelSampleRecallMetric(),
+                Alkhawarizm.DL.multiLabelSampleF1Metric(),
+                Alkhawarizm.DL.multiLabelSampleJaccardMetric());
 
         assertEquals(5.0 / 6.0, summary.metric("multilabel_sample_precision"), 1e-6);
         assertEquals(5.0 / 6.0, summary.metric("multilabel_sample_recall"), 1e-6);

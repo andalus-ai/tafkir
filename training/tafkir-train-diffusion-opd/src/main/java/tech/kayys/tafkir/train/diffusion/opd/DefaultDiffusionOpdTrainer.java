@@ -30,7 +30,7 @@ import tech.kayys.tafkir.trainer.api.TrainingSummary;
  * <p>
  * This implementation intentionally focuses on stable module boundaries:
  * task routing, rollout orchestration, transition-mean supervision, and a
- * top-level builder native to Aljabr's training API. It is designed to evolve
+ * top-level builder native to Alkhawarizm's training API. It is designed to evolve
  * into the full DiffusionOPD algorithm without forcing Python-side
  * orchestration.
  *

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportComparisonTest {
@@ -36,7 +36,7 @@ class TrainingReportComparisonTest {
                                                 Map.of("epoch", 0, "trainLoss", 0.9, "validationLoss", 1.0),
                                                 Map.of("epoch", 1, "trainLoss", 0.65, "validationLoss", 0.75)));
 
-                TrainingReportComparison comparison = Aljabr.DL.compareTrainingReports(baselineFile, candidateFile);
+                TrainingReportComparison comparison = Alkhawarizm.DL.compareTrainingReports(baselineFile, candidateFile);
 
                 assertTrue(hasCode(comparison.findings(), "comparison.best_validation_loss.regressed"));
                 assertTrue(hasCode(comparison.findings(), "comparison.latest_validation_loss.regressed"));
@@ -74,16 +74,16 @@ class TrainingReportComparisonTest {
                                 () -> export.metricRows().get(0).put("extra", "value"));
                 assertThrows(UnsupportedOperationException.class,
                                 () -> export.findingRows().add(Map.of("code", "extra")));
-                String markdown = Aljabr.DL.trainingReportComparisonMarkdown(comparison);
-                assertTrue(markdown.contains("# Aljabr Training Report Comparison"));
+                String markdown = Alkhawarizm.DL.trainingReportComparisonMarkdown(comparison);
+                assertTrue(markdown.contains("# Alkhawarizm Training Report Comparison"));
                 assertTrue(markdown.contains("`REGRESSED`"));
                 assertTrue(markdown.contains("comparison.duration.regressed"));
-                String junitXml = Aljabr.DL.trainingReportComparisonJUnitXml(comparison);
+                String junitXml = Alkhawarizm.DL.trainingReportComparisonJUnitXml(comparison);
                 assertTrue(junitXml.contains("<testsuite name=\"alkhawarizm.training.report.comparison\""));
                 assertTrue(junitXml.contains("failures=\"4\""));
                 assertTrue(junitXml.contains("comparison.duration.regressed"));
 
-                TrainingReportComparisonExport facadeExport = Aljabr.DL.trainingReportComparisonExport(baselineFile,
+                TrainingReportComparisonExport facadeExport = Alkhawarizm.DL.trainingReportComparisonExport(baselineFile,
                                 candidateFile);
                 assertEquals(export.metricCount(), facadeExport.metricCount());
                 assertEquals(export.findingCount(), facadeExport.findingCount());
@@ -117,11 +117,11 @@ class TrainingReportComparisonTest {
                 assertTrue(comparison.export().metricsCsv().contains("bestValidationLoss,LOWER_IS_BETTER,true"));
                 assertTrue(comparison.export().metricsCsv().contains("IMPROVED"));
                 assertEquals("severity,code,message,metric,evidence\n", comparison.export().findingsCsv());
-                assertTrue(Aljabr.DL.trainingReportComparisonMarkdown(comparison.export())
+                assertTrue(Alkhawarizm.DL.trainingReportComparisonMarkdown(comparison.export())
                                 .contains("No regression findings were detected."));
-                assertTrue(Aljabr.DL.trainingReportComparisonJUnitXml(comparison.export())
+                assertTrue(Alkhawarizm.DL.trainingReportComparisonJUnitXml(comparison.export())
                                 .contains("name=\"comparison passed\""));
-                assertEquals(8, Aljabr.DL.trainingReportComparisonExport(baseline, candidate).metricCount());
+                assertEquals(8, Alkhawarizm.DL.trainingReportComparisonExport(baseline, candidate).metricCount());
         }
 
         @Test
@@ -140,17 +140,17 @@ class TrainingReportComparisonTest {
                                                 Map.of("epoch", 1, "trainLoss", 0.5, "validationLoss", 0.55)));
                 Path artifacts = tempDir.resolve("comparison-artifacts");
 
-                TrainingReportComparisonArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportComparisonArtifacts(artifacts, baselineFile, candidateFile);
-                TrainingReportComparisonArtifacts.ArtifactInspection inspection = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportComparisonArtifacts(artifacts);
-                TrainingReportComparisonArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportComparisonArtifacts(bundle);
 
                 assertTrue(Files.exists(bundle.markdownFile()));
                 assertTrue(Files.exists(bundle.junitXmlFile()));
                 assertTrue(Files.readString(bundle.markdownFile(), StandardCharsets.UTF_8)
-                                .contains("# Aljabr Training Report Comparison"));
+                                .contains("# Alkhawarizm Training Report Comparison"));
                 assertTrue(Files.readString(bundle.junitXmlFile(), StandardCharsets.UTF_8)
                                 .contains("<testsuite name=\"alkhawarizm.training.report.comparison\""));
                 assertEquals(bundle.markdownSha256(), inspection.markdownSha256());
@@ -187,7 +187,7 @@ class TrainingReportComparisonTest {
                                                 Map.of("epoch", 1, "trainLoss", 0.5, "validationLoss", 0.55)));
                 Path artifacts = tempDir.resolve("stale-comparison-artifacts");
 
-                Aljabr.DL.writeTrainingReportComparisonArtifacts(artifacts, baselineFile, candidateFile);
+                Alkhawarizm.DL.writeTrainingReportComparisonArtifacts(artifacts, baselineFile, candidateFile);
                 Files.writeString(
                                 artifacts.resolve(TrainingReportComparisonArtifacts.DEFAULT_MARKDOWN_FILE_NAME),
                                 "\nmanual stale edit\n",
@@ -199,7 +199,7 @@ class TrainingReportComparisonTest {
                                 StandardCharsets.UTF_8,
                                 java.nio.file.StandardOpenOption.APPEND);
 
-                TrainingReportComparisonArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportComparisonArtifacts(artifacts, null, null, null);
 
                 assertFalse(verification.passed());
@@ -226,7 +226,7 @@ class TrainingReportComparisonTest {
                                                 Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                                                 Map.of("epoch", 1, "trainLoss", 0.5, "validationLoss", 0.55)));
                 Path artifacts = tempDir.resolve("refresh-comparison-artifacts");
-                TrainingReportComparisonArtifacts.ArtifactBundle original = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactBundle original = Alkhawarizm.DL
                                 .writeTrainingReportComparisonArtifacts(artifacts, baselineFile, candidateFile);
 
                 Files.writeString(
@@ -240,9 +240,9 @@ class TrainingReportComparisonTest {
                                 StandardCharsets.UTF_8,
                                 java.nio.file.StandardOpenOption.APPEND);
 
-                TrainingReportComparisonArtifacts.ArtifactBundle refreshed = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactBundle refreshed = Alkhawarizm.DL
                                 .refreshTrainingReportComparisonArtifacts(artifacts);
-                TrainingReportComparisonArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportComparisonArtifacts(refreshed);
 
                 assertEquals(original.jsonSha256(), refreshed.jsonSha256());
@@ -270,12 +270,12 @@ class TrainingReportComparisonTest {
                                                 Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                                                 Map.of("epoch", 1, "trainLoss", 0.5, "validationLoss", 0.55)));
                 Path artifacts = tempDir.resolve("xxe-comparison-artifacts");
-                TrainingReportComparisonArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportComparisonArtifacts(artifacts, baselineFile, candidateFile);
 
                 Files.writeString(bundle.junitXmlFile(), xmlWithDoctype(), StandardCharsets.UTF_8);
 
-                TrainingReportComparisonArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportComparisonArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportComparisonArtifacts(artifacts, null, null, null);
 
                 assertFalse(verification.passed());

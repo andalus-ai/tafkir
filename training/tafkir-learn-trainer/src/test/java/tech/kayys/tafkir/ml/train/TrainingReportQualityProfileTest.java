@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportQualityProfileTest {
@@ -32,10 +32,10 @@ class TrainingReportQualityProfileTest {
                 assertEquals(TrainingReportQualityProfile.STRICT_CI,
                                 TrainingReportQualityProfile.require("STRICT_CI").id());
                 assertEquals(TrainingReportQualityProfile.RESEARCH,
-                                Aljabr.DL.trainingReportQualityProfile("research").id());
+                                Alkhawarizm.DL.trainingReportQualityProfile("research").id());
                 assertEquals(
                                 TrainingReportQualityProfile.ids(),
-                                Aljabr.DL.trainingReportQualityProfiles().stream()
+                                Alkhawarizm.DL.trainingReportQualityProfiles().stream()
                                                 .map(TrainingReportQualityProfile::id)
                                                 .toList());
                 assertThrows(IllegalArgumentException.class, () -> TrainingReportQualityProfile.require("unknown"));
@@ -46,7 +46,7 @@ class TrainingReportQualityProfileTest {
                 TrainingReport report = validatedReport(Map.of());
 
                 TrainingReportValidationPolicy.Result strict = TrainingReportQualityProfile.strictCi().validate(report);
-                TrainingReportValidationPolicy.Result local = Aljabr.DL.validateTrainingReport(report,
+                TrainingReportValidationPolicy.Result local = Alkhawarizm.DL.validateTrainingReport(report,
                                 TrainingReportQualityProfile.localExperiment());
 
                 assertTrue(strict.failed());
@@ -55,7 +55,7 @@ class TrainingReportQualityProfileTest {
                 assertTrue(local.passed());
                 assertFalse(local.policy().requireDataHealthAvailable());
                 assertFalse(local.policy().requireDataHealthGate());
-                assertTrue(Aljabr.DL.trainingReportValidationMarkdown(report, TrainingReportQualityProfile.strictCi())
+                assertTrue(Alkhawarizm.DL.trainingReportValidationMarkdown(report, TrainingReportQualityProfile.strictCi())
                                 .contains("data_health.missing"));
         }
 
@@ -69,7 +69,7 @@ class TrainingReportQualityProfileTest {
 
                 TrainingReportPortfolio.PromotionDecision research = TrainingReportQualityProfile.research()
                                 .promotionDecision(portfolio, "baseline");
-                TrainingReportPortfolio.PromotionDecision production = Aljabr.DL
+                TrainingReportPortfolio.PromotionDecision production = Alkhawarizm.DL
                                 .trainingReportQualityProfile("production_promotion")
                                 .promotionDecision(portfolio, "baseline");
 
@@ -128,23 +128,23 @@ class TrainingReportQualityProfileTest {
 
         @Test
         void catalogExportsProfileMarkdownAndJsonForCiDocs() {
-                TrainingReportQualityProfileCatalog catalog = Aljabr.DL.trainingReportQualityProfileCatalog();
+                TrainingReportQualityProfileCatalog catalog = Alkhawarizm.DL.trainingReportQualityProfileCatalog();
 
                 assertEquals(TrainingReportQualityProfile.ids(), catalog.ids());
-                assertEquals(catalog.toMarkdown(), Aljabr.DL.trainingReportQualityProfilesMarkdown());
+                assertEquals(catalog.toMarkdown(), Alkhawarizm.DL.trainingReportQualityProfilesMarkdown());
 
-                String markdown = Aljabr.DL.trainingReportQualityProfilesMarkdown();
-                assertTrue(markdown.contains("# Aljabr Training Report Quality Profiles"));
+                String markdown = Alkhawarizm.DL.trainingReportQualityProfilesMarkdown();
+                assertTrue(markdown.contains("# Alkhawarizm Training Report Quality Profiles"));
                 assertTrue(markdown.contains("`production-promotion`"));
                 assertTrue(markdown.contains("accelerator fallback fails `true`"));
                 assertTrue(markdown.contains("clean data health `true`"));
 
-                String customMarkdown = Aljabr.DL.trainingReportQualityProfilesMarkdown(
+                String customMarkdown = Alkhawarizm.DL.trainingReportQualityProfilesMarkdown(
                                 List.of(TrainingReportQualityProfile.localExperiment()));
                 assertTrue(customMarkdown.contains("`local-experiment`"));
                 assertFalse(customMarkdown.contains("`production-promotion`"));
 
-                String json = Aljabr.DL.trainingReportQualityProfilesJson();
+                String json = Alkhawarizm.DL.trainingReportQualityProfilesJson();
                 assertTrue(json.contains("\"format\":\"alkhawarizm.training-report.quality-profiles.v1\""));
                 assertTrue(json.contains("\"profileCount\":4"));
                 assertTrue(json.contains("\"performancePolicy\""));
@@ -207,8 +207,8 @@ class TrainingReportQualityProfileTest {
                                 "requireCandidateDataHealthGate", false,
                                 "requireCandidateDataHealthClean", false));
 
-                TrainingReportQualityProfile loaded = Aljabr.DL.trainingReportQualityProfile(profile);
-                TrainingReportQualityProfileCatalog catalog = Aljabr.DL.trainingReportQualityProfileCatalog(Map.of(
+                TrainingReportQualityProfile loaded = Alkhawarizm.DL.trainingReportQualityProfile(profile);
+                TrainingReportQualityProfileCatalog catalog = Alkhawarizm.DL.trainingReportQualityProfileCatalog(Map.of(
                                 "format", TrainingReportQualityProfileCatalog.FORMAT,
                                 "profileCount", 1,
                                 "profiles", List.of(profile)));
@@ -216,9 +216,9 @@ class TrainingReportQualityProfileTest {
                 assertEquals("sdk-gpu-lab", loaded.id());
                 assertEquals(64.0, loaded.performancePolicy().minTrainSamplesPerSecond());
                 assertEquals(List.of("sdk-gpu-lab"), catalog.ids());
-                assertTrue(Aljabr.DL.trainingReportQualityProfilesJson(catalog)
+                assertTrue(Alkhawarizm.DL.trainingReportQualityProfilesJson(catalog)
                                 .contains("\"minTrainSamplesPerSecond\":64.0"));
-                assertTrue(Aljabr.DL.trainingReportQualityProfilesMarkdown(catalog)
+                assertTrue(Alkhawarizm.DL.trainingReportQualityProfilesMarkdown(catalog)
                                 .contains("min train samples/s `64`"));
         }
 
@@ -233,14 +233,14 @@ class TrainingReportQualityProfileTest {
                                 new TrainingReportPerformanceGate.Policy(true, 128.0, 1.2),
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy()
                                                 .withRequireTrackedMetricImprovement(false));
-                TrainingReportQualityProfileArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportQualityProfileArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportQualityProfileArtifacts(
                                                 tempDir.resolve("file-catalog"),
                                                 List.of(custom));
 
-                TrainingReportQualityProfileCatalog loaded = Aljabr.DL
+                TrainingReportQualityProfileCatalog loaded = Alkhawarizm.DL
                                 .trainingReportQualityProfileCatalog(bundle.jsonFile());
-                TrainingReportQualityProfile selected = Aljabr.DL.trainingReportQualityProfile(bundle.jsonFile(),
+                TrainingReportQualityProfile selected = Alkhawarizm.DL.trainingReportQualityProfile(bundle.jsonFile(),
                                 "FILE_GPU_LAB");
 
                 assertEquals(List.of("file-gpu-lab"), loaded.ids());
@@ -262,7 +262,7 @@ class TrainingReportQualityProfileTest {
                 catalog.put("profiles", List.of(duplicateOne, duplicateTwo));
                 catalog.put("unexpectedCatalogKey", true);
 
-                TrainingReportQualityProfileCatalogValidator.Result validation = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidator.Result validation = Alkhawarizm.DL
                                 .validateTrainingReportQualityProfileCatalog(catalog);
 
                 assertFalse(validation.passed());
@@ -272,7 +272,7 @@ class TrainingReportQualityProfileTest {
                 assertTrue(validation.warnings().stream()
                                 .anyMatch(issue -> issue.path().contains("unexpectedCatalogKey")));
                 assertTrue(validation.markdown().contains("profile.id_duplicate"));
-                assertTrue(Aljabr.DL.trainingReportQualityProfileCatalogValidationMarkdown(validation)
+                assertTrue(Alkhawarizm.DL.trainingReportQualityProfileCatalogValidationMarkdown(validation)
                                 .contains("FAIL"));
                 assertThrows(IllegalArgumentException.class,
                                 () -> TrainingReportQualityProfileCatalog.fromMap(catalog));
@@ -286,9 +286,9 @@ class TrainingReportQualityProfileTest {
                 catalog.put("profiles", List.of(Map.of(
                                 "id", "Minimal Lab",
                                 "displayName", "Minimal Lab",
-                                "description", "Uses Aljabr defaults while still documenting a custom workflow.")));
+                                "description", "Uses Alkhawarizm defaults while still documenting a custom workflow.")));
 
-                TrainingReportQualityProfileCatalogValidator.Result validation = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidator.Result validation = Alkhawarizm.DL
                                 .validateTrainingReportQualityProfileCatalog(catalog);
 
                 assertTrue(validation.passed());
@@ -296,7 +296,7 @@ class TrainingReportQualityProfileTest {
                 assertTrue(validation.warnings().stream()
                                 .anyMatch(issue -> issue.code().equals("profile.policy_missing")));
                 assertTrue(validation.markdown().contains("PASS"));
-                assertEquals(List.of("minimal-lab"), Aljabr.DL.trainingReportQualityProfileCatalog(catalog).ids());
+                assertEquals(List.of("minimal-lab"), Alkhawarizm.DL.trainingReportQualityProfileCatalog(catalog).ids());
         }
 
         @Test
@@ -304,7 +304,7 @@ class TrainingReportQualityProfileTest {
                 Path invalid = tempDir.resolve("quality-profiles.json");
                 Files.writeString(invalid, "{ invalid json", StandardCharsets.UTF_8);
 
-                TrainingReportQualityProfileCatalogValidator.Result validation = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidator.Result validation = Alkhawarizm.DL
                                 .validateTrainingReportQualityProfileCatalog(invalid);
 
                 assertFalse(validation.passed());
@@ -320,16 +320,16 @@ class TrainingReportQualityProfileTest {
                 catalog.put("format", TrainingReportQualityProfileCatalog.FORMAT);
                 catalog.put("profileCount", 1);
                 catalog.put("profiles", List.of(customProfileMap("Artifact GPU Lab")));
-                TrainingReportQualityProfileCatalogValidator.Result validation = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidator.Result validation = Alkhawarizm.DL
                                 .validateTrainingReportQualityProfileCatalog(catalog);
 
-                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportQualityProfileCatalogValidationArtifacts(
                                                 tempDir.resolve("catalog-validation"),
                                                 validation);
-                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactInspection inspection = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportQualityProfileCatalogValidationArtifacts(bundle.directory());
-                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileCatalogValidationArtifacts(bundle);
 
                 assertTrue(bundle.passed());
@@ -341,7 +341,7 @@ class TrainingReportQualityProfileTest {
                 assertEquals(List.of("artifact-gpu-lab"), inspection.parsedResult().profileIds());
                 assertTrue(inspection.junitXml().contains("alkhawarizm.training.quality-profile-catalog.validation"));
                 assertEquals(bundle.artifactMap(), inspection.artifactMap());
-                assertTrue(Aljabr.DL.trainingReportQualityProfileCatalogValidationJUnitXml(validation)
+                assertTrue(Alkhawarizm.DL.trainingReportQualityProfileCatalogValidationJUnitXml(validation)
                                 .contains("failures=\"0\""));
                 assertTrue(verification.passed());
                 assertTrue(verification.markdownMatchesJson());
@@ -355,7 +355,7 @@ class TrainingReportQualityProfileTest {
                                 "\nTampered catalog validation report.\n",
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
-                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactVerification tampered = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactVerification tampered = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileCatalogValidationArtifacts(
                                                 bundle.directory(),
                                                 bundle.jsonSha256(),
@@ -370,9 +370,9 @@ class TrainingReportQualityProfileTest {
                                 "\n<!-- tampered catalog validation junit -->\n",
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
-                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactVerification junitTampered = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactVerification junitTampered = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileCatalogValidationArtifacts(
-                                                Aljabr.DL.readTrainingReportQualityProfileCatalogValidationArtifacts(
+                                                Alkhawarizm.DL.readTrainingReportQualityProfileCatalogValidationArtifacts(
                                                                 bundle.directory()),
                                                 bundle.jsonSha256(),
                                                 null,
@@ -381,23 +381,23 @@ class TrainingReportQualityProfileTest {
                 assertFalse(junitTampered.junitXmlSha256Matches());
                 assertFalse(junitTampered.junitXmlMatchesJson());
 
-                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactBundle refreshed = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactBundle refreshed = Alkhawarizm.DL
                                 .refreshTrainingReportQualityProfileCatalogValidationArtifacts(bundle.directory());
-                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactVerification refreshedVerification = Aljabr.DL
+                TrainingReportQualityProfileCatalogValidationArtifacts.ArtifactVerification refreshedVerification = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileCatalogValidationArtifacts(refreshed);
                 assertTrue(refreshedVerification.passed());
         }
 
         @Test
         void catalogAdvisorKeepsBuiltInProfilesQuiet() {
-                TrainingReportQualityProfileCatalogAdvisor.Result advice = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdvisor.Result advice = Alkhawarizm.DL
                                 .adviseTrainingReportQualityProfileCatalog(
                                                 TrainingReportQualityProfileCatalog.defaults());
 
                 assertTrue(advice.validation().passed());
                 assertTrue(advice.readyForCi());
                 assertTrue(advice.recommendations().isEmpty());
-                assertTrue(Aljabr.DL.trainingReportQualityProfileCatalogAdviceMarkdown(advice)
+                assertTrue(Alkhawarizm.DL.trainingReportQualityProfileCatalogAdviceMarkdown(advice)
                                 .contains("No catalog advisory recommendations."));
         }
 
@@ -411,7 +411,7 @@ class TrainingReportQualityProfileTest {
                                 "displayName", "Minimal Lab",
                                 "description", "Only one profile with implicit defaults.")));
 
-                TrainingReportQualityProfileCatalogAdvisor.Result advice = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdvisor.Result advice = Alkhawarizm.DL
                                 .adviseTrainingReportQualityProfileCatalog(catalog);
 
                 assertTrue(advice.validation().passed());
@@ -438,7 +438,7 @@ class TrainingReportQualityProfileTest {
                 catalog.put("profileCount", 2);
                 catalog.put("profiles", List.of(first, second));
 
-                TrainingReportQualityProfileCatalogAdvisor.Result advice = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdvisor.Result advice = Alkhawarizm.DL
                                 .adviseTrainingReportQualityProfileCatalog(catalog);
 
                 assertFalse(advice.validation().passed());
@@ -461,16 +461,16 @@ class TrainingReportQualityProfileTest {
                                 "id", "Advice Minimal Lab",
                                 "displayName", "Advice Minimal Lab",
                                 "description", "Minimal profile that should produce advisory recommendations.")));
-                TrainingReportQualityProfileCatalogAdvisor.Result advice = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdvisor.Result advice = Alkhawarizm.DL
                                 .adviseTrainingReportQualityProfileCatalog(catalog);
 
-                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportQualityProfileCatalogAdviceArtifacts(
                                                 tempDir.resolve("catalog-advice"),
                                                 advice);
-                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactInspection inspection = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportQualityProfileCatalogAdviceArtifacts(bundle.directory());
-                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileCatalogAdviceArtifacts(bundle);
 
                 assertTrue(bundle.readyForCi());
@@ -493,7 +493,7 @@ class TrainingReportQualityProfileTest {
                                 "\nTampered catalog advice report.\n",
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
-                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactVerification tampered = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactVerification tampered = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileCatalogAdviceArtifacts(
                                                 bundle.directory(),
                                                 bundle.jsonSha256(),
@@ -503,9 +503,9 @@ class TrainingReportQualityProfileTest {
                 assertFalse(tampered.markdownMatchesJson());
                 assertThrows(IllegalStateException.class, tampered::requirePassed);
 
-                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactBundle refreshed = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactBundle refreshed = Alkhawarizm.DL
                                 .refreshTrainingReportQualityProfileCatalogAdviceArtifacts(bundle.directory());
-                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactVerification refreshedVerification = Aljabr.DL
+                TrainingReportQualityProfileCatalogAdviceArtifacts.ArtifactVerification refreshedVerification = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileCatalogAdviceArtifacts(refreshed);
                 assertTrue(refreshedVerification.passed());
         }
@@ -513,7 +513,7 @@ class TrainingReportQualityProfileTest {
         @Test
         void writesReadsVerifiesAndRefreshesQualityProfileArtifacts() throws IOException {
                 Path artifacts = tempDir.resolve("quality-profiles");
-                TrainingReportQualityProfileArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportQualityProfileArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportQualityProfileArtifacts(artifacts);
 
                 assertTrue(Files.exists(bundle.jsonFile()));
@@ -521,14 +521,14 @@ class TrainingReportQualityProfileTest {
                 assertEquals(TrainingReportQualityProfile.ids(), bundle.catalog().ids());
                 assertEquals(bundle.artifactMap(), bundle.toMap().get("artifact"));
 
-                TrainingReportQualityProfileArtifacts.ArtifactInspection inspection = Aljabr.DL
+                TrainingReportQualityProfileArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
                                 .readTrainingReportQualityProfileArtifacts(artifacts);
                 assertEquals(TrainingReportQualityProfile.ids(), inspection.profileIds());
                 assertEquals(bundle.jsonSha256(), inspection.jsonSha256());
-                assertTrue(inspection.markdown().contains("# Aljabr Training Report Quality Profiles"));
+                assertTrue(inspection.markdown().contains("# Alkhawarizm Training Report Quality Profiles"));
                 assertEquals(bundle.artifactMap(), inspection.artifactMap());
 
-                TrainingReportQualityProfileArtifacts.ArtifactVerification verification = Aljabr.DL
+                TrainingReportQualityProfileArtifacts.ArtifactVerification verification = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileArtifacts(bundle);
                 assertTrue(verification.passed());
                 assertTrue(verification.jsonSha256Matches());
@@ -544,7 +544,7 @@ class TrainingReportQualityProfileTest {
                                 "\nTampered quality profile docs.\n",
                                 StandardCharsets.UTF_8,
                                 StandardOpenOption.APPEND);
-                TrainingReportQualityProfileArtifacts.ArtifactVerification tampered = Aljabr.DL
+                TrainingReportQualityProfileArtifacts.ArtifactVerification tampered = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileArtifacts(bundle);
                 assertFalse(tampered.passed());
                 assertFalse(tampered.markdownSha256Matches());
@@ -553,13 +553,13 @@ class TrainingReportQualityProfileTest {
                                 .anyMatch(failure -> failure.contains("Markdown checksum mismatch")));
                 assertThrows(IllegalStateException.class, tampered::requirePassed);
 
-                TrainingReportQualityProfileArtifacts.ArtifactBundle refreshed = Aljabr.DL
+                TrainingReportQualityProfileArtifacts.ArtifactBundle refreshed = Alkhawarizm.DL
                                 .refreshTrainingReportQualityProfileArtifacts(artifacts);
-                TrainingReportQualityProfileArtifacts.ArtifactVerification refreshedVerification = Aljabr.DL
+                TrainingReportQualityProfileArtifacts.ArtifactVerification refreshedVerification = Alkhawarizm.DL
                                 .verifyTrainingReportQualityProfileArtifacts(refreshed);
                 assertTrue(refreshedVerification.passed());
 
-                TrainingReportQualityProfileArtifacts.ArtifactBundle custom = Aljabr.DL
+                TrainingReportQualityProfileArtifacts.ArtifactBundle custom = Alkhawarizm.DL
                                 .writeTrainingReportQualityProfileArtifacts(
                                                 tempDir.resolve("local-quality-profile"),
                                                 List.of(TrainingReportQualityProfile.localExperiment()));

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-validation.v1.schema.json",
-  "title": "Aljabr checkpoint lineage health validation report",
+  "title": "Alkhawarizm checkpoint lineage health validation report",
   "description": "Stable valid/invalid report emitted when recursive-reasoning checkpoint lineage health payloads are validated.",
   "type": "object",
   "additionalProperties": true,

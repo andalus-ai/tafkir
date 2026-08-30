@@ -4,10 +4,10 @@ import tech.kayys.tafkir.ml.nn.loss.BCEWithLogitsLoss;
 import tech.kayys.tafkir.ml.nn.loss.BinaryFocalWithLogitsLoss;
 
 /**
- * Binary and multilabel logit loss helpers inherited by {@link Aljabr.DL}.
+ * Binary and multilabel logit loss helpers inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlBinaryLossFactoryFacade extends AljabrDlZeroInflatedLossFactoryFacade {
-    protected AljabrDlBinaryLossFactoryFacade() {
+public class AlkhawarizmDlBinaryLossFactoryFacade extends AlkhawarizmDlZeroInflatedLossFactoryFacade {
+    protected AlkhawarizmDlBinaryLossFactoryFacade() {
     }
 
     public static BCEWithLogitsLoss bceWithLogitsLoss() {

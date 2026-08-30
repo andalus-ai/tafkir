@@ -11,7 +11,7 @@ final class TrainingReportQualityProfileCiGateManifestMarkdown {
 
     static String render(Map<String, Object> manifest) {
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Training Quality Profile CI Gate Manifest");
+        appendLine(markdown, "# Alkhawarizm Training Quality Profile CI Gate Manifest");
         appendLine(markdown, "");
         appendLine(markdown, "**Profile:** `" + escapeInline(stringValue(manifest.get("profileId"), "unknown")) + "`");
         appendLine(markdown, "**Format:** `" + escapeInline(stringValue(manifest.get("format"), "unknown")) + "`");

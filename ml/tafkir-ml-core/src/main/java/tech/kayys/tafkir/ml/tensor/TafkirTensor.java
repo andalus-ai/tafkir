@@ -15,15 +15,15 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Tafkir-facing tensor API. Wraps Aljabr's {@link Tensor} with a PyTorch-like
+ * Tafkir-facing tensor API. Wraps Alkhawarizm's {@link Tensor} with a PyTorch-like
  * convenience layer, including factory methods suitable for JBang scripts.
  *
  * <p>
- * All computation delegates to the underlying Aljabr {@link ComputeBackend},
+ * All computation delegates to the underlying Alkhawarizm {@link ComputeBackend},
  * which uses Panama FFM off-heap memory and Vector API SIMD on CPU.
  *
  * <p>
- * Implements {@link Tensor} directly so it can be passed to Aljabr's own
+ * Implements {@link Tensor} directly so it can be passed to Alkhawarizm's own
  * layers and backends without unwrapping.
  */
 public final class TafkirTensor implements Tensor {
@@ -109,7 +109,7 @@ public final class TafkirTensor implements Tensor {
         return of(new float[] { value });
     }
 
-    public static TafkirTensor fromAljabr(Tensor tensor) {
+    public static TafkirTensor fromAlkhawarizm(Tensor tensor) {
         return new TafkirTensor(tensor, tensor.backend());
     }
 

@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.AljabrDlTrainingFacade;
+import tech.kayys.tafkir.ml.AlkhawarizmDlTrainingFacade;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportAccelerationAdvisorTest {
@@ -30,12 +30,12 @@ class TrainingReportAccelerationAdvisorTest {
         assertEquals("cpu", acceleration.executionBackend());
         assertTrue(acceleration.requestedAcceleratorUnavailable());
         assertTrue(acceleration.requestedAcceleratorFellBack());
-        assertEquals("cpu", AljabrDlTrainingFacade.trainingReportAcceleration(report).executionBackend());
+        assertEquals("cpu", AlkhawarizmDlTrainingFacade.trainingReportAcceleration(report).executionBackend());
         assertEquals("metal", report.accelerationMap().get("requestedDevice"));
-        assertEquals(Boolean.TRUE, AljabrDlTrainingFacade.trainingReportAccelerationMap(report).get("executionFallback"));
+        assertEquals(Boolean.TRUE, AlkhawarizmDlTrainingFacade.trainingReportAccelerationMap(report).get("executionFallback"));
 
         String markdown = report.accelerationMarkdown();
-        assertEquals(markdown, AljabrDlTrainingFacade.trainingReportAccelerationMarkdown(report));
+        assertEquals(markdown, AlkhawarizmDlTrainingFacade.trainingReportAccelerationMarkdown(report));
         assertTrue(markdown.startsWith("## Acceleration\n"));
         assertTrue(markdown.contains("| `metal` | `cpu` | CPU | `no` | `yes` | 0 |  |"));
         assertTrue(report.actionPlanMarkdown().contains("## Acceleration"));

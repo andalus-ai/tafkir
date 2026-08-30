@@ -1,4 +1,4 @@
-# Aljabr RNN Module
+# Alkhawarizm RNN Module
 
 Comprehensive Recurrent Neural Network (RNN) layers for sequence processing.
 

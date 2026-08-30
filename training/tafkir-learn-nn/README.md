@@ -1,4 +1,4 @@
-# Aljabr SDK :: Neural Network Modules
+# Alkhawarizm SDK :: Neural Network Modules
 
 The `tafkir-ml-nn` component offers an object-oriented Module API (akin to PyTorch's `nn.Module`) built on top of the underlying Autograd tape.
 

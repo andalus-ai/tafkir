@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 
 class TrainingReportQualityProfileCiGateManifestTest {
     @TempDir
@@ -27,14 +27,14 @@ class TrainingReportQualityProfileCiGateManifestTest {
     void writesVerifiesRefreshesAndAuditsCiGateManifest() throws IOException {
         Path outputDirectory = tempDir.resolve("manifest-ci");
         TrainingReportQualityProfileCiGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfileCiGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfileCiGate(
                         TrainingReportQualityProfileTestFixtures.reportFiles(tempDir, Map.of(), Map.of()),
                         "baseline",
                         "local-experiment",
                         outputDirectory);
 
         TrainingReportQualityProfileCiGateManifest.ManifestBundle bundle =
-                Aljabr.DL.writeTrainingReportQualityProfileCiGateManifest(outputDirectory, result);
+                Alkhawarizm.DL.writeTrainingReportQualityProfileCiGateManifest(outputDirectory, result);
 
         assertTrue(bundle.passed());
         assertEquals(14, bundle.artifacts().size());
@@ -42,14 +42,14 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertTrue(Files.isRegularFile(bundle.markdownFile()));
 
         TrainingReportQualityProfileCiGateManifest.ManifestInspection inspection =
-                Aljabr.DL.readTrainingReportQualityProfileCiGateManifest(outputDirectory);
+                Alkhawarizm.DL.readTrainingReportQualityProfileCiGateManifest(outputDirectory);
         assertEquals(TrainingReportQualityProfileCiGateManifest.FORMAT, inspection.format());
         assertEquals(TrainingReportQualityProfile.LOCAL_EXPERIMENT, inspection.profileId().orElseThrow());
         assertEquals(14, inspection.artifactMaps().size());
-        assertTrue(inspection.markdown().contains("# Aljabr Training Quality Profile CI Gate Manifest"));
+        assertTrue(inspection.markdown().contains("# Alkhawarizm Training Quality Profile CI Gate Manifest"));
 
         TrainingReportQualityProfileCiGateManifest.ManifestVerification verification =
-                Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifest(bundle);
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifest(bundle);
         assertTrue(verification.passed());
         assertTrue(verification.profileKnown());
         assertTrue(verification.markdownMatchesJson());
@@ -80,7 +80,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals(List.of(), verification.toMap().get("markdownFailures"));
         assertEquals(List.of(), verification.toMap().get("structuredFailures"));
         assertDoesNotThrow(verification::requirePassed);
-        String junitXml = Aljabr.DL.trainingReportQualityProfileCiGateManifestJUnitXml(verification);
+        String junitXml = Alkhawarizm.DL.trainingReportQualityProfileCiGateManifestJUnitXml(verification);
         assertTrue(TrainingReportXml.isWellFormed(junitXml));
         assertTrue(junitXml.contains("tests=\"6\" failures=\"0\""));
         assertTrue(junitXml.contains("name=\"structure\""));
@@ -88,7 +88,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertTrue(junitXml.contains("manifest.readyForRelease\" value=\"true\""));
         assertTrue(junitXml.contains("manifest.failures.checksum\" value=\"0\""));
         TrainingReportQualityProfileCiGateManifestJUnitXmlContract.Inspection junitXmlContract =
-                Aljabr.DL.inspectTrainingReportQualityProfileCiGateManifestJUnitXml(junitXml, verification);
+                Alkhawarizm.DL.inspectTrainingReportQualityProfileCiGateManifestJUnitXml(junitXml, verification);
         assertTrue(junitXmlContract.contractValid());
         assertEquals(
                 List.of("checksums", "format", "profile", "markdown", "structure", "artifacts"),
@@ -105,7 +105,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals("true", junitXmlContract.properties().get("manifest.readyForRelease"));
         assertEquals("0", junitXmlContract.properties().get("manifest.failureCount"));
         TrainingReportQualityProfileCiGateManifestJUnitXmlContract.Inspection badJunitXmlContract =
-                Aljabr.DL.inspectTrainingReportQualityProfileCiGateManifestJUnitXml(
+                Alkhawarizm.DL.inspectTrainingReportQualityProfileCiGateManifestJUnitXml(
                         junitXml.replace("tests=\"6\"", "tests=\"99\""),
                         verification);
         assertFalse(badJunitXmlContract.contractValid());
@@ -114,15 +114,15 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertTrue(badJunitXmlContract.failures().stream()
                 .anyMatch(failure -> failure.contains("Expected 6 JUnit XML testcases")));
         TrainingReportQualityProfileCiGateManifestJUnitXml.Report junitXmlReport =
-                Aljabr.DL.writeTrainingReportQualityProfileCiGateManifestJUnitXml(
+                Alkhawarizm.DL.writeTrainingReportQualityProfileCiGateManifestJUnitXml(
                         outputDirectory.resolve("manifest-verification.junit.xml"),
                         verification);
         assertTrue(junitXmlReport.passed());
         assertTrue(junitXmlReport.wellFormed());
         assertEquals(TrainerCheckpointIO.sha256Hex(junitXmlReport.junitXmlFile()), junitXmlReport.junitXmlSha256());
-        String verificationJson = Aljabr.DL.trainingReportQualityProfileCiGateManifestVerificationJson(verification);
+        String verificationJson = Alkhawarizm.DL.trainingReportQualityProfileCiGateManifestVerificationJson(verification);
         String verificationMarkdown =
-                Aljabr.DL.trainingReportQualityProfileCiGateManifestVerificationMarkdown(verification);
+                Alkhawarizm.DL.trainingReportQualityProfileCiGateManifestVerificationMarkdown(verification);
         assertTrue(verificationJson.contains(
                 "\"format\":\"" + TrainingReportQualityProfileCiGateManifestVerificationReport.FORMAT + "\""));
         assertTrue(verificationJson.contains("\"readyForRelease\":true"));
@@ -145,7 +145,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertTrue(verificationMarkdown.contains("**Manifest status:** `passed`"));
         assertTrue(verificationMarkdown.contains("**Testcases:** `checksums, format, profile"));
         TrainingReportQualityProfileCiGateManifestVerificationReport.ReportBundle verificationReport =
-                Aljabr.DL.writeTrainingReportQualityProfileCiGateManifestVerificationReport(
+                Alkhawarizm.DL.writeTrainingReportQualityProfileCiGateManifestVerificationReport(
                         outputDirectory.resolve("manifest-verification-report"),
                         verification);
         assertTrue(verificationReport.passed());
@@ -166,7 +166,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
                 Boolean.TRUE,
                 ((Map<?, ?>) verificationReport.toMap().get("junitXmlContract")).get("contractValid"));
         TrainingReportQualityProfileCiGateManifestVerificationReport.ReportInspection reportInspection =
-                Aljabr.DL.readTrainingReportQualityProfileCiGateManifestVerificationReport(
+                Alkhawarizm.DL.readTrainingReportQualityProfileCiGateManifestVerificationReport(
                         verificationReport.directory());
         assertEquals(TrainingReportQualityProfileCiGateManifestVerificationReport.FORMAT, reportInspection.format());
         assertEquals(verificationReport.jsonSha256(), reportInspection.jsonSha256());
@@ -174,7 +174,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals(verificationReport.junitXmlReport().junitXmlSha256(), reportInspection.junitXmlSha256());
         assertTrue(reportInspection.junitXmlWellFormed());
         TrainingReportQualityProfileCiGateManifestVerificationReport.ReportVerification reportVerification =
-                Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReport(
                         verificationReport.directory(),
                         verification);
         assertTrue(reportVerification.passed());
@@ -189,13 +189,13 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals(Boolean.TRUE, reportVerification.toMap().get("jsonMatchesVerification"));
         assertEquals(Boolean.TRUE, reportVerification.toMap().get("junitXmlContractValid"));
         TrainingReportQualityProfileCiGateManifestVerificationReportReceipt.Receipt receipt =
-                Aljabr.DL.writeTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
+                Alkhawarizm.DL.writeTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
                         outputDirectory.resolve("manifest-verification-report.receipt.json"),
                         reportVerification);
         assertTrue(receipt.passed());
         assertTrue(Files.isRegularFile(receipt.receiptFile()));
         TrainingReportQualityProfileCiGateManifestVerificationReportReceipt.ReceiptInspection receiptInspection =
-                Aljabr.DL.readTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
+                Alkhawarizm.DL.readTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
                         receipt.receiptFile());
         assertEquals(
                 TrainingReportQualityProfileCiGateManifestVerificationReportReceipt.FORMAT,
@@ -223,7 +223,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertTrue(receiptInspection.receipt().containsKey("artifactFingerprints"));
         assertFalse(receiptInspection.receipt().containsKey("verification"));
         TrainingReportQualityProfileCiGateManifestVerificationReportReceipt.ReceiptVerification receiptVerification =
-                Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
                         receipt.receiptFile(),
                         receipt.receiptSha256(),
                         verification);
@@ -235,7 +235,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals(Boolean.TRUE, receiptVerification.toMap().get("reportRevalidated"));
         TrainingReportQualityProfileCiGateManifestVerificationReportReceipt.ReceiptVerification
                 badReceiptChecksumVerification =
-                        Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
+                        Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
                                 receipt.receiptFile(),
                                 "0000",
                                 verification);
@@ -251,7 +251,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
                 StandardCharsets.UTF_8);
         TrainingReportQualityProfileCiGateManifestVerificationReportReceipt.ReceiptVerification
                 staleReceiptVerification =
-                        Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
+                        Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
                                 staleReceiptFile,
                                 verification);
         assertFalse(staleReceiptVerification.passed());
@@ -273,7 +273,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
                 StandardCharsets.UTF_8);
         TrainingReportQualityProfileCiGateManifestVerificationReportReceipt.ReceiptVerification
                 staleFingerprintReceiptVerification =
-                        Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
+                        Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReportReceipt(
                                 staleFingerprintReceiptFile,
                                 verification);
         assertFalse(staleFingerprintReceiptVerification.passed());
@@ -281,7 +281,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
                 .anyMatch(failure -> failure.contains("artifactFingerprints.json")));
 
         TrainingReportQualityProfileCiGateManifestVerificationReport.ReportBundle badJunitXmlReport =
-                Aljabr.DL.writeTrainingReportQualityProfileCiGateManifestVerificationReport(
+                Alkhawarizm.DL.writeTrainingReportQualityProfileCiGateManifestVerificationReport(
                         outputDirectory.resolve("bad-junit-manifest-verification-report"),
                         verification);
         Files.writeString(
@@ -289,7 +289,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
                 badJunitXmlReport.junitXmlReport().junitXml().replace("tests=\"6\"", "tests=\"99\""),
                 StandardCharsets.UTF_8);
         TrainingReportQualityProfileCiGateManifestVerificationReport.ReportVerification badJunitXmlReportVerification =
-                Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReport(
                         badJunitXmlReport.directory(),
                         verification);
         assertFalse(badJunitXmlReportVerification.passed());
@@ -305,7 +305,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
                 StandardCharsets.UTF_8,
                 StandardOpenOption.APPEND);
         TrainingReportQualityProfileCiGateManifest.ManifestVerification tamperedMarkdown =
-                Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifest(bundle);
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifest(bundle);
         assertFalse(tamperedMarkdown.passed());
         assertFalse(tamperedMarkdown.markdownSha256Matches());
         assertFalse(tamperedMarkdown.markdownMatchesJson());
@@ -358,7 +358,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals("checksum", markdownSummaryMap.get("primaryFailureCategory"));
         assertEquals(2, markdownSummaryMap.get("failureCount"));
         String tamperedMarkdownJunitXml =
-                Aljabr.DL.trainingReportQualityProfileCiGateManifestJUnitXml(tamperedMarkdown);
+                Alkhawarizm.DL.trainingReportQualityProfileCiGateManifestJUnitXml(tamperedMarkdown);
         assertTrue(tamperedMarkdownJunitXml.contains("tests=\"6\" failures=\"2\""));
         assertTrue(tamperedMarkdownJunitXml.contains("manifest.status\" value=\"failed\""));
         assertTrue(tamperedMarkdownJunitXml.contains("manifest.readyForRelease\" value=\"false\""));
@@ -367,7 +367,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertTrue(tamperedMarkdownJunitXml.contains("manifest.failures.checksum\" value=\"1\""));
         assertTrue(tamperedMarkdownJunitXml.contains("manifest.failures.markdown\" value=\"1\""));
         TrainingReportQualityProfileCiGateManifestVerificationReport.ReportBundle tamperedMarkdownReport =
-                Aljabr.DL.writeTrainingReportQualityProfileCiGateManifestVerificationReport(
+                Alkhawarizm.DL.writeTrainingReportQualityProfileCiGateManifestVerificationReport(
                         outputDirectory.resolve("tampered-manifest-verification-report"),
                         tamperedMarkdown);
         assertFalse(tamperedMarkdownReport.passed());
@@ -382,7 +382,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertTrue(tamperedMarkdownReport.markdown().contains("- `checksum` Manifest Markdown checksum mismatch"));
         assertTrue(TrainingReportXml.isWellFormed(tamperedMarkdownReport.junitXmlReport().junitXml()));
         TrainingReportQualityProfileCiGateManifestVerificationReport.ReportVerification cleanTamperedReportVerification =
-                Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReport(
                         tamperedMarkdownReport.directory(),
                         tamperedMarkdown);
         assertTrue(cleanTamperedReportVerification.passed());
@@ -392,7 +392,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
                 StandardCharsets.UTF_8,
                 StandardOpenOption.APPEND);
         TrainingReportQualityProfileCiGateManifestVerificationReport.ReportVerification staleReportVerification =
-                Aljabr.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileCiGateManifestVerificationReport(
                         tamperedMarkdownReport.directory(),
                         tamperedMarkdown);
         assertFalse(staleReportVerification.passed());
@@ -404,7 +404,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals(Boolean.FALSE, staleReportVerification.toMap().get("markdownMatchesVerification"));
 
         TrainingReportQualityProfileCiGateManifest.ManifestInspection refreshed =
-                Aljabr.DL.refreshTrainingReportQualityProfileCiGateManifest(outputDirectory);
+                Alkhawarizm.DL.refreshTrainingReportQualityProfileCiGateManifest(outputDirectory);
         TrainingReportQualityProfileCiGateManifest.ManifestVerification refreshedVerification =
                 TrainingReportQualityProfileCiGateManifest.verify(
                         refreshed,
@@ -440,7 +440,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals(List.of("artifact"), artifactSummary.failedCategories());
         assertEquals("artifact", artifactSummary.primaryFailureCategory().orElseThrow());
         String tamperedArtifactJunitXml =
-                Aljabr.DL.trainingReportQualityProfileCiGateManifestJUnitXml(tamperedArtifact);
+                Alkhawarizm.DL.trainingReportQualityProfileCiGateManifestJUnitXml(tamperedArtifact);
         assertTrue(TrainingReportXml.isWellFormed(tamperedArtifactJunitXml));
         assertTrue(tamperedArtifactJunitXml.contains("tests=\"6\" failures=\"1\""));
         assertTrue(tamperedArtifactJunitXml.contains("name=\"artifacts\""));
@@ -454,7 +454,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         rewriteManifestJson(bundle.jsonFile(), manifest -> manifest.put("artifactCount", 99));
 
         TrainingReportQualityProfileCiGateManifest.ManifestInspection refreshed =
-                Aljabr.DL.refreshTrainingReportQualityProfileCiGateManifest(outputDirectory);
+                Alkhawarizm.DL.refreshTrainingReportQualityProfileCiGateManifest(outputDirectory);
         TrainingReportQualityProfileCiGateManifest.ManifestVerification verification =
                 TrainingReportQualityProfileCiGateManifest.verify(refreshed, null, null);
 
@@ -480,7 +480,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         assertEquals(List.of("structure"), summary.failedCategories());
         assertEquals("structure", summary.primaryFailureCategory().orElseThrow());
         assertEquals(Boolean.FALSE, verification.toMap().get("structureValid"));
-        String junitXml = Aljabr.DL.trainingReportQualityProfileCiGateManifestJUnitXml(verification);
+        String junitXml = Alkhawarizm.DL.trainingReportQualityProfileCiGateManifestJUnitXml(verification);
         assertTrue(TrainingReportXml.isWellFormed(junitXml));
         assertTrue(junitXml.contains("tests=\"6\" failures=\"1\""));
         assertTrue(junitXml.contains("name=\"structure\""));
@@ -498,7 +498,7 @@ class TrainingReportQualityProfileCiGateManifestTest {
         });
 
         TrainingReportQualityProfileCiGateManifest.ManifestInspection refreshed =
-                Aljabr.DL.refreshTrainingReportQualityProfileCiGateManifest(outputDirectory);
+                Alkhawarizm.DL.refreshTrainingReportQualityProfileCiGateManifest(outputDirectory);
         TrainingReportQualityProfileCiGateManifest.ManifestVerification verification =
                 TrainingReportQualityProfileCiGateManifest.verify(refreshed, null, null);
 
@@ -514,12 +514,12 @@ class TrainingReportQualityProfileCiGateManifestTest {
     private TrainingReportQualityProfileCiGateManifest.ManifestBundle writeLocalManifest(Path outputDirectory)
             throws IOException {
         TrainingReportQualityProfileCiGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfileCiGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfileCiGate(
                         TrainingReportQualityProfileTestFixtures.reportFiles(tempDir, Map.of(), Map.of()),
                         "baseline",
                         "local-experiment",
                         outputDirectory);
-        return Aljabr.DL.writeTrainingReportQualityProfileCiGateManifest(outputDirectory, result);
+        return Alkhawarizm.DL.writeTrainingReportQualityProfileCiGateManifest(outputDirectory, result);
     }
 
     @SuppressWarnings("unchecked")

@@ -26,16 +26,16 @@ import tech.kayys.tafkir.ml.train.TrainingMetric;
 import tech.kayys.tafkir.ml.train.TrainingMetrics;
 
 /**
- * Resolves high-level Aljabr training presets into optimizer/loss pairs.
+ * Resolves high-level Alkhawarizm training presets into optimizer/loss pairs.
  */
-final class AljabrTrainingPresetSupport {
-    private AljabrTrainingPresetSupport() {
+final class AlkhawarizmTrainingPresetSupport {
+    private AlkhawarizmTrainingPresetSupport() {
     }
 
     static Optimizer presetOptimizer(
             NNModule model,
             float learningRate,
-            Aljabr.DL.TrainingPreset preset) {
+            Alkhawarizm.DL.TrainingPreset preset) {
         return switch (preset) {
             case REGRESSION_MSE_ADAMW,
                     REGRESSION_HUBER_ADAMW,
@@ -74,13 +74,13 @@ final class AljabrTrainingPresetSupport {
         };
     }
 
-    static TrainingLossFunction presetLoss(Aljabr.DL.TrainingPreset preset) {
+    static TrainingLossFunction presetLoss(Alkhawarizm.DL.TrainingPreset preset) {
         return presetLoss(preset, null, null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null);
     }
 
     static List<Supplier<? extends TrainingMetric>> defaultMetricFactories(
-            Aljabr.DL.TrainingPreset preset,
+            Alkhawarizm.DL.TrainingPreset preset,
             Float causalLanguageModelingIgnoreIndex) {
         if (isClassificationPreset(preset)) {
             return List.of(
@@ -111,7 +111,7 @@ final class AljabrTrainingPresetSupport {
                 TrainingMetrics.causalLanguageModelingPerplexity(ignoreIndex));
     }
 
-    static boolean isCausalLanguageModelingPreset(Aljabr.DL.TrainingPreset preset) {
+    static boolean isCausalLanguageModelingPreset(Alkhawarizm.DL.TrainingPreset preset) {
         return switch (preset) {
             case CAUSAL_LANGUAGE_MODELING_ADAMW,
                     CAUSAL_LANGUAGE_MODELING_SGD,
@@ -121,7 +121,7 @@ final class AljabrTrainingPresetSupport {
         };
     }
 
-    static boolean isClassificationPreset(Aljabr.DL.TrainingPreset preset) {
+    static boolean isClassificationPreset(Alkhawarizm.DL.TrainingPreset preset) {
         return switch (preset) {
             case CLASSIFICATION_CROSS_ENTROPY_ADAMW,
                     CLASSIFICATION_CROSS_ENTROPY_SGD,
@@ -131,7 +131,7 @@ final class AljabrTrainingPresetSupport {
         };
     }
 
-    static boolean isBinaryPreset(Aljabr.DL.TrainingPreset preset) {
+    static boolean isBinaryPreset(Alkhawarizm.DL.TrainingPreset preset) {
         return switch (preset) {
             case BINARY_BCE_WITH_LOGITS_ADAMW,
                     BINARY_BCE_WITH_LOGITS_SGD,
@@ -141,7 +141,7 @@ final class AljabrTrainingPresetSupport {
         };
     }
 
-    static boolean isSimpleRegressionPreset(Aljabr.DL.TrainingPreset preset) {
+    static boolean isSimpleRegressionPreset(Alkhawarizm.DL.TrainingPreset preset) {
         return switch (preset) {
             case REGRESSION_MSE_ADAMW,
                     REGRESSION_MSE_SGD,
@@ -152,7 +152,7 @@ final class AljabrTrainingPresetSupport {
     }
 
     static TrainingLossFunction presetLoss(
-            Aljabr.DL.TrainingPreset preset,
+            Alkhawarizm.DL.TrainingPreset preset,
             float[] crossEntropyClassWeights,
             Float focalGamma,
             Float focalAlpha,

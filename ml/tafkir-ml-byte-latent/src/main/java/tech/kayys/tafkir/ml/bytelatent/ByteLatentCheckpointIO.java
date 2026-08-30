@@ -64,7 +64,7 @@ final class ByteLatentCheckpointIO {
             manifest.setProperty("globalStep", String.valueOf(globalStep));
         }
         try (var writer = Files.newBufferedWriter(checkpointDir.resolve(MANIFEST_FILE_NAME), StandardCharsets.UTF_8)) {
-            manifest.store(writer, "Aljabr byte-latent trainer checkpoint manifest");
+            manifest.store(writer, "Alkhawarizm byte-latent trainer checkpoint manifest");
         }
     }
 

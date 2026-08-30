@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportQualityProfileValidationGateTest {
@@ -28,12 +28,12 @@ class TrainingReportQualityProfileValidationGateTest {
         Path reportFile = writeReport("report.json");
 
         TrainingReportQualityProfileValidationGate.Result strict =
-                Aljabr.DL.runTrainingReportQualityProfileValidationGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfileValidationGate(
                         reportFile,
                         "strict-ci",
                         tempDir.resolve("strict-validation"));
         TrainingReportQualityProfileValidationGate.Result local =
-                Aljabr.DL.runTrainingReportQualityProfileValidationGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfileValidationGate(
                         reportFile,
                         TrainingReportQualityProfile.localExperiment(),
                         tempDir.resolve("local-validation"));
@@ -59,7 +59,7 @@ class TrainingReportQualityProfileValidationGateTest {
         assertTrue(local.verification().passed());
         assertTrue(local.performanceVerification().passed());
         assertDoesNotThrow(local::requirePassed);
-        assertTrue(Aljabr.DL.trainingReportQualityProfileValidationGateMarkdown(local)
+        assertTrue(Alkhawarizm.DL.trainingReportQualityProfileValidationGateMarkdown(local)
                 .contains("# Training Report Quality Profile Validation Gate"));
         assertEquals(Boolean.TRUE, local.toMap().get("passed"));
     }
@@ -81,7 +81,7 @@ class TrainingReportQualityProfileValidationGateTest {
                         Map.entry("trainAverageBatchMillis", 500.0)));
 
         TrainingReportQualityProfileValidationGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfileValidationGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfileValidationGate(
                         reportFile,
                         new TrainingReportQualityProfile(
                                 "local-validation-strict-performance",
@@ -97,7 +97,7 @@ class TrainingReportQualityProfileValidationGateTest {
         assertFalse(result.performancePassed());
         assertEquals("performance.accelerator_fallback", result.performance().findings().get(0).code());
         assertTrue(result.message().contains("Trainer performance gate found"));
-        assertTrue(result.markdown().contains("# Aljabr Trainer Performance Gate"));
+        assertTrue(result.markdown().contains("# Alkhawarizm Trainer Performance Gate"));
         assertTrue(result.toMap().containsKey("performance"));
         assertThrows(IllegalStateException.class, result::requirePassed);
     }
@@ -126,12 +126,12 @@ class TrainingReportQualityProfileValidationGateTest {
                 TrainingReportPerformanceGate.Policy.strict(),
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy());
         TrainingReportQualityProfileArtifacts.ArtifactBundle catalog =
-                Aljabr.DL.writeTrainingReportQualityProfileArtifacts(
+                Alkhawarizm.DL.writeTrainingReportQualityProfileArtifacts(
                         tempDir.resolve("catalog-profiles"),
                         List.of(custom));
 
         TrainingReportQualityProfileValidationGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfileValidationGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfileValidationGate(
                         reportFile,
                         catalog.jsonFile(),
                         "CATALOG_STRICT_METAL",
@@ -149,7 +149,7 @@ class TrainingReportQualityProfileValidationGateTest {
         Path reportFile = writeReport("default-report.json");
 
         TrainingReportQualityProfileValidationGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfileValidationGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfileValidationGate(
                         new TrainingReportQualityProfileValidationGate.Request(
                                 reportFile,
                                 null,
@@ -165,14 +165,14 @@ class TrainingReportQualityProfileValidationGateTest {
     @Test
     void writesVerifiesAndRefreshesProfileValidationGateArtifacts() throws IOException {
         TrainingReportQualityProfileValidationGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfileValidationGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfileValidationGate(
                         writeReport("artifact-report.json"),
                         "local-experiment",
                         tempDir.resolve("validation-gate"));
         Path artifacts = tempDir.resolve("profile-validation-gate-artifacts");
 
         TrainingReportQualityProfileValidationGateArtifacts.ArtifactBundle bundle =
-                Aljabr.DL.writeTrainingReportQualityProfileValidationGateArtifacts(artifacts, result);
+                Alkhawarizm.DL.writeTrainingReportQualityProfileValidationGateArtifacts(artifacts, result);
 
         assertEquals(TrainingReportQualityProfile.LOCAL_EXPERIMENT, bundle.profileId());
         assertTrue(bundle.passed());
@@ -182,18 +182,18 @@ class TrainingReportQualityProfileValidationGateTest {
         assertEquals(bundle.artifactMap(), bundle.toMap().get("artifact"));
 
         TrainingReportQualityProfileValidationGateArtifacts.ArtifactInspection inspection =
-                Aljabr.DL.readTrainingReportQualityProfileValidationGateArtifacts(artifacts);
+                Alkhawarizm.DL.readTrainingReportQualityProfileValidationGateArtifacts(artifacts);
         assertEquals(TrainingReportQualityProfile.LOCAL_EXPERIMENT, inspection.profileId().orElseThrow());
         assertTrue(inspection.passed());
         assertTrue(inspection.validationPassed());
         assertTrue(inspection.performancePassed());
         assertTrue(inspection.failureCodes().isEmpty());
-        assertTrue(inspection.markdown().contains("# Aljabr Training Quality Profile Validation Gate"));
+        assertTrue(inspection.markdown().contains("# Alkhawarizm Training Quality Profile Validation Gate"));
         assertTrue(inspection.markdown().contains("**Performance:** `PASS`"));
         assertEquals(bundle.artifactMap(), inspection.artifactMap());
 
         TrainingReportQualityProfileValidationGateArtifacts.ArtifactVerification verification =
-                Aljabr.DL.verifyTrainingReportQualityProfileValidationGateArtifacts(bundle);
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileValidationGateArtifacts(bundle);
         assertTrue(verification.passed());
         assertTrue(verification.profileKnown());
         assertTrue(verification.validationPayloadConsistent());
@@ -208,14 +208,14 @@ class TrainingReportQualityProfileValidationGateTest {
                 StandardCharsets.UTF_8,
                 StandardOpenOption.APPEND);
         TrainingReportQualityProfileValidationGateArtifacts.ArtifactVerification tampered =
-                Aljabr.DL.verifyTrainingReportQualityProfileValidationGateArtifacts(bundle);
+                Alkhawarizm.DL.verifyTrainingReportQualityProfileValidationGateArtifacts(bundle);
         assertFalse(tampered.passed());
         assertFalse(tampered.markdownSha256Matches());
         assertFalse(tampered.markdownMatchesJson());
         assertThrows(IllegalStateException.class, tampered::requirePassed);
 
         TrainingReportQualityProfileValidationGateArtifacts.ArtifactInspection refreshed =
-                Aljabr.DL.refreshTrainingReportQualityProfileValidationGateArtifacts(artifacts);
+                Alkhawarizm.DL.refreshTrainingReportQualityProfileValidationGateArtifacts(artifacts);
         TrainingReportQualityProfileValidationGateArtifacts.ArtifactVerification refreshedVerification =
                 TrainingReportQualityProfileValidationGateArtifacts.verify(
                         refreshed,

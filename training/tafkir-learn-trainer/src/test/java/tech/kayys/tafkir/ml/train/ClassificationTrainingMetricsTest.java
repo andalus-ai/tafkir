@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 
 @SuppressWarnings("deprecation")
@@ -47,8 +47,8 @@ class ClassificationTrainingMetricsTest {
     }
 
     @Test
-    void classificationCrossEntropyAliasAcceptsOneHotTargetsThroughAljabrFacade() {
-        CanonicalTrainer.Metric metric = Aljabr.DL.classificationCrossEntropyMetric().get();
+    void classificationCrossEntropyAliasAcceptsOneHotTargetsThroughAlkhawarizmFacade() {
+        CanonicalTrainer.Metric metric = Alkhawarizm.DL.classificationCrossEntropyMetric().get();
 
         metric.update(
                 GradTensor.of(new float[] {

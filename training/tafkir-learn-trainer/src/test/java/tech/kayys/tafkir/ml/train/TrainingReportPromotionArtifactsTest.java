@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPromotionArtifactsTest {
@@ -40,7 +40,7 @@ class TrainingReportPromotionArtifactsTest {
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
 
         TrainingReportPromotionArtifacts.ArtifactBundle bundle =
-                Aljabr.DL.writeTrainingReportPromotionArtifacts(
+                Alkhawarizm.DL.writeTrainingReportPromotionArtifacts(
                         reports,
                         "baseline",
                         TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -72,7 +72,7 @@ class TrainingReportPromotionArtifactsTest {
                 decisionCandidateReport.get("sourceSha256"));
 
         String markdown = Files.readString(bundle.markdownFile());
-        assertTrue(markdown.contains("# Aljabr Training Promotion Review"));
+        assertTrue(markdown.contains("# Alkhawarizm Training Promotion Review"));
         assertTrue(markdown.contains("`PROMOTE` candidate `candidate`"));
 
         Map<String, Object> map = bundle.toMap();
@@ -82,7 +82,7 @@ class TrainingReportPromotionArtifactsTest {
         assertEquals(Boolean.TRUE, map.get("promotable"));
 
         TrainingReportPromotionArtifacts.ArtifactInspection inspection =
-                Aljabr.DL.readTrainingReportPromotionArtifacts(bundle.directory());
+                Alkhawarizm.DL.readTrainingReportPromotionArtifacts(bundle.directory());
         assertEquals(bundle.jsonSha256(), inspection.jsonSha256());
         assertEquals(bundle.markdownSha256(), inspection.markdownSha256());
         assertTrue(inspection.promotable());
@@ -97,7 +97,7 @@ class TrainingReportPromotionArtifactsTest {
         assertEquals(inspection.artifactMap(), inspection.toMap().get("artifact"));
 
         TrainingReportPromotionArtifacts.ArtifactVerification verification =
-                Aljabr.DL.verifyTrainingReportPromotionArtifacts(bundle);
+                Alkhawarizm.DL.verifyTrainingReportPromotionArtifacts(bundle);
         assertTrue(verification.passed());
         assertTrue(verification.jsonSha256Matches());
         assertTrue(verification.markdownSha256Matches());
@@ -106,18 +106,18 @@ class TrainingReportPromotionArtifactsTest {
         verification.requirePassed();
 
         List<TrainingReportPromotionArtifacts.SourceReport> sourceReports =
-                Aljabr.DL.trainingReportPromotionSourceReports(inspection);
+                Alkhawarizm.DL.trainingReportPromotionSourceReports(inspection);
         assertEquals(2, sourceReports.size());
         assertEquals(TrainerCheckpointIO.sha256Hex(reports.get("baseline")), sourceReports.get(0).sha256());
 
         TrainingReportPromotionArtifacts.SourceVerification sourceVerification =
-                Aljabr.DL.verifyTrainingReportPromotionSourceReports(inspection);
+                Alkhawarizm.DL.verifyTrainingReportPromotionSourceReports(inspection);
         assertTrue(sourceVerification.passed());
         assertEquals(2, sourceVerification.reports().size());
         assertTrue(sourceVerification.toMap().containsKey("reports"));
 
         TrainingReportPromotionArtifacts.SourceVerification pathSourceVerification =
-                Aljabr.DL.verifyTrainingReportPromotionSourceReports(bundle.directory());
+                Alkhawarizm.DL.verifyTrainingReportPromotionSourceReports(bundle.directory());
         assertTrue(pathSourceVerification.passed());
     }
 
@@ -137,12 +137,12 @@ class TrainingReportPromotionArtifactsTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.75),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.5))));
 
-        TrainingReportPortfolio.PromotionReview review = Aljabr.DL.trainingReportPromotionReview(
+        TrainingReportPortfolio.PromotionReview review = Alkhawarizm.DL.trainingReportPromotionReview(
                 reports,
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy());
         TrainingReportPromotionArtifacts.ArtifactBundle bundle =
-                Aljabr.DL.writeTrainingReportPromotionArtifacts(
+                Alkhawarizm.DL.writeTrainingReportPromotionArtifacts(
                         tempDir.resolve("custom"),
                         review,
                         new TrainingReportPromotionArtifacts.Options("review.json", "review.md"));
@@ -153,7 +153,7 @@ class TrainingReportPromotionArtifactsTest {
         assertTrue(Files.exists(bundle.markdownFile()));
 
         TrainingReportPromotionArtifacts.ArtifactInspection inspection =
-                Aljabr.DL.readTrainingReportPromotionArtifacts(
+                Alkhawarizm.DL.readTrainingReportPromotionArtifacts(
                         tempDir.resolve("custom"),
                         new TrainingReportPromotionArtifacts.Options("review.json", "review.md"));
         assertEquals("candidate", inspection.decisionCandidate().orElseThrow());
@@ -175,7 +175,7 @@ class TrainingReportPromotionArtifactsTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
         TrainingReportPromotionArtifacts.ArtifactBundle bundle =
-                Aljabr.DL.writeTrainingReportPromotionArtifacts(
+                Alkhawarizm.DL.writeTrainingReportPromotionArtifacts(
                         reports,
                         "baseline",
                         TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -187,7 +187,7 @@ class TrainingReportPromotionArtifactsTest {
                 StandardCharsets.UTF_8);
 
         TrainingReportPromotionArtifacts.ArtifactVerification verification =
-                Aljabr.DL.verifyTrainingReportPromotionArtifacts(bundle);
+                Alkhawarizm.DL.verifyTrainingReportPromotionArtifacts(bundle);
 
         assertFalse(verification.passed());
         assertTrue(verification.jsonSha256Matches());
@@ -213,7 +213,7 @@ class TrainingReportPromotionArtifactsTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
         TrainingReportPromotionArtifacts.ArtifactBundle bundle =
-                Aljabr.DL.writeTrainingReportPromotionArtifacts(
+                Alkhawarizm.DL.writeTrainingReportPromotionArtifacts(
                         reports,
                         "baseline",
                         TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -226,9 +226,9 @@ class TrainingReportPromotionArtifactsTest {
                 StandardOpenOption.APPEND);
 
         TrainingReportPromotionArtifacts.ArtifactInspection inspection =
-                Aljabr.DL.readTrainingReportPromotionArtifacts(bundle.directory());
+                Alkhawarizm.DL.readTrainingReportPromotionArtifacts(bundle.directory());
         TrainingReportPromotionArtifacts.SourceVerification verification =
-                Aljabr.DL.verifyTrainingReportPromotionSourceReports(inspection);
+                Alkhawarizm.DL.verifyTrainingReportPromotionSourceReports(inspection);
 
         assertFalse(verification.passed());
         assertEquals(2, verification.reports().size());

@@ -72,7 +72,7 @@ public final class TrainingReportActionPlanMarkdown {
             TrainingReportRuntimeRegressionSummary runtimeRegressionSummary) {
         Objects.requireNonNull(actionPlan, "actionPlan must not be null");
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Training Action Plan");
+        appendLine(markdown, "# Alkhawarizm Training Action Plan");
         appendLine(markdown, "");
         appendLine(markdown, "**Status:** `" + actionPlan.status().name() + "`");
         appendLine(markdown, "**Highest diagnostic severity:** `"

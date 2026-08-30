@@ -1,7 +1,7 @@
-# Aljabr ML Byte-Latent
+# Alkhawarizm ML Byte-Latent
 
 This module is the initial Java package root for byte-latent language-modeling
-work in Aljabr.
+work in Alkhawarizm.
 
 It is intended for Fast Byte Latent Transformer style architectures and other
 byte-native latent models that should remain separate from diffusion-specific

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-schema-lock.v1.schema.json",
-  "title": "Aljabr checkpoint lineage health schema lock",
+  "title": "Alkhawarizm checkpoint lineage health schema lock",
   "description": "Stable lock payload for pinning the recursive-reasoning checkpoint lineage health schema set.",
   "type": "object",
   "additionalProperties": true,

@@ -1,14 +1,14 @@
 package tech.kayys.tafkir.nlp;
 
-import tech.kayys.alkhawarizm.sdk.api.AljabrSdk;
-import tech.kayys.alkhawarizm.sdk.api.AljabrSdkProvider;
+import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdk;
+import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdkProvider;
 import tech.kayys.alkhawarizm.spi.inference.InferenceRequest;
 import tech.kayys.alkhawarizm.spi.inference.InferenceResponse;
 
 import java.util.*;
 
 /**
- * Zero-shot text classification pipeline backed by the Aljabr inference engine.
+ * Zero-shot text classification pipeline backed by the Alkhawarizm inference engine.
  *
  * <p>
  * Classifies text into one of a set of predefined labels by constructing a
@@ -31,7 +31,7 @@ import java.util.*;
 public class TextClassificationPipeline implements Pipeline<String, TextClassificationPipeline.Classification> {
 
     private final String modelId;
-    private final AljabrSdk sdk;
+    private final AlkhawarizmSdk sdk;
     private final List<String> labels;
 
     /**
@@ -72,7 +72,7 @@ public class TextClassificationPipeline implements Pipeline<String, TextClassifi
      */
     public Classification classify(String text) {
         if (sdk == null) {
-            throw new PipelineException("No AljabrSdk provider available on classpath");
+            throw new PipelineException("No AlkhawarizmSdk provider available on classpath");
         }
         try {
             String prompt = "Classify the following text into one of these categories: "
@@ -124,10 +124,10 @@ public class TextClassificationPipeline implements Pipeline<String, TextClassifi
         return modelId;
     }
 
-    /** Resolves a {@link AljabrSdk} via {@link java.util.ServiceLoader}. */
-    private AljabrSdk resolveSdk() {
+    /** Resolves a {@link AlkhawarizmSdk} via {@link java.util.ServiceLoader}. */
+    private AlkhawarizmSdk resolveSdk() {
         try {
-            return java.util.ServiceLoader.load(AljabrSdkProvider.class)
+            return java.util.ServiceLoader.load(AlkhawarizmSdkProvider.class)
                     .findFirst()
                     .map(p -> p.create(null))
                     .orElse(null);

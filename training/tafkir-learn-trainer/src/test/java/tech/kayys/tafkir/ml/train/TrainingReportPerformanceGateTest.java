@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.AljabrDlTrainingFacade;
+import tech.kayys.tafkir.ml.AlkhawarizmDlTrainingFacade;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPerformanceGateTest {
@@ -52,10 +52,10 @@ class TrainingReportPerformanceGateTest {
                 assertFalse(result.passed());
                 assertEquals("performance.accelerator_fallback", result.findings().get(0).code());
                 assertEquals("failure", result.findings().get(0).severity());
-                assertEquals(result.toMap(), AljabrDlTrainingFacade.trainingReportPerformanceGate(report).toMap());
-                assertTrue(AljabrDlTrainingFacade.trainingReportPerformanceGateMarkdown(report)
+                assertEquals(result.toMap(), AlkhawarizmDlTrainingFacade.trainingReportPerformanceGate(report).toMap());
+                assertTrue(AlkhawarizmDlTrainingFacade.trainingReportPerformanceGateMarkdown(report)
                                 .contains("performance.accelerator_fallback"));
-                assertTrue(AljabrDlTrainingFacade.trainingReportPerformanceGateJUnitXml(report)
+                assertTrue(AlkhawarizmDlTrainingFacade.trainingReportPerformanceGateJUnitXml(report)
                                 .contains("performance-failure"));
                 assertThrows(IllegalStateException.class, result::requirePassed);
         }
@@ -156,11 +156,11 @@ class TrainingReportPerformanceGateTest {
                                 Map.entry("trainAverageBatchMillis", 500.0)))
                                 .performanceGate();
 
-                TrainingReportPerformanceGateArtifacts.ArtifactBundle bundle = AljabrDlTrainingFacade
+                TrainingReportPerformanceGateArtifacts.ArtifactBundle bundle = AlkhawarizmDlTrainingFacade
                                 .writeTrainingReportPerformanceGateArtifacts(tempDir, result);
-                TrainingReportPerformanceGateArtifacts.ArtifactInspection inspection = AljabrDlTrainingFacade
+                TrainingReportPerformanceGateArtifacts.ArtifactInspection inspection = AlkhawarizmDlTrainingFacade
                                 .readTrainingReportPerformanceGateArtifacts(tempDir);
-                TrainingReportPerformanceGateArtifacts.ArtifactVerification verification = AljabrDlTrainingFacade
+                TrainingReportPerformanceGateArtifacts.ArtifactVerification verification = AlkhawarizmDlTrainingFacade
                                 .verifyTrainingReportPerformanceGateArtifacts(bundle);
 
                 assertFalse(bundle.passed());
@@ -171,7 +171,7 @@ class TrainingReportPerformanceGateTest {
                 assertFalse(bundle.artifact().hasManifest());
                 assertEquals(bundle.artifactMap(), bundle.toMap().get("artifact"));
                 assertEquals(bundle.artifactMap(), inspection.artifactMap());
-                assertTrue(inspection.markdown().contains("# Aljabr Trainer Performance Gate"));
+                assertTrue(inspection.markdown().contains("# Alkhawarizm Trainer Performance Gate"));
                 assertTrue(inspection.junitXml().contains("alkhawarizm-trainer-performance-gate"));
                 assertTrue(verification.passed(), verification.message());
                 assertEquals(bundle.artifactMap(), verification.artifactMap());
@@ -179,15 +179,15 @@ class TrainingReportPerformanceGateTest {
                 verification.requirePassed();
 
                 Files.writeString(bundle.markdownFile(), inspection.markdown() + "\n<!-- stale -->\n");
-                TrainingReportPerformanceGateArtifacts.ArtifactVerification stale = AljabrDlTrainingFacade
+                TrainingReportPerformanceGateArtifacts.ArtifactVerification stale = AlkhawarizmDlTrainingFacade
                                 .verifyTrainingReportPerformanceGateArtifacts(tempDir);
                 assertFalse(stale.passed());
                 assertFalse(stale.markdownMatchesJson());
                 assertThrows(IllegalStateException.class, stale::requirePassed);
 
-                TrainingReportPerformanceGateArtifacts.ArtifactBundle refreshed = AljabrDlTrainingFacade
+                TrainingReportPerformanceGateArtifacts.ArtifactBundle refreshed = AlkhawarizmDlTrainingFacade
                                 .refreshTrainingReportPerformanceGateArtifacts(tempDir);
-                assertTrue(AljabrDlTrainingFacade.verifyTrainingReportPerformanceGateArtifacts(refreshed).passed());
+                assertTrue(AlkhawarizmDlTrainingFacade.verifyTrainingReportPerformanceGateArtifacts(refreshed).passed());
         }
 
         private static TrainingReport report(Map<String, Object> metadataValues) {

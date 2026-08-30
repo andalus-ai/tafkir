@@ -1,6 +1,6 @@
 rootProject.name = "tafkir-engine"
 
-// Aljabr is the compute engine — required composite build
+// Alkhawarizm is the compute engine — required composite build
 includeBuild("../alkhawarizm") {
     dependencySubstitution {
         substitute(module("tech.kayys.alkhawarizm:alkhawarizm-core"))

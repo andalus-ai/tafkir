@@ -19,7 +19,7 @@ final class TrainingReportPromotionGateArtifactReports {
         Map<String, Object> sourceVerification = mapValue(result, "sourceVerification");
 
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Training Promotion Gate");
+        appendLine(markdown, "# Alkhawarizm Training Promotion Gate");
         appendLine(markdown, "");
         appendLine(markdown, "**Gate:** `" + (booleanValue(result.get("passed")) ? "PASS" : "FAIL") + "`");
         appendLine(markdown, "**Status:** `" + stringValue(decision.get("status"), "UNKNOWN") + "`");

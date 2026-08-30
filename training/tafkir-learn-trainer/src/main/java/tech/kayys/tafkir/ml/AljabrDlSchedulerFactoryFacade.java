@@ -14,10 +14,10 @@ import tech.kayys.tafkir.ml.optim.WarmupCosineScheduler;
 import java.util.List;
 
 /**
- * Learning-rate scheduler construction helpers inherited by {@link Aljabr.DL}.
+ * Learning-rate scheduler construction helpers inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlSchedulerFactoryFacade extends AljabrDlOptimizerFactoryFacade {
-    protected AljabrDlSchedulerFactoryFacade() {
+public class AlkhawarizmDlSchedulerFactoryFacade extends AlkhawarizmDlOptimizerFactoryFacade {
+    protected AlkhawarizmDlSchedulerFactoryFacade() {
     }
 
     public static StepLR stepScheduler(

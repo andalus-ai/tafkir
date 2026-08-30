@@ -166,7 +166,7 @@ public final class PipelineFactory {
                 }
             } catch (Exception e) {
                 // ServiceLoader failure is non-fatal — log and continue with built-in tasks
-                System.err.println("[Aljabr] Warning: Failed to load pipeline plugins: " + e.getMessage());
+                System.err.println("[Alkhawarizm] Warning: Failed to load pipeline plugins: " + e.getMessage());
             }
         }
     }

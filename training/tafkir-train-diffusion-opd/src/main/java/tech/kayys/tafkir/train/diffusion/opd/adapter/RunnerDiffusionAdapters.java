@@ -13,7 +13,7 @@ import tech.kayys.tafkir.train.diffusion.api.DiffusionScheduler;
  *
  * <p>
  * This keeps DiffusionOPD training Java-native while reusing existing
- * Aljabr diffusion runner surfaces instead of introducing a separate bridge
+ * Alkhawarizm diffusion runner surfaces instead of introducing a separate bridge
  * layer for the algorithm itself. Use this adapter path when the source model
  * and scheduler already speak core {@link Tensor}; the safetensor-native
  * bridge lives in {@link StableDiffusionRunnerAdapters}.

@@ -16,7 +16,7 @@ import java.util.*;
  * <h3>Example — Transcription</h3>
  * 
  * <pre>{@code
- * var result = Aljabr.audio("whisper-large-v3")
+ * var result = Alkhawarizm.audio("whisper-large-v3")
  *         .audioFile(Path.of("meeting.wav"))
  *         .task("transcription")
  *         .language("en")
@@ -28,7 +28,7 @@ import java.util.*;
  * <h3>Example — Audio Understanding</h3>
  * 
  * <pre>{@code
- * var result = Aljabr.audio("gemini-2.0-flash")
+ * var result = Alkhawarizm.audio("gemini-2.0-flash")
  *         .audioFile(Path.of("song.mp3"))
  *         .prompt("Describe the mood and instruments in this music")
  *         .generate();

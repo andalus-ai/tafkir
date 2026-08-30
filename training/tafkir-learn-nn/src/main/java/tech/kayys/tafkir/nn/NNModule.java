@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 /**
- * Base class for all neural network modules in Aljabr ML.
+ * Base class for all neural network modules in Alkhawarizm ML.
  * <p>
  * Every layer, model, or network component extends {@code Module}.
  * Modules form a tree: a module can contain sub-modules, creating
@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * }</pre>
  *
  * <h3>PyTorch equivalence</h3>
- * This class is the Aljabr equivalent of {@code torch.nn.Module}.
+ * This class is the Alkhawarizm equivalent of {@code torch.nn.Module}.
  */
 public abstract class NNModule {
 

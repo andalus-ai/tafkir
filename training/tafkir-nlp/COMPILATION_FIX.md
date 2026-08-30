@@ -1,4 +1,4 @@
-# Aljabr NLP Module - Compilation Fix Summary
+# Alkhawarizm NLP Module - Compilation Fix Summary
 
 ## Date: April 10, 2026
 
@@ -22,10 +22,10 @@ Fixed compilation failures in `tafkir-ml-nlp` module caused by incorrect package
    - **Fix**: Changed to correct `tech.kayys.alkhawarizm.sdk.api` package
    - **Changes**:
      ```java
-     - import tech.kayys.alkhawarizm.lib.api.AljabrSdk;
-     - import tech.kayys.alkhawarizm.lib.api.AljabrSdkProvider;
-     + import tech.kayys.alkhawarizm.sdk.api.AljabrSdk;
-     + import tech.kayys.alkhawarizm.sdk.api.AljabrSdkProvider;
+     - import tech.kayys.alkhawarizm.lib.api.AlkhawarizmSdk;
+     - import tech.kayys.alkhawarizm.lib.api.AlkhawarizmSdkProvider;
+     + import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdk;
+     + import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdkProvider;
      ```
 
 3. **TextClassificationPipeline.java**
@@ -33,10 +33,10 @@ Fixed compilation failures in `tafkir-ml-nlp` module caused by incorrect package
    - **Fix**: Updated to `tech.kayys.alkhawarizm.sdk.api`
    - **Changes**:
      ```java
-     - import tech.kayys.alkhawarizm.lib.api.AljabrSdk;
-     - import tech.kayys.alkhawarizm.lib.api.AljabrSdkProvider;
-     + import tech.kayys.alkhawarizm.sdk.api.AljabrSdk;
-     + import tech.kayys.alkhawarizm.sdk.api.AljabrSdkProvider;
+     - import tech.kayys.alkhawarizm.lib.api.AlkhawarizmSdk;
+     - import tech.kayys.alkhawarizm.lib.api.AlkhawarizmSdkProvider;
+     + import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdk;
+     + import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdkProvider;
      ```
 
 4. **TextGenerationPipeline.java**
@@ -44,10 +44,10 @@ Fixed compilation failures in `tafkir-ml-nlp` module caused by incorrect package
    - **Fix**: Updated to `tech.kayys.alkhawarizm.sdk.api`
    - **Changes**:
      ```java
-     - import tech.kayys.alkhawarizm.lib.api.AljabrSdk;
-     - import tech.kayys.alkhawarizm.lib.api.AljabrSdkProvider;
-     + import tech.kayys.alkhawarizm.sdk.api.AljabrSdk;
-     + import tech.kayys.alkhawarizm.sdk.api.AljabrSdkProvider;
+     - import tech.kayys.alkhawarizm.lib.api.AlkhawarizmSdk;
+     - import tech.kayys.alkhawarizm.lib.api.AlkhawarizmSdkProvider;
+     + import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdk;
+     + import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdkProvider;
      ```
 
 ## Root Cause
@@ -68,7 +68,7 @@ All required dependencies are correctly declared in `pom.xml`:
     <version>${project.version}</version>
 </dependency>
 
-<!-- SDK API (provides AljabrSdk, AljabrSdkProvider) -->
+<!-- SDK API (provides AlkhawarizmSdk, AlkhawarizmSdkProvider) -->
 <dependency>
     <groupId>tech.kayys.alkhawarizm</groupId>
     <artifactId>alkhawarizm-sdk-api</artifactId>
@@ -78,21 +78,21 @@ All required dependencies are correctly declared in `pom.xml`:
 
 ## Package Structure Reference
 
-### Aljabr SDK
+### Alkhawarizm SDK
 - **Package**: `tech.kayys.alkhawarizm.sdk.api`
 - **Location**: `alkhawarizm/sdk/alkhawarizm-sdk-api/src/main/java/tech/kayys/alkhawarizm/sdk/api/`
 - **Classes**:
-  - `AljabrSdk` - Main SDK interface
-  - `AljabrSdkProvider` - Provider interface for ServiceLoader
+  - `AlkhawarizmSdk` - Main SDK interface
+  - `AlkhawarizmSdkProvider` - Provider interface for ServiceLoader
 
-### Aljabr ML NN
+### Alkhawarizm ML NN
 - **Package**: `tech.kayys.tafkir.ml.nn`
 - **Location**: `alkhawarizm/framework/lib/tafkir-ml-nn/src/main/java/tech/kayys/alkhawarizm/ml/nn/`
 - **Classes**:
   - `NNModule` - Base class for neural network modules
   - `Parameter` - Neural network parameter wrapper
 
-### Aljabr ML NLP (this module)
+### Alkhawarizm ML NLP (this module)
 - **Package**: `tech.kayys.tafkir.ml.nlp`
 - **Location**: `alkhawarizm/framework/lib/tafkir-ml-nlp/src/main/java/tech/kayys/alkhawarizm/ml/nlp/`
 - **Classes**:

@@ -22,7 +22,7 @@ import tech.kayys.tafkir.train.diffusion.api.DiffusionScheduler;
  * Java diffusion OPD contracts.
  *
  * <p>
- * This is the bridge point for aligning Aljabr's inference-side Stable
+ * This is the bridge point for aligning Alkhawarizm's inference-side Stable
  * Diffusion runtime with the Java-first diffusion training stack. The
  * scheduler path is directly adaptable, while the UNet path requires an
  * explicit tensor bridge because the stable-diffusion-native runner uses

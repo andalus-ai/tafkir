@@ -8,7 +8,7 @@ import tech.kayys.tafkir.ml.ensemble.*;
 import tech.kayys.tafkir.ml.persistence.ModelPersistence;
 
 /**
- * Bridge for loading Aljabr models in Python.
+ * Bridge for loading Alkhawarizm models in Python.
  * Generates Python code and data files for seamless interoperability.
  */
 public class PythonBridge {
@@ -17,7 +17,7 @@ public class PythonBridge {
      * Export model to Python pickle format with metadata.
      */
     public static void exportToPython(BaseEstimator model, String basePath) throws IOException {
-        // Save model in Aljabr native format
+        // Save model in Alkhawarizm native format
         String modelPath = basePath + ".alkhawarizm";
         ModelPersistence.save(model, modelPath);
 
@@ -53,7 +53,7 @@ public class PythonBridge {
                 # -*- coding: utf-8 -*-
 
                 \"\"\"
-                Aljabr Model Loader for Python
+                Alkhawarizm Model Loader for Python
                 Generated from: %s
                 Model type: %s
                 \"\"\"
@@ -62,11 +62,11 @@ public class PythonBridge {
                 import numpy as np
                 from typing import List, Union
 
-                class AljabrModelWrapper:
-                    \"\"\"Wrapper for Aljabr model loaded from pickle.\"\"\"
+                class AlkhawarizmModelWrapper:
+                    \"\"\"Wrapper for Alkhawarizm model loaded from pickle.\"\"\"
 
                     def __init__(self, model_path: str):
-                        \"\"\"Load Aljabr model from pickle file.\"\"\"
+                        \"\"\"Load Alkhawarizm model from pickle file.\"\"\"
                         with open(model_path, 'rb') as f:
                             self._model = pickle.load(f)
 
@@ -108,13 +108,13 @@ public class PythonBridge {
                         # This would call into Java via JNI or REST
                         return np.zeros((len(X), self._model.n_classes_), dtype=np.float32)
 
-                class %sWrapper(AljabrModelWrapper):
+                class %sWrapper(AlkhawarizmModelWrapper):
                     \"\"\"Wrapper for %s model.\"\"\"
                     pass
 
-                def load_model(model_path: str = "%s.pkl") -> AljabrModelWrapper:
-                    \"\"\"Load the Aljabr model.\"\"\"
-                    return AljabrModelWrapper(model_path)
+                def load_model(model_path: str = "%s.pkl") -> AlkhawarizmModelWrapper:
+                    \"\"\"Load the Alkhawarizm model.\"\"\"
+                    return AlkhawarizmModelWrapper(model_path)
 
                 if __name__ == "__main__":
                     # Example usage

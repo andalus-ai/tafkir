@@ -1,7 +1,7 @@
-# Aljabr ML Recursive Reasoning
+# Alkhawarizm ML Recursive Reasoning
 
 This module is the initial Java package root for recursive reasoning model
-families in Aljabr.
+families in Alkhawarizm.
 
 The first target is the GRAM paper:
 

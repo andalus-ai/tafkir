@@ -18,7 +18,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPortfolioTest {
@@ -47,7 +47,7 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
 
-        TrainingReportPortfolio portfolio = Aljabr.DL.trainingReportPortfolio(reports);
+        TrainingReportPortfolio portfolio = Alkhawarizm.DL.trainingReportPortfolio(reports);
 
         assertEquals(
                 List.of("candidate-warning", "candidate-clean", "baseline"),
@@ -93,7 +93,7 @@ class TrainingReportPortfolioTest {
                 "baseline,candidate-clean,bestValidationLoss,LOWER_IS_BETTER,true,0.7,0.45"));
         assertTrue(export.comparisonFindingsCsv().contains("candidate-warning"));
         assertTrue(export.comparisonFindingsCsv().contains("comparison.diagnostics.regressed"));
-        assertTrue(Aljabr.DL.trainingReportPortfolioExport(reports, "baseline")
+        assertTrue(Alkhawarizm.DL.trainingReportPortfolioExport(reports, "baseline")
                 .comparisonFindingsCsv()
                 .contains("comparison.latest_validation_loss.regressed"));
         assertThrows(UnsupportedOperationException.class,
@@ -114,7 +114,7 @@ class TrainingReportPortfolioTest {
                 "INFO",
                 ((Map<?, ?>) decision.toMap().get("policy")).get("maxCandidateDiagnosticSeverity"));
 
-        TrainingReportPortfolio.PromotionDecision facadeDecision = Aljabr.DL.trainingReportPromotionDecision(
+        TrainingReportPortfolio.PromotionDecision facadeDecision = Alkhawarizm.DL.trainingReportPromotionDecision(
                 reports,
                 "baseline",
                 TrainingReportDiagnostics.Severity.INFO);
@@ -138,7 +138,7 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45)),
                 warningDataHealthMetadata()));
 
-        TrainingReportPortfolio portfolio = Aljabr.DL.trainingReportPortfolio(reports);
+        TrainingReportPortfolio portfolio = Alkhawarizm.DL.trainingReportPortfolio(reports);
         TrainingReportPortfolio.Entry candidate = portfolio.entry("candidate").orElseThrow();
         TrainingReportPortfolioExport export = portfolio.exportAgainst("baseline");
         Map<String, Object> candidateRow = export.leaderboardRows().stream()
@@ -184,7 +184,7 @@ class TrainingReportPortfolioTest {
 
         Path directory = tempDir.resolve("portfolio-artifacts");
         TrainingReportPortfolioArtifacts.ArtifactBundle bundle =
-                Aljabr.DL.writeTrainingReportPortfolioExportArtifacts(directory, reports, "baseline");
+                Alkhawarizm.DL.writeTrainingReportPortfolioExportArtifacts(directory, reports, "baseline");
 
         assertTrue(Files.exists(bundle.jsonFile()));
         assertTrue(Files.exists(bundle.markdownFile()));
@@ -212,10 +212,10 @@ class TrainingReportPortfolioTest {
         String comparisonFindingsCsv = Files.readString(bundle.comparisonFindingsCsvFile(), StandardCharsets.UTF_8);
 
         assertTrue(json.contains(TrainingReportPortfolioExport.SCHEMA));
-        assertTrue(markdown.contains("# Aljabr Training Portfolio Export"));
+        assertTrue(markdown.contains("# Alkhawarizm Training Portfolio Export"));
         assertTrue(markdown.contains("| `candidate` |"));
         assertTrue(markdown.contains("Baseline Comparison Summary"));
-        assertTrue(Aljabr.DL.trainingReportPortfolioMarkdown(reports, "baseline").contains("Comparison metrics"));
+        assertTrue(Alkhawarizm.DL.trainingReportPortfolioMarkdown(reports, "baseline").contains("Comparison metrics"));
         assertTrue(leaderboardCsv.contains("1,candidate,0.45,0.45,0.45,0.4"));
         assertTrue(comparisonMetricsCsv.contains("baseline,candidate,bestValidationLoss"));
         assertEquals("baselineReport,candidateReport,severity,code,message,metric,evidence\n", comparisonFindingsCsv);
@@ -226,7 +226,7 @@ class TrainingReportPortfolioTest {
         assertEquals(8, bundle.toMap().get("comparisonMetricCount"));
 
         TrainingReportPortfolioArtifacts.ArtifactInspection inspection =
-                Aljabr.DL.readTrainingReportPortfolioExportArtifacts(directory);
+                Alkhawarizm.DL.readTrainingReportPortfolioExportArtifacts(directory);
         assertEquals(2, inspection.entryCount());
         assertEquals(8, inspection.comparisonMetricCount());
         assertEquals(0, inspection.comparisonFindingCount());
@@ -243,11 +243,11 @@ class TrainingReportPortfolioTest {
         assertEquals(bundle.artifactMap(), inspection.artifactMap());
         assertEquals(inspection.artifactMap(), inspection.toMap().get("artifact"));
         assertEquals(2, inspection.toMap().get("entryCount"));
-        assertTrue(Aljabr.DL.trainingReportPortfolioArtifactMarkdown(bundle)
+        assertTrue(Alkhawarizm.DL.trainingReportPortfolioArtifactMarkdown(bundle)
                 .contains("Markdown summary"));
 
         TrainingReportPortfolioArtifacts.ArtifactVerification verification =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifacts(bundle);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifacts(bundle);
         assertTrue(verification.passed());
         verification.requirePassed();
         assertTrue(verification.message().contains("verified"));
@@ -259,11 +259,11 @@ class TrainingReportPortfolioTest {
         assertTrue(verification.comparisonFindingsCsvMatchesJson());
         assertEquals(bundle.artifactMap(), verification.artifactMap());
         assertEquals(verification.artifactMap(), verification.toMap().get("artifact"));
-        assertTrue(Aljabr.DL.trainingReportPortfolioArtifactVerificationMarkdown(verification)
+        assertTrue(Alkhawarizm.DL.trainingReportPortfolioArtifactVerificationMarkdown(verification)
                 .contains("Portfolio Artifact Verification"));
 
         TrainingReportPortfolioArtifactManifest.ManifestBundle manifest =
-                Aljabr.DL.writeTrainingReportPortfolioExportArtifactManifest(bundle);
+                Alkhawarizm.DL.writeTrainingReportPortfolioExportArtifactManifest(bundle);
         assertTrue(Files.exists(manifest.manifestFile()));
         assertEquals(TrainerCheckpointIO.sha256Hex(manifest.manifestFile()), manifest.manifestSha256());
         assertEquals(2, manifest.entryCount());
@@ -272,7 +272,7 @@ class TrainingReportPortfolioTest {
         assertEquals(bundle.markdownFile(), manifest.artifacts().markdownFile());
 
         TrainingReportPortfolioArtifactManifest.ManifestInspection manifestInspection =
-                Aljabr.DL.readTrainingReportPortfolioExportArtifactManifest(directory);
+                Alkhawarizm.DL.readTrainingReportPortfolioExportArtifactManifest(directory);
         assertEquals(TrainingReportPortfolioArtifactManifest.FORMAT_VERSION, manifestInspection.formatVersion());
         assertEquals(2, manifestInspection.entryCount());
         assertEquals(8, manifestInspection.comparisonMetricCount());
@@ -283,7 +283,7 @@ class TrainingReportPortfolioTest {
         assertEquals(markdown, TrainingReportPortfolioArtifactManifest.readArtifacts(manifestInspection).markdown());
 
         TrainingReportPortfolioArtifactManifest.ManifestVerification manifestVerification =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifactManifest(manifest);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifactManifest(manifest);
         assertTrue(manifestVerification.passed());
         manifestVerification.requirePassed();
         assertTrue(manifestVerification.manifestSha256Matches());
@@ -293,7 +293,7 @@ class TrainingReportPortfolioTest {
 
         Path packageDirectory = tempDir.resolve("portfolio-package");
         TrainingReportPortfolioArtifactPackage.VerifiedPackageBundle verifiedPackage =
-                Aljabr.DL.writeAndVerifyTrainingReportPortfolioExportArtifactPackage(
+                Alkhawarizm.DL.writeAndVerifyTrainingReportPortfolioExportArtifactPackage(
                         packageDirectory,
                         reports,
                         "baseline");
@@ -305,7 +305,7 @@ class TrainingReportPortfolioTest {
         assertTrue(verifiedPackage.toMap().containsKey("verification"));
 
         TrainingReportPortfolioArtifactPackage.PackageInspection packageInspection =
-                Aljabr.DL.readTrainingReportPortfolioExportArtifactPackage(packageDirectory);
+                Alkhawarizm.DL.readTrainingReportPortfolioExportArtifactPackage(packageDirectory);
         assertEquals(2, packageInspection.entryCount());
         assertEquals(8, packageInspection.comparisonMetricCount());
         assertEquals(TrainingReportPortfolioExport.SCHEMA, packageInspection.artifacts().export().get("schema"));
@@ -314,14 +314,14 @@ class TrainingReportPortfolioTest {
                 packageInspection.manifest().manifestSha256());
 
         TrainingReportPortfolioArtifactManifest.ManifestVerification packageVerification =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifactPackage(verifiedPackage.bundle());
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifactPackage(verifiedPackage.bundle());
         assertTrue(packageVerification.passed());
         assertTrue(packageVerification.artifactVerificationOptional().orElseThrow().markdownSha256Matches());
-        assertTrue(Aljabr.DL.trainingReportPortfolioArtifactPackageVerificationJson(packageVerification)
+        assertTrue(Alkhawarizm.DL.trainingReportPortfolioArtifactPackageVerificationJson(packageVerification)
                 .contains(TrainingReportPortfolioArtifactPackageReport.FORMAT));
-        assertTrue(Aljabr.DL.trainingReportPortfolioArtifactPackageVerificationMarkdown(packageVerification)
+        assertTrue(Alkhawarizm.DL.trainingReportPortfolioArtifactPackageVerificationMarkdown(packageVerification)
                 .contains("`PASS`"));
-        String packageJunitXml = Aljabr.DL.trainingReportPortfolioArtifactPackageVerificationJunitXml(
+        String packageJunitXml = Alkhawarizm.DL.trainingReportPortfolioArtifactPackageVerificationJunitXml(
                 packageVerification);
         assertTrue(packageJunitXml.contains("tests=\"4\""));
         assertTrue(packageJunitXml.contains("failures=\"0\""));
@@ -329,7 +329,7 @@ class TrainingReportPortfolioTest {
         assertWellFormedXml(packageJunitXml);
 
         TrainingReportPortfolioArtifactPackageReport.ReportBundle verificationReport =
-                Aljabr.DL.writeTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.writeTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         packageVerification);
         assertTrue(verificationReport.passed());
@@ -354,14 +354,14 @@ class TrainingReportPortfolioTest {
         assertTrue(reportJunitXml.contains("name=\"artifact.comparisonMetricsCsv.file\""));
         assertWellFormedXml(reportJunitXml);
         TrainingReportPortfolioArtifactPackageReport.ReportInspection reportInspection =
-                Aljabr.DL.readTrainingReportPortfolioArtifactPackageVerificationReport(packageDirectory);
+                Alkhawarizm.DL.readTrainingReportPortfolioArtifactPackageVerificationReport(packageDirectory);
         assertEquals(TrainingReportPortfolioArtifactPackageReport.FORMAT, reportInspection.format());
         assertEquals(TrainingReportPortfolioArtifactPackageReport.SCHEMA_VERSION, reportInspection.schemaVersion());
         assertEquals(
                 TrainingReportPortfolioArtifactPackageReport.contentFingerprint(packageVerification),
                 reportInspection.contentFingerprint());
         assertEquals(
-                Aljabr.DL.trainingReportPortfolioArtifactPackageContentFingerprint(packageVerification),
+                Alkhawarizm.DL.trainingReportPortfolioArtifactPackageContentFingerprint(packageVerification),
                 reportInspection.contentFingerprint());
         assertEquals(64, reportInspection.contentFingerprint().length());
         assertTrue(reportInspection.packagePassed());
@@ -369,7 +369,7 @@ class TrainingReportPortfolioTest {
         assertEquals(verificationReport.artifactMap(), reportInspection.artifactMap());
         assertEquals(reportInspection.artifactMap(), reportInspection.toMap().get("artifact"));
         TrainingReportPortfolioArtifactPackageReport.ReportVerification reportVerification =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(verificationReport);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(verificationReport);
         assertTrue(reportVerification.passed());
         assertTrue(reportVerification.jsonFormatMatches());
         assertTrue(reportVerification.schemaVersionMatches());
@@ -385,7 +385,7 @@ class TrainingReportPortfolioTest {
         assertEquals(reportVerification.artifactMap(), reportVerification.toMap().get("artifact"));
         reportVerification.requirePassed();
         TrainingReportPortfolioArtifactPackageReport.ReportPackageConsistency reportConsistency =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
                         verificationReport,
                         packageDirectory);
         assertTrue(reportConsistency.passed());
@@ -404,14 +404,14 @@ class TrainingReportPortfolioTest {
                 packageMetricsCsv + "# tampered\n",
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactManifest.ManifestVerification tamperedPackage =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifactPackage(verifiedPackage.bundle());
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifactPackage(verifiedPackage.bundle());
         assertFalse(tamperedPackage.passed());
         assertFalse(tamperedPackage.artifactSha256Match());
         assertTrue(tamperedPackage.failures().stream()
                 .anyMatch(failure -> failure.contains("comparisonMetricsCsv artifact")));
-        assertTrue(Aljabr.DL.trainingReportPortfolioArtifactPackageVerificationMarkdown(tamperedPackage)
+        assertTrue(Alkhawarizm.DL.trainingReportPortfolioArtifactPackageVerificationMarkdown(tamperedPackage)
                 .contains("`FAIL`"));
-        String tamperedJunitXml = Aljabr.DL.trainingReportPortfolioArtifactPackageVerificationJunitXml(
+        String tamperedJunitXml = Alkhawarizm.DL.trainingReportPortfolioArtifactPackageVerificationJunitXml(
                 tamperedPackage);
         assertTrue(tamperedJunitXml.contains("failures=\"3\""));
         assertTrue(tamperedJunitXml.contains("type=\"ARTIFACT_BYTES\""));
@@ -419,7 +419,7 @@ class TrainingReportPortfolioTest {
         assertTrue(tamperedJunitXml.contains("comparisonMetricsCsv artifact"));
         assertWellFormedXml(tamperedJunitXml);
         TrainingReportPortfolioArtifactPackageReport.ReportPackageConsistency staleReportConsistency =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
                         verificationReport,
                         packageDirectory);
         assertFalse(staleReportConsistency.passed());
@@ -430,7 +430,7 @@ class TrainingReportPortfolioTest {
                 .anyMatch(failure -> failure.contains("Verification report field 'passed' is stale")));
         assertThrows(IllegalStateException.class, staleReportConsistency::requireGatePassed);
         TrainingReportPortfolioArtifactPackageReport.ReportBundle tamperedReport =
-                Aljabr.DL.writeTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.writeTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         tamperedPackage);
         assertFalse(tamperedReport.passed());
@@ -439,7 +439,7 @@ class TrainingReportPortfolioTest {
         assertTrue(Files.readString(tamperedReport.junitXmlFile(), StandardCharsets.UTF_8)
                 .contains("failures=\"3\""));
         TrainingReportPortfolioArtifactPackageReport.ReportVerification tamperedReportVerification =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(tamperedReport);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(tamperedReport);
         assertTrue(tamperedReportVerification.passed());
         assertTrue(tamperedReportVerification.jsonShapeValid());
         assertTrue(tamperedReportVerification.contentFingerprintConsistent());
@@ -451,7 +451,7 @@ class TrainingReportPortfolioTest {
         assertFalse(tamperedReportVerification.inspection().packagePassed());
         assertEquals(4, tamperedReportVerification.inspection().failureCount());
         TrainingReportPortfolioArtifactPackageReport.ReportPackageConsistency tamperedReportConsistency =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
                         tamperedReport,
                         packageDirectory);
         assertTrue(tamperedReportConsistency.passed());
@@ -482,7 +482,7 @@ class TrainingReportPortfolioTest {
                 tamperedReport.markdownFile(),
                 tamperedReport.junitXmlFile());
         TrainingReportPortfolioArtifactPackageReport.ReportPackageConsistency staleMetadataConsistency =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
                         packageDirectory,
                         packageDirectory,
                         null,
@@ -500,7 +500,7 @@ class TrainingReportPortfolioTest {
         Files.writeString(tamperedReport.junitXmlFile(), tamperedReportJunitXml, StandardCharsets.UTF_8);
 
         int originalEntryCount = tamperedPackage.inspection().entryCount();
-        String originalSummaryFingerprint = Aljabr.DL.readTrainingReportPortfolioArtifactPackageVerificationReport(
+        String originalSummaryFingerprint = Alkhawarizm.DL.readTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory)
                 .contentFingerprint();
         Files.writeString(
@@ -528,7 +528,7 @@ class TrainingReportPortfolioTest {
                 tamperedReport.markdownFile(),
                 tamperedReport.junitXmlFile());
         TrainingReportPortfolioArtifactPackageReport.ReportVerification mismatchedPackageInspection =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -572,7 +572,7 @@ class TrainingReportPortfolioTest {
                 tamperedReport.markdownFile(),
                 tamperedReport.junitXmlFile());
         TrainingReportPortfolioArtifactPackageReport.ReportVerification mismatchedArtifactInventory =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -599,7 +599,7 @@ class TrainingReportPortfolioTest {
                         "\"actualJsonSha256\":\"" + "0".repeat(64) + "\""),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification inconsistentArtifactVerification =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -635,7 +635,7 @@ class TrainingReportPortfolioTest {
                 tamperedReport.markdownFile(),
                 tamperedReport.junitXmlFile());
         TrainingReportPortfolioArtifactPackageReport.ReportPackageConsistency staleArtifactVerificationConsistency =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
                         packageDirectory,
                         packageDirectory,
                         null,
@@ -676,7 +676,7 @@ class TrainingReportPortfolioTest {
                 tamperedReport.markdownFile(),
                 tamperedReport.junitXmlFile());
         TrainingReportPortfolioArtifactPackageReport.ReportPackageConsistency staleArtifactInspectionConsistency =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
                         packageDirectory,
                         packageDirectory,
                         null,
@@ -705,7 +705,7 @@ class TrainingReportPortfolioTest {
                 tamperedReportJunitXml.replace(tamperedReportManifestSha256, staleManifestSha256),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification staleManifestFingerprint =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -720,7 +720,7 @@ class TrainingReportPortfolioTest {
         Files.writeString(tamperedReport.jsonFile(), tamperedReportJson, StandardCharsets.UTF_8);
         Files.writeString(tamperedReport.junitXmlFile(), tamperedReportJunitXml, StandardCharsets.UTF_8);
 
-        String originalContentFingerprint = Aljabr.DL.readTrainingReportPortfolioArtifactPackageVerificationReport(
+        String originalContentFingerprint = Alkhawarizm.DL.readTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory)
                 .contentFingerprint();
         Files.writeString(
@@ -730,7 +730,7 @@ class TrainingReportPortfolioTest {
                         "\"contentFingerprint\":\"" + "2".repeat(64) + "\""),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification staleContentFingerprint =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -746,7 +746,7 @@ class TrainingReportPortfolioTest {
                 tamperedReportJson.replace("\"manifestSha256\":", "\"manifestSha256Missing\":"),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification malformedReportInspection =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -763,7 +763,7 @@ class TrainingReportPortfolioTest {
                 tamperedReportJson.replace("\"leaderboardCsvFile\":", "\"leaderboardCsvFileMissing\":"),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification malformedArtifactInspection =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -782,7 +782,7 @@ class TrainingReportPortfolioTest {
                         "\"schemaVersion\":999"),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification unsupportedSchemaVersion =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -801,7 +801,7 @@ class TrainingReportPortfolioTest {
                 tamperedReportMarkdown.replace("**Verification:** `FAIL`", "**Verification:** `PASS`"),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification driftedMarkdown =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -822,7 +822,7 @@ class TrainingReportPortfolioTest {
                         "`" + shortSha("5".repeat(64)) + "`"),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification driftedMarkdownArtifact =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -841,7 +841,7 @@ class TrainingReportPortfolioTest {
                 tamperedReportJunitXml.replace("failures=\"3\"", "failures=\"0\""),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification driftedJunitXml =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -861,7 +861,7 @@ class TrainingReportPortfolioTest {
                 artifactJunitXmlDrift.replace(actualArtifactJsonSha256, "6".repeat(64)),
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification driftedJunitXmlArtifact =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -881,7 +881,7 @@ class TrainingReportPortfolioTest {
                 "{\"format\":\"" + TrainingReportPortfolioArtifactPackageReport.FORMAT + "\"}\n",
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification malformedJsonShape =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(
                         packageDirectory,
                         null,
                         null,
@@ -895,7 +895,7 @@ class TrainingReportPortfolioTest {
 
         Files.writeString(tamperedReport.junitXmlFile(), "<testsuite>", StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifactPackageReport.ReportVerification corruptedReportVerification =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(tamperedReport);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(tamperedReport);
         assertFalse(corruptedReportVerification.passed());
         assertFalse(corruptedReportVerification.junitXmlSha256Matches());
         assertTrue(corruptedReportVerification.jsonShapeValid());
@@ -912,21 +912,21 @@ class TrainingReportPortfolioTest {
                 leaderboardCsv + "# tampered\n",
                 StandardCharsets.UTF_8);
         TrainingReportPortfolioArtifacts.ArtifactVerification tampered =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifacts(bundle);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifacts(bundle);
         assertFalse(tampered.passed());
         assertFalse(tampered.leaderboardCsvSha256Matches());
         assertTrue(tampered.failures().stream()
                 .anyMatch(failure -> failure.contains("Leaderboard CSV checksum mismatch")));
         assertThrows(IllegalStateException.class, tampered::requirePassed);
         TrainingReportPortfolioArtifactManifest.ManifestVerification tamperedManifest =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifactManifest(manifest);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifactManifest(manifest);
         assertFalse(tamperedManifest.passed());
         assertFalse(tamperedManifest.artifactBytesMatch());
         assertFalse(tamperedManifest.artifactSha256Match());
         assertTrue(tamperedManifest.failures().stream()
                 .anyMatch(failure -> failure.contains("leaderboardCsv artifact")));
 
-        TrainingReportPortfolio portfolio = Aljabr.DL.trainingReportPortfolio(reports);
+        TrainingReportPortfolio portfolio = Alkhawarizm.DL.trainingReportPortfolio(reports);
         assertThrows(IllegalArgumentException.class, () -> TrainingReportPortfolioArtifacts.write(
                 tempDir.resolve("bad-portfolio-artifacts"),
                 portfolio,
@@ -951,7 +951,7 @@ class TrainingReportPortfolioTest {
 
         Path directory = tempDir.resolve("refresh-portfolio-artifacts");
         TrainingReportPortfolioArtifacts.ArtifactBundle original =
-                Aljabr.DL.writeTrainingReportPortfolioExportArtifacts(directory, reports, "baseline");
+                Alkhawarizm.DL.writeTrainingReportPortfolioExportArtifacts(directory, reports, "baseline");
         Files.writeString(
                 original.markdownFile(),
                 "\nmanual stale edit\n",
@@ -963,16 +963,16 @@ class TrainingReportPortfolioTest {
                 StandardCharsets.UTF_8,
                 java.nio.file.StandardOpenOption.APPEND);
         TrainingReportPortfolioArtifacts.ArtifactVerification stale =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifacts(directory, null, null, null, null, null);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifacts(directory, null, null, null, null, null);
 
         assertFalse(stale.passed());
         assertFalse(stale.markdownMatchesJson());
         assertFalse(stale.leaderboardCsvMatchesJson());
 
         TrainingReportPortfolioArtifacts.ArtifactBundle refreshed =
-                Aljabr.DL.refreshTrainingReportPortfolioExportArtifacts(directory);
+                Alkhawarizm.DL.refreshTrainingReportPortfolioExportArtifacts(directory);
         TrainingReportPortfolioArtifacts.ArtifactVerification refreshedVerification =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifacts(refreshed);
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifacts(refreshed);
 
         assertEquals(original.jsonSha256(), refreshed.jsonSha256());
         assertFalse(Files.readString(refreshed.markdownFile(), StandardCharsets.UTF_8)
@@ -1003,15 +1003,15 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
 
         TrainingReportPortfolioArtifactPackage.PackageBundle bundle =
-                Aljabr.DL.writeTrainingReportPortfolioExportArtifactPackage(
+                Alkhawarizm.DL.writeTrainingReportPortfolioExportArtifactPackage(
                         tempDir.resolve("refresh-portfolio-package"),
                         reports,
                         "baseline");
         String originalManifestSha256 = bundle.manifest().manifestSha256();
         TrainingReportPortfolioArtifactPackageReport.ReportBundle originalReport =
-                Aljabr.DL.writeTrainingReportPortfolioArtifactPackageVerificationReport(
+                Alkhawarizm.DL.writeTrainingReportPortfolioArtifactPackageVerificationReport(
                         bundle.directory(),
-                        Aljabr.DL.verifyTrainingReportPortfolioExportArtifactPackage(bundle.directory()));
+                        Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifactPackage(bundle.directory()));
 
         Files.writeString(
                 bundle.artifacts().markdownFile(),
@@ -1029,7 +1029,7 @@ class TrainingReportPortfolioTest {
                 StandardCharsets.UTF_8,
                 java.nio.file.StandardOpenOption.APPEND);
         TrainingReportPortfolioArtifactManifest.ManifestVerification stale =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifactPackage(bundle.directory());
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifactPackage(bundle.directory());
 
         assertFalse(stale.passed());
         assertFalse(stale.artifactSha256Match());
@@ -1037,9 +1037,9 @@ class TrainingReportPortfolioTest {
         assertFalse(stale.artifactVerification().leaderboardCsvMatchesJson());
 
         TrainingReportPortfolioArtifactPackage.PackageRefresh refresh =
-                Aljabr.DL.refreshTrainingReportPortfolioExportArtifactPackage(bundle.directory());
+                Alkhawarizm.DL.refreshTrainingReportPortfolioExportArtifactPackage(bundle.directory());
         TrainingReportPortfolioArtifactManifest.ManifestVerification verification =
-                Aljabr.DL.verifyTrainingReportPortfolioExportArtifactPackage(bundle.directory());
+                Alkhawarizm.DL.verifyTrainingReportPortfolioExportArtifactPackage(bundle.directory());
 
         assertTrue(refresh.passed(), () -> refresh.toMap().toString());
         assertTrue(verification.passed(), () -> verification.failures().toString());
@@ -1054,10 +1054,10 @@ class TrainingReportPortfolioTest {
         assertTrue(Files.isRegularFile(refresh.reports().junitXmlFile()));
         assertTrue(refresh.reportVerification().passed(), () -> refresh.reportVerification().failures().toString());
         TrainingReportPortfolioArtifactPackageReport.ReportVerification reportVerification =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(refresh.reports());
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReport(refresh.reports());
         assertTrue(reportVerification.passed(), () -> reportVerification.failures().toString());
         TrainingReportPortfolioArtifactPackageReport.ReportPackageConsistency reportConsistency =
-                Aljabr.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
+                Alkhawarizm.DL.verifyTrainingReportPortfolioArtifactPackageVerificationReportAgainstPackage(
                         refresh.reports(),
                         bundle.directory());
         assertTrue(reportConsistency.gatePassed(), () -> reportConsistency.failures().toString());
@@ -1085,7 +1085,7 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
         TrainingReportPortfolioArtifactPackage.PackageBundle bundle =
-                Aljabr.DL.writeTrainingReportPortfolioExportArtifactPackage(
+                Alkhawarizm.DL.writeTrainingReportPortfolioExportArtifactPackage(
                         tempDir.resolve("refresh-portfolio-package-reject"),
                         reports,
                         "baseline");
@@ -1098,7 +1098,7 @@ class TrainingReportPortfolioTest {
 
         IOException error = assertThrows(
                 IOException.class,
-                () -> Aljabr.DL.refreshTrainingReportPortfolioExportArtifactPackage(bundle.directory()));
+                () -> Alkhawarizm.DL.refreshTrainingReportPortfolioExportArtifactPackage(bundle.directory()));
         assertTrue(error.getMessage().contains("non-refreshable artifact"));
     }
 
@@ -1121,7 +1121,7 @@ class TrainingReportPortfolioTest {
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy()
                         .withMinimumValidationImprovement(0.30);
 
-        TrainingReportPortfolio.PromotionDecision decision = Aljabr.DL.trainingReportPromotionDecision(
+        TrainingReportPortfolio.PromotionDecision decision = Alkhawarizm.DL.trainingReportPromotionDecision(
                 reports,
                 "baseline",
                 strictPolicy);
@@ -1153,7 +1153,7 @@ class TrainingReportPortfolioTest {
                         .withMaxCandidateDiagnosticSeverity(TrainingReportDiagnostics.Severity.WARNING)
                         .withMaxComparisonFindingSeverity(TrainingReportDiagnostics.Severity.WARNING);
 
-        TrainingReportPortfolio.PromotionDecision decision = Aljabr.DL.trainingReportPromotionDecision(
+        TrainingReportPortfolio.PromotionDecision decision = Alkhawarizm.DL.trainingReportPromotionDecision(
                 reports,
                 "baseline",
                 warningTolerantPolicy);
@@ -1186,7 +1186,7 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
 
-        TrainingReportPortfolio portfolio = Aljabr.DL.trainingReportPortfolio(reports);
+        TrainingReportPortfolio portfolio = Alkhawarizm.DL.trainingReportPortfolio(reports);
         assertEquals("candidate-slow", portfolio.rankedPassingDiagnostics(
                 TrainingReportDiagnostics.Severity.INFO).get(0).name());
 
@@ -1228,7 +1228,7 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
 
-        TrainingReportPortfolio.PromotionReview review = Aljabr.DL.trainingReportPromotionReview(
+        TrainingReportPortfolio.PromotionReview review = Alkhawarizm.DL.trainingReportPromotionReview(
                 reports,
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy());
@@ -1280,14 +1280,14 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.5, "validationLoss", 0.55)))));
 
-        TrainingReportPortfolio portfolio = Aljabr.DL.trainingReportPortfolioFromReports(reports);
+        TrainingReportPortfolio portfolio = Alkhawarizm.DL.trainingReportPortfolioFromReports(reports);
 
         assertEquals("candidate", portfolio.bestByValidationScore().orElseThrow().name());
         assertTrue(portfolio.compare("baseline", "candidate").improvedMetrics().stream()
                 .anyMatch(metric -> metric.name().equals("bestValidationLoss")));
         assertEquals(1, portfolio.compareAllAgainst("baseline").size());
-        assertEquals(2, Aljabr.DL.trainingReportPortfolioExport(portfolio).entryCount());
-        assertEquals(8, Aljabr.DL.trainingReportPortfolioExport(portfolio, "baseline").comparisonMetricCount());
+        assertEquals(2, Alkhawarizm.DL.trainingReportPortfolioExport(portfolio).entryCount());
+        assertEquals(8, Alkhawarizm.DL.trainingReportPortfolioExport(portfolio, "baseline").comparisonMetricCount());
         assertTrue(portfolio.export().comparisonMetricRows().isEmpty());
         assertTrue(portfolio.exportAgainst("baseline")
                 .comparisonMetricsCsv()
@@ -1318,7 +1318,7 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.75),
                         Map.of("epoch", 1, "trainLoss", 0.5, "validationLoss", 0.6))));
 
-        TrainingReportPortfolio.PromotionDecision decision = Aljabr.DL.trainingReportPortfolio(reports)
+        TrainingReportPortfolio.PromotionDecision decision = Alkhawarizm.DL.trainingReportPortfolio(reports)
                 .promotionDecision("baseline", TrainingReportDiagnostics.Severity.INFO);
 
         assertEquals(TrainingReportPortfolio.PromotionStatus.HOLD, decision.status());
@@ -1339,7 +1339,7 @@ class TrainingReportPortfolioTest {
                         Map.of("epoch", 0, "trainLoss", 0.8, "validationLoss", 0.9),
                         Map.of("epoch", 1, "trainLoss", 0.5, "validationLoss", 0.6))));
 
-        TrainingReportPortfolio.PromotionDecision decision = Aljabr.DL.trainingReportPortfolio(reports)
+        TrainingReportPortfolio.PromotionDecision decision = Alkhawarizm.DL.trainingReportPortfolio(reports)
                 .promotionDecision("baseline", TrainingReportDiagnostics.Severity.INFO);
 
         assertEquals(TrainingReportPortfolio.PromotionStatus.NO_ELIGIBLE_CANDIDATE, decision.status());

@@ -2,19 +2,19 @@ package tech.kayys.tafkir.ml;
 
 import java.nio.file.Path;
 import java.util.Objects;
-import tech.kayys.tafkir.ml.Aljabr.DL.TrainingOptions;
-import tech.kayys.tafkir.ml.Aljabr.DL.TrainingPreset;
+import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingOptions;
+import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingPreset;
 import tech.kayys.tafkir.ml.nn.NNModule;
 import tech.kayys.tafkir.train.data.DataLoader;
 import tech.kayys.tafkir.train.data.DataLoader.Batch;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 /**
- * One-call fit helpers exposed through {@link Aljabr.DL}.
+ * One-call fit helpers exposed through {@link Alkhawarizm.DL}.
  */
 @SuppressWarnings("deprecation")
-public class AljabrDlFitFacade extends AljabrDlCrossValidationFacade {
-    protected AljabrDlFitFacade() {
+public class AlkhawarizmDlFitFacade extends AlkhawarizmDlCrossValidationFacade {
+    protected AlkhawarizmDlFitFacade() {
     }
 
     public static TrainingOptions.Builder trainingOptions() {
@@ -128,7 +128,7 @@ public class AljabrDlFitFacade extends AljabrDlCrossValidationFacade {
             float learningRate,
             TrainingPreset preset,
             TrainingOptions options) {
-        return AljabrTrainingRuntime.fit(AljabrTrainingRequests.fromOptions(
+        return AlkhawarizmTrainingRuntime.fit(AlkhawarizmTrainingRequests.fromOptions(
                 model,
                 trainLoader,
                 validationLoader,
@@ -269,7 +269,7 @@ public class AljabrDlFitFacade extends AljabrDlCrossValidationFacade {
             boolean failOnCheckpointLoadError,
             int gradientAccumulationSteps,
             String deviceId) {
-        return AljabrTrainingRuntime.fit(AljabrTrainingRequests.fromLegacy(
+        return AlkhawarizmTrainingRuntime.fit(AlkhawarizmTrainingRequests.fromLegacy(
                 model,
                 trainLoader,
                 validationLoader,

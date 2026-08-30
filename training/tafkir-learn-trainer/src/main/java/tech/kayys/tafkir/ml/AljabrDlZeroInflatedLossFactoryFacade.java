@@ -4,10 +4,10 @@ import tech.kayys.tafkir.ml.nn.loss.ZeroInflatedNegativeBinomialNllLoss;
 import tech.kayys.tafkir.ml.nn.loss.ZeroInflatedPoissonNllLoss;
 
 /**
- * Zero-inflated distribution loss helpers inherited by {@link Aljabr.DL}.
+ * Zero-inflated distribution loss helpers inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlZeroInflatedLossFactoryFacade extends AljabrDlCountLossFactoryFacade {
-    protected AljabrDlZeroInflatedLossFactoryFacade() {
+public class AlkhawarizmDlZeroInflatedLossFactoryFacade extends AlkhawarizmDlCountLossFactoryFacade {
+    protected AlkhawarizmDlZeroInflatedLossFactoryFacade() {
     }
 
     public static ZeroInflatedPoissonNllLoss zeroInflatedPoissonNllLoss() {

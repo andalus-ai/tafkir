@@ -7,7 +7,7 @@
 [![Java 25](https://img.shields.io/badge/Java-25+-orange.svg)](https://adoptium.net/)
 [![JDK Vector API](https://img.shields.io/badge/JDK-Vector%20API-5E5E5E)](https://openjdk.org/jeps/438)
 
-A Java machine learning framework built on the [Aljabr](https://github.com/bhangun/alkhawarizm) compute engine.
+A Java machine learning framework built on the [Alkhawarizm](https://github.com/bhangun/alkhawarizm) compute engine.
 
 ## Architecture
 
@@ -16,7 +16,7 @@ A Java machine learning framework built on the [Aljabr](https://github.com/bhang
 │              Tafkir                     │
 │  (training APIs, CLI, examples)       │
 ├─────────────────────────────────────────┤
-│           Aljabr Engine                 │
+│           Alkhawarizm Engine                 │
 │  (tensor ops, autograd, backends)     │
 │  • CPU: Vector API SIMD                 │
 │  • CUDA: GPU kernels                    │
@@ -28,7 +28,7 @@ A Java machine learning framework built on the [Aljabr](https://github.com/bhang
 ## Prerequisites
 
 - JDK 25+
-- Aljabr checked out at `../alkhawarizm` (composite build)
+- Alkhawarizm checked out at `../alkhawarizm` (composite build)
 
 ## Quick Start
 
@@ -92,7 +92,7 @@ TafkirSequential model = new TafkirSequential(
 
 | Module | Description |
 |--------|-------------|
-| `ml:tafkir-ml-alkhawarizm` | Tensor API wrapping Aljabr backends |
+| `ml:tafkir-ml-alkhawarizm` | Tensor API wrapping Alkhawarizm backends |
 | `trainer:tafkir-trainer-alkhawarizm` | Training loop, optimizers, losses |
 | `data:tafkir-data` | Dataset loaders (MNIST, etc.) |
 | `distributed:tafkir-distributed` | Multi-threaded data parallel training |

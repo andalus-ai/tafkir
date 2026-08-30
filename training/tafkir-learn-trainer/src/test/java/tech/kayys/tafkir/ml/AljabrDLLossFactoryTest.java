@@ -21,69 +21,69 @@ import tech.kayys.tafkir.ml.nn.loss.TweedieNllLoss;
 import tech.kayys.tafkir.ml.nn.loss.ZeroInflatedNegativeBinomialNllLoss;
 import tech.kayys.tafkir.ml.nn.loss.ZeroInflatedPoissonNllLoss;
 
-class AljabrDLLossFactoryTest {
+class AlkhawarizmDLLossFactoryTest {
 
     @Test
-    void exposesClassificationLossFactoriesOnAljabrFacade() {
-        assertInstanceOf(CrossEntropyLoss.class, Aljabr.DL.crossEntropy());
-        assertInstanceOf(CrossEntropyLoss.class, Aljabr.DL.crossEntropy(new float[] {1.0f, 2.0f}));
-        assertInstanceOf(CausalLanguageModelingLoss.class, Aljabr.DL.causalLanguageModelingLoss());
-        assertInstanceOf(CausalLanguageModelingLoss.class, Aljabr.DL.causalLanguageModelingLoss(-1.0f));
-        assertInstanceOf(FocalLoss.class, Aljabr.DL.focalLoss());
-        assertInstanceOf(FocalLoss.class, Aljabr.DL.focalLoss(2.0f));
-        assertInstanceOf(FocalLoss.class, Aljabr.DL.focalLoss(2.0f, 0.25f));
-        assertInstanceOf(FocalLoss.class, Aljabr.DL.focalLoss(2.0f, new float[] {1.0f, 2.0f}));
+    void exposesClassificationLossFactoriesOnAlkhawarizmFacade() {
+        assertInstanceOf(CrossEntropyLoss.class, Alkhawarizm.DL.crossEntropy());
+        assertInstanceOf(CrossEntropyLoss.class, Alkhawarizm.DL.crossEntropy(new float[] {1.0f, 2.0f}));
+        assertInstanceOf(CausalLanguageModelingLoss.class, Alkhawarizm.DL.causalLanguageModelingLoss());
+        assertInstanceOf(CausalLanguageModelingLoss.class, Alkhawarizm.DL.causalLanguageModelingLoss(-1.0f));
+        assertInstanceOf(FocalLoss.class, Alkhawarizm.DL.focalLoss());
+        assertInstanceOf(FocalLoss.class, Alkhawarizm.DL.focalLoss(2.0f));
+        assertInstanceOf(FocalLoss.class, Alkhawarizm.DL.focalLoss(2.0f, 0.25f));
+        assertInstanceOf(FocalLoss.class, Alkhawarizm.DL.focalLoss(2.0f, new float[] {1.0f, 2.0f}));
     }
 
     @Test
-    void exposesRegressionLossFactoriesOnAljabrFacade() {
-        assertInstanceOf(MSELoss.class, Aljabr.DL.mseLoss());
-        assertInstanceOf(L1Loss.class, Aljabr.DL.l1Loss());
-        assertInstanceOf(HuberLoss.class, Aljabr.DL.huberLoss());
-        assertInstanceOf(HuberLoss.class, Aljabr.DL.huberLoss(1.5f));
-        assertInstanceOf(SmoothL1Loss.class, Aljabr.DL.smoothL1Loss());
-        assertInstanceOf(SmoothL1Loss.class, Aljabr.DL.smoothL1Loss(0.75f));
-        assertInstanceOf(PinballLoss.class, Aljabr.DL.pinballLoss());
-        assertInstanceOf(PinballLoss.class, Aljabr.DL.quantileLoss(0.9));
-        assertInstanceOf(PinballLoss.class, Aljabr.DL.quantileLoss(0.1, 0.5, 0.9));
-        assertInstanceOf(PinballLoss.class, Aljabr.DL.predictionIntervalLoss(0.1, 0.9));
-        assertInstanceOf(PredictionIntervalLoss.class, Aljabr.DL.intervalScoreLoss());
-        assertInstanceOf(PredictionIntervalLoss.class, Aljabr.DL.winklerLoss(0.2, 12.0));
-        assertInstanceOf(GaussianNllLoss.class, Aljabr.DL.gaussianNllLoss());
-        assertInstanceOf(GaussianNllLoss.class, Aljabr.DL.heteroscedasticGaussianLoss(true));
+    void exposesRegressionLossFactoriesOnAlkhawarizmFacade() {
+        assertInstanceOf(MSELoss.class, Alkhawarizm.DL.mseLoss());
+        assertInstanceOf(L1Loss.class, Alkhawarizm.DL.l1Loss());
+        assertInstanceOf(HuberLoss.class, Alkhawarizm.DL.huberLoss());
+        assertInstanceOf(HuberLoss.class, Alkhawarizm.DL.huberLoss(1.5f));
+        assertInstanceOf(SmoothL1Loss.class, Alkhawarizm.DL.smoothL1Loss());
+        assertInstanceOf(SmoothL1Loss.class, Alkhawarizm.DL.smoothL1Loss(0.75f));
+        assertInstanceOf(PinballLoss.class, Alkhawarizm.DL.pinballLoss());
+        assertInstanceOf(PinballLoss.class, Alkhawarizm.DL.quantileLoss(0.9));
+        assertInstanceOf(PinballLoss.class, Alkhawarizm.DL.quantileLoss(0.1, 0.5, 0.9));
+        assertInstanceOf(PinballLoss.class, Alkhawarizm.DL.predictionIntervalLoss(0.1, 0.9));
+        assertInstanceOf(PredictionIntervalLoss.class, Alkhawarizm.DL.intervalScoreLoss());
+        assertInstanceOf(PredictionIntervalLoss.class, Alkhawarizm.DL.winklerLoss(0.2, 12.0));
+        assertInstanceOf(GaussianNllLoss.class, Alkhawarizm.DL.gaussianNllLoss());
+        assertInstanceOf(GaussianNllLoss.class, Alkhawarizm.DL.heteroscedasticGaussianLoss(true));
     }
 
     @Test
-    void exposesCountAndZeroInflatedLossFactoriesOnAljabrFacade() {
-        assertInstanceOf(PoissonNllLoss.class, Aljabr.DL.poissonNllLoss());
-        assertInstanceOf(PoissonNllLoss.class, Aljabr.DL.poissonNllLoss(true, true, 1e-8));
-        assertInstanceOf(PoissonNllLoss.class, Aljabr.DL.countNllLoss());
-        assertInstanceOf(TweedieNllLoss.class, Aljabr.DL.tweedieNllLoss());
-        assertInstanceOf(TweedieNllLoss.class, Aljabr.DL.compoundPoissonGammaLoss(1.5));
-        assertInstanceOf(NegativeBinomialNllLoss.class, Aljabr.DL.negativeBinomialNllLoss());
-        assertInstanceOf(NegativeBinomialNllLoss.class, Aljabr.DL.overdispersedCountNllLoss());
-        assertInstanceOf(ZeroInflatedPoissonNllLoss.class, Aljabr.DL.zeroInflatedPoissonNllLoss());
-        assertInstanceOf(ZeroInflatedPoissonNllLoss.class, Aljabr.DL.zipNllLoss());
-        assertInstanceOf(ZeroInflatedPoissonNllLoss.class, Aljabr.DL.excessZeroCountNllLoss());
-        assertInstanceOf(ZeroInflatedNegativeBinomialNllLoss.class, Aljabr.DL.zeroInflatedNegativeBinomialNllLoss());
-        assertInstanceOf(ZeroInflatedNegativeBinomialNllLoss.class, Aljabr.DL.zinbNllLoss());
+    void exposesCountAndZeroInflatedLossFactoriesOnAlkhawarizmFacade() {
+        assertInstanceOf(PoissonNllLoss.class, Alkhawarizm.DL.poissonNllLoss());
+        assertInstanceOf(PoissonNllLoss.class, Alkhawarizm.DL.poissonNllLoss(true, true, 1e-8));
+        assertInstanceOf(PoissonNllLoss.class, Alkhawarizm.DL.countNllLoss());
+        assertInstanceOf(TweedieNllLoss.class, Alkhawarizm.DL.tweedieNllLoss());
+        assertInstanceOf(TweedieNllLoss.class, Alkhawarizm.DL.compoundPoissonGammaLoss(1.5));
+        assertInstanceOf(NegativeBinomialNllLoss.class, Alkhawarizm.DL.negativeBinomialNllLoss());
+        assertInstanceOf(NegativeBinomialNllLoss.class, Alkhawarizm.DL.overdispersedCountNllLoss());
+        assertInstanceOf(ZeroInflatedPoissonNllLoss.class, Alkhawarizm.DL.zeroInflatedPoissonNllLoss());
+        assertInstanceOf(ZeroInflatedPoissonNllLoss.class, Alkhawarizm.DL.zipNllLoss());
+        assertInstanceOf(ZeroInflatedPoissonNllLoss.class, Alkhawarizm.DL.excessZeroCountNllLoss());
+        assertInstanceOf(ZeroInflatedNegativeBinomialNllLoss.class, Alkhawarizm.DL.zeroInflatedNegativeBinomialNllLoss());
+        assertInstanceOf(ZeroInflatedNegativeBinomialNllLoss.class, Alkhawarizm.DL.zinbNllLoss());
         assertInstanceOf(
                 ZeroInflatedNegativeBinomialNllLoss.class,
-                Aljabr.DL.excessZeroOverdispersedCountNllLoss());
+                Alkhawarizm.DL.excessZeroOverdispersedCountNllLoss());
     }
 
     @Test
-    void exposesBinaryLogitLossFactoriesOnAljabrFacade() {
-        assertInstanceOf(BCEWithLogitsLoss.class, Aljabr.DL.bceWithLogitsLoss());
-        assertInstanceOf(BCEWithLogitsLoss.class, Aljabr.DL.bceWithLogitsLoss(3.0f));
-        assertInstanceOf(BCEWithLogitsLoss.class, Aljabr.DL.bceWithLogitsLoss(new float[] {2.0f, 3.0f}));
-        assertInstanceOf(BCEWithLogitsLoss.class, Aljabr.DL.binaryCrossEntropyWithLogits());
-        assertInstanceOf(BCEWithLogitsLoss.class, Aljabr.DL.binaryCrossEntropyWithLogits(2.0f));
-        assertInstanceOf(BinaryFocalWithLogitsLoss.class, Aljabr.DL.binaryFocalWithLogitsLoss());
-        assertInstanceOf(BinaryFocalWithLogitsLoss.class, Aljabr.DL.binaryFocalWithLogitsLoss(2.0f, 0.25f));
-        assertInstanceOf(BinaryFocalWithLogitsLoss.class, Aljabr.DL.binaryFocalWithLogitsLoss(2.0f, 0.25f, 3.0f));
+    void exposesBinaryLogitLossFactoriesOnAlkhawarizmFacade() {
+        assertInstanceOf(BCEWithLogitsLoss.class, Alkhawarizm.DL.bceWithLogitsLoss());
+        assertInstanceOf(BCEWithLogitsLoss.class, Alkhawarizm.DL.bceWithLogitsLoss(3.0f));
+        assertInstanceOf(BCEWithLogitsLoss.class, Alkhawarizm.DL.bceWithLogitsLoss(new float[] {2.0f, 3.0f}));
+        assertInstanceOf(BCEWithLogitsLoss.class, Alkhawarizm.DL.binaryCrossEntropyWithLogits());
+        assertInstanceOf(BCEWithLogitsLoss.class, Alkhawarizm.DL.binaryCrossEntropyWithLogits(2.0f));
+        assertInstanceOf(BinaryFocalWithLogitsLoss.class, Alkhawarizm.DL.binaryFocalWithLogitsLoss());
+        assertInstanceOf(BinaryFocalWithLogitsLoss.class, Alkhawarizm.DL.binaryFocalWithLogitsLoss(2.0f, 0.25f));
+        assertInstanceOf(BinaryFocalWithLogitsLoss.class, Alkhawarizm.DL.binaryFocalWithLogitsLoss(2.0f, 0.25f, 3.0f));
         assertInstanceOf(
                 BinaryFocalWithLogitsLoss.class,
-                Aljabr.DL.binaryFocalWithLogitsLoss(2.0f, 0.25f, new float[] {2.0f, 3.0f}));
+                Alkhawarizm.DL.binaryFocalWithLogitsLoss(2.0f, 0.25f, new float[] {2.0f, 3.0f}));
     }
 }

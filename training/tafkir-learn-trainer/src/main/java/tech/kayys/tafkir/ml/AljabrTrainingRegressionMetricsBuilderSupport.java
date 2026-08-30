@@ -3,12 +3,12 @@ package tech.kayys.tafkir.ml;
 /**
  * Fluent regression metric registration for training option builders.
  */
-public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
-        B extends AljabrTrainingRegressionMetricsBuilderSupport<B>>
-        extends AljabrTrainingMultiLabelMetricsBuilderSupport<B> {
+public abstract class AlkhawarizmTrainingRegressionMetricsBuilderSupport<
+        B extends AlkhawarizmTrainingRegressionMetricsBuilderSupport<B>>
+        extends AlkhawarizmTrainingMultiLabelMetricsBuilderSupport<B> {
 
     public B meanAbsoluteErrorMetric() {
-        return metric(Aljabr.DL.meanAbsoluteErrorMetric());
+        return metric(Alkhawarizm.DL.meanAbsoluteErrorMetric());
     }
 
     public B maeMetric() {
@@ -16,7 +16,7 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B meanSquaredErrorMetric() {
-        return metric(Aljabr.DL.meanSquaredErrorMetric());
+        return metric(Alkhawarizm.DL.meanSquaredErrorMetric());
     }
 
     public B mseMetric() {
@@ -24,7 +24,7 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B rootMeanSquaredErrorMetric() {
-        return metric(Aljabr.DL.rootMeanSquaredErrorMetric());
+        return metric(Alkhawarizm.DL.rootMeanSquaredErrorMetric());
     }
 
     public B rmseMetric() {
@@ -32,7 +32,7 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B meanSquaredLogErrorMetric() {
-        return metric(Aljabr.DL.meanSquaredLogErrorMetric());
+        return metric(Alkhawarizm.DL.meanSquaredLogErrorMetric());
     }
 
     public B msleMetric() {
@@ -40,7 +40,7 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B rootMeanSquaredLogErrorMetric() {
-        return metric(Aljabr.DL.rootMeanSquaredLogErrorMetric());
+        return metric(Alkhawarizm.DL.rootMeanSquaredLogErrorMetric());
     }
 
     public B rmsleMetric() {
@@ -48,15 +48,15 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B meanPoissonDevianceMetric() {
-        return metric(Aljabr.DL.meanPoissonDevianceMetric());
+        return metric(Alkhawarizm.DL.meanPoissonDevianceMetric());
     }
 
     public B meanPoissonDevianceMetric(boolean logInput) {
-        return metric(Aljabr.DL.meanPoissonDevianceMetric(logInput));
+        return metric(Alkhawarizm.DL.meanPoissonDevianceMetric(logInput));
     }
 
     public B meanPoissonDevianceMetric(boolean logInput, double eps) {
-        return metric(Aljabr.DL.meanPoissonDevianceMetric(logInput, eps));
+        return metric(Alkhawarizm.DL.meanPoissonDevianceMetric(logInput, eps));
     }
 
     public B poissonDevianceMetric() {
@@ -64,23 +64,23 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B poissonLogRateDevianceMetric() {
-        return metric(Aljabr.DL.poissonLogRateDevianceMetric());
+        return metric(Alkhawarizm.DL.poissonLogRateDevianceMetric());
     }
 
     public B meanTweedieDevianceMetric() {
-        return metric(Aljabr.DL.meanTweedieDevianceMetric());
+        return metric(Alkhawarizm.DL.meanTweedieDevianceMetric());
     }
 
     public B meanTweedieDevianceMetric(double power) {
-        return metric(Aljabr.DL.meanTweedieDevianceMetric(power));
+        return metric(Alkhawarizm.DL.meanTweedieDevianceMetric(power));
     }
 
     public B meanTweedieDevianceMetric(double power, boolean logInput) {
-        return metric(Aljabr.DL.meanTweedieDevianceMetric(power, logInput));
+        return metric(Alkhawarizm.DL.meanTweedieDevianceMetric(power, logInput));
     }
 
     public B meanTweedieDevianceMetric(double power, boolean logInput, double eps) {
-        return metric(Aljabr.DL.meanTweedieDevianceMetric(power, logInput, eps));
+        return metric(Alkhawarizm.DL.meanTweedieDevianceMetric(power, logInput, eps));
     }
 
     public B tweedieDevianceMetric() {
@@ -88,11 +88,11 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B compoundPoissonGammaDevianceMetric() {
-        return metric(Aljabr.DL.compoundPoissonGammaDevianceMetric());
+        return metric(Alkhawarizm.DL.compoundPoissonGammaDevianceMetric());
     }
 
     public B medianAbsoluteErrorMetric() {
-        return metric(Aljabr.DL.medianAbsoluteErrorMetric());
+        return metric(Alkhawarizm.DL.medianAbsoluteErrorMetric());
     }
 
     public B medaeMetric() {
@@ -100,19 +100,19 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B maxErrorMetric() {
-        return metric(Aljabr.DL.maxErrorMetric());
+        return metric(Alkhawarizm.DL.maxErrorMetric());
     }
 
     public B pinballLossMetric(double quantile) {
-        return metric(Aljabr.DL.pinballLossMetric(quantile));
+        return metric(Alkhawarizm.DL.pinballLossMetric(quantile));
     }
 
     public B meanPinballLossMetric(double quantile) {
-        return metric(Aljabr.DL.meanPinballLossMetric(quantile));
+        return metric(Alkhawarizm.DL.meanPinballLossMetric(quantile));
     }
 
     public B predictionIntervalCoverageMetric() {
-        return metric(Aljabr.DL.predictionIntervalCoverageMetric());
+        return metric(Alkhawarizm.DL.predictionIntervalCoverageMetric());
     }
 
     public B picpMetric() {
@@ -120,15 +120,15 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B predictionIntervalMeanWidthMetric() {
-        return metric(Aljabr.DL.predictionIntervalMeanWidthMetric());
+        return metric(Alkhawarizm.DL.predictionIntervalMeanWidthMetric());
     }
 
     public B predictionIntervalNormalizedMeanWidthMetric() {
-        return metric(Aljabr.DL.predictionIntervalNormalizedMeanWidthMetric());
+        return metric(Alkhawarizm.DL.predictionIntervalNormalizedMeanWidthMetric());
     }
 
     public B r2ScoreMetric() {
-        return metric(Aljabr.DL.r2ScoreMetric());
+        return metric(Alkhawarizm.DL.r2ScoreMetric());
     }
 
     public B r2Metric() {
@@ -136,7 +136,7 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B meanAbsolutePercentageErrorMetric() {
-        return metric(Aljabr.DL.meanAbsolutePercentageErrorMetric());
+        return metric(Alkhawarizm.DL.meanAbsolutePercentageErrorMetric());
     }
 
     public B mapeMetric() {
@@ -144,7 +144,7 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B symmetricMeanAbsolutePercentageErrorMetric() {
-        return metric(Aljabr.DL.symmetricMeanAbsolutePercentageErrorMetric());
+        return metric(Alkhawarizm.DL.symmetricMeanAbsolutePercentageErrorMetric());
     }
 
     public B smapeMetric() {
@@ -152,7 +152,7 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B meanBiasErrorMetric() {
-        return metric(Aljabr.DL.meanBiasErrorMetric());
+        return metric(Alkhawarizm.DL.meanBiasErrorMetric());
     }
 
     public B mbeMetric() {
@@ -160,7 +160,7 @@ public abstract class AljabrTrainingRegressionMetricsBuilderSupport<
     }
 
     public B explainedVarianceMetric() {
-        return metric(Aljabr.DL.explainedVarianceMetric());
+        return metric(Alkhawarizm.DL.explainedVarianceMetric());
     }
 
     public B explainedVarianceScoreMetric() {

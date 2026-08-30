@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportRuntimeEfficiencyTest {
@@ -37,7 +37,7 @@ class TrainingReportRuntimeEfficiencyTest {
         assertEquals("compute", efficiency.bottleneck());
         assertEquals("train.forward", efficiency.primaryHotspot());
         assertEquals(efficiency.toMap(), report.runtimeEfficiencyMap());
-        assertEquals(efficiency, Aljabr.DL.trainingReportRuntimeEfficiency(report));
+        assertEquals(efficiency, Alkhawarizm.DL.trainingReportRuntimeEfficiency(report));
     }
 
     @Test
@@ -57,7 +57,7 @@ class TrainingReportRuntimeEfficiencyTest {
         assertTrue(markdown.contains("| Largest wall overhead | `trainBatch` `9.000 ms` / `42.000%` |"));
         assertTrue(markdown.contains("| Dominant bottleneck | `input` `82.000%` |"));
         assertTrue(profileMarkdown.contains("### Runtime Efficiency"));
-        assertEquals(markdown, Aljabr.DL.trainingReportRuntimeEfficiencyMarkdown(report));
+        assertEquals(markdown, Alkhawarizm.DL.trainingReportRuntimeEfficiencyMarkdown(report));
     }
 
     private static TrainingReport reportWithRuntimeProfile(

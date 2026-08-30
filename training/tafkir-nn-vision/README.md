@@ -1,4 +1,4 @@
-# Aljabr SDK - Computer Vision
+# Alkhawarizm SDK - Computer Vision
 
 Computer vision layers, transforms, and pre-trained models for image classification and beyond.
 

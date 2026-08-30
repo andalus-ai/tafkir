@@ -20,6 +20,43 @@ LOCAL_MAVEN=false
 PUBLISH_GITHUB=false
 GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-}"  # owner/repo, used to default GitHub Packages URL when available
 
+# Keep local SSH aliases (e.g. github-bhangun) for convenience, but use the canonical GitHub
+# repository URL for remote operations and GitHub API-aware publishing.
+canonicalize_github_remote() {
+    local remote_url="${1:-}"
+    if [[ -z "$remote_url" ]]; then
+        return 0
+    fi
+
+    remote_url="${remote_url//github-bhangun/github.com}"
+    remote_url="${remote_url//github-ngoding/github.com}"
+    remote_url="${remote_url//github-*/github.com}"
+    echo "$remote_url"
+}
+
+resolve_github_repository() {
+    local remote_url
+    remote_url="$(git config --get remote.origin.url || true)"
+    if [[ -z "$remote_url" ]]; then
+        echo "${GITHUB_REPOSITORY:-}"
+        return 0
+    fi
+
+    remote_url="$(canonicalize_github_remote "$remote_url")"
+    if [[ "$remote_url" =~ ^git@github\.com:([^/]+)/([^/]+)(\.git)?$ ]]; then
+        echo "${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+    elif [[ "$remote_url" =~ ^https://github\.com/([^/]+)/([^/]+?)(\.git)?$ ]]; then
+        echo "${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+    else
+        echo "${GITHUB_REPOSITORY:-}"
+    fi
+}
+
+REMOTE_ORIGIN_CANONICAL="$(canonicalize_github_remote "$(git config --get remote.origin.url || true)")"
+if [[ -n "$REMOTE_ORIGIN_CANONICAL" ]]; then
+    GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-$(resolve_github_repository)}"
+fi
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -155,19 +192,37 @@ if [ -n "$NEW_VERSION" ]; then
     # Push to remote if enabled
     if [ "$GIT_PUSH" = true ] && [ "$DRY_RUN" = false ]; then
         CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        echo -e "${BLUE}>>> Pushing to remote (branch: $CURRENT_BRANCH)...${NC}"
-        
-        # Push the branch/commits
-        run_cmd "git push origin $CURRENT_BRANCH"
+        REMOTE_PUSH_URL="$(git config --get remote.origin.url || true)"
+        if [[ -z "$REMOTE_PUSH_URL" ]]; then
+            REMOTE_PUSH_URL="origin"
+        fi
+        SSH_KEY_PATH="${SSH_KEY_PATH:-$HOME/.ssh/id_rsa_bhangun}"
+        export GIT_SSH_COMMAND="ssh -i \"$SSH_KEY_PATH\" -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+        echo -e "${BLUE}>>> Pushing to remote (branch: $CURRENT_BRANCH, url: $REMOTE_PUSH_URL, identity: $SSH_KEY_PATH)...${NC}"
+
+        if [[ "$REMOTE_PUSH_URL" == git@* || "$REMOTE_PUSH_URL" == https://* ]]; then
+            run_cmd "git push \"$REMOTE_PUSH_URL\" $CURRENT_BRANCH"
+        else
+            run_cmd "git push origin $CURRENT_BRANCH"
+        fi
 
         # Push the tag if it was created
         if [ "$GIT_TAG" = true ]; then
             echo -e "${BLUE}>>> Pushing git tag to remote...${NC}"
-            if [ "$FORCE" = true ]; then
-                run_cmd "git push origin :refs/tags/\"$TAG_NAME\" || true"
-                run_cmd "git push origin \"$TAG_NAME\""
+            if [[ "$REMOTE_PUSH_URL" == git@* || "$REMOTE_PUSH_URL" == https://* ]]; then
+                if [ "$FORCE" = true ]; then
+                    run_cmd "git push \"$REMOTE_PUSH_URL\" :refs/tags/\"$TAG_NAME\" || true"
+                    run_cmd "git push \"$REMOTE_PUSH_URL\" \"$TAG_NAME\""
+                else
+                    run_cmd "git push \"$REMOTE_PUSH_URL\" \"$TAG_NAME\""
+                fi
             else
-                run_cmd "git push origin \"$TAG_NAME\""
+                if [ "$FORCE" = true ]; then
+                    run_cmd "git push origin :refs/tags/\"$TAG_NAME\" || true"
+                    run_cmd "git push origin \"$TAG_NAME\""
+                else
+                    run_cmd "git push origin \"$TAG_NAME\""
+                fi
             fi
         fi
         echo -e "${GREEN}✓ Pushed to remote successfully${NC}"
@@ -182,6 +237,9 @@ if [ "$RUN_GRADLE" = true ]; then
     if [ "$PUBLISH_GITHUB" = true ]; then
         # Publish only to GitHub Packages (or provided REPO_URL)
         if [ -z "$REPO_URL" ]; then
+            if [ -z "$GITHUB_REPOSITORY" ]; then
+                GITHUB_REPOSITORY="$(resolve_github_repository)"
+            fi
             if [ -n "$GITHUB_REPOSITORY" ]; then
                 REPO_URL="https://maven.pkg.github.com/$GITHUB_REPOSITORY"
                 echo "Using GitHub Packages repository: $REPO_URL"

@@ -282,7 +282,7 @@ public final class TrainingReportPortfolioArtifactManifest {
         TrainerCheckpointIO.writePropertiesAtomically(
                 manifestFile,
                 manifest,
-                "Aljabr training portfolio export artifact manifest");
+                "Alkhawarizm training portfolio export artifact manifest");
         return new ManifestBundle(
                 resolvedArtifacts.directory(),
                 manifestFile,
@@ -345,7 +345,7 @@ public final class TrainingReportPortfolioArtifactManifest {
         TrainerCheckpointIO.writePropertiesAtomically(
                 resolvedInspection.manifestFile(),
                 manifest,
-                "Aljabr training portfolio export artifact manifest");
+                "Alkhawarizm training portfolio export artifact manifest");
         return readFile(resolvedInspection.manifestFile());
     }
 

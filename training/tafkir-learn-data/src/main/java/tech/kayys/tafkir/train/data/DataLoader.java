@@ -48,7 +48,7 @@ import java.util.function.ToIntFunction;
  * }</pre>
  *
  * @param <T> the type of elements produced by this data loader
- * @author Aljabr Team
+ * @author Alkhawarizm Team
  * @version 0.2.0
  */
 public class DataLoader<T> implements Iterable<List<T>> {

@@ -1,4 +1,4 @@
-# Aljabr SDK - Training Pipeline
+# Alkhawarizm SDK - Training Pipeline
 
 Complete training pipeline with PyTorch Lightning-like functionality for Java.
 

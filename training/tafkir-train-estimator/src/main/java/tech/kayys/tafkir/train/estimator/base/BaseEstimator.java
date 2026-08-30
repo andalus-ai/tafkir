@@ -6,7 +6,7 @@ import java.io.*;
 import java.lang.reflect.*;
 
 /**
- * Base class for all estimators in Aljabr ML.
+ * Base class for all estimators in Alkhawarizm ML.
  * Provides common functionality: parameter validation, cloning, and
  * get_params/set_params.
  */

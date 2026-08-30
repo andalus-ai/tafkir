@@ -352,7 +352,7 @@ public final class TrainingReportQualityProfileCatalogValidator {
             issues.add(warning(
                     path,
                     "profile.policy_missing",
-                    key + " is not declared and will use Aljabr defaults.",
+                    key + " is not declared and will use Alkhawarizm defaults.",
                     "Declare " + key + " explicitly so CI behavior is visible in review."));
             return;
         }

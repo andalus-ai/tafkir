@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportQualityProfilePromotionGateTest {
@@ -29,13 +29,13 @@ class TrainingReportQualityProfilePromotionGateTest {
         Map<String, Path> reports = reportFiles(warningDataHealthMetadata());
 
         TrainingReportQualityProfilePromotionGate.Result research =
-                Aljabr.DL.runTrainingReportQualityProfilePromotionGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfilePromotionGate(
                         reports,
                         "baseline",
                         "research",
                         tempDir.resolve("research-gate"));
         TrainingReportQualityProfilePromotionGate.Result production =
-                Aljabr.DL.runTrainingReportQualityProfilePromotionGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfilePromotionGate(
                         reports,
                         "baseline",
                         TrainingReportQualityProfile.productionPromotion(),
@@ -60,7 +60,7 @@ class TrainingReportQualityProfilePromotionGateTest {
 
         Map<?, ?> profileMap = (Map<?, ?>) production.toMap().get("profile");
         assertEquals(TrainingReportQualityProfile.PRODUCTION_PROMOTION, profileMap.get("id"));
-        assertTrue(Aljabr.DL.trainingReportQualityProfilePromotionGateMarkdown(production)
+        assertTrue(Alkhawarizm.DL.trainingReportQualityProfilePromotionGateMarkdown(production)
                 .contains("# Training Report Quality Profile Gate"));
     }
 
@@ -80,12 +80,12 @@ class TrainingReportQualityProfilePromotionGateTest {
                         .withRequireCandidateDataHealthGate(false)
                         .withRequireCandidateDataHealthClean(false));
         TrainingReportQualityProfileArtifacts.ArtifactBundle catalog =
-                Aljabr.DL.writeTrainingReportQualityProfileArtifacts(
+                Alkhawarizm.DL.writeTrainingReportQualityProfileArtifacts(
                         tempDir.resolve("promotion-catalog"),
                         List.of(custom));
 
         TrainingReportQualityProfilePromotionGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfilePromotionGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfilePromotionGate(
                         reports,
                         "baseline",
                         catalog.jsonFile(),
@@ -105,7 +105,7 @@ class TrainingReportQualityProfilePromotionGateTest {
         Map<String, Path> reports = reportFiles(warningDataHealthMetadata());
 
         TrainingReportQualityProfilePromotionGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfilePromotionGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfilePromotionGate(
                         new TrainingReportQualityProfilePromotionGate.Request(
                                 reports,
                                 "baseline",
@@ -122,7 +122,7 @@ class TrainingReportQualityProfilePromotionGateTest {
     @Test
     void writesVerifiesAndRefreshesProfileGateArtifacts() throws IOException {
         TrainingReportQualityProfilePromotionGate.Result result =
-                Aljabr.DL.runTrainingReportQualityProfilePromotionGate(
+                Alkhawarizm.DL.runTrainingReportQualityProfilePromotionGate(
                         reportFiles(warningDataHealthMetadata()),
                         "baseline",
                         "production-promotion",
@@ -130,7 +130,7 @@ class TrainingReportQualityProfilePromotionGateTest {
         Path artifacts = tempDir.resolve("profile-gate-artifacts");
 
         TrainingReportQualityProfilePromotionGateArtifacts.ArtifactBundle bundle =
-                Aljabr.DL.writeTrainingReportQualityProfilePromotionGateArtifacts(artifacts, result);
+                Alkhawarizm.DL.writeTrainingReportQualityProfilePromotionGateArtifacts(artifacts, result);
 
         assertEquals(TrainingReportQualityProfile.PRODUCTION_PROMOTION, bundle.profileId());
         assertFalse(bundle.passed());
@@ -139,14 +139,14 @@ class TrainingReportQualityProfilePromotionGateTest {
         assertEquals(bundle.artifactMap(), bundle.toMap().get("artifact"));
 
         TrainingReportQualityProfilePromotionGateArtifacts.ArtifactInspection inspection =
-                Aljabr.DL.readTrainingReportQualityProfilePromotionGateArtifacts(artifacts);
+                Alkhawarizm.DL.readTrainingReportQualityProfilePromotionGateArtifacts(artifacts);
         assertEquals(TrainingReportQualityProfile.PRODUCTION_PROMOTION, inspection.profileId().orElseThrow());
         assertEquals(TrainingReportPortfolio.PromotionStatus.HOLD.name(), inspection.decisionStatus());
-        assertTrue(inspection.markdown().contains("# Aljabr Training Quality Profile Gate"));
+        assertTrue(inspection.markdown().contains("# Alkhawarizm Training Quality Profile Gate"));
         assertEquals(bundle.artifactMap(), inspection.artifactMap());
 
         TrainingReportQualityProfilePromotionGateArtifacts.ArtifactVerification verification =
-                Aljabr.DL.verifyTrainingReportQualityProfilePromotionGateArtifacts(bundle);
+                Alkhawarizm.DL.verifyTrainingReportQualityProfilePromotionGateArtifacts(bundle);
         assertTrue(verification.passed());
         assertTrue(verification.profileKnown());
         assertTrue(verification.gatePayloadConsistent());
@@ -161,14 +161,14 @@ class TrainingReportQualityProfilePromotionGateTest {
                 StandardCharsets.UTF_8,
                 StandardOpenOption.APPEND);
         TrainingReportQualityProfilePromotionGateArtifacts.ArtifactVerification tampered =
-                Aljabr.DL.verifyTrainingReportQualityProfilePromotionGateArtifacts(bundle);
+                Alkhawarizm.DL.verifyTrainingReportQualityProfilePromotionGateArtifacts(bundle);
         assertFalse(tampered.passed());
         assertFalse(tampered.markdownSha256Matches());
         assertFalse(tampered.markdownMatchesJson());
         assertThrows(IllegalStateException.class, tampered::requirePassed);
 
         TrainingReportQualityProfilePromotionGateArtifacts.ArtifactInspection refreshed =
-                Aljabr.DL.refreshTrainingReportQualityProfilePromotionGateArtifacts(artifacts);
+                Alkhawarizm.DL.refreshTrainingReportQualityProfilePromotionGateArtifacts(artifacts);
         TrainingReportQualityProfilePromotionGateArtifacts.ArtifactVerification refreshedVerification =
                 TrainingReportQualityProfilePromotionGateArtifacts.verify(
                         refreshed,

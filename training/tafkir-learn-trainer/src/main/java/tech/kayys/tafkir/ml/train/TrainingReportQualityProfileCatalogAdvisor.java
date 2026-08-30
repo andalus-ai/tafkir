@@ -101,7 +101,7 @@ public final class TrainingReportQualityProfileCatalogAdvisor {
                     TrainingReportDiagnostics.Severity.INFO,
                     "quality_profile_catalog.implicit_policy_defaults",
                     "Make custom quality-profile policy defaults explicit",
-                    "One or more profiles rely on implicit Aljabr policy defaults, which makes CI behavior harder to review.",
+                    "One or more profiles rely on implicit Alkhawarizm policy defaults, which makes CI behavior harder to review.",
                     List.of(
                             "Declare validationPolicy, performancePolicy, and promotionPolicy on every custom profile.",
                             "Keep permissive local profiles explicit too, so reviewers can distinguish intentional flexibility from missing config.",

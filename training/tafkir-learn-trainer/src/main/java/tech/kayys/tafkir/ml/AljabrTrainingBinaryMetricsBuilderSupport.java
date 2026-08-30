@@ -3,136 +3,136 @@ package tech.kayys.tafkir.ml;
 /**
  * Fluent binary classification metric registration for training option builders.
  */
-public abstract class AljabrTrainingBinaryMetricsBuilderSupport<
-        B extends AljabrTrainingBinaryMetricsBuilderSupport<B>>
-        extends AljabrTrainingClassificationMetricsBuilderSupport<B> {
+public abstract class AlkhawarizmTrainingBinaryMetricsBuilderSupport<
+        B extends AlkhawarizmTrainingBinaryMetricsBuilderSupport<B>>
+        extends AlkhawarizmTrainingClassificationMetricsBuilderSupport<B> {
 
     public B binaryAccuracyMetric() {
-        return metric(Aljabr.DL.binaryAccuracyMetric());
+        return metric(Alkhawarizm.DL.binaryAccuracyMetric());
     }
 
     public B binaryAccuracyMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryAccuracyMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryAccuracyMetric(logitThreshold));
     }
 
     public B binaryBalancedAccuracyMetric() {
-        return metric(Aljabr.DL.binaryBalancedAccuracyMetric());
+        return metric(Alkhawarizm.DL.binaryBalancedAccuracyMetric());
     }
 
     public B binaryBalancedAccuracyMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryBalancedAccuracyMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryBalancedAccuracyMetric(logitThreshold));
     }
 
     public B binaryMatthewsCorrelationCoefficientMetric() {
-        return metric(Aljabr.DL.binaryMatthewsCorrelationCoefficientMetric());
+        return metric(Alkhawarizm.DL.binaryMatthewsCorrelationCoefficientMetric());
     }
 
     public B binaryMatthewsCorrelationCoefficientMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryMatthewsCorrelationCoefficientMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryMatthewsCorrelationCoefficientMetric(logitThreshold));
     }
 
     public B binaryMccMetric() {
-        return metric(Aljabr.DL.binaryMccMetric());
+        return metric(Alkhawarizm.DL.binaryMccMetric());
     }
 
     public B binaryMccMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryMccMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryMccMetric(logitThreshold));
     }
 
     public B binaryCohensKappaMetric() {
-        return metric(Aljabr.DL.binaryCohensKappaMetric());
+        return metric(Alkhawarizm.DL.binaryCohensKappaMetric());
     }
 
     public B binaryCohensKappaMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryCohensKappaMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryCohensKappaMetric(logitThreshold));
     }
 
     public B binaryKappaMetric() {
-        return metric(Aljabr.DL.binaryKappaMetric());
+        return metric(Alkhawarizm.DL.binaryKappaMetric());
     }
 
     public B binaryKappaMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryKappaMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryKappaMetric(logitThreshold));
     }
 
     public B binaryConfusionMatrixMetric() {
-        return metric(Aljabr.DL.binaryConfusionMatrixMetric());
+        return metric(Alkhawarizm.DL.binaryConfusionMatrixMetric());
     }
 
     public B binaryConfusionMatrixMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryConfusionMatrixMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryConfusionMatrixMetric(logitThreshold));
     }
 
     public B binaryPrecisionMetric() {
-        return metric(Aljabr.DL.binaryPrecisionMetric());
+        return metric(Alkhawarizm.DL.binaryPrecisionMetric());
     }
 
     public B binaryPrecisionMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryPrecisionMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryPrecisionMetric(logitThreshold));
     }
 
     public B binaryRecallMetric() {
-        return metric(Aljabr.DL.binaryRecallMetric());
+        return metric(Alkhawarizm.DL.binaryRecallMetric());
     }
 
     public B binaryRecallMetric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryRecallMetric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryRecallMetric(logitThreshold));
     }
 
     public B binaryF1Metric() {
-        return metric(Aljabr.DL.binaryF1Metric());
+        return metric(Alkhawarizm.DL.binaryF1Metric());
     }
 
     public B binaryF1Metric(float logitThreshold) {
-        return metric(Aljabr.DL.binaryF1Metric(logitThreshold));
+        return metric(Alkhawarizm.DL.binaryF1Metric(logitThreshold));
     }
 
     public B binaryRocAucMetric() {
-        return metric(Aljabr.DL.binaryRocAucMetric());
+        return metric(Alkhawarizm.DL.binaryRocAucMetric());
     }
 
     public B binaryAurocMetric() {
-        return metric(Aljabr.DL.binaryAurocMetric());
+        return metric(Alkhawarizm.DL.binaryAurocMetric());
     }
 
     public B binaryAveragePrecisionMetric() {
-        return metric(Aljabr.DL.binaryAveragePrecisionMetric());
+        return metric(Alkhawarizm.DL.binaryAveragePrecisionMetric());
     }
 
     public B binaryBestF1Metric() {
-        return metric(Aljabr.DL.binaryBestF1Metric());
+        return metric(Alkhawarizm.DL.binaryBestF1Metric());
     }
 
     public B binaryBestF1ThresholdMetric() {
-        return metric(Aljabr.DL.binaryBestF1ThresholdMetric());
+        return metric(Alkhawarizm.DL.binaryBestF1ThresholdMetric());
     }
 
     public B binaryPrecisionAtRecallMetric(double minimumRecall) {
-        return metric(Aljabr.DL.binaryPrecisionAtRecallMetric(minimumRecall));
+        return metric(Alkhawarizm.DL.binaryPrecisionAtRecallMetric(minimumRecall));
     }
 
     public B binaryRecallAtPrecisionMetric(double minimumPrecision) {
-        return metric(Aljabr.DL.binaryRecallAtPrecisionMetric(minimumPrecision));
+        return metric(Alkhawarizm.DL.binaryRecallAtPrecisionMetric(minimumPrecision));
     }
 
     public B binaryBrierScoreMetric() {
-        return metric(Aljabr.DL.binaryBrierScoreMetric());
+        return metric(Alkhawarizm.DL.binaryBrierScoreMetric());
     }
 
     public B binaryLogLossMetric() {
-        return metric(Aljabr.DL.binaryLogLossMetric());
+        return metric(Alkhawarizm.DL.binaryLogLossMetric());
     }
 
     public B binaryCrossEntropyMetric() {
-        return metric(Aljabr.DL.binaryCrossEntropyMetric());
+        return metric(Alkhawarizm.DL.binaryCrossEntropyMetric());
     }
 
     public B binaryExpectedCalibrationErrorMetric() {
-        return metric(Aljabr.DL.binaryExpectedCalibrationErrorMetric());
+        return metric(Alkhawarizm.DL.binaryExpectedCalibrationErrorMetric());
     }
 
     public B binaryExpectedCalibrationErrorMetric(int bins) {
-        return metric(Aljabr.DL.binaryExpectedCalibrationErrorMetric(bins));
+        return metric(Alkhawarizm.DL.binaryExpectedCalibrationErrorMetric(bins));
     }
 
     public B binaryRankingMetrics() {

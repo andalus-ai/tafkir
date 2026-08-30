@@ -122,7 +122,7 @@ public record DiscreteTokenDatasetCheckpointResumeExplanation(
                         + report.checkpoint().schemaVersion()
                         + " but expected "
                         + DiscreteTokenDatasetCheckpointManifestSnapshot.SCHEMA_VERSION,
-                "Regenerate or migrate the checkpoint manifest with the current Aljabr trainer schema.",
+                "Regenerate or migrate the checkpoint manifest with the current Alkhawarizm trainer schema.",
                 Map.of(
                         "actualSchemaVersion", report.checkpoint().schemaVersion(),
                         "expectedSchemaVersion", DiscreteTokenDatasetCheckpointManifestSnapshot.SCHEMA_VERSION)));

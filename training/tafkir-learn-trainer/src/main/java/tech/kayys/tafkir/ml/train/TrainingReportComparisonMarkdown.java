@@ -31,7 +31,7 @@ public final class TrainingReportComparisonMarkdown {
     public static String render(TrainingReportComparisonExport export) {
         Objects.requireNonNull(export, "export must not be null");
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Training Report Comparison");
+        appendLine(markdown, "# Alkhawarizm Training Report Comparison");
         appendLine(markdown, "");
         appendLine(markdown, "**Metrics:** `" + export.metricCount() + "`");
         appendLine(markdown, "**Findings:** `" + export.findingCount() + "`");
@@ -53,7 +53,7 @@ public final class TrainingReportComparisonMarkdown {
     public static String render(TrainingReportComparisonArtifacts.ArtifactVerification verification) {
         Objects.requireNonNull(verification, "verification must not be null");
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Training Comparison Artifact Verification");
+        appendLine(markdown, "# Alkhawarizm Training Comparison Artifact Verification");
         appendLine(markdown, "");
         appendLine(markdown, "**Verification:** `" + (verification.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, verification.message());

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportActionPlanMarkdownTest {
@@ -51,10 +51,10 @@ class TrainingReportActionPlanMarkdownTest {
                         Map.entry("parameterUpdateNonFiniteFraction", 0.0),
                         Map.entry("parameterUpdateToParameterL2Ratio", 0.01))));
 
-        TrainingReport report = Aljabr.DL.trainingReport(reportFile);
-        String markdown = Aljabr.DL.trainingReportActionPlanMarkdown(reportFile);
+        TrainingReport report = Alkhawarizm.DL.trainingReport(reportFile);
+        String markdown = Alkhawarizm.DL.trainingReportActionPlanMarkdown(reportFile);
 
-        assertTrue(markdown.startsWith("# Aljabr Training Action Plan\n"));
+        assertTrue(markdown.startsWith("# Alkhawarizm Training Action Plan\n"));
         assertTrue(markdown.contains("**Status:** `BLOCKED`"));
         assertTrue(markdown.contains("| Priority | Category | Diagnostic | Title |"));
         assertTrue(markdown.contains("| `BLOCKER` | `OPTIMIZATION` | `optimization.non_finite_values`"));
@@ -64,8 +64,8 @@ class TrainingReportActionPlanMarkdownTest {
         assertTrue(markdown.contains("learning rate"));
         assertFalse(markdown.contains("null"));
         assertTrue(report.actionPlanMarkdown().equals(markdown));
-        assertTrue(Aljabr.DL.trainingReportActionPlanMarkdown(report).equals(markdown));
-        assertTrue(Aljabr.DL.trainingReportActionPlanMarkdown(report.actionPlan()).equals(markdown));
+        assertTrue(Alkhawarizm.DL.trainingReportActionPlanMarkdown(report).equals(markdown));
+        assertTrue(Alkhawarizm.DL.trainingReportActionPlanMarkdown(report.actionPlan()).equals(markdown));
     }
 
     @Test
@@ -231,8 +231,8 @@ class TrainingReportActionPlanMarkdownTest {
         assertEquals(50.602409638554214, (double) runtimeBalance.get("dominantPercent"), 1e-12);
         assertEquals(21.0, (double) runtimeBalanceInput.get("totalMillis"), 1e-12);
         assertEquals(runtimeBalance, report.runtimeProfileBalanceMap());
-        assertEquals(runtimeBalance, Aljabr.DL.trainingReportRuntimeProfileBalanceMap(report));
-        assertEquals("input", Aljabr.DL.trainingReportRuntimeProfileBalance(report).bottleneckGroup());
+        assertEquals(runtimeBalance, Alkhawarizm.DL.trainingReportRuntimeProfileBalanceMap(report));
+        assertEquals("input", Alkhawarizm.DL.trainingReportRuntimeProfileBalance(report).bottleneckGroup());
         TrainingReportRuntimeProfileBalanceAssessment balanceAssessment =
                 report.runtimeProfileBalanceAssessment();
         Map<String, Object> balanceAssessmentMap = report.runtimeProfileBalanceAssessmentMap();
@@ -247,16 +247,16 @@ class TrainingReportActionPlanMarkdownTest {
                 balanceAssessment.dominantPercent().orElseThrow(), 1e-12);
         assertEquals(Boolean.TRUE, balanceAssessmentMap.get("requiresAttention"));
         assertEquals("INPUT", balanceAssessmentMap.get("dominantBucket"));
-        assertEquals(balanceAssessmentMap, Aljabr.DL.trainingReportRuntimeProfileBalanceAssessmentMap(report));
-        assertEquals(balanceAssessment, Aljabr.DL.trainingReportRuntimeProfileBalanceAssessment(report));
+        assertEquals(balanceAssessmentMap, Alkhawarizm.DL.trainingReportRuntimeProfileBalanceAssessmentMap(report));
+        assertEquals(balanceAssessment, Alkhawarizm.DL.trainingReportRuntimeProfileBalanceAssessment(report));
         TrainingReportRuntimeProfileBalanceAssessment customBalanceAssessment =
-                Aljabr.DL.trainingReportRuntimeProfileBalanceAssessment(
+                Alkhawarizm.DL.trainingReportRuntimeProfileBalanceAssessment(
                         report,
                         new TrainingReportRuntimeProfileBalanceAssessment.Thresholds(60.0, 45.0, 50.0, 70.0));
         assertFalse(customBalanceAssessment.inputBound());
         assertFalse(customBalanceAssessment.requiresAttention());
         String balanceMarkdown = report.runtimeProfileBalanceMarkdown();
-        assertEquals(balanceMarkdown, Aljabr.DL.trainingReportRuntimeProfileBalanceMarkdown(report));
+        assertEquals(balanceMarkdown, Alkhawarizm.DL.trainingReportRuntimeProfileBalanceMarkdown(report));
         assertTrue(balanceMarkdown.startsWith("### Runtime Balance\n"));
         assertTrue(balanceMarkdown.contains("**Bottleneck group:** `input` (21.000 ms total)"));
         assertEquals("runtime_profile.primary_hotspot", report.actionPlan().recommendations().get(0).diagnosticCode());
@@ -274,7 +274,7 @@ class TrainingReportActionPlanMarkdownTest {
                 .anyMatch(action -> action.contains("forward, backward, loss, and metric")));
         Map<String, Object> runtimeInputProfile = report.runtimeInputProfileMap();
         assertEquals(Boolean.TRUE, runtimeInputProfile.get("available"));
-        assertEquals(runtimeInputProfile, Aljabr.DL.trainingReportRuntimeInputProfile(report));
+        assertEquals(runtimeInputProfile, Alkhawarizm.DL.trainingReportRuntimeInputProfile(report));
         Map<?, ?> trainInput = (Map<?, ?>) runtimeInputProfile.get("train");
         Map<?, ?> trainNext = (Map<?, ?>) trainInput.get("next");
         assertEquals(21.0, (double) runtimeInputProfile.get("totalMillis"), 1e-12);
@@ -306,7 +306,7 @@ class TrainingReportActionPlanMarkdownTest {
         assertTrue(markdown.contains(
                 "**Input bottleneck:** `train.next()` (12.000 ms of 15.500 ms train input, 77.419% of that scope)"));
         String inputMarkdown = report.runtimeInputProfileMarkdown();
-        assertEquals(inputMarkdown, Aljabr.DL.trainingReportRuntimeInputProfileMarkdown(report));
+        assertEquals(inputMarkdown, Alkhawarizm.DL.trainingReportRuntimeInputProfileMarkdown(report));
         assertTrue(inputMarkdown.startsWith("### Input Pipeline\n"));
         assertFalse(inputMarkdown.contains("## Runtime Profile"));
         assertTrue(inputMarkdown.contains(
@@ -525,7 +525,7 @@ class TrainingReportActionPlanMarkdownTest {
                         Map.of("epoch", 1, "trainLoss", 0.7, "validationLoss", 0.9, "learningRate", 0.005),
                         Map.of("epoch", 2, "trainLoss", 0.45, "validationLoss", 0.55, "learningRate", 0.001)));
 
-        String markdown = Aljabr.DL.trainingReportActionPlanMarkdown(reportFile);
+        String markdown = Alkhawarizm.DL.trainingReportActionPlanMarkdown(reportFile);
 
         assertTrue(markdown.contains("**Status:** `READY`"));
         assertTrue(markdown.contains("No recommendations. The report is ready under the current diagnostics."));

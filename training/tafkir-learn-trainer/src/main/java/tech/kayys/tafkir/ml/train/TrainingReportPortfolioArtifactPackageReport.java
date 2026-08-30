@@ -418,7 +418,7 @@ public final class TrainingReportPortfolioArtifactPackageReport {
                 "verification must not be null");
         TrainingReportPortfolioArtifactManifest.ManifestInspection inspection = resolved.inspection();
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Training Portfolio Package Verification");
+        appendLine(markdown, "# Alkhawarizm Training Portfolio Package Verification");
         appendLine(markdown, "");
         appendLine(markdown, "**Verification:** `" + (resolved.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, resolved.message());
@@ -1346,7 +1346,7 @@ public final class TrainingReportPortfolioArtifactPackageReport {
         boolean passed = Boolean.TRUE.equals(booleanValue(report.get("passed")));
         boolean matches = true;
         matches &= requireMarkdownContains(failures, markdown, "title",
-                "# Aljabr Training Portfolio Package Verification");
+                "# Alkhawarizm Training Portfolio Package Verification");
         matches &= requireMarkdownContains(failures, markdown, "verification status",
                 "**Verification:** `" + passFail(passed) + "`");
         matches &= requireMarkdownContains(failures, markdown, "manifest checksum",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-schema-catalog.v1.schema.json",
-  "title": "Aljabr checkpoint lineage health schema catalog",
+  "title": "Alkhawarizm checkpoint lineage health schema catalog",
   "description": "Stable schema catalog for recursive-reasoning checkpoint lineage health payload contracts.",
   "type": "object",
   "additionalProperties": true,

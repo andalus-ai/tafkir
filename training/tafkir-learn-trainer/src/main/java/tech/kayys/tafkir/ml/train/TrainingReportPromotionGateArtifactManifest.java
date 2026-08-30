@@ -256,7 +256,7 @@ public final class TrainingReportPromotionGateArtifactManifest {
         TrainerCheckpointIO.writePropertiesAtomically(
                 manifestFile,
                 manifest,
-                "Aljabr training promotion gate artifact manifest");
+                "Alkhawarizm training promotion gate artifact manifest");
         return new ManifestBundle(
                 resolvedArtifacts.directory(),
                 manifestFile,
@@ -317,7 +317,7 @@ public final class TrainingReportPromotionGateArtifactManifest {
         TrainerCheckpointIO.writePropertiesAtomically(
                 resolvedInspection.manifestFile(),
                 manifest,
-                "Aljabr training promotion gate artifact manifest");
+                "Alkhawarizm training promotion gate artifact manifest");
         return readFile(resolvedInspection.manifestFile());
     }
 

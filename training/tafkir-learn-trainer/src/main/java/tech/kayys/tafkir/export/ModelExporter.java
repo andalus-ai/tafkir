@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * @deprecated Use {@link tech.kayys.tafkir.ml.export.ModelExporter} or
- *             {@link tech.kayys.tafkir.ml.Aljabr.Export#model(NNModule)}
+ *             {@link tech.kayys.tafkir.ml.Alkhawarizm.Export#model(NNModule)}
  *             instead.
  */
 @Deprecated(since = "0.1.1", forRemoval = true)

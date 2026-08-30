@@ -36,7 +36,7 @@ import java.util.Map;
  *
  * <p>Improved version with Builder pattern, weight decay, and AMSGrad support.</p>
  *
- * @author Aljabr Team
+ * @author Alkhawarizm Team
  */
 public class Adam implements Optimizer {
 

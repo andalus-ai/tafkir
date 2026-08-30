@@ -3,7 +3,7 @@ package tech.kayys.tafkir.ml.reasoning;
 import java.util.List;
 
 /**
- * Canonical metadata for Aljabr's recursive reasoning model family.
+ * Canonical metadata for Alkhawarizm's recursive reasoning model family.
  */
 public final class RecursiveReasoningModelFamily {
     public static final String FAMILY_ID = "generative-recursive-reasoning";

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import tech.kayys.alkhawarizm.core.tensor.Tensor;
 import tech.kayys.alkhawarizm.metal.binding.MetalBinding;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.alkhawarizm.safetensor.core.tensor.AccelTensor;
 import tech.kayys.alkhawarizm.safetensor.runner.sd.PNDMScheduler;
 import tech.kayys.alkhawarizm.safetensor.runner.sd.UNetModel;
@@ -107,7 +107,7 @@ public final class DiffusionOpdStableDiffusionNativeBridgeTrainerExample {
                     StableDiffusionNativeRoleFixtures.AESTHETICS_LATE,
                     new StubStableDiffusionUnet(0.10f, 0.016f));
 
-            var trainer = Aljabr.DL.diffusionOpdTrainer()
+            var trainer = Alkhawarizm.DL.diffusionOpdTrainer()
                     .samplerType(DiffusionSamplerType.ODE)
                     .student(StableDiffusionRunnerAdapters.denoiser(student, bridge))
                     .teacher("ocr-early", StableDiffusionRunnerAdapters.denoiser(ocrEarlyTeacher, bridge))

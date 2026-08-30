@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * FFM bindings specifically for executing Tafkir training operations via LibTorch.
- * This directly accesses the off-heap MemorySegments provided by Aljabr UnifiedMemoryStore.
+ * This directly accesses the off-heap MemorySegments provided by Alkhawarizm UnifiedMemoryStore.
  */
 public class TafkirLibTorchBinding {
 

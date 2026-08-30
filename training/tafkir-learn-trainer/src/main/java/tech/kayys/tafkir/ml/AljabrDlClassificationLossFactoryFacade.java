@@ -5,10 +5,10 @@ import tech.kayys.tafkir.ml.nn.loss.CausalLanguageModelingLoss;
 import tech.kayys.tafkir.ml.nn.loss.FocalLoss;
 
 /**
- * Classification loss construction helpers inherited by {@link Aljabr.DL}.
+ * Classification loss construction helpers inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlClassificationLossFactoryFacade extends AljabrDlSchedulerFactoryFacade {
-    protected AljabrDlClassificationLossFactoryFacade() {
+public class AlkhawarizmDlClassificationLossFactoryFacade extends AlkhawarizmDlSchedulerFactoryFacade {
+    protected AlkhawarizmDlClassificationLossFactoryFacade() {
     }
 
     public static CrossEntropyLoss crossEntropy() {

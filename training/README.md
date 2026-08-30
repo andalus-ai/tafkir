@@ -1,4 +1,4 @@
-# Aljabr ML Framework
+# Alkhawarizm ML Framework
 
 > **PyTorch-like API in pure Java 25** — with JDK 25 Vector API (SIMD) and FFM (Foreign Function & Memory) support.
 
@@ -8,7 +8,7 @@
 
 ## Overview
 
-Aljabr ML is a **pure-Java machine learning framework** designed to provide PyTorch/JAX/TensorFlow-like APIs for the JVM ecosystem. It leverages **JDK 25 preview features** — the Vector API for SIMD-accelerated tensor operations and FFM for native library interop — to deliver high-performance ML workflows without leaving Java.
+Alkhawarizm ML is a **pure-Java machine learning framework** designed to provide PyTorch/JAX/TensorFlow-like APIs for the JVM ecosystem. It leverages **JDK 25 preview features** — the Vector API for SIMD-accelerated tensor operations and FFM for native library interop — to deliver high-performance ML workflows without leaving Java.
 
 ### Key Features
 
@@ -59,27 +59,27 @@ mvn clean install -pl framework/lib -am -DskipTests
 ### Tensor Basics
 
 ```java
-import tech.kayys.alkhawarizm.ml.Aljabr;
+import tech.kayys.alkhawarizm.ml.Alkhawarizm;
 import tech.kayys.alkhawarizm.ml.autograd.GradTensor;
 
 // Create tensors
-var x = Aljabr.tensor(new float[]{1, 2, 3, 4}, 2, 2);
-var zeros = Aljabr.zeros(3, 4);
-var ones = Aljabr.ones(2, 3);
-var randn = Aljabr.randn(128, 64);     // Normal distribution
-var rand = Aljabr.rand(128, 64);        // Uniform [0, 1)
-var eye = Aljabr.eye(10);
+var x = Alkhawarizm.tensor(new float[]{1, 2, 3, 4}, 2, 2);
+var zeros = Alkhawarizm.zeros(3, 4);
+var ones = Alkhawarizm.ones(2, 3);
+var randn = Alkhawarizm.randn(128, 64);     // Normal distribution
+var rand = Alkhawarizm.rand(128, 64);        // Uniform [0, 1)
+var eye = Alkhawarizm.eye(10);
 
 // Operations
-var a = Aljabr.randn(3, 4);
-var b = Aljabr.randn(3, 4);
+var a = Alkhawarizm.randn(3, 4);
+var b = Alkhawarizm.randn(3, 4);
 var c = a.add(b).relu();
 var d = a.matmul(b.transpose());
 var e = c.sum();
 
 // Autograd
-var w = Aljabr.randn(4, 2).requiresGrad(true);
-var x2 = Aljabr.randn(3, 4);
+var w = Alkhawarizm.randn(4, 2).requiresGrad(true);
+var x2 = Alkhawarizm.randn(3, 4);
 var y = x2.matmul(w).relu().sum();
 y.backward();
 w.grad();  // ∂y/∂w
@@ -156,7 +156,7 @@ for (DataLoader.Batch batch : loader) {
 ### Model Hub
 
 ```java
-import tech.kayys.alkhawarizm.ml.Aljabr;
+import tech.kayys.alkhawarizm.ml.Alkhawarizm;
 import tech.kayys.alkhawarizm.ml.hub.HubConfig;
 import tech.kayys.alkhawarizm.ml.nn.layer.*;
 
@@ -166,7 +166,7 @@ var model = new Sequential(
     new LayerNorm(768)
 );
 
-Aljabr.Hub.loadInto(
+Alkhawarizm.Hub.loadInto(
     model,
     "Qwen/Qwen2.5-0.5B",
     HubConfig.builder()
@@ -178,10 +178,10 @@ Aljabr.Hub.loadInto(
 ### Export
 
 ```java
-import tech.kayys.alkhawarizm.ml.Aljabr;
+import tech.kayys.alkhawarizm.ml.Alkhawarizm;
 import tech.kayys.alkhawarizm.ml.export.ModelExporter;
 
-ModelExporter exporter = Aljabr.Export.model(model)
+ModelExporter exporter = Alkhawarizm.Export.model(model)
     .inputShape(1, 3, 224, 224)
     .build();
 
@@ -227,7 +227,7 @@ alkhawarizm/
 ├── ml/alkhawarizm-ml-export/        # ONNX, GGUF, LiteRT exporters and benchmark
 ├── ml/alkhawarizm-ml-byte-latent/   # Planned byte-latent language-model family
 ├── training/alkhawarizm-train-recursive-reasoning/ # Recursive reasoning family (GRAM-style), :ml:alkhawarizm-ml-recursive-reasoning
-├── ml/alkhawarizm-ml-api/           # Aljabr.java umbrella ML entry point
+├── ml/alkhawarizm-ml-api/           # Alkhawarizm.java umbrella ML entry point
 ├── trainer/alkhawarizm-trainer-api/ # Canonical trainer session/config contracts
 ├── trainer/alkhawarizm-trainer/     # Trainer bridge/runtime facade
 └── examples/alkhawarizm-ml-examples/# Samples and migration-era examples
@@ -529,7 +529,7 @@ Maven compiler plugin is pre-configured in `framework/pom.xml`:
 
 ## Comparison with Existing Frameworks
 
-| Feature | Aljabr | PyTorch | DJL |
+| Feature | Alkhawarizm | PyTorch | DJL |
 |---------|--------|---------|-----|
 | **Language**          | Java 25               | Python               | Java |
 | **Autograd**          | ✅ Tape-based         | ✅ Dynamic            | ❌ (Inference-only) |

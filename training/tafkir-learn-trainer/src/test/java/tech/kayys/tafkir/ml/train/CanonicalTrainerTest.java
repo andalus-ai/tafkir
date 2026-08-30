@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Aljabr;
-import tech.kayys.tafkir.ml.AljabrML;
+import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.AlkhawarizmML;
 import tech.kayys.tafkir.ml.autograd.Function;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.ml.nn.NNModule;
@@ -216,8 +216,8 @@ class CanonicalTrainerTest {
             GradTensor result = left.matmul(right);
 
             assertArrayEquals(new float[] { 19f, 22f, 43f, 50f }, result.data(), 1e-6f);
-            assertEquals("cpu", Aljabr.DL.accelerationStatus("cpu").id());
-            assertEquals(Boolean.FALSE, Aljabr.DL.accelerationStatus("cpu").accelerated());
+            assertEquals("cpu", Alkhawarizm.DL.accelerationStatus("cpu").id());
+            assertEquals(Boolean.FALSE, Alkhawarizm.DL.accelerationStatus("cpu").accelerated());
         }
     }
 
@@ -297,7 +297,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlFacadeExposesCanonicalTrainerBuilder() {
-        assertNotNull(Aljabr.DL.trainer());
+        assertNotNull(Alkhawarizm.DL.trainer());
     }
 
     @Test
@@ -305,14 +305,14 @@ class CanonicalTrainerTest {
         Linear model = new Linear(1, 1);
         List<Batch> train = List.of(batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .gradientClip(1.0)
                         .gradientClipByValue(0.05)
@@ -335,14 +335,14 @@ class CanonicalTrainerTest {
                 GradTensor.of(new float[] { 0f, 0f, 1f, 1f }, 4, 1),
                 2);
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .dataDistributionDiagnostics()
                         .saveBestModelCheckpoint(false)
                         .build());
@@ -361,14 +361,14 @@ class CanonicalTrainerTest {
         Linear model = new Linear(1, 1);
         List<Batch> train = List.of(batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2));
 
-        IllegalStateException error = assertThrows(IllegalStateException.class, () -> Aljabr.DL.fit(
+        IllegalStateException error = assertThrows(IllegalStateException.class, () -> Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("npu")
                         .requireAccelerator()
                         .build()));
@@ -379,19 +379,19 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmDlDataLoaderFeedsCanonicalTrainer() {
         Linear model = new Linear(1, 1);
-        var train = Aljabr.DL.dataLoader(
+        var train = Alkhawarizm.DL.dataLoader(
                 GradTensor.of(new float[] { 1f, 2f, 3f, 4f }, 4, 1),
                 GradTensor.of(new float[] { 2f, 4f, 6f, 8f }, 4, 1),
                 2);
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions().device("cpu").build());
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions().device("cpu").build());
 
         assertEquals(2, train.numBatches());
         assertEquals(2, ((Number) summary.metadata().get("optimizerStepCount")).intValue());
@@ -401,7 +401,7 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmDlSplitFeedsTrainAndValidationLoaders() {
         Linear model = new Linear(1, 1);
-        var split = Aljabr.DL.trainValidationSplit(
+        var split = Alkhawarizm.DL.trainValidationSplit(
                 GradTensor.of(new float[] { 1f, 2f, 3f, 4f, 5f, 6f }, 6, 1),
                 GradTensor.of(new float[] { 2f, 4f, 6f, 8f, 10f, 12f }, 6, 1),
                 0.67,
@@ -409,14 +409,14 @@ class CanonicalTrainerTest {
         var train = split.trainLoader(2, true, 77L);
         var validation = split.validationLoader(2);
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 validation,
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions().device("cpu").build());
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions().device("cpu").build());
 
         assertEquals(4, train.size());
         assertEquals(2, validation.size());
@@ -429,13 +429,13 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmDlFitAcceptsTensorDatasetSplitDirectly() {
         Linear model = new Linear(1, 1);
-        var split = Aljabr.DL.trainValidationSplit(
+        var split = Alkhawarizm.DL.trainValidationSplit(
                 GradTensor.of(new float[] { 1f, 2f, 3f, 4f, 5f, 6f }, 6, 1),
                 GradTensor.of(new float[] { 2f, 4f, 6f, 8f, 10f, 12f }, 6, 1),
                 0.67,
                 5L);
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 split,
                 2,
@@ -443,8 +443,8 @@ class CanonicalTrainerTest {
                 17L,
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions().device("cpu").build());
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions().device("cpu").build());
 
         assertEquals(1, summary.epochCount());
         assertNotNull(summary.latestValidationLoss());
@@ -461,23 +461,23 @@ class CanonicalTrainerTest {
                 batch(new float[] { 2f }, new float[] { 5f }, 1));
 
         assertTrue(model.isTraining());
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 model,
                 loader,
                 mseLoss::compute,
                 "cpu",
-                Aljabr.DL.meanAbsoluteErrorMetric(),
-                Aljabr.DL.meanSquaredErrorMetric(),
-                Aljabr.DL.rmseMetric(),
-                Aljabr.DL.medaeMetric(),
-                Aljabr.DL.maxErrorMetric(),
-                Aljabr.DL.pinballLossMetric(0.5),
-                Aljabr.DL.pinballLossMetric(0.9),
-                Aljabr.DL.r2Metric(),
-                Aljabr.DL.mapeMetric(),
-                Aljabr.DL.smapeMetric(),
-                Aljabr.DL.mbeMetric(),
-                Aljabr.DL.explainedVarianceMetric());
+                Alkhawarizm.DL.meanAbsoluteErrorMetric(),
+                Alkhawarizm.DL.meanSquaredErrorMetric(),
+                Alkhawarizm.DL.rmseMetric(),
+                Alkhawarizm.DL.medaeMetric(),
+                Alkhawarizm.DL.maxErrorMetric(),
+                Alkhawarizm.DL.pinballLossMetric(0.5),
+                Alkhawarizm.DL.pinballLossMetric(0.9),
+                Alkhawarizm.DL.r2Metric(),
+                Alkhawarizm.DL.mapeMetric(),
+                Alkhawarizm.DL.smapeMetric(),
+                Alkhawarizm.DL.mbeMetric(),
+                Alkhawarizm.DL.explainedVarianceMetric());
 
         assertTrue(model.isTraining());
         assertEquals(14.0 / 3.0, summary.loss(), 1e-6);
@@ -509,14 +509,14 @@ class CanonicalTrainerTest {
         IdentityModel model = new IdentityModel();
         List<Batch> loader = List.of(batch(new float[] { 1f, 3f }, new float[] { 2f, 1f }, 2));
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 model,
                 loader,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.evaluationOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.evaluationOptions()
                         .device("off")
                         .build(),
-                Aljabr.DL.meanSquaredErrorMetric());
+                Alkhawarizm.DL.meanSquaredErrorMetric());
 
         assertEquals("cpu", summary.metadata().get("requestedDevice"));
         assertEquals("cpu", summary.metadata().get("executionBackend"));
@@ -530,11 +530,11 @@ class CanonicalTrainerTest {
         IdentityModel model = new IdentityModel();
         List<Batch> loader = List.of(batch(new float[] { 1f, 3f }, new float[] { 2f, 1f }, 2));
 
-        IllegalStateException error = assertThrows(IllegalStateException.class, () -> Aljabr.DL.evaluate(
+        IllegalStateException error = assertThrows(IllegalStateException.class, () -> Alkhawarizm.DL.evaluate(
                 model,
                 loader,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.evaluationOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.evaluationOptions()
                         .device("npu")
                         .requireAccelerator()
                         .build()));
@@ -553,14 +553,14 @@ class CanonicalTrainerTest {
                 }, 4, 2),
                 GradTensor.of(new float[] { 0.0f, 1.0f, 5.0f, 10.0f }, 4)));
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
                 (predictions, targets) -> GradTensor.scalar(0.0f),
                 "cpu",
-                Aljabr.DL.predictionIntervalCoverageMetric(),
-                Aljabr.DL.predictionIntervalMeanWidthMetric(),
-                Aljabr.DL.predictionIntervalNormalizedMeanWidthMetric());
+                Alkhawarizm.DL.predictionIntervalCoverageMetric(),
+                Alkhawarizm.DL.predictionIntervalMeanWidthMetric(),
+                Alkhawarizm.DL.predictionIntervalNormalizedMeanWidthMetric());
 
         assertEquals(0.0, summary.loss(), 1e-6);
         assertEquals(0.75, summary.metric("prediction_interval_coverage"), 1e-6);
@@ -576,14 +576,14 @@ class CanonicalTrainerTest {
         IdentityModel model = new IdentityModel();
         List<Batch> loader = List.of(batch(new float[] { 1f, 3f }, new float[] { 2f, 1f }, 2));
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 model,
                 loader,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
                 "cpu",
-                Aljabr.DL.meanSquaredErrorMetric(),
-                Aljabr.DL.rootMeanSquaredErrorMetric(),
-                Aljabr.DL.r2ScoreMetric());
+                Alkhawarizm.DL.meanSquaredErrorMetric(),
+                Alkhawarizm.DL.rootMeanSquaredErrorMetric(),
+                Alkhawarizm.DL.r2ScoreMetric());
 
         assertEquals(2.5, summary.loss(), 1e-6);
         assertEquals(2.5, summary.metric("mse"), 1e-6);
@@ -597,7 +597,7 @@ class CanonicalTrainerTest {
         GradTensor predictions = GradTensor.of(new float[] { 0f, 2f, 5f }, 3, 1).requiresGrad(true);
         GradTensor targets = GradTensor.of(new float[] { 0f, 0f, 1f }, 3, 1);
 
-        HuberLoss huber = Aljabr.DL.huberLoss(1.5f);
+        HuberLoss huber = Alkhawarizm.DL.huberLoss(1.5f);
         GradTensor loss = huber.compute(predictions, targets);
         loss.backward();
 
@@ -607,7 +607,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlClassificationLoaderFeedsCrossEntropyEvaluation() {
-        var loader = Aljabr.DL.classificationDataLoader(
+        var loader = Alkhawarizm.DL.classificationDataLoader(
                 GradTensor.of(new float[] {
                         3f, 1f, 0f,
                         0f, 1f, 4f,
@@ -616,24 +616,24 @@ class CanonicalTrainerTest {
                 new int[] { 0, 1, 1 },
                 3);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
+                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
                 "cpu",
-                Aljabr.DL.accuracyMetric(),
-                Aljabr.DL.topKAccuracyMetric(2),
-                Aljabr.DL.precisionMetric(),
-                Aljabr.DL.recallMetric(),
-                Aljabr.DL.f1Metric(),
-                Aljabr.DL.classificationBalancedAccuracyMetric(),
-                Aljabr.DL.classificationMccMetric(),
-                Aljabr.DL.classificationWeightedPrecisionMetric(),
-                Aljabr.DL.classificationWeightedRecallMetric(),
-                Aljabr.DL.classificationWeightedF1Metric(),
-                Aljabr.DL.classificationKappaMetric(),
-                Aljabr.DL.classificationMacroRocAucMetric(),
-                Aljabr.DL.classificationMacroAveragePrecisionMetric());
+                Alkhawarizm.DL.accuracyMetric(),
+                Alkhawarizm.DL.topKAccuracyMetric(2),
+                Alkhawarizm.DL.precisionMetric(),
+                Alkhawarizm.DL.recallMetric(),
+                Alkhawarizm.DL.f1Metric(),
+                Alkhawarizm.DL.classificationBalancedAccuracyMetric(),
+                Alkhawarizm.DL.classificationMccMetric(),
+                Alkhawarizm.DL.classificationWeightedPrecisionMetric(),
+                Alkhawarizm.DL.classificationWeightedRecallMetric(),
+                Alkhawarizm.DL.classificationWeightedF1Metric(),
+                Alkhawarizm.DL.classificationKappaMetric(),
+                Alkhawarizm.DL.classificationMacroRocAucMetric(),
+                Alkhawarizm.DL.classificationMacroAveragePrecisionMetric());
 
         assertEquals(3, summary.sampleCount());
         assertEquals(1, summary.batchCount());
@@ -655,7 +655,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlClassificationRankingMetricsAcceptOneHotTargets() {
-        var loader = Aljabr.DL.dataLoader(
+        var loader = Alkhawarizm.DL.dataLoader(
                 GradTensor.of(new float[] {
                         4f, 0f, 0f,
                         0f, 4f, 0f,
@@ -670,13 +670,13 @@ class CanonicalTrainerTest {
                 }, 4, 3),
                 4);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
                 (predictions, targets) -> GradTensor.scalar(0f),
                 "cpu",
-                Aljabr.DL.classificationMacroAurocMetric(),
-                Aljabr.DL.classificationMacroAveragePrecisionMetric());
+                Alkhawarizm.DL.classificationMacroAurocMetric(),
+                Alkhawarizm.DL.classificationMacroAveragePrecisionMetric());
 
         assertEquals(1.0, summary.metric("classification_macro_roc_auc"), 1e-6);
         assertEquals(1.0, summary.metric("classification_macro_average_precision"), 1e-6);
@@ -684,7 +684,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlClassificationCalibrationMetricsReportTopLabelReliability() {
-        var loader = Aljabr.DL.classificationDataLoader(
+        var loader = Alkhawarizm.DL.classificationDataLoader(
                 GradTensor.of(new float[] {
                         logProb(0.8), logProb(0.1), logProb(0.1),
                         logProb(0.4), logProb(0.5), logProb(0.1),
@@ -693,13 +693,13 @@ class CanonicalTrainerTest {
                 new int[] { 0, 0, 2 },
                 3);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
+                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
                 "cpu",
-                Aljabr.DL.classificationBrierScoreMetric(),
-                Aljabr.DL.classificationExpectedCalibrationErrorMetric(5));
+                Alkhawarizm.DL.classificationBrierScoreMetric(),
+                Alkhawarizm.DL.classificationExpectedCalibrationErrorMetric(5));
 
         assertEquals(1.06 / 3.0, summary.metric("classification_brier_score"), 1e-6);
         assertEquals(1.0 / 15.0, summary.metric("classification_expected_calibration_error"), 1e-6);
@@ -722,9 +722,9 @@ class CanonicalTrainerTest {
                 0f, 0f, 0f,
                 0f, 0f, 0f
         }, 3, 3).requiresGrad(true);
-        GradTensor targets = Aljabr.DL.classLabels(0, 2, 2);
+        GradTensor targets = Alkhawarizm.DL.classLabels(0, 2, 2);
 
-        GradTensor loss = Aljabr.DL.crossEntropy(new float[] { 1.0f, 1.0f, 4.0f }).compute(logits, targets);
+        GradTensor loss = Alkhawarizm.DL.crossEntropy(new float[] { 1.0f, 1.0f, 4.0f }).compute(logits, targets);
         loss.backward();
 
         assertEquals(Math.log(3.0), loss.item(), 1e-6);
@@ -735,7 +735,7 @@ class CanonicalTrainerTest {
         }, logits.grad().data(), 1e-6f);
         assertArrayEquals(
                 new float[] { 2.0f / 3.0f, 2.0f },
-                Aljabr.DL.classWeights(0, 0, 0, 1),
+                Alkhawarizm.DL.classWeights(0, 0, 0, 1),
                 1e-6f);
     }
 
@@ -747,16 +747,16 @@ class CanonicalTrainerTest {
                         0f, 0f, 0f,
                         0f, 0f, 0f
                 }, 3, 3),
-                Aljabr.DL.classLabels(0, 2, 2)));
+                Alkhawarizm.DL.classLabels(0, 2, 2)));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .crossEntropyClassWeights(1.0f, 1.0f, 4.0f)
                         .build());
@@ -772,9 +772,9 @@ class CanonicalTrainerTest {
                 0f, 0f, 0f,
                 0f, 0f, 0f
         }, 2, 3).requiresGrad(true);
-        GradTensor targets = Aljabr.DL.classLabels(0, 2);
+        GradTensor targets = Alkhawarizm.DL.classLabels(0, 2);
 
-        GradTensor loss = Aljabr.DL.focalLoss(0.0f, 1.0f).compute(logits, targets);
+        GradTensor loss = Alkhawarizm.DL.focalLoss(0.0f, 1.0f).compute(logits, targets);
         loss.backward();
 
         assertEquals(Math.log(3.0), loss.item(), 1e-6);
@@ -790,9 +790,9 @@ class CanonicalTrainerTest {
                 0f, 0f, 0f,
                 0f, 0f, 0f
         }, 2, 3);
-        GradTensor targets = Aljabr.DL.classLabels(0, 2);
+        GradTensor targets = Alkhawarizm.DL.classLabels(0, 2);
 
-        GradTensor loss = Aljabr.DL.focalLoss(2.0f, new float[] { 1.0f, 1.0f, 3.0f }).compute(logits, targets);
+        GradTensor loss = Alkhawarizm.DL.focalLoss(2.0f, new float[] { 1.0f, 1.0f, 3.0f }).compute(logits, targets);
 
         assertEquals((8.0 / 9.0) * Math.log(3.0), loss.item(), 1e-6);
     }
@@ -804,16 +804,16 @@ class CanonicalTrainerTest {
                         0f, 0f, 0f,
                         0f, 0f, 0f
                 }, 2, 3),
-                Aljabr.DL.classLabels(0, 2)));
+                Alkhawarizm.DL.classLabels(0, 2)));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.CLASSIFICATION_FOCAL_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_FOCAL_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .focalGamma(2.0f)
                         .focalClassWeights(1.0f, 1.0f, 3.0f)
@@ -827,7 +827,7 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmDlClassificationSplitFeedsOneCallFit() {
         Linear model = new Linear(3, 2);
-        var split = Aljabr.DL.classificationStratifiedTrainValidationSplit(
+        var split = Alkhawarizm.DL.classificationStratifiedTrainValidationSplit(
                 GradTensor.of(new float[] {
                         1f, 0f, 0f,
                         0f, 1f, 0f,
@@ -845,7 +845,7 @@ class CanonicalTrainerTest {
         assertLabelCounts(split.train(), 3, 3);
         assertLabelCounts(split.validation(), 1, 1);
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 split,
                 2,
@@ -853,8 +853,8 @@ class CanonicalTrainerTest {
                 0L,
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .classificationMetrics()
                         .classificationRankingMetrics()
@@ -889,26 +889,26 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlBinaryLoaderFeedsBceEvaluationMetrics() {
-        var loader = Aljabr.DL.binaryDataLoader(
+        var loader = Alkhawarizm.DL.binaryDataLoader(
                 GradTensor.of(new float[] { 2f, -1f, 0.5f, -2f }, 4, 1),
                 new int[] { 1, 0, 0, 1 },
                 4);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.binaryAccuracyMetric(),
-                Aljabr.DL.binaryPrecisionMetric(),
-                Aljabr.DL.binaryRecallMetric(),
-                Aljabr.DL.binaryF1Metric(),
-                Aljabr.DL.binaryBalancedAccuracyMetric(),
-                Aljabr.DL.binaryMccMetric(),
-                Aljabr.DL.binaryKappaMetric(),
-                Aljabr.DL.binaryRocAucMetric(),
-                Aljabr.DL.binaryAveragePrecisionMetric(),
-                Aljabr.DL.binaryBestF1ThresholdMetric());
+                Alkhawarizm.DL.binaryAccuracyMetric(),
+                Alkhawarizm.DL.binaryPrecisionMetric(),
+                Alkhawarizm.DL.binaryRecallMetric(),
+                Alkhawarizm.DL.binaryF1Metric(),
+                Alkhawarizm.DL.binaryBalancedAccuracyMetric(),
+                Alkhawarizm.DL.binaryMccMetric(),
+                Alkhawarizm.DL.binaryKappaMetric(),
+                Alkhawarizm.DL.binaryRocAucMetric(),
+                Alkhawarizm.DL.binaryAveragePrecisionMetric(),
+                Alkhawarizm.DL.binaryBestF1ThresholdMetric());
 
         assertEquals(4, summary.sampleCount());
         assertEquals(1, summary.batchCount());
@@ -928,7 +928,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlBinaryCalibrationMetricsReportProbabilityQuality() {
-        var loader = Aljabr.DL.binaryDataLoader(
+        var loader = Alkhawarizm.DL.binaryDataLoader(
                 GradTensor.of(new float[] {
                         logit(0.9),
                         logit(0.8),
@@ -938,13 +938,13 @@ class CanonicalTrainerTest {
                 new int[] { 1, 1, 0, 0 },
                 4);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.binaryBrierScoreMetric(),
-                Aljabr.DL.binaryExpectedCalibrationErrorMetric(5));
+                Alkhawarizm.DL.binaryBrierScoreMetric(),
+                Alkhawarizm.DL.binaryExpectedCalibrationErrorMetric(5));
 
         assertEquals(0.045625, summary.metric("binary_brier_score"), 1e-6);
         assertEquals(0.1875, summary.metric("binary_expected_calibration_error"), 1e-6);
@@ -959,34 +959,34 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlBinaryMetricsSupportCustomLogitThreshold() {
-        var loader = Aljabr.DL.binaryDataLoader(
+        var loader = Alkhawarizm.DL.binaryDataLoader(
                 GradTensor.of(new float[] { 2f, -1f, 0.5f, -2f }, 4, 1),
                 new int[] { 1, 0, 0, 1 },
                 4);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.binaryAccuracyMetric(0.75f),
-                Aljabr.DL.binaryPrecisionMetric(0.75f),
-                Aljabr.DL.binaryRecallMetric(0.75f),
-                Aljabr.DL.binaryF1Metric(0.75f));
+                Alkhawarizm.DL.binaryAccuracyMetric(0.75f),
+                Alkhawarizm.DL.binaryPrecisionMetric(0.75f),
+                Alkhawarizm.DL.binaryRecallMetric(0.75f),
+                Alkhawarizm.DL.binaryF1Metric(0.75f));
 
         assertEquals(0.75, summary.metric("binary_accuracy"), 1e-6);
         assertEquals(1.0, summary.metric("binary_precision"), 1e-6);
         assertEquals(0.5, summary.metric("binary_recall"), 1e-6);
         assertEquals(2.0 / 3.0, summary.metric("binary_f1"), 1e-6);
-        assertThrows(IllegalArgumentException.class, () -> Aljabr.DL.binaryF1Metric(Float.NaN));
+        assertThrows(IllegalArgumentException.class, () -> Alkhawarizm.DL.binaryF1Metric(Float.NaN));
     }
 
     @Test
     void bceWithLogitsLossSupportsPositiveClassWeight() {
         GradTensor logits = GradTensor.of(new float[] { 0f, 0f }, 2, 1).requiresGrad(true);
-        GradTensor targets = Aljabr.DL.binaryLabels(1, 0);
+        GradTensor targets = Alkhawarizm.DL.binaryLabels(1, 0);
 
-        GradTensor loss = Aljabr.DL.bceWithLogitsLoss(3.0f).compute(logits, targets);
+        GradTensor loss = Alkhawarizm.DL.bceWithLogitsLoss(3.0f).compute(logits, targets);
         loss.backward();
 
         assertEquals(2.0 * Math.log(2.0), loss.item(), 1e-6);
@@ -999,24 +999,24 @@ class CanonicalTrainerTest {
                 0f, 0f, 0f,
                 0f, 0f, 0f
         }, 2, 3);
-        GradTensor targets = Aljabr.DL.multiLabelBinaryLabels(new int[][] {
+        GradTensor targets = Alkhawarizm.DL.multiLabelBinaryLabels(new int[][] {
                 { 1, 0, 1 },
                 { 0, 1, 0 }
         });
 
-        GradTensor loss = Aljabr.DL.bceWithLogitsLoss(new float[] { 2.0f, 1.0f, 3.0f }).compute(logits, targets);
+        GradTensor loss = Alkhawarizm.DL.bceWithLogitsLoss(new float[] { 2.0f, 1.0f, 3.0f }).compute(logits, targets);
 
         assertEquals(1.5 * Math.log(2.0), loss.item(), 1e-6);
         assertArrayEquals(
                 new float[] { 1.0f, 1.0f, 1.0f },
-                Aljabr.DL.multiLabelPositiveWeights(new int[][] {
+                Alkhawarizm.DL.multiLabelPositiveWeights(new int[][] {
                         { 1, 0, 1 },
                         { 0, 1, 0 }
                 }),
                 1e-6f);
         assertArrayEquals(
                 new float[] { 3.0f, 3.0f, 1.0f },
-                Aljabr.DL.multiLabelPositiveWeights(new int[][] {
+                Alkhawarizm.DL.multiLabelPositiveWeights(new int[][] {
                         { 1, 0, 1 },
                         { 0, 0, 0 },
                         { 0, 1, 0 },
@@ -1028,9 +1028,9 @@ class CanonicalTrainerTest {
     @Test
     void binaryFocalWithLogitsLossGammaZeroMatchesBceScale() {
         GradTensor logits = GradTensor.of(new float[] { 0f, 0f }, 2, 1).requiresGrad(true);
-        GradTensor targets = Aljabr.DL.binaryLabels(1, 0);
+        GradTensor targets = Alkhawarizm.DL.binaryLabels(1, 0);
 
-        GradTensor loss = Aljabr.DL.binaryFocalWithLogitsLoss(0.0f, 0.5f).compute(logits, targets);
+        GradTensor loss = Alkhawarizm.DL.binaryFocalWithLogitsLoss(0.0f, 0.5f).compute(logits, targets);
         loss.backward();
 
         assertEquals(0.5 * Math.log(2.0), loss.item(), 1e-6);
@@ -1040,9 +1040,9 @@ class CanonicalTrainerTest {
     @Test
     void binaryFocalWithLogitsLossSupportsPositiveClassWeight() {
         GradTensor logits = GradTensor.of(new float[] { 0f, 0f }, 2, 1).requiresGrad(true);
-        GradTensor targets = Aljabr.DL.binaryLabels(1, 0);
+        GradTensor targets = Alkhawarizm.DL.binaryLabels(1, 0);
 
-        GradTensor loss = Aljabr.DL.binaryFocalWithLogitsLoss(0.0f, 0.5f, 3.0f).compute(logits, targets);
+        GradTensor loss = Alkhawarizm.DL.binaryFocalWithLogitsLoss(0.0f, 0.5f, 3.0f).compute(logits, targets);
         loss.backward();
 
         assertEquals(Math.log(2.0), loss.item(), 1e-6);
@@ -1055,12 +1055,12 @@ class CanonicalTrainerTest {
                 0f, 0f, 0f,
                 0f, 0f, 0f
         }, 2, 3);
-        GradTensor targets = Aljabr.DL.multiLabelBinaryLabels(new int[][] {
+        GradTensor targets = Alkhawarizm.DL.multiLabelBinaryLabels(new int[][] {
                 { 1, 0, 1 },
                 { 0, 1, 0 }
         });
 
-        GradTensor loss = Aljabr.DL.binaryFocalWithLogitsLoss(
+        GradTensor loss = Alkhawarizm.DL.binaryFocalWithLogitsLoss(
                 0.0f,
                 0.5f,
                 new float[] { 2.0f, 1.0f, 3.0f }).compute(logits, targets);
@@ -1072,16 +1072,16 @@ class CanonicalTrainerTest {
     void alkhawarizmDlFitUsesBinaryFocalPresetAndPositiveWeightFromTrainingOptions() {
         List<Batch> train = List.of(new Batch(
                 GradTensor.of(new float[] { 0f, 0f }, 2, 1),
-                Aljabr.DL.binaryLabels(1, 0)));
+                Alkhawarizm.DL.binaryLabels(1, 0)));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.BINARY_FOCAL_WITH_LOGITS_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.BINARY_FOCAL_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .focalGamma(0.0f)
                         .focalAlpha(0.5f)
@@ -1097,16 +1097,16 @@ class CanonicalTrainerTest {
     void alkhawarizmDlFitUsesBcePositiveWeightFromTrainingOptions() {
         List<Batch> train = List.of(new Batch(
                 GradTensor.of(new float[] { 0f, 0f }, 2, 1),
-                Aljabr.DL.binaryLabels(1, 0)));
+                Alkhawarizm.DL.binaryLabels(1, 0)));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .bcePositiveWeight(3.0f)
                         .build());
@@ -1118,7 +1118,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlMultiLabelBinaryLoaderFeedsBceEvaluationMetrics() {
-        var loader = Aljabr.DL.multiLabelBinaryDataLoader(
+        var loader = Alkhawarizm.DL.multiLabelBinaryDataLoader(
                 GradTensor.of(new float[] {
                         2f, -1f, 0.5f,
                         -2f, 3f, -0.5f
@@ -1129,17 +1129,17 @@ class CanonicalTrainerTest {
                 },
                 2);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.binaryAccuracyMetric(),
-                Aljabr.DL.binaryPrecisionMetric(),
-                Aljabr.DL.binaryRecallMetric(),
-                Aljabr.DL.binaryF1Metric(),
-                Aljabr.DL.multiLabelMacroRocAucMetric(),
-                Aljabr.DL.multiLabelMacroAveragePrecisionMetric());
+                Alkhawarizm.DL.binaryAccuracyMetric(),
+                Alkhawarizm.DL.binaryPrecisionMetric(),
+                Alkhawarizm.DL.binaryRecallMetric(),
+                Alkhawarizm.DL.binaryF1Metric(),
+                Alkhawarizm.DL.multiLabelMacroRocAucMetric(),
+                Alkhawarizm.DL.multiLabelMacroAveragePrecisionMetric());
 
         assertEquals(2, summary.sampleCount());
         assertEquals(1, summary.batchCount());
@@ -1154,7 +1154,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlMultiLabelMetricsReportExactHammingAndMacroScores() {
-        var loader = Aljabr.DL.multiLabelBinaryDataLoader(
+        var loader = Alkhawarizm.DL.multiLabelBinaryDataLoader(
                 GradTensor.of(new float[] {
                         2f, -1f, 0.5f,
                         -2f, 3f, -0.5f,
@@ -1167,22 +1167,22 @@ class CanonicalTrainerTest {
                 },
                 3);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.multiLabelExactMatchMetric(),
-                Aljabr.DL.multiLabelHammingLossMetric(),
-                Aljabr.DL.multiLabelSamplePrecisionMetric(),
-                Aljabr.DL.multiLabelSampleRecallMetric(),
-                Aljabr.DL.multiLabelSampleF1Metric(),
-                Aljabr.DL.multiLabelSampleJaccardMetric(),
-                Aljabr.DL.multiLabelMacroPrecisionMetric(),
-                Aljabr.DL.multiLabelMacroRecallMetric(),
-                Aljabr.DL.multiLabelMacroF1Metric(),
-                Aljabr.DL.multiLabelMacroRocAucMetric(),
-                Aljabr.DL.multiLabelMacroAveragePrecisionMetric());
+                Alkhawarizm.DL.multiLabelExactMatchMetric(),
+                Alkhawarizm.DL.multiLabelHammingLossMetric(),
+                Alkhawarizm.DL.multiLabelSamplePrecisionMetric(),
+                Alkhawarizm.DL.multiLabelSampleRecallMetric(),
+                Alkhawarizm.DL.multiLabelSampleF1Metric(),
+                Alkhawarizm.DL.multiLabelSampleJaccardMetric(),
+                Alkhawarizm.DL.multiLabelMacroPrecisionMetric(),
+                Alkhawarizm.DL.multiLabelMacroRecallMetric(),
+                Alkhawarizm.DL.multiLabelMacroF1Metric(),
+                Alkhawarizm.DL.multiLabelMacroRocAucMetric(),
+                Alkhawarizm.DL.multiLabelMacroAveragePrecisionMetric());
 
         assertEquals(3, summary.sampleCount());
         assertEquals(1.0 / 3.0, summary.metric("multilabel_exact_match"), 1e-6);
@@ -1200,7 +1200,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlMultiLabelMetricsSupportCustomLogitThreshold() {
-        var loader = Aljabr.DL.multiLabelBinaryDataLoader(
+        var loader = Alkhawarizm.DL.multiLabelBinaryDataLoader(
                 GradTensor.of(new float[] {
                         0.2f, -0.3f, 1.1f,
                         0.8f, -0.8f, 0.4f
@@ -1211,20 +1211,20 @@ class CanonicalTrainerTest {
                 },
                 2);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.multiLabelExactMatchMetric(0.5f),
-                Aljabr.DL.multiLabelHammingLossMetric(0.5f),
-                Aljabr.DL.multiLabelSamplePrecisionMetric(0.5f),
-                Aljabr.DL.multiLabelSampleRecallMetric(0.5f),
-                Aljabr.DL.multiLabelSampleF1Metric(0.5f),
-                Aljabr.DL.multiLabelSampleJaccardMetric(0.5f),
-                Aljabr.DL.multiLabelMacroPrecisionMetric(0.5f),
-                Aljabr.DL.multiLabelMacroRecallMetric(0.5f),
-                Aljabr.DL.multiLabelMacroF1Metric(0.5f));
+                Alkhawarizm.DL.multiLabelExactMatchMetric(0.5f),
+                Alkhawarizm.DL.multiLabelHammingLossMetric(0.5f),
+                Alkhawarizm.DL.multiLabelSamplePrecisionMetric(0.5f),
+                Alkhawarizm.DL.multiLabelSampleRecallMetric(0.5f),
+                Alkhawarizm.DL.multiLabelSampleF1Metric(0.5f),
+                Alkhawarizm.DL.multiLabelSampleJaccardMetric(0.5f),
+                Alkhawarizm.DL.multiLabelMacroPrecisionMetric(0.5f),
+                Alkhawarizm.DL.multiLabelMacroRecallMetric(0.5f),
+                Alkhawarizm.DL.multiLabelMacroF1Metric(0.5f));
 
         assertEquals(0.0, summary.metric("multilabel_exact_match"), 1e-6);
         assertEquals(0.5, summary.metric("multilabel_hamming_loss"), 1e-6);
@@ -1235,12 +1235,12 @@ class CanonicalTrainerTest {
         assertEquals(1.0 / 3.0, summary.metric("multilabel_macro_precision"), 1e-6);
         assertEquals(1.0 / 6.0, summary.metric("multilabel_macro_recall"), 1e-6);
         assertEquals(2.0 / 9.0, summary.metric("multilabel_macro_f1"), 1e-6);
-        assertThrows(IllegalArgumentException.class, () -> Aljabr.DL.multiLabelMacroF1Metric(Float.POSITIVE_INFINITY));
+        assertThrows(IllegalArgumentException.class, () -> Alkhawarizm.DL.multiLabelMacroF1Metric(Float.POSITIVE_INFINITY));
     }
 
     @Test
     void alkhawarizmDlMultiLabelRankingMetricsReportMacroScores() {
-        var loader = Aljabr.DL.multiLabelBinaryDataLoader(
+        var loader = Alkhawarizm.DL.multiLabelBinaryDataLoader(
                 GradTensor.of(new float[] {
                         0.2f, 0.3f,
                         0.1f, 0.2f,
@@ -1253,16 +1253,16 @@ class CanonicalTrainerTest {
                 },
                 3);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.multiLabelMacroRocAucMetric(),
-                Aljabr.DL.multiLabelMacroAveragePrecisionMetric(),
-                Aljabr.DL.multiLabelLrapMetric(),
-                Aljabr.DL.multiLabelRankingLossMetric(),
-                Aljabr.DL.multiLabelCoverageErrorMetric());
+                Alkhawarizm.DL.multiLabelMacroRocAucMetric(),
+                Alkhawarizm.DL.multiLabelMacroAveragePrecisionMetric(),
+                Alkhawarizm.DL.multiLabelLrapMetric(),
+                Alkhawarizm.DL.multiLabelRankingLossMetric(),
+                Alkhawarizm.DL.multiLabelCoverageErrorMetric());
 
         assertEquals(0.5, summary.metric("multilabel_macro_roc_auc"), 1e-6);
         assertEquals(2.0 / 3.0, summary.metric("multilabel_macro_average_precision"), 1e-6);
@@ -1273,7 +1273,7 @@ class CanonicalTrainerTest {
 
     @Test
     void alkhawarizmDlMultiLabelThresholdTuningReportsPerLabelBestF1() {
-        var loader = Aljabr.DL.multiLabelBinaryDataLoader(
+        var loader = Alkhawarizm.DL.multiLabelBinaryDataLoader(
                 GradTensor.of(new float[] {
                         0.9f, 0.1f, 0.2f,
                         0.8f, 0.7f, 0.6f,
@@ -1286,12 +1286,12 @@ class CanonicalTrainerTest {
                 },
                 3);
 
-        Aljabr.DL.EvaluationSummary summary = Aljabr.DL.evaluate(
+        Alkhawarizm.DL.EvaluationSummary summary = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
                 "cpu",
-                Aljabr.DL.multiLabelBestF1ThresholdsMetric());
+                Alkhawarizm.DL.multiLabelBestF1ThresholdsMetric());
 
         assertEquals(8.0 / 9.0, summary.metric("multilabel_macro_best_f1"), 1e-6);
         Map<String, Object> details = metricDetails(summary.metricDetails(), "multilabel_macro_best_f1");
@@ -1304,7 +1304,7 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmDlBinarySplitFeedsOneCallBceFit() {
         Linear model = new Linear(2, 1);
-        var split = Aljabr.DL.binaryStratifiedTrainValidationSplit(
+        var split = Alkhawarizm.DL.binaryStratifiedTrainValidationSplit(
                 GradTensor.of(new float[] {
                         1f, 0f,
                         0f, 1f,
@@ -1318,7 +1318,7 @@ class CanonicalTrainerTest {
         assertLabelCounts(split.train(), 1, 1);
         assertLabelCounts(split.validation(), 1, 1);
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 split,
                 2,
@@ -1326,8 +1326,8 @@ class CanonicalTrainerTest {
                 0L,
                 1,
                 0.05f,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .binaryClassificationMetrics()
                         .binaryImbalanceMetrics()
@@ -1369,7 +1369,7 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmDlMultiLabelBinarySplitFeedsOneCallBceFit() {
         Linear model = new Linear(2, 3);
-        var split = Aljabr.DL.multiLabelBinaryStratifiedTrainValidationSplit(
+        var split = Alkhawarizm.DL.multiLabelBinaryStratifiedTrainValidationSplit(
                 GradTensor.of(new float[] {
                         1f, 0f,
                         0.9f, 0.1f,
@@ -1396,7 +1396,7 @@ class CanonicalTrainerTest {
         assertPositiveCounts(split.train(), new int[] { 2, 2, 2 });
         assertPositiveCounts(split.validation(), new int[] { 2, 2, 2 });
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 split,
                 2,
@@ -1404,8 +1404,8 @@ class CanonicalTrainerTest {
                 0L,
                 1,
                 0.05f,
-                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .binaryClassificationMetrics()
                         .multiLabelRankingMetrics()
@@ -1434,14 +1434,14 @@ class CanonicalTrainerTest {
                 batch(new float[] { 2f }, new float[] { 5f }, 1));
         List<Batch> validation = List.of(batch(new float[] { 0f, 10f }, new float[] { 1f, 7f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 validation,
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .regressionExtendedMetrics()
                         .regressionLogScaleMetrics()
@@ -1487,14 +1487,14 @@ class CanonicalTrainerTest {
                 batch(new float[] { 0f, 1f, 2f }, new float[] { 0f, 2f, 4f }, 3),
                 batch(new float[] { 3f, 4f }, new float[] { 6f, 30f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new Linear(1, 1),
                 train,
                 List.of(),
                 2,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_HUBER_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_HUBER_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .regressionMetrics()
                         .build());
@@ -1514,14 +1514,14 @@ class CanonicalTrainerTest {
                 batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2),
                 batch(new float[] { 3f, 4f }, new float[] { 6f, 8f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.1f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .stepLrBatches(1, 0.5f)
                         .build());
@@ -1539,14 +1539,14 @@ class CanonicalTrainerTest {
                 batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2),
                 batch(new float[] { 3f, 4f }, new float[] { 6f, 8f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.1f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .cosineAnnealingLrBatches(1, 0.01f)
                         .build());
@@ -1564,14 +1564,14 @@ class CanonicalTrainerTest {
                 batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2),
                 batch(new float[] { 3f, 4f }, new float[] { 6f, 8f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.1f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .cosineAnnealingWarmRestartsLrBatches(2, 2, 0.01f)
                         .build());
@@ -1594,13 +1594,13 @@ class CanonicalTrainerTest {
                 batch(new float[] { 3f, 4f }, new float[] { 6f, 8f }, 2));
         List<Batch> validation = List.of(batch(new float[] { 1.5f, 2.5f }, new float[] { 3f, 5f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 validation,
                 2,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_ADAMW,
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_ADAMW,
                 1.0);
 
         assertEquals(2, summary.epochCount());
@@ -1619,12 +1619,12 @@ class CanonicalTrainerTest {
                         GradTensor.of(new float[] { 1f, 0f, 0f, 1f }, 2, 2),
                         GradTensor.of(new float[] { 0f, 2f }, 2)));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_ADAMW);
+                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_ADAMW);
 
         assertEquals(1, summary.epochCount());
         assertNotNull(summary.latestTrainLoss());
@@ -1640,13 +1640,13 @@ class CanonicalTrainerTest {
                 batch(new float[] { 3f, 4f }, new float[] { 6f, 8f }, 2));
         List<Batch> validation = List.of(batch(new float[] { 1.5f, 2.5f }, new float[] { 3f, 5f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 validation,
                 10,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_ADAMW,
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_ADAMW,
                 1.0,
                 1,
                 1_000_000.0);
@@ -1663,13 +1663,13 @@ class CanonicalTrainerTest {
         Linear model = new Linear(1, 1);
         List<Batch> train = List.of(batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_ADAMW,
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_ADAMW,
                 1.0,
                 0,
                 0.0,
@@ -2819,13 +2819,13 @@ class CanonicalTrainerTest {
                 batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2),
                 batch(new float[] { 3f, 4f }, new float[] { 6f, 8f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
                 1.0,
                 0,
                 0.0,
@@ -2841,14 +2841,14 @@ class CanonicalTrainerTest {
         Linear model = new Linear(1, 1);
         List<Batch> train = List.of(batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 model,
                 train,
                 List.of(),
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .gradScaler(GradScaler.builder().initScale(8.0).growthInterval(1).build())
                         .build());
 
@@ -2864,12 +2864,12 @@ class CanonicalTrainerTest {
         Linear model = new Linear(1, 1);
         List<Batch> train = List.of(batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2));
 
-        TrainingSummary summary = AljabrML.DL.fit(
+        TrainingSummary summary = AlkhawarizmML.DL.fit(
                 model,
                 train,
                 1,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD);
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD);
 
         assertEquals(1, summary.epochCount());
         assertNotNull(summary.latestTrainLoss());
@@ -2884,13 +2884,13 @@ class CanonicalTrainerTest {
                 batch(new float[] { 3f, 4f }, new float[] { 6f, 8f }, 2));
         List<Batch> validation = List.of(batch(new float[] { 1.5f, 2.5f }, new float[] { 3f, 5f }, 2));
 
-        TrainingSummary summary = AljabrML.DL.fit(
+        TrainingSummary summary = AlkhawarizmML.DL.fit(
                 model,
                 train,
                 validation,
                 10,
                 0.01f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_ADAMW,
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_ADAMW,
                 1.0,
                 1,
                 1_000_000.0);
@@ -3711,7 +3711,7 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmTrainingOptionsWarmupCosineLrBatchesSchedulesFromZeroAndReportsState() throws Exception {
         SGD directOptimizer = SGD.builder(List.of(), 0.2f).build();
-        var directScheduler = Aljabr.DL.warmupCosineScheduler(directOptimizer, 2, 4, 0.2f, 0.02f);
+        var directScheduler = Alkhawarizm.DL.warmupCosineScheduler(directOptimizer, 2, 4, 0.2f, 0.02f);
         assertEquals(0.0f, directOptimizer.learningRate(), 1e-7f);
         directScheduler.step();
         assertEquals(0.1f, directOptimizer.learningRate(), 1e-6f);
@@ -3723,14 +3723,14 @@ class CanonicalTrainerTest {
                 batch(new float[] { 3f }, new float[] { 3f }, 1),
                 batch(new float[] { 4f }, new float[] { 4f }, 1));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 null,
                 1,
                 0.1f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .checkpointDir(checkpointDir)
                         .warmupCosineLrBatches(2, 4, 0.1f, 0.01f)
@@ -3757,7 +3757,7 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmTrainingOptionsOneCycleLrBatchesSchedulesAndReportsState() throws Exception {
         SGD directOptimizer = SGD.builder(List.of(), 0.1f).build();
-        var directScheduler = Aljabr.DL.oneCycleScheduler(
+        var directScheduler = Alkhawarizm.DL.oneCycleScheduler(
                 directOptimizer,
                 4,
                 0.2f,
@@ -3776,14 +3776,14 @@ class CanonicalTrainerTest {
                 batch(new float[] { 3f }, new float[] { 3f }, 1),
                 batch(new float[] { 4f }, new float[] { 4f }, 1));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 null,
                 1,
                 0.1f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .checkpointDir(checkpointDir)
                         .oneCycleLrBatches(
@@ -3819,7 +3819,7 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmTrainingOptionsExponentialLrBatchesSchedulesAndReportsState() throws Exception {
         SGD directOptimizer = SGD.builder(List.of(), 0.2f).build();
-        ExponentialLR directScheduler = Aljabr.DL.exponentialScheduler(directOptimizer, 0.5f);
+        ExponentialLR directScheduler = Alkhawarizm.DL.exponentialScheduler(directOptimizer, 0.5f);
         directScheduler.step();
         assertEquals(0.1f, directOptimizer.learningRate(), 1e-6f);
 
@@ -3829,14 +3829,14 @@ class CanonicalTrainerTest {
                 batch(new float[] { 2f }, new float[] { 2f }, 1),
                 batch(new float[] { 3f }, new float[] { 3f }, 1));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 null,
                 1,
                 0.1f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .checkpointDir(checkpointDir)
                         .exponentialLrBatches(0.5f)
@@ -3862,11 +3862,11 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmTrainingOptionsSequentialLrBatchesComposesSchedulersAndReportsState() throws Exception {
         SGD directOptimizer = SGD.builder(List.of(), 0.1f).build();
-        SequentialLR directScheduler = Aljabr.DL.sequentialScheduler(
+        SequentialLR directScheduler = Alkhawarizm.DL.sequentialScheduler(
                 directOptimizer,
                 List.of(
-                        Aljabr.DL.exponentialScheduler(directOptimizer, 0.5f),
-                        Aljabr.DL.exponentialScheduler(directOptimizer, 0.1f)),
+                        Alkhawarizm.DL.exponentialScheduler(directOptimizer, 0.5f),
+                        Alkhawarizm.DL.exponentialScheduler(directOptimizer, 0.1f)),
                 2);
         directScheduler.step();
         assertEquals(0.05f, directOptimizer.learningRate(), 1e-6f);
@@ -3881,18 +3881,18 @@ class CanonicalTrainerTest {
                 batch(new float[] { 1f }, new float[] { 1f }, 1),
                 batch(new float[] { 2f }, new float[] { 2f }, 1),
                 batch(new float[] { 3f }, new float[] { 3f }, 1));
-        List<Aljabr.DL.SchedulerFactory> schedulers = List.of(
-                optimizer -> Aljabr.DL.exponentialScheduler(optimizer, 0.5f),
-                optimizer -> Aljabr.DL.exponentialScheduler(optimizer, 0.1f));
+        List<Alkhawarizm.DL.SchedulerFactory> schedulers = List.of(
+                optimizer -> Alkhawarizm.DL.exponentialScheduler(optimizer, 0.5f),
+                optimizer -> Alkhawarizm.DL.exponentialScheduler(optimizer, 0.1f));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 null,
                 1,
                 0.1f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .checkpointDir(checkpointDir)
                         .sequentialLrBatches(schedulers, 2)
@@ -3919,7 +3919,7 @@ class CanonicalTrainerTest {
     @Test
     void alkhawarizmTrainingOptionsReduceLrOnPlateauStepsAfterValidationAndReportsState() throws Exception {
         SGD directOptimizer = SGD.builder(List.of(), 0.1f).build();
-        var directScheduler = Aljabr.DL.reduceLrOnPlateauScheduler(
+        var directScheduler = Alkhawarizm.DL.reduceLrOnPlateauScheduler(
                 directOptimizer,
                 tech.kayys.tafkir.ml.optim.ReduceLROnPlateau.Mode.MIN,
                 0.5f,
@@ -3935,14 +3935,14 @@ class CanonicalTrainerTest {
         List<Batch> train = List.of(batch(new float[] { 1f }, new float[] { 1f }, 1));
         List<Batch> validation = List.of(batch(new float[] { 1f }, new float[] { 2f }, 1));
 
-        TrainingSummary summary = Aljabr.DL.fit(
+        TrainingSummary summary = Alkhawarizm.DL.fit(
                 new IdentityModel(),
                 train,
                 validation,
                 3,
                 0.1f,
-                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Aljabr.DL.trainingOptions()
+                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Alkhawarizm.DL.trainingOptions()
                         .device("cpu")
                         .checkpointDir(checkpointDir)
                         .reduceLrOnPlateauValidationLoss(0.5f, 0, 0.0, 0, 0.025f)
@@ -4472,11 +4472,11 @@ class CanonicalTrainerTest {
                 .optimizer(SGD.builder(List.of(), 0.01f).build())
                 .loss(crossEntropy::compute)
                 .epochs(1)
-                .metric(Aljabr.DL.accuracyMetric())
-                .metric(Aljabr.DL.topKAccuracyMetric(2))
-                .metric(Aljabr.DL.precisionMetric())
-                .metric(Aljabr.DL.recallMetric())
-                .metric(Aljabr.DL.f1Metric())
+                .metric(Alkhawarizm.DL.accuracyMetric())
+                .metric(Alkhawarizm.DL.topKAccuracyMetric(2))
+                .metric(Alkhawarizm.DL.precisionMetric())
+                .metric(Alkhawarizm.DL.recallMetric())
+                .metric(Alkhawarizm.DL.f1Metric())
                 .build()) {
             trainer.fit(train, validation);
 
@@ -4507,7 +4507,7 @@ class CanonicalTrainerTest {
                         0f, 1f, 4f,
                         3f, 2f, 1f
                 }, 4, 3),
-                Aljabr.DL.classLabels(0, 2, 2, 1)));
+                Alkhawarizm.DL.classLabels(0, 2, 2, 1)));
 
         try (CanonicalTrainer trainer = CanonicalTrainer.builder()
                 .model(new IdentityModel())
@@ -4515,7 +4515,7 @@ class CanonicalTrainerTest {
                 .loss(crossEntropy::compute)
                 .epochs(1)
                 .checkpointDir(checkpointDir)
-                .metric(Aljabr.DL.confusionMatrixMetric())
+                .metric(Alkhawarizm.DL.confusionMatrixMetric())
                 .build()) {
             trainer.fit(loader, loader);
 
@@ -4563,12 +4563,12 @@ class CanonicalTrainerTest {
         assertTrue(reportJson.contains("\"confusion_matrix_accuracy\""));
         assertTrue(reportJson.contains("\"matrix\":[[1,0,0],[1,0,0],[0,1,1]]"));
 
-        var evaluation = Aljabr.DL.evaluate(
+        var evaluation = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 loader,
                 crossEntropy::compute,
                 "cpu",
-                Aljabr.DL.confusionMatrixMetric());
+                Alkhawarizm.DL.confusionMatrixMetric());
         assertEquals(0.5, evaluation.metric("confusion_matrix_accuracy"), 1e-6);
         assertEquals(List.of(
                 List.of(1L, 0L, 0L),
@@ -4579,25 +4579,25 @@ class CanonicalTrainerTest {
 
     @Test
     void canonicalTrainerReportsBinaryClassificationMetrics() {
-        var bce = Aljabr.DL.bceWithLogitsLoss();
+        var bce = Alkhawarizm.DL.bceWithLogitsLoss();
         List<Batch> train = List.of(new Batch(
                 GradTensor.of(new float[] { 2f, -1f, 0.5f, -2f }, 4, 1),
-                Aljabr.DL.binaryLabels(1, 0, 0, 1)));
+                Alkhawarizm.DL.binaryLabels(1, 0, 0, 1)));
         List<Batch> validation = List.of(new Batch(
                 GradTensor.of(new float[] { -2f, 2f }, 2, 1),
-                Aljabr.DL.binaryLabels(0, 1)));
+                Alkhawarizm.DL.binaryLabels(0, 1)));
 
         try (CanonicalTrainer trainer = CanonicalTrainer.builder()
                 .model(new IdentityModel())
                 .optimizer(SGD.builder(List.of(), 0.01f).build())
                 .loss(bce::compute)
                 .epochs(1)
-                .metric(Aljabr.DL.binaryAccuracyMetric())
-                .metric(Aljabr.DL.binaryPrecisionMetric())
-                .metric(Aljabr.DL.binaryRecallMetric())
-                .metric(Aljabr.DL.binaryF1Metric())
-                .metric(Aljabr.DL.binaryRocAucMetric())
-                .metric(Aljabr.DL.binaryAveragePrecisionMetric())
+                .metric(Alkhawarizm.DL.binaryAccuracyMetric())
+                .metric(Alkhawarizm.DL.binaryPrecisionMetric())
+                .metric(Alkhawarizm.DL.binaryRecallMetric())
+                .metric(Alkhawarizm.DL.binaryF1Metric())
+                .metric(Alkhawarizm.DL.binaryRocAucMetric())
+                .metric(Alkhawarizm.DL.binaryAveragePrecisionMetric())
                 .build()) {
             trainer.fit(train, validation);
 
@@ -4619,14 +4619,14 @@ class CanonicalTrainerTest {
 
     @Test
     void canonicalTrainerRecordsBinaryConfusionMatrixMetricDetails() throws Exception {
-        var bce = Aljabr.DL.bceWithLogitsLoss();
+        var bce = Alkhawarizm.DL.bceWithLogitsLoss();
         Path checkpointDir = Files.createTempDirectory("alkhawarizm-binary-confusion");
         List<Batch> train = List.of(new Batch(
                 GradTensor.of(new float[] { 2f, -1f, 0.5f, -2f }, 4, 1),
-                Aljabr.DL.binaryLabels(1, 0, 0, 1)));
+                Alkhawarizm.DL.binaryLabels(1, 0, 0, 1)));
         List<Batch> validation = List.of(new Batch(
                 GradTensor.of(new float[] { -2f, 2f }, 2, 1),
-                Aljabr.DL.binaryLabels(0, 1)));
+                Alkhawarizm.DL.binaryLabels(0, 1)));
 
         try (CanonicalTrainer trainer = CanonicalTrainer.builder()
                 .model(new IdentityModel())
@@ -4634,7 +4634,7 @@ class CanonicalTrainerTest {
                 .loss(bce::compute)
                 .epochs(1)
                 .checkpointDir(checkpointDir)
-                .metric(Aljabr.DL.binaryConfusionMatrixMetric())
+                .metric(Alkhawarizm.DL.binaryConfusionMatrixMetric())
                 .build()) {
             trainer.fit(train, validation);
 
@@ -4690,12 +4690,12 @@ class CanonicalTrainerTest {
         assertTrue(reportJson.contains("\"binary_confusion_matrix_accuracy\""));
         assertTrue(reportJson.contains("\"matrix\":[[1,1],[1,1]]"));
 
-        var evaluation = Aljabr.DL.evaluate(
+        var evaluation = Alkhawarizm.DL.evaluate(
                 new IdentityModel(),
                 train,
                 bce::compute,
                 "cpu",
-                Aljabr.DL.binaryConfusionMatrixMetric());
+                Alkhawarizm.DL.binaryConfusionMatrixMetric());
         assertEquals(0.5, evaluation.metric("binary_confusion_matrix_accuracy"), 1e-6);
         assertEquals(List.of(
                 List.of(1L, 1L),

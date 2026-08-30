@@ -9,7 +9,7 @@ import tech.kayys.tafkir.trainer.optim.TafkirOptimizer;
 import java.util.List;
 
 /**
- * Real training loop using Aljabr backends.
+ * Real training loop using Alkhawarizm backends.
  */
 public final class TafkirTrainer {
 

@@ -1,7 +1,7 @@
 # Tafkir-Learn: Strategic Architecture & Roadmap
 
 ## Vision
-Position **Tafkir-Learn** as the premier JVM-native deep learning framework, serving as a direct alternative to PyTorch, TensorFlow, and JAX while leveraging the Aljabr compute engine and integrating with Gollek for production inference.
+Position **Tafkir-Learn** as the premier JVM-native deep learning framework, serving as a direct alternative to PyTorch, TensorFlow, and JAX while leveraging the Alkhawarizm compute engine and integrating with Gollek for production inference.
 
 ---
 
@@ -32,7 +32,7 @@ Position **Tafkir-Learn** as the premier JVM-native deep learning framework, ser
                             │
                             ▼
                   ┌─────────────────┐
-                  │     Aljabr      │
+                  │     Alkhawarizm      │
                   │  (Compute Core) │
                   │                 │
                   │ • Tensor Ops    │
@@ -47,7 +47,7 @@ Position **Tafkir-Learn** as the premier JVM-native deep learning framework, ser
 
 ## Responsibility Boundaries
 
-### **Aljabr** (Backend - `github.com/bhangun/alkhawarizm`)
+### **Alkhawarizm** (Backend - `github.com/bhangun/alkhawarizm`)
 **Role:** Pure computational engine (equivalent to CUDA + cuDNN + ATen)
 
 **Should Contain:**
@@ -223,7 +223,7 @@ tafkir-engine/
 │   └── tafkir-learn-examples/       # Tutorials and examples
 │
 ├── tafkir-gollek-integration/       # Bridge to Gollek inference
-├── tafkir-alkhawarizm-integration/       # Bridge to Aljabr backend
+├── tafkir-alkhawarizm-integration/       # Bridge to Alkhawarizm backend
 │
 └── [models/]                        # Keep existing model implementations
     ├── tafkir-model-bert/
@@ -282,7 +282,7 @@ tafkir-engine/
    - Smaller container images
 
 4. **Performance**
-   - Aljabr's Vector API SIMD on modern CPUs
+   - Alkhawarizm's Vector API SIMD on modern CPUs
    - Direct GPU access without Python overhead
    - GraalVM native image support for low-latency serving
 
@@ -328,7 +328,7 @@ tafkir-engine/
 - [ ] Rename modules to `tafkir-learn-*` convention
 - [ ] Consolidate `/trainer/` and `/training/` into unified structure
 - [ ] Create cohesive `TafkirLearn` facade class
-- [ ] Document Aljabr ↔ Tafkir-Learn boundary clearly
+- [ ] Document Alkhawarizm ↔ Tafkir-Learn boundary clearly
 
 ### Phase 2: API Polish (Weeks 5-8)
 - [ ] Implement functional API (`nn.functional.*`)
@@ -355,7 +355,7 @@ tafkir-engine/
 ### Tagline Options
 - "PyTorch for the JVM"
 - "Deep Learning, Type-Safe"
-- "Train on Aljabr, Deploy with Gollek"
+- "Train on Alkhawarizm, Deploy with Gollek"
 - "The JVM's Answer to PyTorch"
 
 ### Target Audience
@@ -368,7 +368,7 @@ tafkir-engine/
 - "No Python required - pure JVM from research to production"
 - "Compile-time safety meets GPU acceleration"
 - "Seamless integration with your existing Java stack"
-- "Backed by Aljabr's high-performance compute engine"
+- "Backed by Alkhawarizm's high-performance compute engine"
 
 ---
 
@@ -378,7 +378,7 @@ tafkir-engine/
 - [ ] 90%+ PyTorch API coverage for core modules
 - [ ] Within 20% of PyTorch training performance on CPU
 - [ ] Within 10% of PyTorch training performance on GPU
-- [ ] < 1ms overhead vs raw Aljabr for forward pass
+- [ ] < 1ms overhead vs raw Alkhawarizm for forward pass
 
 ### Adoption
 - [ ] 100+ GitHub stars in first 3 months post-rebrand
@@ -396,4 +396,4 @@ tafkir-engine/
 
 ## Conclusion
 
-Renaming to **Tafkir-Learn** clarifies the project's purpose as a comprehensive training framework while maintaining clear boundaries with Aljabr (compute) and Gollek (inference). This three-pillar architecture mirrors successful patterns from PyTorch (torch + torchserve) and TensorFlow (TF + TFLite + TF Serving), positioning Tafkir as a production-ready, JVM-native alternative for the entire ML lifecycle.
+Renaming to **Tafkir-Learn** clarifies the project's purpose as a comprehensive training framework while maintaining clear boundaries with Alkhawarizm (compute) and Gollek (inference). This three-pillar architecture mirrors successful patterns from PyTorch (torch + torchserve) and TensorFlow (TF + TFLite + TF Serving), positioning Tafkir as a production-ready, JVM-native alternative for the entire ML lifecycle.

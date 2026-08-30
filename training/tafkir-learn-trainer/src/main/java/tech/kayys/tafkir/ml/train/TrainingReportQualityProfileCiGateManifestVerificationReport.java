@@ -212,7 +212,7 @@ public final class TrainingReportQualityProfileCiGateManifestVerificationReport 
                 "verification must not be null");
         TrainingReportQualityProfileCiGateManifestSummary summary = resolved.summary();
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Training Quality Profile CI Gate Manifest Verification");
+        appendLine(markdown, "# Alkhawarizm Training Quality Profile CI Gate Manifest Verification");
         appendLine(markdown, "");
         appendLine(markdown, "**Status:** `" + (summary.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, "**Ready for release:** `" + summary.readyForRelease() + "`");

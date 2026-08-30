@@ -29,7 +29,7 @@ public class hello_tafkir {
                 new TafkirReLU(),
                 new TafkirLinear(2, 1));
 
-        System.out.println("XOR Training with Tafkir + Aljabr");
+        System.out.println("XOR Training with Tafkir + Alkhawarizm");
         System.out.println(model);
         System.out.println();
 

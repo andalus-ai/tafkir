@@ -4,7 +4,7 @@ import tech.kayys.alkhawarizm.backend.cpu.CpuBackend;
 import tech.kayys.alkhawarizm.core.backend.ComputeBackend;
 
 /**
- * Provides access to Aljabr compute backends.
+ * Provides access to Alkhawarizm compute backends.
  * Detects available hardware and returns the best backend.
  */
 public final class TafkirBackend {

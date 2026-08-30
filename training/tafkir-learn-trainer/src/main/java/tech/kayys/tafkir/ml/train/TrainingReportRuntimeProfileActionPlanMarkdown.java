@@ -18,7 +18,7 @@ public final class TrainingReportRuntimeProfileActionPlanMarkdown {
     public static String render(TrainingReportRuntimeProfileActionPlan plan) {
         Objects.requireNonNull(plan, "plan must not be null");
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Runtime Profile Action Plan");
+        appendLine(markdown, "# Alkhawarizm Runtime Profile Action Plan");
         appendLine(markdown, "");
         appendLine(markdown, "**Status:** `" + plan.status().name() + "`");
         appendLine(markdown, "**Targets:** `" + plan.targets().size() + "`");

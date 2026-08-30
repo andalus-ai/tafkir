@@ -4,11 +4,11 @@ import java.util.function.Supplier;
 import tech.kayys.tafkir.ml.train.CanonicalTrainer;
 
 /**
- * Public multi-label metric factories inherited by {@link Aljabr.DL}.
+ * Public multi-label metric factories inherited by {@link Alkhawarizm.DL}.
  */
 @SuppressWarnings("deprecation")
-public class AljabrDlMultiLabelMetricsFacade extends AljabrDlBinaryMetricsFacade {
-    protected AljabrDlMultiLabelMetricsFacade() {
+public class AlkhawarizmDlMultiLabelMetricsFacade extends AlkhawarizmDlBinaryMetricsFacade {
+    protected AlkhawarizmDlMultiLabelMetricsFacade() {
     }
 
     public static Supplier<CanonicalTrainer.Metric> multiLabelExactMatchMetric() {

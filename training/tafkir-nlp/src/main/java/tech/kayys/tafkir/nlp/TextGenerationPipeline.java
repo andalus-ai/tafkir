@@ -1,17 +1,17 @@
 package tech.kayys.tafkir.nlp;
 
-import tech.kayys.alkhawarizm.sdk.api.AljabrSdk;
-import tech.kayys.alkhawarizm.sdk.api.AljabrSdkProvider;
+import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdk;
+import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdkProvider;
 import tech.kayys.alkhawarizm.spi.inference.InferenceRequest;
 import tech.kayys.alkhawarizm.spi.inference.InferenceResponse;
 
 /**
- * Text generation pipeline backed by the Aljabr inference engine.
+ * Text generation pipeline backed by the Alkhawarizm inference engine.
  *
  * <p>
  * Generates text auto-regressively from a prompt using temperature-based
  * sampling with optional top-p and top-k filtering. The pipeline resolves a
- * {@link AljabrSdk} instance at construction time via
+ * {@link AlkhawarizmSdk} instance at construction time via
  * {@link java.util.ServiceLoader}.
  *
  * <h3>Example</h3>
@@ -26,7 +26,7 @@ import tech.kayys.alkhawarizm.spi.inference.InferenceResponse;
 public class TextGenerationPipeline implements Pipeline<String, String> {
 
     private final String modelId;
-    private final AljabrSdk sdk;
+    private final AlkhawarizmSdk sdk;
     private final PipelineConfig config;
 
     /**
@@ -60,7 +60,7 @@ public class TextGenerationPipeline implements Pipeline<String, String> {
      */
     public String generate(String prompt, int maxTokens) {
         if (sdk == null) {
-            throw new PipelineException("No AljabrSdk provider available on classpath");
+            throw new PipelineException("No AlkhawarizmSdk provider available on classpath");
         }
         try {
             InferenceRequest request = InferenceRequest.builder()
@@ -101,10 +101,10 @@ public class TextGenerationPipeline implements Pipeline<String, String> {
         return modelId;
     }
 
-    /** Resolves a {@link AljabrSdk} via {@link java.util.ServiceLoader}. */
-    private AljabrSdk resolveSdk() {
+    /** Resolves a {@link AlkhawarizmSdk} via {@link java.util.ServiceLoader}. */
+    private AlkhawarizmSdk resolveSdk() {
         try {
-            return java.util.ServiceLoader.load(AljabrSdkProvider.class)
+            return java.util.ServiceLoader.load(AlkhawarizmSdkProvider.class)
                     .findFirst()
                     .map(p -> p.create(null))
                     .orElse(null);

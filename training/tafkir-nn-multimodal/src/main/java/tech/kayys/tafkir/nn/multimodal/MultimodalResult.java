@@ -19,7 +19,7 @@ import java.util.Optional;
  * <h3>Example</h3>
  * 
  * <pre>{@code
- * MultimodalResult result = Aljabr.vision("gemini-2.0-flash")
+ * MultimodalResult result = Alkhawarizm.vision("gemini-2.0-flash")
  *         .image(Path.of("cat.jpg"))
  *         .prompt("What animal is this?")
  *         .generate();

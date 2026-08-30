@@ -1,9 +1,9 @@
 package tech.kayys.tafkir.ml;
 
 /**
- * Compatibility loss facade inherited by {@link Aljabr.DL}.
+ * Compatibility loss facade inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlLossFactoryFacade extends AljabrDlBinaryLossFactoryFacade {
-    protected AljabrDlLossFactoryFacade() {
+public class AlkhawarizmDlLossFactoryFacade extends AlkhawarizmDlBinaryLossFactoryFacade {
+    protected AlkhawarizmDlLossFactoryFacade() {
     }
 }

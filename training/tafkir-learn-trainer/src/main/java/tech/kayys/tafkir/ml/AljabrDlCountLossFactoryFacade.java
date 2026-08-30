@@ -5,10 +5,10 @@ import tech.kayys.tafkir.ml.nn.loss.PoissonNllLoss;
 import tech.kayys.tafkir.ml.nn.loss.TweedieNllLoss;
 
 /**
- * Count and compound distribution loss helpers inherited by {@link Aljabr.DL}.
+ * Count and compound distribution loss helpers inherited by {@link Alkhawarizm.DL}.
  */
-public class AljabrDlCountLossFactoryFacade extends AljabrDlRegressionLossFactoryFacade {
-    protected AljabrDlCountLossFactoryFacade() {
+public class AlkhawarizmDlCountLossFactoryFacade extends AlkhawarizmDlRegressionLossFactoryFacade {
+    protected AlkhawarizmDlCountLossFactoryFacade() {
     }
 
     public static PoissonNllLoss poissonNllLoss() {

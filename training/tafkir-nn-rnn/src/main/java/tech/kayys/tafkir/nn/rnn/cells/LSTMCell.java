@@ -31,7 +31,7 @@ import tech.kayys.tafkir.ml.nn.Parameter;
  * LSTMOutput output = lstm.forward(x, h, c);
  * }</pre>
  *
- * @author Aljabr Team
+ * @author Alkhawarizm Team
  * @version 0.1.0
  */
 public class LSTMCell extends NNModule implements RNNCell {

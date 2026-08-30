@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPromotionGateMarkdownTest {
@@ -24,7 +24,7 @@ class TrainingReportPromotionGateMarkdownTest {
 
     @Test
     void rendersPassingGateResultAsCompactMarkdown() throws IOException {
-        TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
+        TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
                 promotionReports(),
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -32,8 +32,8 @@ class TrainingReportPromotionGateMarkdownTest {
 
         String markdown = result.markdown();
 
-        assertEquals(markdown, Aljabr.DL.trainingReportPromotionGateMarkdown(result));
-        assertTrue(markdown.startsWith("# Aljabr Training Promotion Gate\n"));
+        assertEquals(markdown, Alkhawarizm.DL.trainingReportPromotionGateMarkdown(result));
+        assertTrue(markdown.startsWith("# Alkhawarizm Training Promotion Gate\n"));
         assertTrue(markdown.contains("**Gate:** `PASS`"));
         assertTrue(markdown.contains("**Decision:** `PROMOTE` candidate `candidate`"));
         assertTrue(markdown.contains("**Artifact verification:** `PASS`"));
@@ -49,7 +49,7 @@ class TrainingReportPromotionGateMarkdownTest {
 
     @Test
     void rendersVerificationFailuresWhenArtifactsAreTampered() throws IOException {
-        TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
+        TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
                 promotionReports(),
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -61,10 +61,10 @@ class TrainingReportPromotionGateMarkdownTest {
                 StandardCharsets.UTF_8);
 
         TrainingReportPromotionArtifacts.ArtifactVerification verification =
-                Aljabr.DL.verifyTrainingReportPromotionArtifacts(result.artifacts());
+                Alkhawarizm.DL.verifyTrainingReportPromotionArtifacts(result.artifacts());
         TrainingReportPromotionGate.Result tamperedResult =
                 new TrainingReportPromotionGate.Result(result.review(), result.artifacts(), verification);
-        String markdown = Aljabr.DL.trainingReportPromotionGateMarkdown(tamperedResult);
+        String markdown = Alkhawarizm.DL.trainingReportPromotionGateMarkdown(tamperedResult);
 
         assertFalse(tamperedResult.passed());
         assertTrue(markdown.contains("**Gate:** `FAIL`"));
@@ -78,7 +78,7 @@ class TrainingReportPromotionGateMarkdownTest {
     @Test
     void rendersSourceVerificationFailuresWhenReportsAreTampered() throws IOException {
         Map<String, Path> reports = promotionReports();
-        TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
+        TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
                 reports,
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -89,7 +89,7 @@ class TrainingReportPromotionGateMarkdownTest {
                 "\n",
                 StandardCharsets.UTF_8,
                 StandardOpenOption.APPEND);
-        String markdown = Aljabr.DL.trainingReportPromotionGateMarkdown(result);
+        String markdown = Alkhawarizm.DL.trainingReportPromotionGateMarkdown(result);
 
         assertFalse(result.passed());
         assertTrue(markdown.contains("**Gate:** `FAIL`"));

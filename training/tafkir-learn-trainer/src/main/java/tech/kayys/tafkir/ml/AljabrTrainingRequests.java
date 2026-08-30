@@ -2,20 +2,20 @@ package tech.kayys.tafkir.ml;
 
 import java.nio.file.Path;
 import java.util.List;
-import tech.kayys.tafkir.ml.Aljabr.DL.SchedulerFactory;
-import tech.kayys.tafkir.ml.Aljabr.DL.TrainingOptions;
-import tech.kayys.tafkir.ml.Aljabr.DL.TrainingPreset;
+import tech.kayys.tafkir.ml.Alkhawarizm.DL.SchedulerFactory;
+import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingOptions;
+import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingPreset;
 import tech.kayys.tafkir.ml.nn.NNModule;
 import tech.kayys.tafkir.ml.optim.GradScaler;
 import tech.kayys.tafkir.ml.train.CanonicalTrainer;
 import tech.kayys.tafkir.train.data.DataLoader.Batch;
 
 @SuppressWarnings("deprecation")
-final class AljabrTrainingRequests {
-    private AljabrTrainingRequests() {
+final class AlkhawarizmTrainingRequests {
+    private AlkhawarizmTrainingRequests() {
     }
 
-    static AljabrTrainingRuntime.Request fromOptions(
+    static AlkhawarizmTrainingRuntime.Request fromOptions(
             NNModule model,
             Iterable<Batch> trainLoader,
             Iterable<Batch> validationLoader,
@@ -77,7 +77,7 @@ final class AljabrTrainingRequests {
                 resolvedOptions.zeroInflatedNegativeBinomialEps());
     }
 
-    static AljabrTrainingRuntime.Request fromLegacy(
+    static AlkhawarizmTrainingRuntime.Request fromLegacy(
             NNModule model,
             Iterable<Batch> trainLoader,
             Iterable<Batch> validationLoader,
@@ -145,7 +145,7 @@ final class AljabrTrainingRequests {
                 null);
     }
 
-    private static AljabrTrainingRuntime.Request fromResolvedValues(
+    private static AlkhawarizmTrainingRuntime.Request fromResolvedValues(
             NNModule model,
             Iterable<Batch> trainLoader,
             Iterable<Batch> validationLoader,
@@ -196,7 +196,7 @@ final class AljabrTrainingRequests {
             Boolean zeroInflatedNegativeBinomialLogInput,
             Boolean zeroInflatedNegativeBinomialIncludeConstant,
             Float zeroInflatedNegativeBinomialEps) {
-        return new AljabrTrainingRuntime.Request(
+        return new AlkhawarizmTrainingRuntime.Request(
                 model,
                 trainLoader,
                 validationLoader,

@@ -122,7 +122,7 @@ public class MNISTCNNExample {
 
     public static void main(String[] args) throws Exception {
         System.out.println("╔════════════════════════════════════════════════════╗");
-        System.out.println("║     Aljabr SDK: MNIST CNN Training Example         ║");
+        System.out.println("║     Alkhawarizm SDK: MNIST CNN Training Example         ║");
         System.out.println("║     CNN model for digit classification             ║");
         System.out.println("╚════════════════════════════════════════════════════╝\n");
 

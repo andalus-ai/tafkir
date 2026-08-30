@@ -37,7 +37,7 @@ jobs:
         with:
           path: tafkir
 
-      - name: Checkout Aljabr dependency
+      - name: Checkout Alkhawarizm dependency
         uses: actions/checkout@v4
         with:
           repository: n90d1n9/alkhawarizm
@@ -59,7 +59,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build Aljabr
+      - name: Build Alkhawarizm
         working-directory: alkhawarizm
         run: ./gradlew publishToMavenLocal
 

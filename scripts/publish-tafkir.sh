@@ -19,8 +19,8 @@ if [[ -z "${GITHUB_REPOSITORY_OWNER:-}" ]]; then
   fi
 fi
 
-GITHUB_REPOSITORY_OWNER="${GITHUB_REPOSITORY_OWNER:-${GITHUB_ACTOR:-bhangun}}"
-export GITHUB_REPOSITORY_OWNER
+GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-bhangun/tafkir}"
+export GITHUB_REPOSITORY
 
 if [[ -z "${GITHUB_ACTOR:-}" || -z "${GITHUB_TOKEN:-}" ]]; then
   echo "Error: GITHUB_ACTOR and GITHUB_TOKEN environment variables must be set."
@@ -31,11 +31,9 @@ fi
 
 cd "$PROJECT_ROOT"
 
-echo "Repository owner: ${GITHUB_REPOSITORY_OWNER}"
-echo "Publishing to: https://maven.pkg.github.com/${GITHUB_REPOSITORY_OWNER}"
+echo "Repository: ${GITHUB_REPOSITORY}"
+echo "Publishing to: https://maven.pkg.github.com/${GITHUB_REPOSITORY}"
 
-# This publishes to the GitHub Packages repository configured in build.gradle.kts.
-# GitHub Packages Maven endpoints are owner-scoped, not repository-scoped.
 ./gradlew --no-daemon publishAllPublicationsToGitHubPackagesRepository
 
 echo "✅ Successfully published to GitHub Packages."

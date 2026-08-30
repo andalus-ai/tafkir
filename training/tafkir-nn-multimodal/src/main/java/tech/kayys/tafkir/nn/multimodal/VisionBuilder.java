@@ -18,7 +18,7 @@ import java.util.*;
  * <h3>Example</h3>
  * 
  * <pre>{@code
- * var result = Aljabr.vision("gemini-2.0-flash")
+ * var result = Alkhawarizm.vision("gemini-2.0-flash")
  *         .image(Path.of("photo.jpg"))
  *         .prompt("What's in this image?")
  *         .maxTokens(500)
@@ -30,7 +30,7 @@ import java.util.*;
  * <h3>Multiple Images</h3>
  * 
  * <pre>{@code
- * var result = Aljabr.vision("gpt-4o")
+ * var result = Alkhawarizm.vision("gpt-4o")
  *         .image(Path.of("before.png"))
  *         .image(Path.of("after.png"))
  *         .prompt("What changed between these two images?")

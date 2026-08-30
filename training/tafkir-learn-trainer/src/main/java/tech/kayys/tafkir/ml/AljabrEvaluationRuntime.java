@@ -18,24 +18,24 @@ import tech.kayys.tafkir.ml.train.TrainingMetric;
 import tech.kayys.tafkir.train.data.DataLoader.Batch;
 
 /**
- * Executes the Aljabr.DL evaluation loop and keeps the public facade thin.
+ * Executes the Alkhawarizm.DL evaluation loop and keeps the public facade thin.
  */
-final class AljabrEvaluationRuntime {
-    private AljabrEvaluationRuntime() {
+final class AlkhawarizmEvaluationRuntime {
+    private AlkhawarizmEvaluationRuntime() {
     }
 
-    static Aljabr.DL.EvaluationSummary evaluate(
+    static Alkhawarizm.DL.EvaluationSummary evaluate(
             NNModule model,
             Iterable<Batch> loader,
             TrainingLossFunction loss,
-            Aljabr.DL.EvaluationOptions options,
+            Alkhawarizm.DL.EvaluationOptions options,
             List<? extends java.util.function.Supplier<? extends TrainingMetric>> metricFactories) {
         Objects.requireNonNull(model, "model must not be null");
         Objects.requireNonNull(loader, "loader must not be null");
         Objects.requireNonNull(loss, "loss must not be null");
 
-        Aljabr.DL.EvaluationOptions resolvedOptions = options == null
-                ? Aljabr.DL.evaluationOptions().build()
+        Alkhawarizm.DL.EvaluationOptions resolvedOptions = options == null
+                ? Alkhawarizm.DL.evaluationOptions().build()
                 : options;
         String requestedDevice = resolvedOptions.device();
         List<TrainingMetric> resolvedMetrics = instantiateMetrics(metricFactories);
@@ -76,7 +76,7 @@ final class AljabrEvaluationRuntime {
             Map<String, Object> metadata = metadata(requestedDevice, startStatus, endStatus, resolvedOptions, resolvedMetrics);
 
             double meanLoss = lossWeight == 0 ? Double.NaN : weightedLoss / lossWeight;
-            return new Aljabr.DL.EvaluationSummary(
+            return new Alkhawarizm.DL.EvaluationSummary(
                     meanLoss,
                     batchCount,
                     sampleCount,
@@ -137,7 +137,7 @@ final class AljabrEvaluationRuntime {
             String requestedDevice,
             Acceleration.BackendStatus startStatus,
             Acceleration.BackendStatus endStatus,
-            Aljabr.DL.EvaluationOptions options,
+            Alkhawarizm.DL.EvaluationOptions options,
             List<TrainingMetric> metrics) {
         Map<String, Object> metadata = new LinkedHashMap<>();
         TrainerAccelerationMetadata.put(metadata, requestedDevice, endStatus, startStatus);

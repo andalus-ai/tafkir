@@ -1,4 +1,4 @@
-# Aljabr SDK :: NLP Pipelines
+# Alkhawarizm SDK :: NLP Pipelines
 
 The `tafkir-ml-nlp` module bridges the gap between text generation models running on the engine and tokenization workflows. 
 It aggregates Tokenizer strategies into high-level pipelines.

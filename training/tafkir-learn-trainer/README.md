@@ -1,17 +1,17 @@
-# Aljabr SDK :: ML Framework Façade
+# Alkhawarizm SDK :: ML Framework Façade
 
-The `tafkir-ml-ml` module is the top-level aggregator for the Aljabr ML framework. It provides the central `AljabrSdk` façade, exposing user-friendly entry points for common ML tasks without requiring the developer to instantiate complex internal pipelines manually.
+The `tafkir-ml-ml` module is the top-level aggregator for the Alkhawarizm ML framework. It provides the central `AlkhawarizmSdk` façade, exposing user-friendly entry points for common ML tasks without requiring the developer to instantiate complex internal pipelines manually.
 
 ## Features
 
-- **Model Builder API**: Simplifies the loading of models, tokenizers, and weights via `AljabrSdk.builder()`.
+- **Model Builder API**: Simplifies the loading of models, tokenizers, and weights via `AlkhawarizmSdk.builder()`.
 - **Pre-configured Pipelines**: Provides native access to `TextGenerationPipeline`, `EmbeddingsPipeline`, etc.
 - **Unified Interface**: Masks the complexity of `tafkir-ml-autograd`, `tafkir-ml-nn`, and the execution kernels.
-- **Canonical Trainer Bridge**: `Aljabr.DL.trainer()` now provides a typed path into
+- **Canonical Trainer Bridge**: `Alkhawarizm.DL.trainer()` now provides a typed path into
   `:trainer:alkhawarizm-trainer` with real forward/loss/backward execution.
-- **One-call Training Presets**: `Aljabr.DL.fit(...)` can run preset training
+- **One-call Training Presets**: `Alkhawarizm.DL.fit(...)` can run preset training
   modes (MSE/Huber/CrossEntropy + AdamW/SGD) without manual runtime wiring.
-- **Public Training Metrics**: `Aljabr.DL.trainingOptions()` can attach
+- **Public Training Metrics**: `Alkhawarizm.DL.trainingOptions()` can attach
   canonical metrics such as MAE, MSE, RMSE, R2, accuracy, macro precision,
   macro recall, macro F1, and top-k accuracy to the one-call `fit(...)` path, with
   train/validation values returned in `TrainingSummary.metadata()`.
@@ -24,27 +24,27 @@ The `tafkir-ml-ml` module is the top-level aggregator for the Aljabr ML framewor
   `CanonicalTrainer.Metric`, `.DetailedMetric`, and `.Metrics` names remain as
   source-compatible aliases.
 - **Robust Regression Preset**:
-  `TrainingPreset.REGRESSION_HUBER_*` uses `Aljabr.DL.huberLoss(...)` for
+  `TrainingPreset.REGRESSION_HUBER_*` uses `Alkhawarizm.DL.huberLoss(...)` for
   outlier-tolerant regression with a real autograd backward path.
 - **Regression Metric Preset**:
-  `Aljabr.DL.trainingOptions().regressionMetrics()` records MAE, MSE, RMSE,
+  `Alkhawarizm.DL.trainingOptions().regressionMetrics()` records MAE, MSE, RMSE,
   and R2 for regression outputs shaped like their targets.
-- **Public LR Scheduling**: `Aljabr.DL.trainingOptions().stepLrBatches(...)`,
+- **Public LR Scheduling**: `Alkhawarizm.DL.trainingOptions().stepLrBatches(...)`,
   `.stepLrEpochs(...)`, `.cosineAnnealingLrBatches(...)`, and
   `.cosineAnnealingLrEpochs(...)` attach scheduler policies to the one-call
   `fit(...)` path while reusing canonical scheduler metadata and checkpoint
   state.
 - **Warmup Cosine Scheduling**:
-  `Aljabr.DL.trainingOptions().warmupCosineLrBatches(...)` and
+  `Alkhawarizm.DL.trainingOptions().warmupCosineLrBatches(...)` and
   `.warmupCosineLrEpochs(...)` provide Transformer-style linear warmup followed
   by cosine decay. The scheduler starts new runs at LR `0.0`, supports
   checkpoint resume, and reports `learningRateSchedulerState.*` metadata.
 - **Reduce LR On Plateau Scheduling**:
-  `Aljabr.DL.trainingOptions().reduceLrOnPlateauValidationLoss(...)` reduces
+  `Alkhawarizm.DL.trainingOptions().reduceLrOnPlateauValidationLoss(...)` reduces
   LR after validation loss stalls, while `.reduceLrOnPlateauMetric(...)` can
   watch a named validation metric such as F1 or AUROC. Plateau scheduler state
   is checkpointed and flattened into summary/report metadata.
-- **Built-in Early Stopping**: Canonical trainer and `Aljabr.DL.fit(...)` now
+- **Built-in Early Stopping**: Canonical trainer and `Alkhawarizm.DL.fit(...)` now
   support patience/min-delta controls for validation-driven stopping. The
   default monitor is validation loss, and
   `.earlyStoppingMonitorMetric("f1", BestModelMonitorMode.MAX)` can stop by a
@@ -86,7 +86,7 @@ The `tafkir-ml-ml` module is the top-level aggregator for the Aljabr ML framewor
   the final summary, epoch history, metrics, checkpoints, accelerator metadata,
   gradient diagnostics, and throughput counters for CLIs, dashboards, and JBang
   examples that should not parse console output.
-- **Checkpoint Resume**: `Aljabr.DL.trainer()` / `CanonicalTrainer.Builder`
+- **Checkpoint Resume**: `Alkhawarizm.DL.trainer()` / `CanonicalTrainer.Builder`
   can resume from checkpoint state via `checkpointDir(...).resumeFromCheckpoint()`.
 - **Optimizer State Resume**: Checkpoints preserve optimizer-internal state for
   SGD, Adam, AdamW, and RMSprop, including momentum/velocity buffers and Adam
@@ -156,7 +156,7 @@ The `tafkir-ml-ml` module is the top-level aggregator for the Aljabr ML framewor
   overflow is detected.
 - **Scaler-Backed Trainer Mixed Precision**:
   `CanonicalTrainer.Builder.mixedPrecision(true)`, `.gradScaler(...)`, and
-  `Aljabr.DL.trainingOptions().mixedPrecision()` now execute the real
+  `Alkhawarizm.DL.trainingOptions().mixedPrecision()` now execute the real
   GradScaler path during training. Public training options also accept
   `trainingOptions().gradScaler(customScaler)` /
   `.mixedPrecision(customScaler)` for tuned initial scale and growth policy.
@@ -170,8 +170,8 @@ The `tafkir-ml-ml` module is the top-level aggregator for the Aljabr ML framewor
   Java-side training expressions such as view ops, `sum`/`mean`, `pow`,
   unary math/activations, and last-dimension `softmax`, so custom losses no
   longer have to install manual backward hooks for basic compositions.
-- **Autograd Graph Builders**: `Aljabr.cat(...)`, `Aljabr.stack(...)`, and
-  `Aljabr.where(...)` now preserve gradients through concatenation, stacking,
+- **Autograd Graph Builders**: `Alkhawarizm.cat(...)`, `Alkhawarizm.stack(...)`, and
+  `Alkhawarizm.where(...)` now preserve gradients through concatenation, stacking,
   and broadcasted selection paths instead of returning detached tensors.
 - **Transformer Attention Autograd**: Attention compatibility einsums
   (`bhid,bhjd->bhij` and `bhij,bhjd->bhid`) now backpropagate to query/key
@@ -263,98 +263,98 @@ The `tafkir-ml-ml` module is the top-level aggregator for the Aljabr ML framewor
   `.bestModelMonitorMetric("f1", BestModelMonitorMode.MAX)` can choose the best
   epoch by a named validation metric. `restoreBestModelAtEnd()` reloads that best
   epoch before returning, making the trained model immediately deployment-ready.
-- **Deterministic Tensor Splits**: `Aljabr.DL.trainValidationSplit(...)`
+- **Deterministic Tensor Splits**: `Alkhawarizm.DL.trainValidationSplit(...)`
   creates train/validation tensor datasets and ready-to-use seeded loaders for
-  reproducible trainer runs. `Aljabr.DL.fit(model, split, ...)` can train from
+  reproducible trainer runs. `Alkhawarizm.DL.fit(model, split, ...)` can train from
   the split directly.
-- **Classification Loader Helpers**: `Aljabr.DL.classificationDataLoader(...)`
+- **Classification Loader Helpers**: `Alkhawarizm.DL.classificationDataLoader(...)`
   and `.classificationTrainValidationSplit(...)` accept Java `int[]` class
   labels and produce CrossEntropy-compatible class-index tensors.
 - **Stratified Classification Splits**:
-  `Aljabr.DL.classificationStratifiedTrainValidationSplit(...)` and
+  `Alkhawarizm.DL.classificationStratifiedTrainValidationSplit(...)` and
   `.binaryStratifiedTrainValidationSplit(...)` preserve class/binary label
   coverage across train and validation sets for small classification datasets.
 - **Multi-Label Stratified Splits**:
-  `Aljabr.DL.multiLabelBinaryStratifiedTrainValidationSplit(...)` balances
+  `Alkhawarizm.DL.multiLabelBinaryStratifiedTrainValidationSplit(...)` balances
   per-label positive counts while preserving exact train/validation sizes for
   multi-label BCE datasets.
 - **Classification Metric Preset**:
-  `Aljabr.DL.trainingOptions().classificationMetrics()` enables accuracy,
+  `Alkhawarizm.DL.trainingOptions().classificationMetrics()` enables accuracy,
   macro precision, macro recall, and macro F1 for logits shaped
   `[batch, classes]` with either class-index targets or one-hot targets.
   Use `.topKAccuracyMetric(k)` alongside it when top-2/top-5 style reporting
   is needed.
 - **Structured Confusion Matrix Metric**:
-  `Aljabr.DL.confusionMatrixMetric()` records scalar
+  `Alkhawarizm.DL.confusionMatrixMetric()` records scalar
   `confusion_matrix_accuracy` plus structured matrix details under
   `latestTrainMetricDetails`, `latestValidationMetricDetails`, epoch history,
   `canonical-history.csv`, and `canonical-report.json`. Rows are actual
   classes and columns are predicted classes.
 - **Classification Ranking Metrics**:
-  `Aljabr.DL.classificationMacroRocAucMetric()`,
+  `Alkhawarizm.DL.classificationMacroRocAucMetric()`,
   `.classificationMacroAveragePrecisionMetric()`, and
   `.trainingOptions().classificationRankingMetrics()` compute one-vs-rest
   macro ranking quality from multi-class logits.
 - **Imbalanced CrossEntropy Weighting**:
-  `Aljabr.DL.classWeights(...)` derives balanced class weights from Java
-  class-index labels, `Aljabr.DL.classWeightsFor(numClasses, ...)` handles
+  `Alkhawarizm.DL.classWeights(...)` derives balanced class weights from Java
+  class-index labels, `Alkhawarizm.DL.classWeightsFor(numClasses, ...)` handles
   explicit class counts, and
-  `Aljabr.DL.trainingOptions().crossEntropyClassWeights(...)` applies those
+  `Alkhawarizm.DL.trainingOptions().crossEntropyClassWeights(...)` applies those
   weights to the preset CrossEntropy trainer path.
 - **Focal Classification Preset**:
-  `TrainingPreset.CLASSIFICATION_FOCAL_*` uses `Aljabr.DL.focalLoss(...)`
+  `TrainingPreset.CLASSIFICATION_FOCAL_*` uses `Alkhawarizm.DL.focalLoss(...)`
   to down-weight easy examples and focus training on hard examples.
-  `Aljabr.DL.trainingOptions().focalGamma(...)`, `.focalAlpha(...)`, and
+  `Alkhawarizm.DL.trainingOptions().focalGamma(...)`, `.focalAlpha(...)`, and
   `.focalClassWeights(...)` configure the preset trainer path, while
   non-finite logits fail before softmax/focal weighting.
 - **Binary Focal With Logits Preset**:
   `TrainingPreset.BINARY_FOCAL_WITH_LOGITS_*` uses
-  `Aljabr.DL.binaryFocalWithLogitsLoss(...)` for imbalanced binary and
+  `Alkhawarizm.DL.binaryFocalWithLogitsLoss(...)` for imbalanced binary and
   multi-label tasks. It accepts `.focalGamma(...)`, `.focalAlpha(...)`,
   and the existing `.bcePositiveWeight(...)` / `.bcePositiveWeights(...)`
   imbalance controls, with finite-logit validation and tested gradients for
   positive-weighted multi-label batches.
 - **Binary Classification Preset**:
-  `Aljabr.DL.binaryDataLoader(...)`, `.binaryTrainValidationSplit(...)`,
+  `Alkhawarizm.DL.binaryDataLoader(...)`, `.binaryTrainValidationSplit(...)`,
   `.binaryStratifiedTrainValidationSplit(...)`, and
   `TrainingPreset.BINARY_BCE_WITH_LOGITS_*` support one-output binary
   classifiers shaped `[batch, 1]` with BCE-with-logits loss.
 - **Imbalanced BCE Weighting**:
-  `Aljabr.DL.binaryPositiveWeight(...)` derives `negatives / positives` from
-  Java labels and `Aljabr.DL.trainingOptions().bcePositiveWeight(...)` applies
+  `Alkhawarizm.DL.binaryPositiveWeight(...)` derives `negatives / positives` from
+  Java labels and `Alkhawarizm.DL.trainingOptions().bcePositiveWeight(...)` applies
   it to the preset BCE trainer path. For multi-label tasks,
-  `Aljabr.DL.multiLabelPositiveWeights(...)` and `.bcePositiveWeights(...)`
+  `Alkhawarizm.DL.multiLabelPositiveWeights(...)` and `.bcePositiveWeights(...)`
   apply per-label positive weighting.
 - **Binary Metrics**:
-  `Aljabr.DL.trainingOptions().binaryClassificationMetrics()` records
+  `Alkhawarizm.DL.trainingOptions().binaryClassificationMetrics()` records
   thresholded binary accuracy, precision, recall, and F1 using logit `0.0`
   as the probability `0.5` decision boundary.
 - **Configurable Binary Threshold Metrics**:
-  `Aljabr.DL.binaryAccuracyMetric(logitThreshold)`,
+  `Alkhawarizm.DL.binaryAccuracyMetric(logitThreshold)`,
   `.binaryPrecisionMetric(logitThreshold)`, `.binaryRecallMetric(logitThreshold)`,
   `.binaryF1Metric(logitThreshold)`, and
   `.trainingOptions().binaryClassificationMetrics(logitThreshold)` evaluate
   BCE/focal logits at deployment-specific operating points.
 - **Binary Confusion Matrix Metric**:
-  `Aljabr.DL.binaryConfusionMatrixMetric()` and
+  `Alkhawarizm.DL.binaryConfusionMatrixMetric()` and
   `.trainingOptions().binaryConfusionMatrixMetric(logitThreshold)` record
   scalar `binary_confusion_matrix_accuracy` plus TN/FP/FN/TP, specificity,
   balanced accuracy, and a structured `[[TN, FP], [FN, TP]]` matrix in
   summary metadata, epoch history, history CSV, evaluation summaries, and
   `canonical-report.json`.
 - **Binary Ranking Metrics**:
-  `Aljabr.DL.binaryRocAucMetric()`, `.binaryAveragePrecisionMetric()`, and
+  `Alkhawarizm.DL.binaryRocAucMetric()`, `.binaryAveragePrecisionMetric()`, and
   `.trainingOptions().binaryRankingMetrics()` report ranking quality directly
   from logits, which is especially useful for imbalanced datasets where a
   fixed threshold can hide model quality.
 - **Multi-Label BCE Helpers**:
-  `Aljabr.DL.multiLabelBinaryDataLoader(...)` and
+  `Alkhawarizm.DL.multiLabelBinaryDataLoader(...)` and
   `.multiLabelBinaryTrainValidationSplit(...)` /
   `.multiLabelBinaryStratifiedTrainValidationSplit(...)` accept Java
   `int[][]`, `boolean[][]`, or `float[][]` targets and preserve
   `[batch, labels]` shape for multi-label BCE training.
 - **Multi-Label Metrics**:
-  `Aljabr.DL.trainingOptions().multiLabelBinaryMetrics()` records exact-match
+  `Alkhawarizm.DL.trainingOptions().multiLabelBinaryMetrics()` records exact-match
   accuracy, Hamming loss, macro precision, macro recall, and macro F1 for
   multi-label BCE outputs.
 - **Configurable Multi-Label Threshold Metrics**:
@@ -362,11 +362,11 @@ The `tafkir-ml-ml` module is the top-level aggregator for the Aljabr ML framewor
   `.trainingOptions().multiLabelBinaryMetrics(logitThreshold)` accept custom
   logit thresholds while preserving the existing logit `0.0` default.
 - **Multi-Label Ranking Metrics**:
-  `Aljabr.DL.multiLabelMacroRocAucMetric()`,
+  `Alkhawarizm.DL.multiLabelMacroRocAucMetric()`,
   `.multiLabelMacroAveragePrecisionMetric()`, and
   `.trainingOptions().multiLabelRankingMetrics()` compute per-label macro
   ranking quality from logits, complementing thresholded multi-label metrics.
-- **No-Grad Evaluation**: `Aljabr.DL.evaluate(...)` measures test/validation
+- **No-Grad Evaluation**: `Alkhawarizm.DL.evaluate(...)` measures test/validation
   loss and metrics under `model.eval()` while preserving the caller's previous
   training mode and accelerator preference. Preset losses are supported for the
   common regression/classification paths.
@@ -374,10 +374,10 @@ The `tafkir-ml-ml` module is the top-level aggregator for the Aljabr ML framewor
 ## Example Usage
 
 ```java
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 
 // Create an instance tied to the local execution backend
-Aljabr alkhawarizm = Aljabr.builder()
+Alkhawarizm alkhawarizm = Alkhawarizm.builder()
     .model("Qwen/Qwen2.5-0.5B")
     .device("METAL")
     .build();

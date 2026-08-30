@@ -1,4 +1,4 @@
-I have completed the comprehensive integration code for making Tafkir real using Aljabr as the underlying engine. Here's a summary of everything that was created:
+I have completed the comprehensive integration code for making Tafkir real using Alkhawarizm as the underlying engine. Here's a summary of everything that was created:
 
 ---
 
@@ -8,9 +8,9 @@ I have completed the comprehensive integration code for making Tafkir real using
 
 | File | Purpose |
 |------|---------|
-| `TafkirTensor.java` | Wraps Aljabr's `Tensor` with PyTorch-like API, implements `Tensor` interface directly, provides in-place operations (`add_`, `sub_`, `mul_`, `div_`, `sqrt_`, `fill_`) for zero-allocation optimizer steps |
-| `TafkirBackend.java` | Factory for Aljabr compute backends (CPU now, CUDA/Metal detection planned) |
-| `TafkirAutograd.java` | Bridges Aljabr's `AutogradEngine` and `GGraph` to Tafkir |
+| `TafkirTensor.java` | Wraps Alkhawarizm's `Tensor` with PyTorch-like API, implements `Tensor` interface directly, provides in-place operations (`add_`, `sub_`, `mul_`, `div_`, `sqrt_`, `fill_`) for zero-allocation optimizer steps |
+| `TafkirBackend.java` | Factory for Alkhawarizm compute backends (CPU now, CUDA/Metal detection planned) |
+| `TafkirAutograd.java` | Bridges Alkhawarizm's `AutogradEngine` and `GGraph` to Tafkir |
 
 ### Trainer Module: `trainer/tafkir-trainer-alkhawarizm`
 
@@ -69,9 +69,9 @@ I have completed the comprehensive integration code for making Tafkir real using
 
 | File | Fixes |
 |------|-------|
-| `settings.gradle.kts` | Proper Aljabr composite build with dependency substitution |
+| `settings.gradle.kts` | Proper Alkhawarizm composite build with dependency substitution |
 | `build.gradle.kts` | Fixed POM metadata (`bhangun` → `n90d1n9`), JDK 25 for compute modules |
-| `.github/workflows/ci.yml` | Checks out Aljabr, builds it, runs XOR test, runs JBang example |
+| `.github/workflows/ci.yml` | Checks out Alkhawarizm, builds it, runs XOR test, runs JBang example |
 
 ### Documentation
 
@@ -83,11 +83,11 @@ I have completed the comprehensive integration code for making Tafkir real using
 
 ## Key Design Decisions
 
-1. **In-Place Operations**: The `TafkirTensor.add_()`, `sub_()`, `mul_()`, `div_()`, `sqrt_()`, `fill_()` methods manipulate Aljabr's `MemorySegment` directly via Panama FFM. This is critical for optimizer performance — without in-place ops, Adam would allocate ~4GB per step for a 1B parameter model.
+1. **In-Place Operations**: The `TafkirTensor.add_()`, `sub_()`, `mul_()`, `div_()`, `sqrt_()`, `fill_()` methods manipulate Alkhawarizm's `MemorySegment` directly via Panama FFM. This is critical for optimizer performance — without in-place ops, Adam would allocate ~4GB per step for a 1B parameter model.
 
-2. **Dual Mode Support**: `TafkirTensor` wraps both Aljabr's `DefaultTensor` (eager) and `LazyTensor` (graph). The `backward()` call works for both because `LazyTensor.eval()` materializes before gradient computation.
+2. **Dual Mode Support**: `TafkirTensor` wraps both Alkhawarizm's `DefaultTensor` (eager) and `LazyTensor` (graph). The `backward()` call works for both because `LazyTensor.eval()` materializes before gradient computation.
 
-3. **Graph Optimization**: Aljabr's `GraphOptimizer` fuses `MATMUL(SOFTMAX(DIV_SCALAR(MATMUL(Q, TRANSPOSE(K)), scale)), V)` into a single `ATTENTION` op, enabling FlashAttention-3 on supported backends.
+3. **Graph Optimization**: Alkhawarizm's `GraphOptimizer` fuses `MATMUL(SOFTMAX(DIV_SCALAR(MATMUL(Q, TRANSPOSE(K)), scale)), V)` into a single `ATTENTION` op, enabling FlashAttention-3 on supported backends.
 
 4. **Zero-Copy Data Loading**: `MNISTDataset` uses `System.arraycopy` into pre-allocated arrays, then `TafkirTensor.of()` copies once into off-heap `MemorySegment`. No double-buffering.
 
@@ -113,7 +113,7 @@ I have completed the comprehensive integration code for making Tafkir real using
 
 3. **Distributed Multi-Process**: The current `DistributedTrainer` uses threads. For multi-node, implement MPI-style communication via gRPC or raw sockets, with gradient compression (FP16, 1-bit Adam).
 
-4. **JIT Compilation**: Aljabr's `GraphExecutor` can be extended with a JIT that compiles fused op sequences to native code via Panama's `Linker` or LLVM IR.
+4. **JIT Compilation**: Alkhawarizm's `GraphExecutor` can be extended with a JIT that compiles fused op sequences to native code via Panama's `Linker` or LLVM IR.
 
 5. **Model Zoo**: The 318 `*ModelFamilyPlugin.java` stubs in `models/` should be replaced with actual model implementations (ResNet, Transformer, BERT) using the new `TafkirSequential` API.
 

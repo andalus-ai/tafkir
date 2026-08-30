@@ -15,7 +15,7 @@ import java.util.*;
  * <h3>Example</h3>
  * 
  * <pre>{@code
- * var result = Aljabr.video("gemini-2.0-pro")
+ * var result = Alkhawarizm.video("gemini-2.0-pro")
  *         .videoFile(Path.of("clip.mp4"))
  *         .prompt("Summarize the key events in this video")
  *         .generate();

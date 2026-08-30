@@ -21,18 +21,18 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-public class AljabrTest {
+public class AlkhawarizmTest {
 
         @Test
         public void testTensorCreation() {
-                GradTensor t = Aljabr.tensor(new float[] { 1, 2, 3 }, 1, 3);
+                GradTensor t = Alkhawarizm.tensor(new float[] { 1, 2, 3 }, 1, 3);
                 assertNotNull(t);
                 assertEquals(3, t.numel());
         }
 
         @Test
         public void testNnUsage() {
-                // Use constructor directly as shown in Aljabr.java examples
+                // Use constructor directly as shown in Alkhawarizm.java examples
                 Linear linear = new Linear(10, 20);
                 assertNotNull(linear);
         }
@@ -42,12 +42,12 @@ public class AljabrTest {
         public void testPipelineFactory() {
                 // Use an unknown task to trigger PipelineException
                 // assertThrows(tech.kayys.tafkir.ml.nlp.PipelineException.class, () ->
-                // Aljabr.pipeline("unknown-task", "any"));
+                // Alkhawarizm.pipeline("unknown-task", "any"));
         }
 
         @Test
         public void testDeviceHeuristics() {
-                DeviceType device = Aljabr.defaultDevice();
+                DeviceType device = Alkhawarizm.defaultDevice();
                 assertNotNull(device);
                 // On most CI/Local it will be CPU
                 System.out.println("Default device: " + device);
@@ -59,29 +59,29 @@ public class AljabrTest {
                 TrainingReport candidate = TrainingReport.of(runtimeProfileReport(4_000_000L, 10_000_000L));
 
                 assertEquals(TrainingReportAdvisor.COMPARISON_ACTION_PLAN_SCHEMA,
-                                Aljabr.DL.trainingReportComparisonActionPlanSchema());
-                Map<String, Object> actionPlan = Aljabr.DL.trainingReportComparisonActionPlan(baseline, candidate);
+                                Alkhawarizm.DL.trainingReportComparisonActionPlanSchema());
+                Map<String, Object> actionPlan = Alkhawarizm.DL.trainingReportComparisonActionPlan(baseline, candidate);
                 assertEquals(TrainingReportComparisonActionPlanExport.SCHEMA, actionPlan.get("schema"));
 
-                TrainingReportComparisonActionPlanExport export = Aljabr.DL
+                TrainingReportComparisonActionPlanExport export = Alkhawarizm.DL
                                 .trainingReportComparisonActionPlanExport(baseline, candidate);
                 assertTrue(export.regressed());
                 assertTrue(export.requiresAttention());
-                assertTrue(Aljabr.DL.trainingReportComparisonActionPlanMarkdown(baseline, candidate)
+                assertTrue(Alkhawarizm.DL.trainingReportComparisonActionPlanMarkdown(baseline, candidate)
                                 .contains("Runtime Regression Summary"));
 
                 Path directory = Files.createTempDirectory("alkhawarizm-action-plan-facade");
-                TrainingReportComparisonActionPlanArtifacts.ArtifactBundle bundle = Aljabr.DL
+                TrainingReportComparisonActionPlanArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
                                 .writeTrainingReportComparisonActionPlanArtifacts(directory, export);
-                TrainingReportComparisonActionPlanArtifacts.Verification verification = Aljabr.DL
+                TrainingReportComparisonActionPlanArtifacts.Verification verification = Alkhawarizm.DL
                                 .verifyTrainingReportComparisonActionPlanArtifacts(bundle);
                 assertTrue(verification.passed());
-                assertTrue(Aljabr.DL.trainingReportComparisonActionPlanArtifactVerificationMarkdown(verification)
+                assertTrue(Alkhawarizm.DL.trainingReportComparisonActionPlanArtifactVerificationMarkdown(verification)
                                 .contains("**Status:** `PASS`"));
                 assertEquals(export.markdown(),
-                                Aljabr.DL.readTrainingReportComparisonActionPlanMarkdown(bundle.markdownFile()));
+                                Alkhawarizm.DL.readTrainingReportComparisonActionPlanMarkdown(bundle.markdownFile()));
                 assertEquals(export.runtimeRegression().toMap(),
-                                Aljabr.DL.readTrainingReportComparisonActionPlanExport(bundle.jsonFile())
+                                Alkhawarizm.DL.readTrainingReportComparisonActionPlanExport(bundle.jsonFile())
                                                 .runtimeRegression()
                                                 .toMap());
 
@@ -93,7 +93,7 @@ public class AljabrTest {
 
         @Test
         public void testTrainValidationTestSplitFacade() {
-                DataLoader.TensorDatasetThreeWaySplit split = Aljabr.DL
+                DataLoader.TensorDatasetThreeWaySplit split = Alkhawarizm.DL
                                 .classificationStratifiedTrainValidationTestSplit(
                                                 GradTensor.of(new float[] {
                                                                 1f, 0f,
@@ -120,7 +120,7 @@ public class AljabrTest {
 
         @Test
         public void testClassBalancedClassificationLoaderFacade() {
-                DataLoader.TensorDataLoader loader = Aljabr.DL.classBalancedClassificationLoader(
+                DataLoader.TensorDataLoader loader = Alkhawarizm.DL.classBalancedClassificationLoader(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -155,7 +155,7 @@ public class AljabrTest {
         @Test
         public void testStratifiedClassificationLoaderFacade() {
                 int[] labels = { 0, 0, 0, 0, 0, 0, 1, 1 };
-                DataLoader.TensorDataLoader loader = Aljabr.DL.stratifiedClassificationLoader(
+                DataLoader.TensorDataLoader loader = Alkhawarizm.DL.stratifiedClassificationLoader(
                                 GradTensor.of(new float[] { 1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f }, 8, 1),
                                 labels,
                                 4,
@@ -163,12 +163,12 @@ public class AljabrTest {
                                 2032L);
 
                 assertEquals(2, loader.numBatches());
-                assertArrayEquals(new int[] { 6, 2 }, Aljabr.DL.stratifiedBatchSampler(
+                assertArrayEquals(new int[] { 6, 2 }, Alkhawarizm.DL.stratifiedBatchSampler(
                                 labels, 4, 2, false, 2032L).classCounts());
-                DataLoader.ClassificationDistributionReport report = Aljabr.DL.classificationDistribution(loader, 2);
+                DataLoader.ClassificationDistributionReport report = Alkhawarizm.DL.classificationDistribution(loader, 2);
                 assertArrayEquals(new int[] { 6, 2 }, report.classCounts());
                 assertArrayEquals(new double[] { 0.75, 0.25 }, report.classFractions(), 1e-6);
-                DataLoader.ClassificationDistributionReport inferredReport = Aljabr.DL
+                DataLoader.ClassificationDistributionReport inferredReport = Alkhawarizm.DL
                                 .classificationDistribution(loader);
                 assertEquals(2, inferredReport.numClasses());
                 assertArrayEquals(report.classCounts(), inferredReport.classCounts());
@@ -193,20 +193,20 @@ public class AljabrTest {
 
                 assertArrayEquals(
                                 new float[] { 2.0f / 3.0f, 2.0f / 3.0f, 2.0f / 3.0f, 2.0f },
-                                Aljabr.DL.classBalancedSampleWeights(labels),
+                                Alkhawarizm.DL.classBalancedSampleWeights(labels),
                                 1e-6f);
                 assertArrayEquals(
                                 new float[] { 2.0f / 3.0f, 2.0f / 3.0f, 2.0f / 3.0f, 2.0f },
-                                Aljabr.DL.binaryBalancedSampleWeights(labels),
+                                Alkhawarizm.DL.binaryBalancedSampleWeights(labels),
                                 1e-6f);
 
-                DataLoader.TensorDataLoader classification = Aljabr.DL.classWeightedClassificationLoader(
+                DataLoader.TensorDataLoader classification = Alkhawarizm.DL.classWeightedClassificationLoader(
                                 GradTensor.of(new float[] { 1f, 2f, 3f, 4f }, 4, 1),
                                 labels,
                                 3,
                                 12,
                                 17L);
-                DataLoader.TensorDataLoader binary = Aljabr.DL.weightedBinaryLoader(
+                DataLoader.TensorDataLoader binary = Alkhawarizm.DL.weightedBinaryLoader(
                                 GradTensor.of(new float[] { 1f, 2f, 3f, 4f }, 4, 1),
                                 labels,
                                 2,
@@ -231,7 +231,7 @@ public class AljabrTest {
                                 { 0, 0, 1 },
                                 { 1, 1, 1 }
                 };
-                DataLoader.TensorDataLoader loader = Aljabr.DL.multiLabelBalancedBinaryLoader(
+                DataLoader.TensorDataLoader loader = Alkhawarizm.DL.multiLabelBalancedBinaryLoader(
                                 GradTensor.of(new float[] { 1f, 2f, 3f, 4f, 5f, 6f }, 6, 1),
                                 labels,
                                 3,
@@ -239,12 +239,12 @@ public class AljabrTest {
                                 2026L);
 
                 assertEquals(3, loader.numBatches());
-                DataLoader.MultiLabelDistributionReport report = Aljabr.DL.multiLabelDistribution(loader, 3);
+                DataLoader.MultiLabelDistributionReport report = Alkhawarizm.DL.multiLabelDistribution(loader, 3);
                 assertEquals(9, report.sampleCount());
                 assertTrue(report.positiveCount(0) >= 3);
                 assertTrue(report.positiveCount(1) >= 3);
                 assertTrue(report.positiveCount(2) >= 3);
-                DataLoader.MultiLabelDistributionReport inferredReport = Aljabr.DL.multiLabelDistribution(loader);
+                DataLoader.MultiLabelDistributionReport inferredReport = Alkhawarizm.DL.multiLabelDistribution(loader);
                 assertEquals(3, inferredReport.labelCount());
                 assertArrayEquals(report.positiveCounts(), inferredReport.positiveCounts());
                 for (DataLoader.Batch batch : loader) {
@@ -273,9 +273,9 @@ public class AljabrTest {
                                 2.0f,
                                 2.0f,
                                 2.0f / 3.0f
-                }, Aljabr.DL.multiLabelBalancedSampleWeights(labels), 1e-6f);
+                }, Alkhawarizm.DL.multiLabelBalancedSampleWeights(labels), 1e-6f);
 
-                DataLoader.TensorDataLoader loader = Aljabr.DL.multiLabelWeightedBinaryLoader(
+                DataLoader.TensorDataLoader loader = Alkhawarizm.DL.multiLabelWeightedBinaryLoader(
                                 GradTensor.of(new float[] { 1f, 2f, 3f, 4f, 5f, 6f }, 6, 1),
                                 labels,
                                 2,
@@ -290,7 +290,7 @@ public class AljabrTest {
 
         @Test
         public void testMultiLabelStratifiedTrainValidationTestSplitFacade() {
-                DataLoader.TensorDatasetThreeWaySplit split = Aljabr.DL
+                DataLoader.TensorDatasetThreeWaySplit split = Alkhawarizm.DL
                                 .multiLabelBinaryStratifiedTrainValidationTestSplit(
                                                 GradTensor.of(new float[] {
                                                                 1f, 0f,
@@ -332,7 +332,7 @@ public class AljabrTest {
         @Test
         public void testMultiLabelStratifiedGroupTrainValidationSplitFacade() {
                 int[] groups = { 10, 10, 20, 20, 30, 30, 40, 40, 50, 50, 60, 60 };
-                DataLoader.TensorDatasetSplit split = Aljabr.DL.multiLabelBinaryStratifiedGroupTrainValidationSplit(
+                DataLoader.TensorDatasetSplit split = Alkhawarizm.DL.multiLabelBinaryStratifiedGroupTrainValidationSplit(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -364,7 +364,7 @@ public class AljabrTest {
         @Test
         public void testMultiLabelStratifiedGroupTrainValidationTestSplitFacade() {
                 int[] groups = { 10, 10, 20, 20, 30, 30, 40, 40, 50, 50, 60, 60 };
-                DataLoader.TensorDatasetThreeWaySplit split = Aljabr.DL
+                DataLoader.TensorDatasetThreeWaySplit split = Alkhawarizm.DL
                                 .multiLabelBinaryStratifiedGroupTrainValidationTestSplit(
                                                 GradTensor.of(new float[] {
                                                                 1f,
@@ -403,7 +403,7 @@ public class AljabrTest {
 
         @Test
         public void testMultiLabelStratifiedCrossValidationFacade() {
-                var folds = Aljabr.DL.multiLabelBinaryStratifiedCrossValidationFolds(
+                var folds = Alkhawarizm.DL.multiLabelBinaryStratifiedCrossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -446,7 +446,7 @@ public class AljabrTest {
         @Test
         public void testMultiLabelStratifiedGroupCrossValidationFacade() {
                 int[] groups = { 10, 10, 20, 20, 30, 30, 40, 40, 50, 50, 60, 60 };
-                var folds = Aljabr.DL.multiLabelBinaryStratifiedGroupCrossValidationFolds(
+                var folds = Alkhawarizm.DL.multiLabelBinaryStratifiedGroupCrossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -493,7 +493,7 @@ public class AljabrTest {
         @Test
         public void testMultiLabelRepeatedStratifiedGroupCrossValidationFacade() {
                 int[] groups = { 10, 10, 20, 20, 30, 30, 40, 40, 50, 50, 60, 60 };
-                var folds = Aljabr.DL.multiLabelBinaryRepeatedStratifiedGroupCrossValidationFolds(
+                var folds = Alkhawarizm.DL.multiLabelBinaryRepeatedStratifiedGroupCrossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -541,7 +541,7 @@ public class AljabrTest {
 
         @Test
         public void testStratifiedCrossValidationFacade() {
-                var folds = Aljabr.DL.classificationStratifiedCrossValidationFolds(
+                var folds = Alkhawarizm.DL.classificationStratifiedCrossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f, 0f,
                                                 0.9f, 0.1f,
@@ -565,7 +565,7 @@ public class AljabrTest {
 
         @Test
         public void testGroupCrossValidationFacade() {
-                var folds = Aljabr.DL.groupCrossValidationFolds(
+                var folds = Alkhawarizm.DL.groupCrossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -595,7 +595,7 @@ public class AljabrTest {
 
         @Test
         public void testRepeatedCrossValidationFacade() {
-                var folds = Aljabr.DL.repeatedCrossValidationFolds(
+                var folds = Alkhawarizm.DL.repeatedCrossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -625,7 +625,7 @@ public class AljabrTest {
 
         @Test
         public void testStratifiedGroupCrossValidationFacade() {
-                var folds = Aljabr.DL.classificationStratifiedGroupCrossValidationFolds(
+                var folds = Alkhawarizm.DL.classificationStratifiedGroupCrossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -649,7 +649,7 @@ public class AljabrTest {
 
         @Test
         public void testTimeSeriesCrossValidationFacadeWalksForward() {
-                var folds = Aljabr.DL.timeSeriesCrossValidationFolds(
+                var folds = Alkhawarizm.DL.timeSeriesCrossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -677,7 +677,7 @@ public class AljabrTest {
 
         @Test
         public void testFitCrossValidationFacadeRunsAllFoldsAndAggregatesLosses() {
-                var folds = Aljabr.DL.crossValidationFolds(
+                var folds = Alkhawarizm.DL.crossValidationFolds(
                                 GradTensor.of(new float[] {
                                                 1f,
                                                 2f,
@@ -697,7 +697,7 @@ public class AljabrTest {
                                 3,
                                 11L);
 
-                CrossValidationTrainingSummary summary = Aljabr.DL.fitCrossValidation(
+                CrossValidationTrainingSummary summary = Alkhawarizm.DL.fitCrossValidation(
                                 IdentityModel::new,
                                 folds,
                                 2,
@@ -705,8 +705,8 @@ public class AljabrTest {
                                 0L,
                                 1,
                                 0.01f,
-                                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                                Aljabr.DL.trainingOptions()
+                                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                                Alkhawarizm.DL.trainingOptions()
                                                 .device("cpu")
                                                 .saveBestModelCheckpoint(false)
                                                 .meanAbsoluteErrorMetric()
@@ -735,7 +735,7 @@ public class AljabrTest {
 
         @Test
         public void testFitKFoldFacadeBuildsFoldsAndTrainsInOneCall() {
-                CrossValidationTrainingSummary summary = Aljabr.DL.fitKFold(
+                CrossValidationTrainingSummary summary = Alkhawarizm.DL.fitKFold(
                                 IdentityModel::new,
                                 GradTensor.of(new float[] {
                                                 1f,
@@ -758,8 +758,8 @@ public class AljabrTest {
                                 2,
                                 1,
                                 0.01f,
-                                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                                Aljabr.DL.trainingOptions()
+                                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                                Alkhawarizm.DL.trainingOptions()
                                                 .device("cpu")
                                                 .saveBestModelCheckpoint(false)
                                                 .meanAbsoluteErrorMetric()
@@ -772,7 +772,7 @@ public class AljabrTest {
 
         @Test
         public void testFitRepeatedKFoldFacadeBuildsFoldsAndTrainsInOneCall() {
-                CrossValidationTrainingSummary summary = Aljabr.DL.fitRepeatedKFold(
+                CrossValidationTrainingSummary summary = Alkhawarizm.DL.fitRepeatedKFold(
                                 IdentityModel::new,
                                 GradTensor.of(new float[] {
                                                 1f,
@@ -796,8 +796,8 @@ public class AljabrTest {
                                 2,
                                 1,
                                 0.01f,
-                                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                                Aljabr.DL.trainingOptions()
+                                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                                Alkhawarizm.DL.trainingOptions()
                                                 .device("cpu")
                                                 .saveBestModelCheckpoint(false)
                                                 .meanAbsoluteErrorMetric()
@@ -811,7 +811,7 @@ public class AljabrTest {
 
         @Test
         public void testFitGroupKFoldFacadeBuildsFoldsAndTrainsInOneCall() {
-                CrossValidationTrainingSummary summary = Aljabr.DL.fitGroupKFold(
+                CrossValidationTrainingSummary summary = Alkhawarizm.DL.fitGroupKFold(
                                 IdentityModel::new,
                                 GradTensor.of(new float[] {
                                                 1f,
@@ -835,8 +835,8 @@ public class AljabrTest {
                                 2,
                                 1,
                                 0.01f,
-                                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                                Aljabr.DL.trainingOptions()
+                                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                                Alkhawarizm.DL.trainingOptions()
                                                 .device("cpu")
                                                 .saveBestModelCheckpoint(false)
                                                 .meanAbsoluteErrorMetric()
@@ -851,7 +851,7 @@ public class AljabrTest {
 
         @Test
         public void testFitTimeSeriesSplitFacadeTrainsWithoutShufflingTrainingWindows() {
-                CrossValidationTrainingSummary summary = Aljabr.DL.fitTimeSeriesSplit(
+                CrossValidationTrainingSummary summary = Alkhawarizm.DL.fitTimeSeriesSplit(
                                 IdentityModel::new,
                                 GradTensor.of(new float[] {
                                                 1f,
@@ -873,8 +873,8 @@ public class AljabrTest {
                                 2,
                                 1,
                                 0.01f,
-                                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                                Aljabr.DL.trainingOptions()
+                                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                                Alkhawarizm.DL.trainingOptions()
                                                 .device("cpu")
                                                 .saveBestModelCheckpoint(false)
                                                 .meanAbsoluteErrorMetric()
@@ -889,7 +889,7 @@ public class AljabrTest {
 
         @Test
         public void testFitClassificationStratifiedGroupKFoldFacadePreservesGroupsAndTrains() {
-                CrossValidationTrainingSummary summary = Aljabr.DL.fitClassificationStratifiedGroupKFold(
+                CrossValidationTrainingSummary summary = Alkhawarizm.DL.fitClassificationStratifiedGroupKFold(
                                 IdentityModel::new,
                                 GradTensor.of(new float[] {
                                                 4f, 1f,
@@ -908,8 +908,8 @@ public class AljabrTest {
                                 2,
                                 1,
                                 0.01f,
-                                Aljabr.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
-                                Aljabr.DL.trainingOptions()
+                                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
+                                Alkhawarizm.DL.trainingOptions()
                                                 .device("cpu")
                                                 .saveBestModelCheckpoint(false)
                                                 .accuracyMetric()
@@ -922,7 +922,7 @@ public class AljabrTest {
 
         @Test
         public void testFitClassificationStratifiedKFoldFacadePreservesLabelsAndTrains() {
-                CrossValidationTrainingSummary summary = Aljabr.DL.fitClassificationStratifiedKFold(
+                CrossValidationTrainingSummary summary = Alkhawarizm.DL.fitClassificationStratifiedKFold(
                                 IdentityModel::new,
                                 GradTensor.of(new float[] {
                                                 4f, 1f,
@@ -940,8 +940,8 @@ public class AljabrTest {
                                 2,
                                 1,
                                 0.01f,
-                                Aljabr.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
-                                Aljabr.DL.trainingOptions()
+                                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
+                                Alkhawarizm.DL.trainingOptions()
                                                 .device("cpu")
                                                 .saveBestModelCheckpoint(false)
                                                 .accuracyMetric()

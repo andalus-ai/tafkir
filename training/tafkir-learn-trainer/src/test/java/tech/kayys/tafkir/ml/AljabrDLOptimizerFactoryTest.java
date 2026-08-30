@@ -25,67 +25,67 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class AljabrDLOptimizerFactoryTest {
+class AlkhawarizmDLOptimizerFactoryTest {
 
     @Test
-    void exposesCoreOptimizerFactoriesOnAljabrFacade() {
-        assertInstanceOf(SGD.class, Aljabr.DL.sgd(parameters(), 0.1f));
-        assertInstanceOf(SGD.class, Aljabr.DL.sgd(parameters(), 0.1f, 0.9f));
-        assertInstanceOf(SGD.class, Aljabr.DL.sgd(parameters(), 0.1f, 0.9f, 0.01f, true));
+    void exposesCoreOptimizerFactoriesOnAlkhawarizmFacade() {
+        assertInstanceOf(SGD.class, Alkhawarizm.DL.sgd(parameters(), 0.1f));
+        assertInstanceOf(SGD.class, Alkhawarizm.DL.sgd(parameters(), 0.1f, 0.9f));
+        assertInstanceOf(SGD.class, Alkhawarizm.DL.sgd(parameters(), 0.1f, 0.9f, 0.01f, true));
     }
 
     @Test
-    void exposesAdaptiveOptimizerFactoriesOnAljabrFacade() {
-        assertInstanceOf(Adam.class, Aljabr.DL.adam(parameters(), 0.001f));
-        assertInstanceOf(Adam.class, Aljabr.DL.adam(parameters(), 0.001f, 0.01f));
-        assertInstanceOf(Adam.class, Aljabr.DL.adam(parameters(), 0.001f, 0.8f, 0.99f, 1e-6f, 0.01f, true));
-        assertInstanceOf(AdamW.class, Aljabr.DL.adamW(parameters(), 0.001f));
-        assertInstanceOf(AdamW.class, Aljabr.DL.adamW(parameters(), 0.001f, 0.05f));
-        assertInstanceOf(AdamW.class, Aljabr.DL.adamW(parameters(), 0.001f, 0.8f, 0.99f, 1e-6f, 0.05f, true));
-        assertInstanceOf(RMSprop.class, Aljabr.DL.rmsprop(parameters(), 0.01f));
-        assertInstanceOf(RMSprop.class, Aljabr.DL.rmsprop(parameters(), 0.01f, 0.95f, 1e-6f, 0.01f, 0.9f));
-        assertInstanceOf(NAdam.class, Aljabr.DL.nadam(parameters(), 0.001f));
-        assertInstanceOf(NAdam.class, Aljabr.DL.nadam(parameters(), 0.001f, 0.01f));
-        assertInstanceOf(NAdam.class, Aljabr.DL.nadamW(parameters(), 0.001f, 0.01f));
+    void exposesAdaptiveOptimizerFactoriesOnAlkhawarizmFacade() {
+        assertInstanceOf(Adam.class, Alkhawarizm.DL.adam(parameters(), 0.001f));
+        assertInstanceOf(Adam.class, Alkhawarizm.DL.adam(parameters(), 0.001f, 0.01f));
+        assertInstanceOf(Adam.class, Alkhawarizm.DL.adam(parameters(), 0.001f, 0.8f, 0.99f, 1e-6f, 0.01f, true));
+        assertInstanceOf(AdamW.class, Alkhawarizm.DL.adamW(parameters(), 0.001f));
+        assertInstanceOf(AdamW.class, Alkhawarizm.DL.adamW(parameters(), 0.001f, 0.05f));
+        assertInstanceOf(AdamW.class, Alkhawarizm.DL.adamW(parameters(), 0.001f, 0.8f, 0.99f, 1e-6f, 0.05f, true));
+        assertInstanceOf(RMSprop.class, Alkhawarizm.DL.rmsprop(parameters(), 0.01f));
+        assertInstanceOf(RMSprop.class, Alkhawarizm.DL.rmsprop(parameters(), 0.01f, 0.95f, 1e-6f, 0.01f, 0.9f));
+        assertInstanceOf(NAdam.class, Alkhawarizm.DL.nadam(parameters(), 0.001f));
+        assertInstanceOf(NAdam.class, Alkhawarizm.DL.nadam(parameters(), 0.001f, 0.01f));
+        assertInstanceOf(NAdam.class, Alkhawarizm.DL.nadamW(parameters(), 0.001f, 0.01f));
     }
 
     @Test
-    void exposesAdvancedOptimizerFactoriesOnAljabrFacade() {
-        assertInstanceOf(Adagrad.class, Aljabr.DL.adagrad(parameters(), 0.01f));
-        assertInstanceOf(Adagrad.class, Aljabr.DL.adagrad(parameters(), 0.01f, 1e-8f, 0.01f));
-        assertInstanceOf(Adadelta.class, Aljabr.DL.adadelta(parameters()));
-        assertInstanceOf(Adadelta.class, Aljabr.DL.adadelta(parameters(), 1.0f, 0.95f, 1e-6f));
-        assertInstanceOf(LAMB.class, Aljabr.DL.lamb(parameters(), 0.001f));
-        assertInstanceOf(LAMB.class, Aljabr.DL.lamb(parameters(), 0.001f, 0.9f, 0.999f, 1e-6f, 0.01f));
-        assertInstanceOf(Lion.class, Aljabr.DL.lion(parameters(), 0.0001f));
-        assertInstanceOf(Lion.class, Aljabr.DL.lion(parameters(), 0.0001f, 0.9f, 0.99f, 0.01f));
-        assertInstanceOf(RAdam.class, Aljabr.DL.radam(parameters(), 0.001f));
-        assertInstanceOf(RAdam.class, Aljabr.DL.radam(parameters(), 0.001f, 0.01f));
+    void exposesAdvancedOptimizerFactoriesOnAlkhawarizmFacade() {
+        assertInstanceOf(Adagrad.class, Alkhawarizm.DL.adagrad(parameters(), 0.01f));
+        assertInstanceOf(Adagrad.class, Alkhawarizm.DL.adagrad(parameters(), 0.01f, 1e-8f, 0.01f));
+        assertInstanceOf(Adadelta.class, Alkhawarizm.DL.adadelta(parameters()));
+        assertInstanceOf(Adadelta.class, Alkhawarizm.DL.adadelta(parameters(), 1.0f, 0.95f, 1e-6f));
+        assertInstanceOf(LAMB.class, Alkhawarizm.DL.lamb(parameters(), 0.001f));
+        assertInstanceOf(LAMB.class, Alkhawarizm.DL.lamb(parameters(), 0.001f, 0.9f, 0.999f, 1e-6f, 0.01f));
+        assertInstanceOf(Lion.class, Alkhawarizm.DL.lion(parameters(), 0.0001f));
+        assertInstanceOf(Lion.class, Alkhawarizm.DL.lion(parameters(), 0.0001f, 0.9f, 0.99f, 0.01f));
+        assertInstanceOf(RAdam.class, Alkhawarizm.DL.radam(parameters(), 0.001f));
+        assertInstanceOf(RAdam.class, Alkhawarizm.DL.radam(parameters(), 0.001f, 0.01f));
 
         List<Parameter> lookaheadParams = parameters();
-        Optimizer lookaheadBase = Aljabr.DL.sgd(lookaheadParams, 0.1f);
-        assertInstanceOf(Lookahead.class, Aljabr.DL.lookahead(lookaheadBase));
-        assertInstanceOf(Lookahead.class, Aljabr.DL.lookahead(Aljabr.DL.sgd(parameters(), 0.1f), 2, 0.6f));
+        Optimizer lookaheadBase = Alkhawarizm.DL.sgd(lookaheadParams, 0.1f);
+        assertInstanceOf(Lookahead.class, Alkhawarizm.DL.lookahead(lookaheadBase));
+        assertInstanceOf(Lookahead.class, Alkhawarizm.DL.lookahead(Alkhawarizm.DL.sgd(parameters(), 0.1f), 2, 0.6f));
 
         List<Parameter> samParams = parameters();
-        Optimizer samBase = Aljabr.DL.sgd(samParams, 0.1f);
-        assertInstanceOf(SAM.class, Aljabr.DL.sam(samParams, samBase));
-        assertInstanceOf(SAM.class, Aljabr.DL.sam(samParams, samBase, 0.05f));
+        Optimizer samBase = Alkhawarizm.DL.sgd(samParams, 0.1f);
+        assertInstanceOf(SAM.class, Alkhawarizm.DL.sam(samParams, samBase));
+        assertInstanceOf(SAM.class, Alkhawarizm.DL.sam(samParams, samBase, 0.05f));
     }
 
     @Test
     @SuppressWarnings("removal")
-    void deprecatedAljabrMlBridgeDelegatesToCoreOptimizerFactories() {
-        assertInstanceOf(SGD.class, AljabrML.DL.sgd(parameters(), 0.1f, 0.8f));
-        assertInstanceOf(Adam.class, AljabrML.DL.adam(parameters(), 0.001f, 0.01f));
-        assertInstanceOf(AdamW.class, AljabrML.DL.adamW(parameters(), 0.001f, 0.02f));
-        assertInstanceOf(RMSprop.class, AljabrML.DL.rmsprop(parameters(), 0.01f, 0.95f, 1e-6f, 0.01f, 0.8f));
+    void deprecatedAlkhawarizmMlBridgeDelegatesToCoreOptimizerFactories() {
+        assertInstanceOf(SGD.class, AlkhawarizmML.DL.sgd(parameters(), 0.1f, 0.8f));
+        assertInstanceOf(Adam.class, AlkhawarizmML.DL.adam(parameters(), 0.001f, 0.01f));
+        assertInstanceOf(AdamW.class, AlkhawarizmML.DL.adamW(parameters(), 0.001f, 0.02f));
+        assertInstanceOf(RMSprop.class, AlkhawarizmML.DL.rmsprop(parameters(), 0.01f, 0.95f, 1e-6f, 0.01f, 0.8f));
     }
 
     @Test
     void factoryOptimizersCanStepAndExposeState() {
         Parameter parameter = parameter(1f, -2f);
-        Optimizer optimizer = Aljabr.DL.rmsprop(List.of(parameter), 0.01f, 0.95f, 1e-6f, 0.01f, 0.9f);
+        Optimizer optimizer = Alkhawarizm.DL.rmsprop(List.of(parameter), 0.01f, 0.95f, 1e-6f, 0.01f, 0.9f);
 
         parameter.data().backward(GradTensor.of(new float[] {0.5f, -0.25f}, 2));
         optimizer.step();

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.tafkir.ml.Alkhawarizm;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportReaderTest {
@@ -362,8 +362,8 @@ class TrainingReportReaderTest {
         assertEquals(TrainingReportRecommendation.Priority.BLOCKER, actionPlan.blockers().get(0).priority());
         assertTrue(actionPlan.actionItems().stream().anyMatch(action -> action.contains("gradient clipping")));
         assertEquals(actionPlan, TrainingReportReader.actionPlan(report.payload()));
-        assertEquals(actionPlan, Aljabr.DL.trainingReportActionPlan(reportFile));
-        assertEquals(1, Aljabr.DL.trainingReportRecommendations(reportFile).size());
+        assertEquals(actionPlan, Alkhawarizm.DL.trainingReportActionPlan(reportFile));
+        assertEquals(1, Alkhawarizm.DL.trainingReportRecommendations(reportFile).size());
         assertThrows(UnsupportedOperationException.class, () -> actionPlan.toMap().put("status", "READY"));
     }
 
@@ -530,48 +530,48 @@ class TrainingReportReaderTest {
                 TrainerJson.toJson(TrainerTrainingReport.payload(summary, Instant.parse("2026-05-18T13:14:15Z"))),
                 StandardCharsets.UTF_8);
 
-        assertEquals(1, Aljabr.DL.trainingReportHistory(reportFile).size());
-        assertEquals(1, Aljabr.DL.trainingReportEpochSnapshots(reportFile).size());
-        assertEquals(0, Aljabr.DL.trainingReportLatestEpochSnapshot(reportFile)
+        assertEquals(1, Alkhawarizm.DL.trainingReportHistory(reportFile).size());
+        assertEquals(1, Alkhawarizm.DL.trainingReportEpochSnapshots(reportFile).size());
+        assertEquals(0, Alkhawarizm.DL.trainingReportLatestEpochSnapshot(reportFile)
                 .orElseThrow()
                 .epoch()
                 .orElseThrow());
-        assertEquals(0.25, Aljabr.DL.trainingReportEpochSnapshot(reportFile, 0)
+        assertEquals(0.25, Alkhawarizm.DL.trainingReportEpochSnapshot(reportFile, 0)
                 .orElseThrow()
                 .trainLoss()
                 .orElseThrow(), 1e-12);
-        assertEquals(0.25, Aljabr.DL.trainingReportTrainLossSeries(reportFile).latest().orElseThrow(), 1e-12);
-        assertTrue(Aljabr.DL.trainingReportValidationLossSeries(reportFile).latest().isEmpty());
-        assertTrue(Aljabr.DL.trainingReportGeneralizationGapSeries(reportFile).latest().isEmpty());
-        assertTrue(Aljabr.DL.trainingReportGradientL2NormSeries(reportFile).latest().isEmpty());
-        assertEquals(0.25, Aljabr.DL.trainingReportSeriesBundle(reportFile)
+        assertEquals(0.25, Alkhawarizm.DL.trainingReportTrainLossSeries(reportFile).latest().orElseThrow(), 1e-12);
+        assertTrue(Alkhawarizm.DL.trainingReportValidationLossSeries(reportFile).latest().isEmpty());
+        assertTrue(Alkhawarizm.DL.trainingReportGeneralizationGapSeries(reportFile).latest().isEmpty());
+        assertTrue(Alkhawarizm.DL.trainingReportGradientL2NormSeries(reportFile).latest().isEmpty());
+        assertEquals(0.25, Alkhawarizm.DL.trainingReportSeriesBundle(reportFile)
                 .trainLoss()
                 .latest()
                 .orElseThrow(), 1e-12);
-        assertEquals(1, Aljabr.DL.trainingReportSeriesExport(reportFile).epochCount());
-        assertTrue(Aljabr.DL.trainingReportSeriesExport(reportFile).toCsv().contains("trainLoss"));
-        assertEquals(Boolean.TRUE, Aljabr.DL.trainingReportHistorySummary(reportFile).get("available"));
-        assertEquals(1, Aljabr.DL.trainingReportHistoryOverview(reportFile).size());
-        assertEquals(0.25, Aljabr.DL.trainingReportHistoryOverview(reportFile)
+        assertEquals(1, Alkhawarizm.DL.trainingReportSeriesExport(reportFile).epochCount());
+        assertTrue(Alkhawarizm.DL.trainingReportSeriesExport(reportFile).toCsv().contains("trainLoss"));
+        assertEquals(Boolean.TRUE, Alkhawarizm.DL.trainingReportHistorySummary(reportFile).get("available"));
+        assertEquals(1, Alkhawarizm.DL.trainingReportHistoryOverview(reportFile).size());
+        assertEquals(0.25, Alkhawarizm.DL.trainingReportHistoryOverview(reportFile)
                 .trainLoss()
                 .latest()
                 .orElseThrow(), 1e-12);
-        assertEquals("validation.missing", Aljabr.DL.trainingReportDiagnostics(reportFile).get(0).get("code"));
-        assertEquals("INFO", Aljabr.DL.trainingReportDiagnosticsSummary(reportFile).get("highestSeverity"));
-        assertEquals(1, Aljabr.DL.trainingReportDiagnosticSummary(reportFile).total());
-        assertEquals(1, Aljabr.DL.trainingReportDiagnosticSummary(reportFile)
+        assertEquals("validation.missing", Alkhawarizm.DL.trainingReportDiagnostics(reportFile).get(0).get("code"));
+        assertEquals("INFO", Alkhawarizm.DL.trainingReportDiagnosticsSummary(reportFile).get("highestSeverity"));
+        assertEquals(1, Alkhawarizm.DL.trainingReportDiagnosticSummary(reportFile).total());
+        assertEquals(1, Alkhawarizm.DL.trainingReportDiagnosticSummary(reportFile)
                 .count(TrainingReportDiagnostics.Severity.INFO));
-        assertEquals("FRESH", Aljabr.DL.trainingReportDiagnosticProvenance(reportFile).status());
-        assertEquals("FRESH", Aljabr.DL.trainingReportDiagnosticsProvenance(reportFile).get("status"));
-        assertTrue(Aljabr.DL.trainingReportDiagnosticGate(
+        assertEquals("FRESH", Alkhawarizm.DL.trainingReportDiagnosticProvenance(reportFile).status());
+        assertEquals("FRESH", Alkhawarizm.DL.trainingReportDiagnosticsProvenance(reportFile).get("status"));
+        assertTrue(Alkhawarizm.DL.trainingReportDiagnosticGate(
                 reportFile,
                 TrainingReportDiagnostics.Severity.INFO).passed());
-        assertEquals("INFO", Aljabr.DL.trainingReport(reportFile).highestDiagnosticSeverity());
-        TrainingReportDiagnostics.Finding finding = Aljabr.DL.trainingReportDiagnosticFindings(reportFile).get(0);
+        assertEquals("INFO", Alkhawarizm.DL.trainingReport(reportFile).highestDiagnosticSeverity());
+        TrainingReportDiagnostics.Finding finding = Alkhawarizm.DL.trainingReportDiagnosticFindings(reportFile).get(0);
         assertEquals(TrainingReportDiagnostics.Severity.INFO, finding.severity());
         assertEquals("validation.missing", finding.code());
         assertEquals(1, finding.evidence().get("historyRows"));
-        TrainingReportActionPlan actionPlan = Aljabr.DL.trainingReportActionPlan(reportFile);
+        TrainingReportActionPlan actionPlan = Alkhawarizm.DL.trainingReportActionPlan(reportFile);
         assertEquals(TrainingReportActionPlan.Status.NEEDS_ATTENTION, actionPlan.status());
         assertEquals("validation.missing", actionPlan.recommendations().get(0).diagnosticCode());
         assertEquals(
@@ -579,7 +579,7 @@ class TrainingReportReaderTest {
                 actionPlan.recommendations().get(0).category());
         assertEquals(
                 0.25,
-                TrainingReportReader.latestTrainLoss(Aljabr.DL.readTrainingReport(reportFile)).orElseThrow(),
+                TrainingReportReader.latestTrainLoss(Alkhawarizm.DL.readTrainingReport(reportFile)).orElseThrow(),
                 1e-12);
     }
 

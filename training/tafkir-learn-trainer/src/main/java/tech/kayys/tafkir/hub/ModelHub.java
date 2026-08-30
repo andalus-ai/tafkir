@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * @deprecated Use {@link tech.kayys.tafkir.ml.hub.ModelHub} or
- *             {@link tech.kayys.tafkir.ml.Aljabr.Hub} instead.
+ *             {@link tech.kayys.tafkir.ml.Alkhawarizm.Hub} instead.
  */
 @Deprecated(since = "0.1.1", forRemoval = true)
 @SuppressWarnings("removal")

@@ -3,7 +3,7 @@ package tech.kayys.tafkir.ml.bytelatent;
 import java.util.List;
 
 /**
- * Canonical metadata for Aljabr's byte-latent model family.
+ * Canonical metadata for Alkhawarizm's byte-latent model family.
  */
 public final class ByteLatentModelFamily {
     public static final String FAMILY_ID = "fast-byte-latent-transformer";

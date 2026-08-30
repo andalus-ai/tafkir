@@ -1,6 +1,6 @@
-# Aljabr CNN Module
+# Alkhawarizm CNN Module
 
-Comprehensive convolutional neural network (CNN) layers and utilities for the Aljabr SDK.
+Comprehensive convolutional neural network (CNN) layers and utilities for the Alkhawarizm SDK.
 
 ## Features
 
@@ -155,7 +155,7 @@ Upsample up3d = new Upsample(2.0, "trilinear");
 
 ## Architecture Integration
 
-All CNN layers integrate seamlessly with the Aljabr ecosystem:
+All CNN layers integrate seamlessly with the Alkhawarizm ecosystem:
 
 1. **Backend Dispatch**: Operations dispatch through `VisionBackendRegistry` for:
    - GPU acceleration (CUDA, Metal, ROCm when available)

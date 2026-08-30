@@ -28,7 +28,7 @@ public final class TrainingReportQualityProfileMarkdown {
     public static String render(TrainingReportQualityProfileCatalog catalog) {
         Objects.requireNonNull(catalog, "catalog must not be null");
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Aljabr Training Report Quality Profiles");
+        appendLine(markdown, "# Alkhawarizm Training Report Quality Profiles");
         appendLine(markdown, "");
         appendLine(markdown, "Use these named profiles to keep local experiments, CI validation, and production promotion gates consistent.");
         appendLine(markdown, "");

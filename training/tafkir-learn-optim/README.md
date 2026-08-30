@@ -1,4 +1,4 @@
-# Aljabr SDK - Optimizer Suite
+# Alkhawarizm SDK - Optimizer Suite
 
 Complete optimizer suite for neural network training with Adam, AdamW, SGD, and RMSprop.
 
