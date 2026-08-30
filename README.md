@@ -1,5 +1,12 @@
 # Tafkir
 
+[![CI](https://github.com/bhangun/tafkir/actions/workflows/ci.yml/badge.svg)](https://github.com/bhangun/tafkir/actions/workflows/ci.yml)
+[![Release](https://github.com/bhangun/tafkir/actions/workflows/release.yml/badge.svg)](https://github.com/bhangun/tafkir/actions/workflows/release.yml)
+[![GitHub Packages](https://img.shields.io/badge/Packages-GitHub%20Packages-181717?logo=github)](https://github.com/bhangun/tafkir/packages)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Java 25](https://img.shields.io/badge/Java-25+-orange.svg)](https://adoptium.net/)
+[![JDK Vector API](https://img.shields.io/badge/JDK-Vector%20API-5E5E5E)](https://openjdk.org/jeps/438)
+
 A Java machine learning framework built on the [Aljabr](https://github.com/bhangun/alkhawarizm) compute engine.
 
 ## Architecture
