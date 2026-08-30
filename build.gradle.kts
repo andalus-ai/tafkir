@@ -1,6 +1,8 @@
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.tasks.javadoc.Javadoc
+import org.gradle.external.javadoc.StandardJavadocDocletOptions
 
 buildscript {
     repositories {
@@ -20,7 +22,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0" apply false
 }
 
-extra["tafkirVersion"] = "0.1.0-SNAPSHOT"
+extra["tafkirVersion"] = "0.1.0"
 extra["quarkusVersion"] = "3.32.2"
 
 allprojects {
@@ -70,6 +72,14 @@ subprojects {
         options.encoding = "UTF-8"
         options.compilerArgs.add("--enable-preview")
         options.compilerArgs.add("--add-modules=jdk.incubator.vector")
+    }
+
+    tasks.withType<Javadoc>().configureEach {
+        options {
+            this as StandardJavadocDocletOptions
+            addBooleanOption("Xdoclint:none", true)
+            addStringOption("-add-modules", "jdk.incubator.vector")
+        }
     }
 
     tasks.withType<Test>().configureEach {
