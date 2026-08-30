@@ -22,7 +22,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0" apply false
 }
 
-extra["tafkirVersion"] = "0.1.0"
+extra["tafkirVersion"] = "0.1.1"
 extra["quarkusVersion"] = "3.32.2"
 
 allprojects {
