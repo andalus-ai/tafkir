@@ -1,6 +1,6 @@
 # Tafkir CLI - Model Inference & Management Tool
 
-**Note**: The Tafkir CLI evolved from the Gollek inference/serving engine platform. While Gollek continues as a standalone inference/serving engine, Tafkir CLI is now integrated into the Tafkir training framework to provide end-to-end ML workflows—from training to deployment.
+**Note**: The Tafkir CLI evolved from the Aqli inference/serving engine platform. While Aqli continues as a standalone inference/serving engine, Tafkir CLI is now integrated into the Tafkir training framework to provide end-to-end ML workflows—from training to deployment.
 
 Production-ready CLI similar to modern LLM CLIs, integrating with various providers and model registry.
 
@@ -16,7 +16,7 @@ The Tafkir CLI now supports **Dual-Format Serving**, allowing you to run both GG
 
 ## Install (Release Artifacts)
 
-Release workflow: `.github/workflows/gollek-cli-release.yml`
+Release workflow: `.github/workflows/aqli-cli-release.yml`
 
 ```bash
 # macOS / Linux (curl installer)

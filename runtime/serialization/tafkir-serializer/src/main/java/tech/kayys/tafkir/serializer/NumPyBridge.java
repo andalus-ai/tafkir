@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * Bridge for NumPy array serialization.
- * Allows direct conversion between Alkhawarizm tensors and NumPy arrays.
+ * Allows direct conversion between Aljabr tensors and NumPy arrays.
  */
 public class NumPyBridge {
 

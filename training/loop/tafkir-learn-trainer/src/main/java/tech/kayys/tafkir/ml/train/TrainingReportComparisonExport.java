@@ -11,7 +11,7 @@ import java.util.Set;
 public record TrainingReportComparisonExport(
         List<Map<String, Object>> metricRows,
         List<Map<String, Object>> findingRows) {
-    public static final String SCHEMA = "alkhawarizm.training.report.comparison-export.v1";
+    public static final String SCHEMA = "aljabr.training.report.comparison-export.v1";
 
     private static final List<String> METRIC_COLUMNS = List.of(
             "metric",

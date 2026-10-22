@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 import java.util.function.UnaryOperator;
-import tech.kayys.alkhawarizm.tokenizer.spi.Tokenizer;
-import tech.kayys.alkhawarizm.tokenizer.spi.EncodeOptions;
+import tech.kayys.aljabr.tokenizer.spi.Tokenizer;
+import tech.kayys.aljabr.tokenizer.spi.EncodeOptions;
 
 /**
  * Text dataset — loads text samples from a directory or file for NLP training.

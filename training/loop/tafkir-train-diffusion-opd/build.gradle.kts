@@ -19,11 +19,11 @@ repositories {
 
 dependencies {
     api(project(":ml:tafkir-ml-diffusion-api"))
-   /*  implementation("tech.kayys.alkhawarizm:alkhawarizm-core:0.1.0-SNAPSHOT")
-    implementation(project(":runner:alkhawarizm-diffusion"))
-    implementation(project(":runner:safetensor:alkhawarizm-runner-stable-diffusion"))
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-safetensor-core:0.1.0-SNAPSHOT") */
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-backend-metal:0.1.0-SNAPSHOT")
+   /*  implementation("tech.kayys.aljabr:aljabr-core:0.1.0-SNAPSHOT")
+    implementation(project(":runner:aljabr-diffusion"))
+    implementation(project(":runner:safetensor:aljabr-runner-stable-diffusion"))
+    implementation("tech.kayys.aljabr:aljabr-safetensor-core:0.1.0-SNAPSHOT") */
+    implementation("tech.kayys.aljabr:aljabr-backend-metal:0.1.0-SNAPSHOT")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter")
     testRuntimeOnly(group = "org.junit.platform", name = "junit-platform-launcher", version = "1.10.2")

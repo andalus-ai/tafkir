@@ -30,13 +30,13 @@
  * Arena is a shared arena (MMAP and COPY modes both use shared arenas).
  * The {@link #close()} method is idempotent and may be called from any thread.
  */
-package tech.kayys.alkhawarizm.safetensor.loader;
+package tech.kayys.aljabr.safetensor.loader;
 
 import org.slf4j.LoggerFactory;
 
 import org.slf4j.Logger;
 
-import tech.kayys.alkhawarizm.safetensor.exception.SafetensorException;
+import tech.kayys.aljabr.safetensor.exception.SafetensorException;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;

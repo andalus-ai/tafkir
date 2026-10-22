@@ -3,148 +3,148 @@ package tech.kayys.tafkir.ml;
 /**
  * Fluent multi-label metric registration for training option builders.
  */
-public abstract class AlkhawarizmTrainingMultiLabelMetricsBuilderSupport<
-        B extends AlkhawarizmTrainingMultiLabelMetricsBuilderSupport<B>>
-        extends AlkhawarizmTrainingBinaryMetricsBuilderSupport<B> {
+public abstract class AljabrTrainingMultiLabelMetricsBuilderSupport<
+        B extends AljabrTrainingMultiLabelMetricsBuilderSupport<B>>
+        extends AljabrTrainingBinaryMetricsBuilderSupport<B> {
 
     public B multiLabelExactMatchMetric() {
-        return metric(Alkhawarizm.DL.multiLabelExactMatchMetric());
+        return metric(Aljabr.DL.multiLabelExactMatchMetric());
     }
 
     public B multiLabelExactMatchMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelExactMatchMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelExactMatchMetric(logitThreshold));
     }
 
     public B multiLabelHammingLossMetric() {
-        return metric(Alkhawarizm.DL.multiLabelHammingLossMetric());
+        return metric(Aljabr.DL.multiLabelHammingLossMetric());
     }
 
     public B multiLabelHammingLossMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelHammingLossMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelHammingLossMetric(logitThreshold));
     }
 
     public B multiLabelConfusionMatrixMetric() {
-        return metric(Alkhawarizm.DL.multiLabelConfusionMatrixMetric());
+        return metric(Aljabr.DL.multiLabelConfusionMatrixMetric());
     }
 
     public B multiLabelConfusionMatrixMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelConfusionMatrixMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelConfusionMatrixMetric(logitThreshold));
     }
 
     public B multiLabelMicroPrecisionMetric() {
-        return metric(Alkhawarizm.DL.multiLabelMicroPrecisionMetric());
+        return metric(Aljabr.DL.multiLabelMicroPrecisionMetric());
     }
 
     public B multiLabelMicroPrecisionMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelMicroPrecisionMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelMicroPrecisionMetric(logitThreshold));
     }
 
     public B multiLabelMicroRecallMetric() {
-        return metric(Alkhawarizm.DL.multiLabelMicroRecallMetric());
+        return metric(Aljabr.DL.multiLabelMicroRecallMetric());
     }
 
     public B multiLabelMicroRecallMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelMicroRecallMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelMicroRecallMetric(logitThreshold));
     }
 
     public B multiLabelMicroF1Metric() {
-        return metric(Alkhawarizm.DL.multiLabelMicroF1Metric());
+        return metric(Aljabr.DL.multiLabelMicroF1Metric());
     }
 
     public B multiLabelMicroF1Metric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelMicroF1Metric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelMicroF1Metric(logitThreshold));
     }
 
     public B multiLabelSamplePrecisionMetric() {
-        return metric(Alkhawarizm.DL.multiLabelSamplePrecisionMetric());
+        return metric(Aljabr.DL.multiLabelSamplePrecisionMetric());
     }
 
     public B multiLabelSamplePrecisionMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelSamplePrecisionMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelSamplePrecisionMetric(logitThreshold));
     }
 
     public B multiLabelSampleRecallMetric() {
-        return metric(Alkhawarizm.DL.multiLabelSampleRecallMetric());
+        return metric(Aljabr.DL.multiLabelSampleRecallMetric());
     }
 
     public B multiLabelSampleRecallMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelSampleRecallMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelSampleRecallMetric(logitThreshold));
     }
 
     public B multiLabelSampleF1Metric() {
-        return metric(Alkhawarizm.DL.multiLabelSampleF1Metric());
+        return metric(Aljabr.DL.multiLabelSampleF1Metric());
     }
 
     public B multiLabelSampleF1Metric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelSampleF1Metric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelSampleF1Metric(logitThreshold));
     }
 
     public B multiLabelSampleJaccardMetric() {
-        return metric(Alkhawarizm.DL.multiLabelSampleJaccardMetric());
+        return metric(Aljabr.DL.multiLabelSampleJaccardMetric());
     }
 
     public B multiLabelSampleJaccardMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelSampleJaccardMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelSampleJaccardMetric(logitThreshold));
     }
 
     public B multiLabelMacroPrecisionMetric() {
-        return metric(Alkhawarizm.DL.multiLabelMacroPrecisionMetric());
+        return metric(Aljabr.DL.multiLabelMacroPrecisionMetric());
     }
 
     public B multiLabelMacroPrecisionMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelMacroPrecisionMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelMacroPrecisionMetric(logitThreshold));
     }
 
     public B multiLabelMacroRecallMetric() {
-        return metric(Alkhawarizm.DL.multiLabelMacroRecallMetric());
+        return metric(Aljabr.DL.multiLabelMacroRecallMetric());
     }
 
     public B multiLabelMacroRecallMetric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelMacroRecallMetric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelMacroRecallMetric(logitThreshold));
     }
 
     public B multiLabelMacroF1Metric() {
-        return metric(Alkhawarizm.DL.multiLabelMacroF1Metric());
+        return metric(Aljabr.DL.multiLabelMacroF1Metric());
     }
 
     public B multiLabelMacroF1Metric(float logitThreshold) {
-        return metric(Alkhawarizm.DL.multiLabelMacroF1Metric(logitThreshold));
+        return metric(Aljabr.DL.multiLabelMacroF1Metric(logitThreshold));
     }
 
     public B multiLabelMacroRocAucMetric() {
-        return metric(Alkhawarizm.DL.multiLabelMacroRocAucMetric());
+        return metric(Aljabr.DL.multiLabelMacroRocAucMetric());
     }
 
     public B multiLabelMacroAurocMetric() {
-        return metric(Alkhawarizm.DL.multiLabelMacroAurocMetric());
+        return metric(Aljabr.DL.multiLabelMacroAurocMetric());
     }
 
     public B multiLabelMacroAveragePrecisionMetric() {
-        return metric(Alkhawarizm.DL.multiLabelMacroAveragePrecisionMetric());
+        return metric(Aljabr.DL.multiLabelMacroAveragePrecisionMetric());
     }
 
     public B multiLabelLabelRankingAveragePrecisionMetric() {
-        return metric(Alkhawarizm.DL.multiLabelLabelRankingAveragePrecisionMetric());
+        return metric(Aljabr.DL.multiLabelLabelRankingAveragePrecisionMetric());
     }
 
     public B multiLabelLrapMetric() {
-        return metric(Alkhawarizm.DL.multiLabelLrapMetric());
+        return metric(Aljabr.DL.multiLabelLrapMetric());
     }
 
     public B multiLabelRankingLossMetric() {
-        return metric(Alkhawarizm.DL.multiLabelRankingLossMetric());
+        return metric(Aljabr.DL.multiLabelRankingLossMetric());
     }
 
     public B multiLabelCoverageErrorMetric() {
-        return metric(Alkhawarizm.DL.multiLabelCoverageErrorMetric());
+        return metric(Aljabr.DL.multiLabelCoverageErrorMetric());
     }
 
     public B multiLabelMacroBestF1Metric() {
-        return metric(Alkhawarizm.DL.multiLabelMacroBestF1Metric());
+        return metric(Aljabr.DL.multiLabelMacroBestF1Metric());
     }
 
     public B multiLabelBestF1ThresholdsMetric() {
-        return metric(Alkhawarizm.DL.multiLabelBestF1ThresholdsMetric());
+        return metric(Aljabr.DL.multiLabelBestF1ThresholdsMetric());
     }
 
     public B multiLabelRankingMetrics() {

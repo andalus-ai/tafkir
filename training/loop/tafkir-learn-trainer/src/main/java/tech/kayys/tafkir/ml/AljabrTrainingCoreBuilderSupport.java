@@ -1,7 +1,7 @@
 package tech.kayys.tafkir.ml;
 
-import static tech.kayys.tafkir.ml.AlkhawarizmTrainingOptionValidators.normalizeBestModelMonitorMetric;
-import static tech.kayys.tafkir.ml.AlkhawarizmTrainingOptionValidators.normalizeNonNegativeDouble;
+import static tech.kayys.tafkir.ml.AljabrTrainingOptionValidators.normalizeBestModelMonitorMetric;
+import static tech.kayys.tafkir.ml.AljabrTrainingOptionValidators.normalizeNonNegativeDouble;
 
 import tech.kayys.tafkir.ml.optim.GradScaler;
 import tech.kayys.tafkir.ml.train.CanonicalTrainer;
@@ -12,8 +12,8 @@ import java.util.Objects;
 /**
  * Core training controls shared by training option builders.
  */
-public abstract class AlkhawarizmTrainingCoreBuilderSupport<B extends AlkhawarizmTrainingCoreBuilderSupport<B>>
-        extends AlkhawarizmTrainingMetricsBuilderSupport<B> {
+public abstract class AljabrTrainingCoreBuilderSupport<B extends AljabrTrainingCoreBuilderSupport<B>>
+        extends AljabrTrainingMetricsBuilderSupport<B> {
     protected double gradientClip = 1.0;
     protected double gradientClipValue = 0.0;
     protected int earlyStoppingPatience = 0;

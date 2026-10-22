@@ -20,7 +20,7 @@ public final class TrainingReportPromotionGatePackageMarkdown {
                 resolvedVerification.sourceSnapshotVerification();
 
         StringBuilder markdown = new StringBuilder();
-        markdown.append("# Alkhawarizm Promotion Gate Package Verification\n\n");
+        markdown.append("# Aljabr Promotion Gate Package Verification\n\n");
         markdown.append("| Field | Value |\n");
         markdown.append("| --- | --- |\n");
         row(markdown, "Status", status(resolvedVerification.passed()));

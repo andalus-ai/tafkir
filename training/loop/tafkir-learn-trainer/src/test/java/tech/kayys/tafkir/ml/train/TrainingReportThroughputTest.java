@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportThroughputTest {
@@ -51,10 +51,10 @@ class TrainingReportThroughputTest {
         assertEquals(500.0, throughput.train().averageBatchMillis().orElseThrow(), 1e-12);
         assertEquals(750.0, throughput.validation().averageBatchMillis().orElseThrow(), 1e-12);
         assertEquals(Boolean.TRUE, map.get("available"));
-        assertEquals(map, Alkhawarizm.DL.trainingReportThroughputMap(report));
-        assertEquals(throughput, Alkhawarizm.DL.trainingReportThroughput(report));
+        assertEquals(map, Aljabr.DL.trainingReportThroughputMap(report));
+        assertEquals(throughput, Aljabr.DL.trainingReportThroughput(report));
         String markdown = report.throughputMarkdown();
-        assertEquals(markdown, Alkhawarizm.DL.trainingReportThroughputMarkdown(report));
+        assertEquals(markdown, Aljabr.DL.trainingReportThroughputMarkdown(report));
         assertTrue(markdown.startsWith("## Throughput\n"));
         assertTrue(markdown.contains("| Phase | Batches | Samples | Compute ms | Samples/s | Batches/s | Avg batch ms |"));
         assertTrue(markdown.contains("| `train` | 4 | 16 | 2000.000 | 8.000 | 2.000 | 500.000 |"));

@@ -17,7 +17,7 @@ public final class TrainingReportPromotionGateMarkdown {
         TrainingReportPromotionArtifacts.SourceVerification sourceVerification = result.sourceVerification();
 
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Promotion Gate");
+        appendLine(markdown, "# Aljabr Training Promotion Gate");
         appendLine(markdown, "");
         appendLine(markdown, "**Gate:** `" + (result.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, "**Decision:** "

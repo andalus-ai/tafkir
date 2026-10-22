@@ -16,7 +16,7 @@ import java.util.Random;
  *
  * <p>Training is done fully in Java (no Python / native dependency).
  * For large datasets or deep networks, consider exporting to ONNX and running
- * via {@code gollek-runner-timeseries-onnx}.
+ * via {@code aqli-runner-timeseries-onnx}.
  *
  * <pre>{@code
  * LstmConfig cfg = LstmConfig.builder()

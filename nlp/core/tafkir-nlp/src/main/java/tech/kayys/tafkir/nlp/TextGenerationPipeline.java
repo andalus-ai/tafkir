@@ -1,17 +1,17 @@
 package tech.kayys.tafkir.nlp;
 
-import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdk;
-import tech.kayys.alkhawarizm.sdk.api.AlkhawarizmSdkProvider;
-import tech.kayys.alkhawarizm.spi.inference.InferenceRequest;
-import tech.kayys.alkhawarizm.spi.inference.InferenceResponse;
+import tech.kayys.aljabr.sdk.api.AljabrSdk;
+import tech.kayys.aljabr.sdk.api.AljabrSdkProvider;
+import tech.kayys.aljabr.spi.inference.InferenceRequest;
+import tech.kayys.aljabr.spi.inference.InferenceResponse;
 
 /**
- * Text generation pipeline backed by the Alkhawarizm inference engine.
+ * Text generation pipeline backed by the Aljabr inference engine.
  *
  * <p>
  * Generates text auto-regressively from a prompt using temperature-based
  * sampling with optional top-p and top-k filtering. The pipeline resolves a
- * {@link AlkhawarizmSdk} instance at construction time via
+ * {@link AljabrSdk} instance at construction time via
  * {@link java.util.ServiceLoader}.
  *
  * <h3>Example</h3>
@@ -26,7 +26,7 @@ import tech.kayys.alkhawarizm.spi.inference.InferenceResponse;
 public class TextGenerationPipeline implements Pipeline<String, String> {
 
     private final String modelId;
-    private final AlkhawarizmSdk sdk;
+    private final AljabrSdk sdk;
     private final PipelineConfig config;
 
     /**
@@ -60,7 +60,7 @@ public class TextGenerationPipeline implements Pipeline<String, String> {
      */
     public String generate(String prompt, int maxTokens) {
         if (sdk == null) {
-            throw new PipelineException("No AlkhawarizmSdk provider available on classpath");
+            throw new PipelineException("No AljabrSdk provider available on classpath");
         }
         try {
             InferenceRequest request = InferenceRequest.builder()
@@ -101,10 +101,10 @@ public class TextGenerationPipeline implements Pipeline<String, String> {
         return modelId;
     }
 
-    /** Resolves a {@link AlkhawarizmSdk} via {@link java.util.ServiceLoader}. */
-    private AlkhawarizmSdk resolveSdk() {
+    /** Resolves a {@link AljabrSdk} via {@link java.util.ServiceLoader}. */
+    private AljabrSdk resolveSdk() {
         try {
-            return java.util.ServiceLoader.load(AlkhawarizmSdkProvider.class)
+            return java.util.ServiceLoader.load(AljabrSdkProvider.class)
                     .findFirst()
                     .map(p -> p.create(null))
                     .orElse(null);

@@ -14,7 +14,7 @@ import java.util.Objects;
  * JSON/Markdown/JUnit artifact bundle for manifest verification evidence.
  */
 public final class TrainingReportQualityProfileCiGateManifestVerificationReport {
-    public static final String FORMAT = "alkhawarizm.training.quality-profile.ci-gate.manifest.verification.v1";
+    public static final String FORMAT = "aljabr.training.quality-profile.ci-gate.manifest.verification.v1";
     public static final String DEFAULT_JSON_FILE_NAME = "quality-profile-ci-gate-manifest-verification.json";
     public static final String DEFAULT_MARKDOWN_FILE_NAME = "quality-profile-ci-gate-manifest-verification.md";
     public static final String DEFAULT_JUNIT_XML_FILE_NAME = "quality-profile-ci-gate-manifest-verification.junit.xml";
@@ -212,7 +212,7 @@ public final class TrainingReportQualityProfileCiGateManifestVerificationReport 
                 "verification must not be null");
         TrainingReportQualityProfileCiGateManifestSummary summary = resolved.summary();
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Quality Profile CI Gate Manifest Verification");
+        appendLine(markdown, "# Aljabr Training Quality Profile CI Gate Manifest Verification");
         appendLine(markdown, "");
         appendLine(markdown, "**Status:** `" + (summary.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, "**Ready for release:** `" + summary.readyForRelease() + "`");

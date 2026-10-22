@@ -7,7 +7,7 @@ import java.util.zip.*;
 import tech.kayys.tafkir.ml.base.BaseEstimator;
 
 /**
- * Python pickle compatible serialization for Alkhawarizm models.
+ * Python pickle compatible serialization for Aljabr models.
  * Implements pickle protocol version 4 (PEP 3154).
  */
 public class PickleSerializer {

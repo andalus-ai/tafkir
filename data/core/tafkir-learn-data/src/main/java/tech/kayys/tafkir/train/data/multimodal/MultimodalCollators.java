@@ -1,8 +1,8 @@
 package tech.kayys.tafkir.train.data.multimodal;
 
 import tech.kayys.tafkir.ml.autograd.GradTensor;
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
-import tech.kayys.alkhawarizm.spi.model.MultimodalContent;
+import tech.kayys.aljabr.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.MultimodalContent;
 
 import java.util.ArrayList;
 import java.util.Collections;

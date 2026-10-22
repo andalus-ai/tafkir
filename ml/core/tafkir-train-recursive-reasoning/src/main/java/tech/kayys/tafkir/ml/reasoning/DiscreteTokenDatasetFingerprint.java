@@ -20,8 +20,8 @@ public record DiscreteTokenDatasetFingerprint(
         int exampleCount) {
 
     public static final String ALGORITHM = "SHA-256";
-    public static final String DATASET_VERSION = "alkhawarizm.discrete-token-dataset.v1";
-    public static final String PLAN_VERSION = "alkhawarizm.discrete-token-dataset-plan.v1";
+    public static final String DATASET_VERSION = "aljabr.discrete-token-dataset.v1";
+    public static final String PLAN_VERSION = "aljabr.discrete-token-dataset-plan.v1";
     public static final String METADATA_KEY = "fingerprint";
     public static final int DEFAULT_SHORT_LENGTH = 12;
 

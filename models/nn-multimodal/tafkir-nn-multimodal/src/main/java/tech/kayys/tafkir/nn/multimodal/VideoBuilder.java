@@ -1,9 +1,9 @@
 package tech.kayys.tafkir.ml.multimodal;
 
-import tech.kayys.alkhawarizm.spi.model.MultimodalProcessor;
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
-import tech.kayys.alkhawarizm.spi.model.MultimodalContent;
-import tech.kayys.alkhawarizm.spi.model.MultimodalRequest;
+import tech.kayys.aljabr.spi.model.MultimodalProcessor;
+import tech.kayys.aljabr.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.MultimodalContent;
+import tech.kayys.aljabr.spi.model.MultimodalRequest;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,7 +15,7 @@ import java.util.*;
  * <h3>Example</h3>
  * 
  * <pre>{@code
- * var result = Alkhawarizm.video("gemini-2.0-pro")
+ * var result = Aljabr.video("gemini-2.0-pro")
  *         .videoFile(Path.of("clip.mp4"))
  *         .prompt("Summarize the key events in this video")
  *         .generate();

@@ -1,14 +1,14 @@
 package tech.kayys.tafkir.ml;
 
-import static tech.kayys.tafkir.ml.AlkhawarizmTrainingOptionValidators.*;
+import static tech.kayys.tafkir.ml.AljabrTrainingOptionValidators.*;
 
 import tech.kayys.tafkir.train.data.DataLoader;
 
 /**
  * Fluent loss-parameter configuration shared by training option builders.
  */
-public abstract class AlkhawarizmTrainingLossBuilderSupport<B extends AlkhawarizmTrainingLossBuilderSupport<B>>
-        extends AlkhawarizmTrainingSchedulerBuilderSupport<B> {
+public abstract class AljabrTrainingLossBuilderSupport<B extends AljabrTrainingLossBuilderSupport<B>>
+        extends AljabrTrainingSchedulerBuilderSupport<B> {
     protected float[] crossEntropyClassWeights;
     protected Float focalGamma;
     protected Float focalAlpha;

@@ -4,12 +4,12 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
-import tech.kayys.alkhawarizm.metal.binding.MetalBinding;
-import tech.kayys.tafkir.ml.Alkhawarizm;
-import tech.kayys.alkhawarizm.safetensor.core.tensor.AccelTensor;
-import tech.kayys.alkhawarizm.safetensor.runner.sd.PNDMScheduler;
-import tech.kayys.alkhawarizm.safetensor.runner.sd.UNetModel;
+import tech.kayys.aljabr.core.tensor.Tensor;
+import tech.kayys.aljabr.metal.binding.MetalBinding;
+import tech.kayys.tafkir.ml.Aljabr;
+import tech.kayys.aljabr.safetensor.core.tensor.AccelTensor;
+import tech.kayys.aljabr.safetensor.runner.sd.PNDMScheduler;
+import tech.kayys.aljabr.safetensor.runner.sd.UNetModel;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionOpdListener;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionOpdSession;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionPromptSample;
@@ -51,7 +51,7 @@ public final class DiffusionOpdStableDiffusionNativeBridgeTrainerExample {
         var diffusionScheduler = StableDiffusionRunnerAdapters.scheduler(scheduler, bridge);
 
         List<DiffusionPromptSample> ocrPrompts = List.of(
-                promptSample("clean poster typography with readable ALKHAWARIZM headline", 21L,
+                promptSample("clean poster typography with readable ALJABR headline", 21L,
                         StableDiffusionNativeTextFixtures.OCR),
                 promptSample("document scan with crisp invoice text and layout", 22L,
                         StableDiffusionNativeTextFixtures.OCR));
@@ -107,7 +107,7 @@ public final class DiffusionOpdStableDiffusionNativeBridgeTrainerExample {
                     StableDiffusionNativeRoleFixtures.AESTHETICS_LATE,
                     new StubStableDiffusionUnet(0.10f, 0.016f));
 
-            var trainer = Alkhawarizm.DL.diffusionOpdTrainer()
+            var trainer = Aljabr.DL.diffusionOpdTrainer()
                     .samplerType(DiffusionSamplerType.ODE)
                     .student(StableDiffusionRunnerAdapters.denoiser(student, bridge))
                     .teacher("ocr-early", StableDiffusionRunnerAdapters.denoiser(ocrEarlyTeacher, bridge))

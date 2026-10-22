@@ -33,8 +33,8 @@ import tech.kayys.tafkir.ml.train.TrainingReportValidationPolicy;
 /**
  * Quality-profile helpers for trainer report validation and promotion workflows.
  */
-public class AlkhawarizmDlQualityProfileFacade extends AlkhawarizmDlTrainingFacade {
-    protected AlkhawarizmDlQualityProfileFacade() {
+public class AljabrDlQualityProfileFacade extends AljabrDlTrainingFacade {
+    protected AljabrDlQualityProfileFacade() {
     }
 
     public static List<TrainingReportQualityProfile> trainingReportQualityProfiles() {

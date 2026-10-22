@@ -1,12 +1,12 @@
 package tech.kayys.tafkir.nlp;
 
-import tech.kayys.alkhawarizm.tokenizer.TokenizerFactory;
-import tech.kayys.alkhawarizm.tokenizer.spi.*;
+import tech.kayys.aljabr.tokenizer.TokenizerFactory;
+import tech.kayys.aljabr.tokenizer.spi.*;
 
 import java.util.Arrays;
 
 /**
- * Tokenization pipeline that bridges the SDK NLP layer to the Alkhawarizm tokenizer
+ * Tokenization pipeline that bridges the SDK NLP layer to the Aljabr tokenizer
  * core.
  *
  * <p>

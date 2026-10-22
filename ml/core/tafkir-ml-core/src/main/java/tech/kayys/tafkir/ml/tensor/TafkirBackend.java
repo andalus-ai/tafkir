@@ -1,10 +1,10 @@
 package tech.kayys.tafkir.ml.tensor;
 
-import tech.kayys.alkhawarizm.backend.cpu.CpuBackend;
-import tech.kayys.alkhawarizm.core.backend.ComputeBackend;
+import tech.kayys.aljabr.backend.cpu.CpuBackend;
+import tech.kayys.aljabr.core.backend.ComputeBackend;
 
 /**
- * Provides access to Alkhawarizm compute backends.
+ * Provides access to Aljabr compute backends.
  * Detects available hardware and returns the best backend.
  */
 public final class TafkirBackend {

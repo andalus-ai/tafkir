@@ -4,8 +4,8 @@
 #
 # Enforces architectural rules:
 #   Check 1: No phantom/ghost stub directories (stubs/ or backend/ or core/)
-#   Check 2: No modules published under foreign groups (alkhawarizm or gollek)
-#   Check 3: No pseudo-project references to Alkhawarizm (:core:alkhawarizm-* or :backend:*)
+#   Check 2: No modules published under foreign groups (aljabr or aqli)
+#   Check 3: No pseudo-project references to Aljabr (:core:aljabr-* or :backend:*)
 #   Check 4: All modules declare canonical group (tech.kayys.tafkir)
 #
 # Exit code: 0 if all checks pass, 1 if any check fails.
@@ -117,18 +117,18 @@ run_check \
 # =============================================================================
 header "Check 2: No foreign group IDs declared in build files"
 run_check \
-  "Foreign group ID check (modules must not declare tech.kayys.alkhawarizm or tech.kayys.gollek)" \
+  "Foreign group ID check (modules must not declare tech.kayys.aljabr or tech.kayys.aqli)" \
   grep -rn --include="*.kts" \
-    'group = "tech.kayys.alkhawarizm"\|group = "tech.kayys.gollek"' .
+    'group = "tech.kayys.aljabr"\|group = "tech.kayys.aqli"' .
 
 # =============================================================================
-# Check 3 — No pseudo-project references to Alkhawarizm or backend
+# Check 3 — No pseudo-project references to Aljabr or backend
 # =============================================================================
-header "Check 3: Canonical coordinates used for Alkhawarizm dependencies"
+header "Check 3: Canonical coordinates used for Aljabr dependencies"
 run_check \
-  "No project(\":core:alkhawarizm-*\") or project(\":backend:*\") references in build files" \
+  "No project(\":core:aljabr-*\") or project(\":backend:*\") references in build files" \
   grep -rn --include="*.kts" \
-    'project(":core:alkhawarizm\|project(":backend:' \
+    'project(":core:aljabr\|project(":backend:' \
     --exclude-dir="build" \
     --exclude="settings.gradle.kts" .
 

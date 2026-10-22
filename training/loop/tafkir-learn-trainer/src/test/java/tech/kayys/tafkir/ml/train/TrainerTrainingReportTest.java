@@ -419,7 +419,7 @@ class TrainerTrainingReportTest {
                                                 + "\"primaryIssue\":{},"
                                                 + "\"recommendedAction\":\"continue monitoring training\","
                                                 + "\"status\":\"healthy\"},"
-                                                + "\"schema\":\"alkhawarizm.canonical-trainer.report.v1\"}",
+                                                + "\"schema\":\"aljabr.canonical-trainer.report.v1\"}",
                                 json);
         }
 }

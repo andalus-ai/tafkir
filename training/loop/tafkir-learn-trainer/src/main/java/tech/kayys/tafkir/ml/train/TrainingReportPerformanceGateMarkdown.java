@@ -12,7 +12,7 @@ final class TrainingReportPerformanceGateMarkdown {
             return "";
         }
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Trainer Performance Gate");
+        appendLine(markdown, "# Aljabr Trainer Performance Gate");
         appendLine(markdown, "");
         appendLine(markdown, "**Status:** `" + (result.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, "**Available:** `" + yesNo(result.available()) + "`");

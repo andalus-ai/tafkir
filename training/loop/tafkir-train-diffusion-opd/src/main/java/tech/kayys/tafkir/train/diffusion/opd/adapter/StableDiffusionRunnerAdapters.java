@@ -3,17 +3,17 @@ package tech.kayys.tafkir.train.diffusion.opd.adapter;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import tech.kayys.alkhawarizm.core.backend.ComputeBackend;
-import tech.kayys.alkhawarizm.core.memory.CpuBuffer;
-import tech.kayys.alkhawarizm.core.tensor.DType;
-import tech.kayys.alkhawarizm.core.tensor.DefaultTensor;
-import tech.kayys.alkhawarizm.core.tensor.DeviceType;
-import tech.kayys.alkhawarizm.core.tensor.Shape;
-import tech.kayys.alkhawarizm.metal.binding.MetalBinding;
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
-import tech.kayys.alkhawarizm.safetensor.core.tensor.AccelTensor;
-import tech.kayys.alkhawarizm.safetensor.runner.sd.PNDMScheduler;
-import tech.kayys.alkhawarizm.safetensor.runner.sd.UNetModel;
+import tech.kayys.aljabr.core.backend.ComputeBackend;
+import tech.kayys.aljabr.core.memory.CpuBuffer;
+import tech.kayys.aljabr.core.tensor.DType;
+import tech.kayys.aljabr.core.tensor.DefaultTensor;
+import tech.kayys.aljabr.core.tensor.DeviceType;
+import tech.kayys.aljabr.core.tensor.Shape;
+import tech.kayys.aljabr.metal.binding.MetalBinding;
+import tech.kayys.aljabr.core.tensor.Tensor;
+import tech.kayys.aljabr.safetensor.core.tensor.AccelTensor;
+import tech.kayys.aljabr.safetensor.runner.sd.PNDMScheduler;
+import tech.kayys.aljabr.safetensor.runner.sd.UNetModel;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionDenoiser;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionScheduler;
 
@@ -22,7 +22,7 @@ import tech.kayys.tafkir.train.diffusion.api.DiffusionScheduler;
  * Java diffusion OPD contracts.
  *
  * <p>
- * This is the bridge point for aligning Alkhawarizm's inference-side Stable
+ * This is the bridge point for aligning Aljabr's inference-side Stable
  * Diffusion runtime with the Java-first diffusion training stack. The
  * scheduler path is directly adaptable, while the UNet path requires an
  * explicit tensor bridge because the stable-diffusion-native runner uses

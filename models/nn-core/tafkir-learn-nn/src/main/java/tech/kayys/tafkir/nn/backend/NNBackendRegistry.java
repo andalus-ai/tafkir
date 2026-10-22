@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 /**
  * Global registry for neural network backend implementations.
  *
- * @author Alkhawarizm Team
+ * @author Aljabr Team
  * @since 0.2.0
  */
 public final class NNBackendRegistry {

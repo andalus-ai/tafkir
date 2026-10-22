@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportRuntimeEfficiencyRegressionTest {
@@ -94,15 +94,15 @@ class TrainingReportRuntimeEfficiencyRegressionTest {
                                                 .toList());
                 assertTrue(result.markdown().contains("# Runtime Regression Gate"));
                 assertTrue(result.markdown().contains("runtime-regression-dominant-bottleneck"));
-                assertTrue(result.junitXml().contains("name=\"alkhawarizm.training.runtime.regression\""));
+                assertTrue(result.junitXml().contains("name=\"aljabr.training.runtime.regression\""));
                 assertTrue(result.junitXml().contains("runtimeRegression.regressed"));
                 assertTrue(result.junitXml().contains("type=\"RUNTIME_REGRESSION_ACCOUNTED_WALL_TIME\""));
                 assertEquals(result.toMap(),
-                                Alkhawarizm.DL.trainingReportRuntimeRegressionGate(baseline, candidate).toMap());
+                                Aljabr.DL.trainingReportRuntimeRegressionGate(baseline, candidate).toMap());
                 assertEquals(result.markdown(),
-                                Alkhawarizm.DL.trainingReportRuntimeRegressionGateMarkdown(baseline, candidate));
+                                Aljabr.DL.trainingReportRuntimeRegressionGateMarkdown(baseline, candidate));
                 assertEquals(result.junitXml(),
-                                Alkhawarizm.DL.trainingReportRuntimeRegressionGateJUnitXml(baseline, candidate));
+                                Aljabr.DL.trainingReportRuntimeRegressionGateJUnitXml(baseline, candidate));
         }
 
         @Test
@@ -110,7 +110,7 @@ class TrainingReportRuntimeEfficiencyRegressionTest {
                 TrainingReport baseline = reportWithRuntimeProfile(90.0, 100.0, 8.0, 1.0, "input", 60.0);
                 TrainingReport candidate = reportWithRuntimeProfile(50.0, 100.0, 25.0, 8.0, "input", 80.0);
 
-                TrainingReportRuntimeRegressionGateArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
+                TrainingReportRuntimeRegressionGateArtifacts.ArtifactBundle bundle = Aljabr.DL
                                 .writeTrainingReportRuntimeRegressionGateArtifacts(tempDir, baseline, candidate);
 
                 assertTrue(Files.exists(bundle.jsonFile()));
@@ -126,18 +126,18 @@ class TrainingReportRuntimeEfficiencyRegressionTest {
                 assertEquals(bundle.artifactMap(), bundle.toMap().get("artifact"));
                 assertTrue(Files.readString(bundle.jsonFile()).contains("\"runtime-regression-accounted-wall-time\""));
                 assertTrue(Files.readString(bundle.markdownFile()).contains("# Runtime Regression Gate"));
-                assertTrue(Files.readString(bundle.junitXmlFile()).contains("alkhawarizm.training.runtime.regression"));
+                assertTrue(Files.readString(bundle.junitXmlFile()).contains("aljabr.training.runtime.regression"));
                 String manifest = Files.readString(bundle.manifestFile());
                 assertTrue(manifest
-                                .contains("\"schema\":\"alkhawarizm.training.runtime.regression.gate.artifacts.v1\""));
+                                .contains("\"schema\":\"aljabr.training.runtime.regression.gate.artifacts.v1\""));
                 assertTrue(manifest.contains("\"jsonSha256\":\"" + bundle.jsonSha256() + "\""));
                 assertTrue(manifest.contains("\"junitXmlSha256\":\"" + bundle.junitXmlSha256() + "\""));
                 assertTrue(manifest.contains("\"manifestFile\":\"" + bundle.manifestFile() + "\""));
-                assertEquals("alkhawarizm.training.runtime.regression.gate.artifacts.v1",
+                assertEquals("aljabr.training.runtime.regression.gate.artifacts.v1",
                                 bundle.artifactManifest().get("schema"));
                 assertEquals(true, bundle.artifactManifest().get("regressed"));
 
-                TrainingReportRuntimeRegressionGateArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
+                TrainingReportRuntimeRegressionGateArtifacts.ArtifactInspection inspection = Aljabr.DL
                                 .readTrainingReportRuntimeRegressionGateArtifacts(tempDir);
                 assertEquals(bundle.jsonSha256(), inspection.jsonSha256());
                 assertEquals(bundle.manifestSha256(), inspection.manifestSha256());
@@ -146,7 +146,7 @@ class TrainingReportRuntimeEfficiencyRegressionTest {
                 assertEquals(bundle.artifactMap(), inspection.artifactMap());
                 assertEquals(false, inspection.passed());
 
-                TrainingReportRuntimeRegressionGateArtifacts.ArtifactVerification verification = Alkhawarizm.DL
+                TrainingReportRuntimeRegressionGateArtifacts.ArtifactVerification verification = Aljabr.DL
                                 .verifyTrainingReportRuntimeRegressionGateArtifacts(bundle);
                 assertTrue(verification.passed());
                 assertTrue(verification.manifestSha256Matches());
@@ -160,7 +160,7 @@ class TrainingReportRuntimeEfficiencyRegressionTest {
                 verification.requirePassed();
 
                 Files.writeString(bundle.markdownFile(), bundle.result().markdown() + "\n# tampered\n");
-                TrainingReportRuntimeRegressionGateArtifacts.ArtifactVerification tampered = Alkhawarizm.DL
+                TrainingReportRuntimeRegressionGateArtifacts.ArtifactVerification tampered = Aljabr.DL
                                 .verifyTrainingReportRuntimeRegressionGateArtifacts(
                                                 TrainingReportRuntimeRegressionGateArtifacts.read(tempDir),
                                                 bundle.jsonSha256(),
@@ -172,13 +172,13 @@ class TrainingReportRuntimeEfficiencyRegressionTest {
                 assertTrue(tampered.failures().stream()
                                 .anyMatch(failure -> failure.contains("Manifest does not match artifact files")));
 
-                TrainingReportRuntimeRegressionGateArtifacts.ArtifactBundle refreshed = Alkhawarizm.DL
+                TrainingReportRuntimeRegressionGateArtifacts.ArtifactBundle refreshed = Aljabr.DL
                                 .refreshTrainingReportRuntimeRegressionGateArtifacts(tempDir);
-                assertTrue(Alkhawarizm.DL.verifyTrainingReportRuntimeRegressionGateArtifacts(refreshed).passed());
+                assertTrue(Aljabr.DL.verifyTrainingReportRuntimeRegressionGateArtifacts(refreshed).passed());
                 assertEquals(bundle.result().toMap(), refreshed.result().toMap());
                 assertEquals(bundle.jsonSha256(), refreshed.jsonSha256());
                 assertEquals(refreshed.markdownSha256(),
-                                Alkhawarizm.DL.readTrainingReportRuntimeRegressionGateArtifacts(tempDir)
+                                Aljabr.DL.readTrainingReportRuntimeRegressionGateArtifacts(tempDir)
                                                 .manifest()
                                                 .get("markdownSha256"));
         }

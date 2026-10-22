@@ -205,8 +205,8 @@ public final class ReportSliceSmoke {
                                 jsonRoundTrippedComparisonExport.actionPlan().recommendations().size(),
                                 "typed comparison export json recommendation count round trip");
                 try {
-                        Path exportFile = Files.createTempFile("alkhawarizm-comparison-action-plan", ".json");
-                        Path markdownFile = Files.createTempFile("alkhawarizm-comparison-action-plan", ".md");
+                        Path exportFile = Files.createTempFile("aljabr-comparison-action-plan", ".json");
+                        Path markdownFile = Files.createTempFile("aljabr-comparison-action-plan", ".md");
                         typedComparisonExport.writeJson(exportFile);
                         typedComparisonExport.writeMarkdown(markdownFile);
                         TrainingReportComparisonActionPlanExport fileRoundTrippedComparisonExport = TrainingReportComparisonActionPlanExport
@@ -234,7 +234,7 @@ public final class ReportSliceSmoke {
                                         "comparison export artifact manifest json");
                         require(artifactManifest.get("markdown") instanceof Map<?, ?>,
                                         "comparison export artifact manifest markdown");
-                        Path bundleDirectory = Files.createTempDirectory("alkhawarizm-comparison-action-plan-bundle");
+                        Path bundleDirectory = Files.createTempDirectory("aljabr-comparison-action-plan-bundle");
                         TrainingReportComparisonActionPlanArtifacts.ArtifactBundle bundle = TrainingReportComparisonActionPlanArtifacts
                                         .write(bundleDirectory, typedComparisonExport);
                         require(bundle.regressed(), "comparison export artifact bundle regressed");

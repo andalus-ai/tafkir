@@ -1,13 +1,13 @@
 package tech.kayys.tafkir.ml.tensor;
 
-import tech.kayys.alkhawarizm.core.backend.ComputeBackend;
-import tech.kayys.alkhawarizm.core.memory.Buffer;
-import tech.kayys.alkhawarizm.core.tensor.DefaultTensor;
-import tech.kayys.alkhawarizm.core.tensor.DType;
-import tech.kayys.alkhawarizm.core.tensor.DeviceType;
-import tech.kayys.alkhawarizm.core.tensor.Shape;
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
-import tech.kayys.alkhawarizm.backend.cpu.CpuBackend;
+import tech.kayys.aljabr.core.backend.ComputeBackend;
+import tech.kayys.aljabr.core.memory.Buffer;
+import tech.kayys.aljabr.core.tensor.DefaultTensor;
+import tech.kayys.aljabr.core.tensor.DType;
+import tech.kayys.aljabr.core.tensor.DeviceType;
+import tech.kayys.aljabr.core.tensor.Shape;
+import tech.kayys.aljabr.core.tensor.Tensor;
+import tech.kayys.aljabr.backend.cpu.CpuBackend;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
@@ -15,15 +15,15 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Tafkir-facing tensor API. Wraps Alkhawarizm's {@link Tensor} with a PyTorch-like
+ * Tafkir-facing tensor API. Wraps Aljabr's {@link Tensor} with a PyTorch-like
  * convenience layer, including factory methods suitable for JBang scripts.
  *
  * <p>
- * All computation delegates to the underlying Alkhawarizm {@link ComputeBackend},
+ * All computation delegates to the underlying Aljabr {@link ComputeBackend},
  * which uses Panama FFM off-heap memory and Vector API SIMD on CPU.
  *
  * <p>
- * Implements {@link Tensor} directly so it can be passed to Alkhawarizm's own
+ * Implements {@link Tensor} directly so it can be passed to Aljabr's own
  * layers and backends without unwrapping.
  */
 public final class TafkirTensor implements Tensor {
@@ -48,7 +48,7 @@ public final class TafkirTensor implements Tensor {
                             " (expected " + expected + " elements)");
         }
 
-        Buffer buffer = new tech.kayys.alkhawarizm.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
+        Buffer buffer = new tech.kayys.aljabr.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
         MemorySegment seg = buffer.segment();
         for (int i = 0; i < data.length; i++) {
             seg.set(ValueLayout.JAVA_FLOAT, i * 4L, data[i]);
@@ -61,7 +61,7 @@ public final class TafkirTensor implements Tensor {
     public static TafkirTensor zeros(long... shape) {
         CpuBackend cpu = TafkirBackend.cpu();
         Shape s = new Shape(shape);
-        tech.kayys.alkhawarizm.core.memory.CpuBuffer buffer = new tech.kayys.alkhawarizm.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
+        tech.kayys.aljabr.core.memory.CpuBuffer buffer = new tech.kayys.aljabr.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
         buffer.segment().fill((byte) 0);
         Tensor t = new DefaultTensor(s, DType.F32, DeviceType.CPU, buffer, cpu);
         return new TafkirTensor(t, cpu);
@@ -70,7 +70,7 @@ public final class TafkirTensor implements Tensor {
     public static TafkirTensor ones(long... shape) {
         CpuBackend cpu = TafkirBackend.cpu();
         Shape s = new Shape(shape);
-        tech.kayys.alkhawarizm.core.memory.CpuBuffer buffer = new tech.kayys.alkhawarizm.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
+        tech.kayys.aljabr.core.memory.CpuBuffer buffer = new tech.kayys.aljabr.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
         java.lang.foreign.MemorySegment seg = buffer.segment();
         for (long i = 0; i < s.numel(); i++) {
             seg.set(ValueLayout.JAVA_FLOAT, i * 4L, 1.0f);
@@ -82,7 +82,7 @@ public final class TafkirTensor implements Tensor {
     public static TafkirTensor rand(long... shape) {
         CpuBackend cpu = TafkirBackend.cpu();
         Shape s = new Shape(shape);
-        tech.kayys.alkhawarizm.core.memory.CpuBuffer buffer = new tech.kayys.alkhawarizm.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
+        tech.kayys.aljabr.core.memory.CpuBuffer buffer = new tech.kayys.aljabr.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
         java.lang.foreign.MemorySegment seg = buffer.segment();
         java.util.concurrent.ThreadLocalRandom rng = java.util.concurrent.ThreadLocalRandom.current();
         for (long i = 0; i < s.numel(); i++) {
@@ -95,7 +95,7 @@ public final class TafkirTensor implements Tensor {
     public static TafkirTensor randn(long... shape) {
         CpuBackend cpu = TafkirBackend.cpu();
         Shape s = new Shape(shape);
-        tech.kayys.alkhawarizm.core.memory.CpuBuffer buffer = new tech.kayys.alkhawarizm.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
+        tech.kayys.aljabr.core.memory.CpuBuffer buffer = new tech.kayys.aljabr.core.memory.CpuBuffer(s.numel() * DType.F32.blockByteSize());
         java.lang.foreign.MemorySegment seg = buffer.segment();
         java.util.concurrent.ThreadLocalRandom rng = java.util.concurrent.ThreadLocalRandom.current();
         for (long i = 0; i < s.numel(); i++) {
@@ -109,7 +109,7 @@ public final class TafkirTensor implements Tensor {
         return of(new float[] { value });
     }
 
-    public static TafkirTensor fromAlkhawarizm(Tensor tensor) {
+    public static TafkirTensor fromAljabr(Tensor tensor) {
         return new TafkirTensor(tensor, tensor.backend());
     }
 

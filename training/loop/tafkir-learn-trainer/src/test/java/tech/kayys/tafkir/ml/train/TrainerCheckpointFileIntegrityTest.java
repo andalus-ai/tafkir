@@ -13,7 +13,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void modelCheckpointMismatchAcceptsMatchingSizeAndSha256() throws Exception {
-                Path checkpoint = writeTempFile("alkhawarizm-model-checkpoint", "abc");
+                Path checkpoint = writeTempFile("aljabr-model-checkpoint", "abc");
                 Properties metadata = new Properties();
                 metadata.setProperty("modelCheckpointBytes", "3");
                 metadata.setProperty(
@@ -25,7 +25,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void modelCheckpointMismatchReportsInvalidSizeMetadata() throws Exception {
-                Path checkpoint = writeTempFile("alkhawarizm-model-checkpoint-invalid-size", "abc");
+                Path checkpoint = writeTempFile("aljabr-model-checkpoint-invalid-size", "abc");
                 Properties metadata = new Properties();
                 metadata.setProperty("modelCheckpointBytes", "not-a-number");
 
@@ -36,7 +36,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void modelCheckpointMismatchReportsSizeMismatch() throws Exception {
-                Path checkpoint = writeTempFile("alkhawarizm-model-checkpoint-size", "abc");
+                Path checkpoint = writeTempFile("aljabr-model-checkpoint-size", "abc");
                 Properties metadata = new Properties();
                 metadata.setProperty("modelCheckpointBytes", "7");
 
@@ -47,7 +47,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void modelCheckpointMismatchReportsSha256Mismatch() throws Exception {
-                Path checkpoint = writeTempFile("alkhawarizm-model-checkpoint-sha", "abc");
+                Path checkpoint = writeTempFile("aljabr-model-checkpoint-sha", "abc");
                 Properties metadata = new Properties();
                 metadata.setProperty("modelCheckpointSha256", "deadbeef");
 
@@ -59,7 +59,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void manifestArtifactMismatchIgnoresUntrackedArtifacts() throws Exception {
-                Path artifact = writeTempFile("alkhawarizm-artifact-untracked", "abc");
+                Path artifact = writeTempFile("aljabr-artifact-untracked", "abc");
                 Properties manifest = new Properties();
                 manifest.setProperty("formatVersion", "1");
 
@@ -72,7 +72,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void requiredManifestArtifactMismatchRejectsUntrackedArtifacts() throws Exception {
-                Path artifact = writeTempFile("alkhawarizm-artifact-required-untracked", "abc");
+                Path artifact = writeTempFile("aljabr-artifact-required-untracked", "abc");
                 Properties manifest = new Properties();
                 manifest.setProperty("formatVersion", "1");
 
@@ -87,7 +87,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void manifestArtifactMismatchValidatesManifestVersion() throws Exception {
-                Path artifact = writeTempFile("alkhawarizm-artifact-version", "abc");
+                Path artifact = writeTempFile("aljabr-artifact-version", "abc");
                 Properties unsupported = new Properties();
                 unsupported.setProperty("formatVersion", "2");
                 Properties invalid = new Properties();
@@ -105,7 +105,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void manifestArtifactMismatchReportsFileNameMismatch() throws Exception {
-                Path artifact = writeTempFile("alkhawarizm-artifact-file", "abc");
+                Path artifact = writeTempFile("aljabr-artifact-file", "abc");
                 Properties manifest = new Properties();
                 manifest.setProperty("formatVersion", "1");
                 manifest.setProperty("artifact.optimizer.file", "different.state");
@@ -119,7 +119,7 @@ class TrainerCheckpointFileIntegrityTest {
 
         @Test
         void manifestArtifactMismatchReportsSizeAndSha256Mismatches() throws Exception {
-                Path artifact = writeTempFile("alkhawarizm-artifact-integrity", "abc");
+                Path artifact = writeTempFile("aljabr-artifact-integrity", "abc");
                 Properties sizeManifest = new Properties();
                 sizeManifest.setProperty("formatVersion", "1");
                 sizeManifest.setProperty("artifact.optimizer.bytes", "9");

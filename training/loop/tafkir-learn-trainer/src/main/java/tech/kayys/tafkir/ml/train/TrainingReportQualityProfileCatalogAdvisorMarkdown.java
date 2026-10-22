@@ -12,7 +12,7 @@ final class TrainingReportQualityProfileCatalogAdvisorMarkdown {
             return "";
         }
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Quality Profile Catalog Advice");
+        appendLine(markdown, "# Aljabr Training Quality Profile Catalog Advice");
         appendLine(markdown, "");
         appendLine(markdown, "**Ready for CI:** `" + (result.readyForCi() ? "yes" : "no") + "`");
         appendLine(markdown, "**Catalog validation:** `" + (result.validation().passed() ? "PASS" : "FAIL") + "`");

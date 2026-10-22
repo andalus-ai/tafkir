@@ -3,7 +3,7 @@ package tech.kayys.tafkir.quantizer.awq;
 import tech.kayys.tafkir.quantizer.awq.AWQConfig;
 import tech.kayys.tafkir.quantizer.awq.AWQLayer;
 import tech.kayys.tafkir.quantizer.gptq.MemoryAllocator;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorHeader;
+import tech.kayys.aljabr.safetensor.loader.SafetensorHeader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

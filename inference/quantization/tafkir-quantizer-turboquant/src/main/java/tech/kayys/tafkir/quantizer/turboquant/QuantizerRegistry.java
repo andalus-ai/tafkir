@@ -1,8 +1,8 @@
 package tech.kayys.tafkir.quantizer.turboquant;
 
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorHeader;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorTensorInfo;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorDType;
+import tech.kayys.aljabr.safetensor.loader.SafetensorHeader;
+import tech.kayys.aljabr.safetensor.loader.SafetensorTensorInfo;
+import tech.kayys.aljabr.safetensor.loader.SafetensorDType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

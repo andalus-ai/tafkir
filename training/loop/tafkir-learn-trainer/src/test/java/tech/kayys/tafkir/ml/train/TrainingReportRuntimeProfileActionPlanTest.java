@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportRuntimeProfileActionPlanTest {
@@ -34,15 +34,15 @@ class TrainingReportRuntimeProfileActionPlanTest {
                 .anyMatch(action -> action.contains("Prioritize the `train` input loader `next()` path")));
         assertEquals("NEEDS_OPTIMIZATION", map.get("status"));
         assertEquals(2, map.get("targetCount"));
-        assertEquals(plan.toMap(), Alkhawarizm.DL.trainingReportRuntimeProfileActionPlanMap(report));
-        assertEquals(plan, Alkhawarizm.DL.trainingReportRuntimeProfileActionPlan(report));
-        assertTrue(markdown.startsWith("# Alkhawarizm Runtime Profile Action Plan\n"));
+        assertEquals(plan.toMap(), Aljabr.DL.trainingReportRuntimeProfileActionPlanMap(report));
+        assertEquals(plan, Aljabr.DL.trainingReportRuntimeProfileActionPlan(report));
+        assertTrue(markdown.startsWith("# Aljabr Runtime Profile Action Plan\n"));
         assertTrue(markdown.contains("**Status:** `NEEDS_OPTIMIZATION`"));
         assertTrue(markdown.contains("| 1 | `GROUP` | `input` | `MEDIUM` | `DATA_HEALTH` | 24.000"));
         assertTrue(markdown.contains("| 2 | `HOTSPOT` | `input.train.next` | `MEDIUM` | `DATA_HEALTH` | 20.000"));
         assertTrue(markdown.contains("## Next Actions"));
         assertTrue(markdown.contains("DataLoader.prefetch"));
-        assertEquals(markdown, Alkhawarizm.DL.trainingReportRuntimeProfileActionPlanMarkdown(report));
+        assertEquals(markdown, Aljabr.DL.trainingReportRuntimeProfileActionPlanMarkdown(report));
         assertFalse(markdown.contains("null"));
     }
 

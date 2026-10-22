@@ -1,11 +1,11 @@
-# Alkhawarizm SDK :: NLP Pipelines
+# Aljabr SDK :: NLP Pipelines
 
 The `tafkir-ml-nlp` module bridges the gap between text generation models running on the engine and tokenization workflows. 
 It aggregates Tokenizer strategies into high-level pipelines.
 
 ## Pipelines
 - **TextGenerationPipeline**: Sends prompt sequences and generation configurations to the low-level inference engine via an easy-to-use API string format.
-- **TokenizerPipeline**: Hooks into `alkhawarizm-tokenizer-core` to provide BPE encoding/decoding strategies explicitly attached to loaded vocabularies (e.g. `tokenizer.json`).
+- **TokenizerPipeline**: Hooks into `aljabr-tokenizer-core` to provide BPE encoding/decoding strategies explicitly attached to loaded vocabularies (e.g. `tokenizer.json`).
 
 ## Example
 

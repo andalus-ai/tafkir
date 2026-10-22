@@ -1,4 +1,4 @@
-package tech.kayys.alkhawarizm.hub;
+package tech.kayys.aljabr.hub;
 
 /**
  * @deprecated Use standard I/O exceptions or

@@ -4,10 +4,10 @@ import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.train.data.DataLoader;
 
 /**
- * Label tensor and imbalance-weight helpers inherited by {@link Alkhawarizm.DL}.
+ * Label tensor and imbalance-weight helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlLabelFacade extends AlkhawarizmDlMetricsFacade {
-    protected AlkhawarizmDlLabelFacade() {
+public class AljabrDlLabelFacade extends AljabrDlMetricsFacade {
+    protected AljabrDlLabelFacade() {
     }
 
     public static GradTensor classLabels(int... labels) {

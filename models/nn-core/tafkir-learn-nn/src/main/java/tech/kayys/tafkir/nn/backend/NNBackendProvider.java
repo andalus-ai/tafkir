@@ -33,7 +33,7 @@ import tech.kayys.tafkir.ml.autograd.GradTensor;
  * Different implementations can provide hardware acceleration via CUDA, Metal, ROCm,
  * or CPU fallback.</p>
  *
- * @author Alkhawarizm Team
+ * @author Aljabr Team
  * @since 0.2.0
  */
 public interface NNBackendProvider {

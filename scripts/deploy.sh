@@ -256,8 +256,8 @@ if [ "$RUN_GRADLE" = true ]; then
         GRADLE_ARGS="clean build publishToMavenLocal publish"
     fi
 
-    # Prevent including gollek composite during tafkir deploy by default — can be overridden with -PskipGollek=false
-    GRADLE_ARGS="$GRADLE_ARGS -PskipGollek=true"
+    # Prevent including aqli composite during tafkir deploy by default — can be overridden with -PskipAqli=false
+    GRADLE_ARGS="$GRADLE_ARGS -PskipAqli=true"
     
     # Exclude autograd module (training-only) from foundational builds
     GRADLE_ARGS="$GRADLE_ARGS -PskipAutograd=true"

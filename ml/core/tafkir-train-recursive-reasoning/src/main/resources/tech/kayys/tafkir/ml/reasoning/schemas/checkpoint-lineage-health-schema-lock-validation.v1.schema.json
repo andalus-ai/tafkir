@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-schema-lock-validation.v1.schema.json",
-  "title": "Alkhawarizm checkpoint lineage health schema lock validation report",
+  "$id": "https://aljabr.ai/schemas/training/checkpoint-lineage-health-schema-lock-validation.v1.schema.json",
+  "title": "Aljabr checkpoint lineage health schema lock validation report",
   "description": "Stable valid/invalid report emitted when a recursive-reasoning checkpoint lineage health schema lock is compared with the current schema set.",
   "type": "object",
   "additionalProperties": true,
@@ -30,13 +30,13 @@
       "const": "checkpoint-lineage-health-schema-lock-validation"
     },
     "schemaVersion": {
-      "const": "alkhawarizm.checkpoint-lineage-health-schema-lock-validation.v1"
+      "const": "aljabr.checkpoint-lineage-health-schema-lock-validation.v1"
     },
     "validationSchemaId": {
-      "const": "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-schema-lock-validation.v1.schema.json"
+      "const": "https://aljabr.ai/schemas/training/checkpoint-lineage-health-schema-lock-validation.v1.schema.json"
     },
     "validationSchemaResource": {
-      "const": "tech/kayys/alkhawarizm/ml/reasoning/schemas/checkpoint-lineage-health-schema-lock-validation.v1.schema.json"
+      "const": "tech/kayys/aljabr/ml/reasoning/schemas/checkpoint-lineage-health-schema-lock-validation.v1.schema.json"
     },
     "status": {
       "enum": [
@@ -49,8 +49,8 @@
     },
     "code": {
       "enum": [
-        "ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_VALID",
-        "ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH"
+        "ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_VALID",
+        "ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH"
       ]
     },
     "message": {
@@ -77,7 +77,7 @@
       "minLength": 1
     },
     "actualLockSchemaId": {
-      "const": "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-schema-lock.v1.schema.json"
+      "const": "https://aljabr.ai/schemas/training/checkpoint-lineage-health-schema-lock.v1.schema.json"
     },
     "mismatchCount": {
       "$ref": "#/$defs/nonNegativeInteger"
@@ -111,7 +111,7 @@
             "const": "valid"
           },
           "code": {
-            "const": "ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_VALID"
+            "const": "ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_VALID"
           },
           "schemaSetMatch": {
             "const": true
@@ -142,7 +142,7 @@
             "const": "invalid"
           },
           "code": {
-            "const": "ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH"
+            "const": "ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH"
           },
           "mismatchCount": {
             "minimum": 1

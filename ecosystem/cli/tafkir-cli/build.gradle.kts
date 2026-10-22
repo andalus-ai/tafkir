@@ -3527,7 +3527,7 @@ dependencies {
         findProject(projPath)?.let { implementation(it) }
     }
     includeModelFamilies()
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-backend-metal:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-backend-metal:0.1.0-SNAPSHOT")
     implementation(project(":ml:tafkir-ml-api"))
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))

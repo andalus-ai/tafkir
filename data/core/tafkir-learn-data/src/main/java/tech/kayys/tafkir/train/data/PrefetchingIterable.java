@@ -115,7 +115,7 @@ public final class PrefetchingIterable<T> implements Iterable<T>, AutoCloseable 
         }
 
         private void start() {
-            worker = new Thread(this::runWorker, "alkhawarizm-data-prefetch-" + WORKER_IDS.incrementAndGet());
+            worker = new Thread(this::runWorker, "aljabr-data-prefetch-" + WORKER_IDS.incrementAndGet());
             worker.setDaemon(true);
             worker.start();
         }

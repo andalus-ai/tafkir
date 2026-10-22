@@ -19,7 +19,7 @@ final class TrainingReportPromotionGateArtifactReports {
         Map<String, Object> sourceVerification = mapValue(result, "sourceVerification");
 
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Promotion Gate");
+        appendLine(markdown, "# Aljabr Training Promotion Gate");
         appendLine(markdown, "");
         appendLine(markdown, "**Gate:** `" + (booleanValue(result.get("passed")) ? "PASS" : "FAIL") + "`");
         appendLine(markdown, "**Status:** `" + stringValue(decision.get("status"), "UNKNOWN") + "`");
@@ -88,7 +88,7 @@ final class TrainingReportPromotionGateArtifactReports {
 
         StringBuilder xml = new StringBuilder();
         appendLine(xml, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        appendLine(xml, "<testsuite name=\"alkhawarizm.training.promotion\" tests=\"1\" failures=\""
+        appendLine(xml, "<testsuite name=\"aljabr.training.promotion\" tests=\"1\" failures=\""
                 + (passed ? "0" : "1")
                 + "\" errors=\"0\" skipped=\"0\">");
         appendLine(xml, "  <properties>");
@@ -108,7 +108,7 @@ final class TrainingReportPromotionGateArtifactReports {
         property(xml, "sourceReports.count", Long.toString(mapList(sourceVerification.get("reports")).size()));
         property(xml, "sourceReports.failures", Long.toString(stringList(sourceVerification.get("failures")).size()));
         appendLine(xml, "  </properties>");
-        appendLine(xml, "  <testcase classname=\"alkhawarizm.training.promotion\" name=\""
+        appendLine(xml, "  <testcase classname=\"aljabr.training.promotion\" name=\""
                 + escapeXml(baseline + " -> " + candidate)
                 + "\" time=\"0\">");
         if (!passed) {

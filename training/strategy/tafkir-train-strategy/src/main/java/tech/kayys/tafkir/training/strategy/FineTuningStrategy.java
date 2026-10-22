@@ -11,8 +11,8 @@ public interface FineTuningStrategy {
     /**
      * Executes a training step directly on off-heap memory segments.
      *
-     * @param contextSegment The training data/context (zero-copy from Alkhawarizm)
-     * @param modelSegment   The current model or adapter weights (zero-copy from Alkhawarizm)
+     * @param contextSegment The training data/context (zero-copy from Aljabr)
+     * @param modelSegment   The current model or adapter weights (zero-copy from Aljabr)
      * @param arena          The memory lifecycle arena backing this request
      * @return A MemorySegment containing the updated weights or adapter
      */

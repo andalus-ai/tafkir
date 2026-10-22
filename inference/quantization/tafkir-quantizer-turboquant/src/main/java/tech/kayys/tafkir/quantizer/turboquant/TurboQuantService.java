@@ -160,7 +160,7 @@ public class TurboQuantService implements AutoCloseable {
 
     private Object createLegacyDequantizer() {
         try {
-            Class<?> dequantizerClass = Class.forName("tech.kayys.alkhawarizm.spi.tensor.weights.Dequantizer");
+            Class<?> dequantizerClass = Class.forName("tech.kayys.aljabr.spi.tensor.weights.Dequantizer");
             return dequantizerClass.getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
             log.debug("GGUF dequantizer class not present on classpath: {}", e.getMessage());

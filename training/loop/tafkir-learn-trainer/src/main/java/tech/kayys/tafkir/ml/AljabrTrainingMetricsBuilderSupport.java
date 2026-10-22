@@ -1,8 +1,8 @@
 package tech.kayys.tafkir.ml;
 
 /**
- * Full metric DSL facade for {@link Alkhawarizm.DL.TrainingOptions.Builder}.
+ * Full metric DSL facade for {@link Aljabr.DL.TrainingOptions.Builder}.
  */
-public abstract class AlkhawarizmTrainingMetricsBuilderSupport<B extends AlkhawarizmTrainingMetricsBuilderSupport<B>>
-        extends AlkhawarizmTrainingLanguageModelingMetricsBuilderSupport<B> {
+public abstract class AljabrTrainingMetricsBuilderSupport<B extends AljabrTrainingMetricsBuilderSupport<B>>
+        extends AljabrTrainingLanguageModelingMetricsBuilderSupport<B> {
 }

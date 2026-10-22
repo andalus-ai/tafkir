@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPromotionMarkdownTest {
@@ -42,12 +42,12 @@ class TrainingReportPromotionMarkdownTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
 
-        String markdown = Alkhawarizm.DL.trainingReportPromotionMarkdown(
+        String markdown = Aljabr.DL.trainingReportPromotionMarkdown(
                 reports,
                 "base`line",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy());
 
-        assertTrue(markdown.startsWith("# Alkhawarizm Training Promotion Review\n"));
+        assertTrue(markdown.startsWith("# Aljabr Training Promotion Review\n"));
         assertTrue(markdown.contains("**Decision:** `PROMOTE` candidate `candidate-clean`"));
         assertTrue(markdown.contains("baseline `base\\`line`"));
         assertTrue(markdown.contains("## Source Reports"));
@@ -74,7 +74,7 @@ class TrainingReportPromotionMarkdownTest {
                         Map.of("epoch", 0, "trainLoss", 0.8, "validationLoss", 0.9),
                         Map.of("epoch", 1, "trainLoss", 0.5, "validationLoss", 0.6))));
 
-        String markdown = Alkhawarizm.DL.trainingReportPromotionMarkdown(
+        String markdown = Aljabr.DL.trainingReportPromotionMarkdown(
                 reports,
                 "baseline",
                 TrainingReportDiagnostics.Severity.INFO);

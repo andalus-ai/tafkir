@@ -23,7 +23,7 @@ public final class TrainingReportPromotionMarkdown {
         Objects.requireNonNull(review, "review must not be null");
         TrainingReportPortfolio.PromotionDecision decision = review.decision();
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Promotion Review");
+        appendLine(markdown, "# Aljabr Training Promotion Review");
         appendLine(markdown, "");
         appendLine(markdown, "**Decision:** " + renderDecision(decision));
         appendLine(markdown, "");

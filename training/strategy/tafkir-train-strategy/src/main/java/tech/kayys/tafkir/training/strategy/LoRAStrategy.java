@@ -30,7 +30,7 @@ public class LoRAStrategy implements FineTuningStrategy {
             // 2. Create shape array (e.g., 1D flat tensor for this demo)
             MemorySegment shapeSegment = arena.allocateFrom(ValueLayout.JAVA_LONG, contextSegment.byteSize() / Float.BYTES);
 
-            // 3. Create context tensor and model tensor directly wrapping the Alkhawarizm MemorySegments
+            // 3. Create context tensor and model tensor directly wrapping the Aljabr MemorySegments
             // 6 = at::kFloat
             MemorySegment contextTensor = (MemorySegment) fromBlob.invokeExact(contextSegment, shapeSegment, 1L, 6);
             MemorySegment modelTensor = (MemorySegment) fromBlob.invokeExact(modelSegment, shapeSegment, 1L, 6);

@@ -1,4 +1,4 @@
-package tech.kayys.alkhawarizm.safetensor.loader;
+package tech.kayys.aljabr.safetensor.loader;
 
 /**
  * Stub — metadata for a single tensor entry in a safetensor file header.

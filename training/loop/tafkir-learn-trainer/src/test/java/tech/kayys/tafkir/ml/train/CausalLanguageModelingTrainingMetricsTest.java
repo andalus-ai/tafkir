@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 
 @SuppressWarnings("deprecation")
@@ -106,8 +106,8 @@ class CausalLanguageModelingTrainingMetricsTest {
     }
 
     @Test
-    void customIgnoreIndexIsAvailableThroughAlkhawarizmFacadeAndTrainingOptions() {
-        CanonicalTrainer.Metric metric = Alkhawarizm.DL.nextTokenAccuracyMetric(-1.0f).get();
+    void customIgnoreIndexIsAvailableThroughAljabrFacadeAndTrainingOptions() {
+        CanonicalTrainer.Metric metric = Aljabr.DL.nextTokenAccuracyMetric(-1.0f).get();
         metric.update(
                 GradTensor.of(new float[] {
                         Float.NaN, Float.NaN,
@@ -123,7 +123,7 @@ class CausalLanguageModelingTrainingMetricsTest {
         assertEquals(-1.0f, (Float) detailed.details().get("ignoreIndex"));
         assertEquals(1L, detailed.details().get("ignoredTokens"));
 
-        Alkhawarizm.DL.TrainingOptions options = Alkhawarizm.DL.trainingOptions()
+        Aljabr.DL.TrainingOptions options = Aljabr.DL.trainingOptions()
                 .nextTokenMetrics(-1.0f)
                 .build();
         assertEquals(3, options.metricFactories().size());

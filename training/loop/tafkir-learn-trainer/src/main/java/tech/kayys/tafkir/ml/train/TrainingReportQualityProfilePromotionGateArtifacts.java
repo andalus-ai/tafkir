@@ -431,7 +431,7 @@ public final class TrainingReportQualityProfilePromotionGateArtifacts {
         Map<String, Object> sourceVerification = mapValue(result, "sourceVerification");
 
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Quality Profile Gate");
+        appendLine(markdown, "# Aljabr Training Quality Profile Gate");
         appendLine(markdown, "");
         appendLine(markdown, "**Profile:** `" + escapeInline(stringValue(profile.get("id"), "unknown"))
                 + "` (" + escapeInline(stringValue(profile.get("displayName"), "unknown")) + ")");

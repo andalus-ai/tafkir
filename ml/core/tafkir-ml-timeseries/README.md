@@ -10,7 +10,7 @@ Provides a unified `Forecaster` API covering three categories of models:
 |---|---|---|
 | **Statistical** | ARIMA, Exponential Smoothing (SES / Holt / Holt-Winters) | ❌ Pure Java |
 | **Neural** | LSTM (pure Java BPTT + Adam) | ❌ CPU only |
-| **Pre-trained (inference)** | Any ONNX/SafeTensor time-series model via Gollek | ✅ Metal / CUDA |
+| **Pre-trained (inference)** | Any ONNX/SafeTensor time-series model via Aqli | ✅ Metal / CUDA |
 
 ---
 
@@ -107,18 +107,18 @@ for (int i = 0; i < ds.size(); i++) {
 | Clear trend | `ExponentialSmoothing.holt(0.4, 0.2)` |
 | Clear trend + seasonality | `ExponentialSmoothing.holtWinters(0.3, 0.1, 0.2, 12)` |
 | Non-linear patterns, ≥200 observations | `LstmForecaster` |
-| Pre-trained model from HuggingFace | `gollek pull hf:amazon/chronos-t5-small` → `gollek run` |
+| Pre-trained model from HuggingFace | `aqli pull hf:amazon/chronos-t5-small` → `aqli run` |
 
-### Serving Pre-trained Models via Gollek
+### Serving Pre-trained Models via Aqli
 ```bash
-# Pull a pre-trained time-series model (auto-tagged as 'timeseries' in gollek list)
-gollek pull hf:amazon/chronos-t5-small
+# Pull a pre-trained time-series model (auto-tagged as 'timeseries' in aqli list)
+aqli pull hf:amazon/chronos-t5-small
 
 # List — shows TASK = timeseries in yellow
-gollek list
+aqli list
 
 # Run via REST
-gollek serve --port 8080
+aqli serve --port 8080
 ```
 
 ---

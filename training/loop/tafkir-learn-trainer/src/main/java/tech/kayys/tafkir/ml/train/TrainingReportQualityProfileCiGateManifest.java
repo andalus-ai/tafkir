@@ -16,7 +16,7 @@ import java.util.Optional;
  * One-file receipt for every artifact emitted by a quality-profile CI gate run.
  */
 public final class TrainingReportQualityProfileCiGateManifest {
-    public static final String FORMAT = "alkhawarizm.training.quality-profile.ci-gate.manifest.v1";
+    public static final String FORMAT = "aljabr.training.quality-profile.ci-gate.manifest.v1";
     public static final String DEFAULT_JSON_FILE_NAME = "quality-profile-ci-gate-manifest.json";
     public static final String DEFAULT_MARKDOWN_FILE_NAME = "quality-profile-ci-gate-manifest.md";
 

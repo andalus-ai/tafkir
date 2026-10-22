@@ -1,6 +1,6 @@
 package tech.kayys.tafkir.train.data.multimodal;
 
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.ModalityType;
 
 import java.io.IOException;
 import java.net.URI;

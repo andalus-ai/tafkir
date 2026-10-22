@@ -11,7 +11,7 @@ FILE: README.md
 [![Java 25](https://img.shields.io/badge/Java-25+-orange.svg)](https://adoptium.net/)
 [![JDK Vector API](https://img.shields.io/badge/JDK-Vector%20API-5E5E5E)](https://openjdk.org/jeps/438)
 
-A Java machine learning framework built on the [Alkhawarizm](https://github.com/bhangun/alkhawarizm) compute engine.
+A Java machine learning framework built on the [Aljabr](https://github.com/bhangun/aljabr) compute engine.
 
 ## Architecture
 
@@ -20,7 +20,7 @@ A Java machine learning framework built on the [Alkhawarizm](https://github.com/
 │              Tafkir                     │
 │  (training APIs, CLI, examples)       │
 ├─────────────────────────────────────────┤
-│           Alkhawarizm Engine                 │
+│           Aljabr Engine                 │
 │  (tensor ops, autograd, backends)     │
 │  • CPU: Vector API SIMD                 │
 │  • CUDA: GPU kernels                    │
@@ -32,15 +32,15 @@ A Java machine learning framework built on the [Alkhawarizm](https://github.com/
 ## Prerequisites
 
 - JDK 25+
-- Alkhawarizm checked out at `../alkhawarizm` (composite build)
+- Aljabr checked out at `../aljabr` (composite build)
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/bhangun/alkhawarizm.git ../alkhawarizm
+git clone https://github.com/bhangun/aljabr.git ../aljabr
 git clone https://github.com/bhangun/tafkir.git
 cd tafkir
-./gradlew :trainer:tafkir-trainer-alkhawarizm:test
+./gradlew :trainer:tafkir-trainer-aljabr:test
 ```
 
 ## Status
@@ -96,8 +96,8 @@ TafkirSequential model = new TafkirSequential(
 
 | Module | Description |
 |--------|-------------|
-| `ml:tafkir-ml-alkhawarizm` | Tensor API wrapping Alkhawarizm backends |
-| `trainer:tafkir-trainer-alkhawarizm` | Training loop, optimizers, losses |
+| `ml:tafkir-ml-aljabr` | Tensor API wrapping Aljabr backends |
+| `trainer:tafkir-trainer-aljabr` | Training loop, optimizers, losses |
 | `data:tafkir-data` | Dataset loaders (MNIST, etc.) |
 | `distributed:tafkir-distributed` | Multi-threaded data parallel training |
 | `checkpoint:tafkir-checkpoint` | Model save/load |
@@ -108,15 +108,15 @@ TafkirSequential model = new TafkirSequential(
 ================================================
 FILE: ARCHITECTURE.md
 ================================================
-# Tafkir & Gollek Architecture Overview
+# Tafkir & Aqli Architecture Overview
 
 ## Project Evolution
 
-This document explains the relationship between **Tafkir** and **Gollek**, two related but distinct platforms in our ML/AI ecosystem.
+This document explains the relationship between **Tafkir** and **Aqli**, two related but distinct platforms in our ML/AI ecosystem.
 
 ### Historical Context
 
-The project originated as **Gollek**, a high-performance inference and serving engine for large language models. As the platform matured, the training capabilities grew into a comprehensive machine learning framework, which was spun off as **Tafkir**.
+The project originated as **Aqli**, a high-performance inference and serving engine for large language models. As the platform matured, the training capabilities grew into a comprehensive machine learning framework, which was spun off as **Tafkir**.
 
 ### Current Architecture
 
@@ -126,7 +126,7 @@ The project originated as **Gollek**, a high-performance inference and serving e
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  ┌──────────────────┐         ┌──────────────────┐        │
-│  │     Gollek       │         │     Tafkir       │        │
+│  │     Aqli       │         │     Tafkir       │        │
 │  │                  │         │                  │        │
 │  │  Inference &     │         │  Training        │        │
 │  │  Serving Engine  │         │  Framework       │        │
@@ -144,12 +144,12 @@ The project originated as **Gollek**, a high-performance inference and serving e
 
 ### Platform Comparison
 
-| Feature | Gollek | Tafkir |
+| Feature | Aqli | Tafkir |
 |---------|--------|--------|
 | **Primary Focus** | Inference & Serving | Training & Development |
 | **Use Case** | Deploy models to production | Build and train custom models |
-| **Package Namespace** | `tech.kayys.gollek.*` | `tech.kayys.tafkir.*` |
-| **CLI** | ✅ Gollek CLI | ✅ Tafkir CLI (shared heritage) |
+| **Package Namespace** | `tech.kayys.aqli.*` | `tech.kayys.tafkir.*` |
+| **CLI** | ✅ Aqli CLI | ✅ Tafkir CLI (shared heritage) |
 | **Model Support** | Pre-trained models | Custom + pre-trained |
 | **Quantization** | ✅ PTQ (GPTQ, AWQ, etc.) | ✅ QAT + PTQ |
 | **Training APIs** | ❌ | ✅ PyTorch-like |
@@ -160,14 +160,14 @@ The project originated as **Gollek**, a high-performance inference and serving e
 
 Both platforms share several components due to their common heritage:
 
-1. **CLI Tool**: The command-line interface evolved from Gollek and is now integrated into Tafkir for end-to-end workflows
+1. **CLI Tool**: The command-line interface evolved from Aqli and is now integrated into Tafkir for end-to-end workflows
 2. **Model Registry**: Shared model discovery and management
 3. **Quantization Modules**: GPTQ, AWQ, QUIP, TurboQuant implementations
 4. **Format Support**: GGUF, SafeTensors, TorchScript, ONNX
 
 ### Package Structure
 
-#### Gollek Packages (`tech.kayys.gollek.*`)
+#### Aqli Packages (`tech.kayys.aqli.*`)
 - Model family plugins (e.g., `tafkir-model-llama`, `tafkir-model-bert`)
 - Inference runtime providers
 - Serving infrastructure
@@ -182,7 +182,7 @@ Both platforms share several components due to their common heritage:
 
 ### When to Use Which
 
-**Use Gollek when:**
+**Use Aqli when:**
 - You need to deploy pre-trained models to production
 - You want maximum inference performance
 - You're building serving infrastructure
@@ -210,14 +210,14 @@ trainer.fit();
 // Step 2: Export to ONNX or SafeTensors
 ModelExporter.export(trainer.getModel(), "model.safetensors");
 
-// Step 3: Deploy with Gollek for high-performance serving
-// (or use Tafkir CLI which includes Gollek inference capabilities)
+// Step 3: Deploy with Aqli for high-performance serving
+// (or use Tafkir CLI which includes Aqli inference capabilities)
 ```
 
 ### Migration Path
 
-For existing Gollek users:
-- Model plugins under `tech.kayys.gollek.*` continue to work
+For existing Aqli users:
+- Model plugins under `tech.kayys.aqli.*` continue to work
 - New training features should use `tech.kayys.tafkir.*` packages
 - CLI commands are compatible across both platforms
 - Gradle module names use `tafkir-*` prefix for consistency
@@ -227,14 +227,14 @@ For existing Gollek users:
 | Component | Version Scheme | Release Status |
 |-----------|---------------|----------------|
 | Tafkir Core | 0.3.0-SNAPSHOT | Active development |
-| Gollek Inference | 1.x.x | Stable |
+| Aqli Inference | 1.x.x | Stable |
 | Shared CLI | Unified | Latest in Tafkir |
 | Model Plugins | Varies by model | Mixed |
 
 ### Future Direction
 
 - **Tafkir** will continue expanding training capabilities, adding more PyTorch/scikit-learn parity
-- **Gollek** will focus on inference optimization and serving performance
+- **Aqli** will focus on inference optimization and serving performance
 - Both platforms will maintain compatibility through shared formats (ONNX, SafeTensors, GGUF)
 - The CLI will remain unified for seamless train-to-deploy workflows
 
@@ -1756,7 +1756,7 @@ FILE: settings.gradle.kts
 ================================================
 rootProject.name = "tafkir-engine"
 
-includeBuild("../alkhawarizm")
+includeBuild("../aljabr")
 
 fun includeOptionalProject(projectPath: String, vararg candidatePaths: String) {
     val projectDir = candidatePaths
@@ -1800,7 +1800,7 @@ FILE: TAFKIR_LEARN_STRATEGY.md
 # Tafkir-Learn: Strategic Architecture & Roadmap
 
 ## Vision
-Position **Tafkir-Learn** as the premier JVM-native deep learning framework, serving as a direct alternative to PyTorch, TensorFlow, and JAX while leveraging the Alkhawarizm compute engine and integrating with Gollek for production inference.
+Position **Tafkir-Learn** as the premier JVM-native deep learning framework, serving as a direct alternative to PyTorch, TensorFlow, and JAX while leveraging the Aljabr compute engine and integrating with Aqli for production inference.
 
 ---
 
@@ -1816,7 +1816,7 @@ Position **Tafkir-Learn** as the premier JVM-native deep learning framework, ser
         │                   │                   │
         ▼                   ▼                   ▼
 ┌───────────────┐  ┌─────────────────┐  ┌───────────────┐
-│   Tafkir      │  │    Tafkir       │  │    Gollek     │
+│   Tafkir      │  │    Tafkir       │  │    Aqli     │
 │   Learn       │  │    Hub          │  │   Inference   │
 │  (Training)   │  │  (Model Zoo)    │  │   Engine      │
 │               │  │                 │  │               │
@@ -1831,7 +1831,7 @@ Position **Tafkir-Learn** as the premier JVM-native deep learning framework, ser
                             │
                             ▼
                   ┌─────────────────┐
-                  │     Alkhawarizm      │
+                  │     Aljabr      │
                   │  (Compute Core) │
                   │                 │
                   │ • Tensor Ops    │
@@ -1846,7 +1846,7 @@ Position **Tafkir-Learn** as the premier JVM-native deep learning framework, ser
 
 ## Responsibility Boundaries
 
-### **Alkhawarizm** (Backend - `github.com/bhangun/alkhawarizm`)
+### **Aljabr** (Backend - `github.com/bhangun/aljabr`)
 **Role:** Pure computational engine (equivalent to CUDA + cuDNN + ATen)
 
 **Should Contain:**
@@ -1951,8 +1951,8 @@ TrainingSummary summary = trainer.fit(trainLoader, valLoader, epochs=10);
 
 #### 5. **Export & Serialization** (`tafkir-serializer`, `tafkir-ml-export`)
 ```java
-// Export to Gollek format
-model.export("model.gollek", format=ExportFormat.GOLLEK);
+// Export to Aqli format
+model.export("model.aqli", format=ExportFormat.AQLI);
 
 // ONNX export
 model.export("model.onnx", format=ExportFormat.ONNX);
@@ -1973,7 +1973,7 @@ TafkirHub.push(myModel, "my-org/my-model");
 
 ---
 
-### **Gollek** (Inference Engine - `github.com/bhangun/gollek`)
+### **Aqli** (Inference Engine - `github.com/bhangun/aqli`)
 **Role:** Production deployment (equivalent to TensorRT + TorchServe)
 
 **Should Contain:**
@@ -1983,7 +1983,7 @@ TafkirHub.push(myModel, "my-org/my-model");
 - ✅ Serving infrastructure (HTTP/gRPC, batching)
 - ✅ Multi-model orchestration
 - ✅ Hardware-specific optimizations (TensorRT, OpenVINO backends)
-- ✅ Model format serialization (`.gollek` format)
+- ✅ Model format serialization (`.aqli` format)
 
 **Should NOT Contain:**
 - ❌ Training logic
@@ -2017,12 +2017,12 @@ tafkir-engine/
 │   ├── tafkir-learn-optim/          # Optimizers & schedulers (renamed from tafkir-nn-optimize)
 │   ├── tafkir-learn-data/           # DataLoader & datasets (renamed from tafkir-train-data)
 │   ├── tafkir-learn-trainer/        # Training loop & metrics (renamed from tafkir-train-api)
-│   ├── tafkir-learn-export/         # Export to ONNX/Gollek
+│   ├── tafkir-learn-export/         # Export to ONNX/Aqli
 │   ├── tafkir-learn-hub/            # Model hub client
 │   └── tafkir-learn-examples/       # Tutorials and examples
 │
-├── tafkir-gollek-integration/       # Bridge to Gollek inference
-├── tafkir-alkhawarizm-integration/       # Bridge to Alkhawarizm backend
+├── tafkir-aqli-integration/       # Bridge to Aqli inference
+├── tafkir-aljabr-integration/       # Bridge to Aljabr backend
 │
 └── [models/]                        # Keep existing model implementations
     ├── tafkir-model-bert/
@@ -2081,7 +2081,7 @@ tafkir-engine/
    - Smaller container images
 
 4. **Performance**
-   - Alkhawarizm's Vector API SIMD on modern CPUs
+   - Aljabr's Vector API SIMD on modern CPUs
    - Direct GPU access without Python overhead
    - GraalVM native image support for low-latency serving
 
@@ -2127,7 +2127,7 @@ tafkir-engine/
 - [ ] Rename modules to `tafkir-learn-*` convention
 - [ ] Consolidate `/trainer/` and `/training/` into unified structure
 - [ ] Create cohesive `TafkirLearn` facade class
-- [ ] Document Alkhawarizm ↔ Tafkir-Learn boundary clearly
+- [ ] Document Aljabr ↔ Tafkir-Learn boundary clearly
 
 ### Phase 2: API Polish (Weeks 5-8)
 - [ ] Implement functional API (`nn.functional.*`)
@@ -2143,7 +2143,7 @@ tafkir-engine/
 
 ### Phase 4: Production Features (Weeks 13-16)
 - [ ] Complete distributed training support
-- [ ] Optimize Gollek export pipeline
+- [ ] Optimize Aqli export pipeline
 - [ ] Add quantization-aware training
 - [ ] Benchmark against PyTorch on standard tasks
 
@@ -2154,7 +2154,7 @@ tafkir-engine/
 ### Tagline Options
 - "PyTorch for the JVM"
 - "Deep Learning, Type-Safe"
-- "Train on Alkhawarizm, Deploy with Gollek"
+- "Train on Aljabr, Deploy with Aqli"
 - "The JVM's Answer to PyTorch"
 
 ### Target Audience
@@ -2167,7 +2167,7 @@ tafkir-engine/
 - "No Python required - pure JVM from research to production"
 - "Compile-time safety meets GPU acceleration"
 - "Seamless integration with your existing Java stack"
-- "Backed by Alkhawarizm's high-performance compute engine"
+- "Backed by Aljabr's high-performance compute engine"
 
 ---
 
@@ -2177,7 +2177,7 @@ tafkir-engine/
 - [ ] 90%+ PyTorch API coverage for core modules
 - [ ] Within 20% of PyTorch training performance on CPU
 - [ ] Within 10% of PyTorch training performance on GPU
-- [ ] < 1ms overhead vs raw Alkhawarizm for forward pass
+- [ ] < 1ms overhead vs raw Aljabr for forward pass
 
 ### Adoption
 - [ ] 100+ GitHub stars in first 3 months post-rebrand
@@ -2195,7 +2195,7 @@ tafkir-engine/
 
 ## Conclusion
 
-Renaming to **Tafkir-Learn** clarifies the project's purpose as a comprehensive training framework while maintaining clear boundaries with Alkhawarizm (compute) and Gollek (inference). This three-pillar architecture mirrors successful patterns from PyTorch (torch + torchserve) and TensorFlow (TF + TFLite + TF Serving), positioning Tafkir as a production-ready, JVM-native alternative for the entire ML lifecycle.
+Renaming to **Tafkir-Learn** clarifies the project's purpose as a comprehensive training framework while maintaining clear boundaries with Aljabr (compute) and Aqli (inference). This three-pillar architecture mirrors successful patterns from PyTorch (torch + torchserve) and TensorFlow (TF + TFLite + TF Serving), positioning Tafkir as a production-ready, JVM-native alternative for the entire ML lifecycle.
 
 
 
@@ -3600,8 +3600,8 @@ plugins {
 }
 
 dependencies {
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-tensor:0.1.0-SNAPSHOT")
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-ir:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-tensor:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-ir:0.1.0-SNAPSHOT")
 }
 
 
@@ -4150,8 +4150,8 @@ plugins {
 }
 
 dependencies {
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-tensor:0.1.0-SNAPSHOT")
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-core:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-tensor:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-core:0.1.0-SNAPSHOT")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
@@ -4270,7 +4270,7 @@ group = "tech.kayys.tafkir"
 version = "0.3.0-SNAPSHOT"
 
 dependencies {
-    implementation(project(":ml:tafkir-ml-alkhawarizm"))
+    implementation(project(":ml:tafkir-ml-aljabr"))
 }
 
 java {
@@ -4471,9 +4471,9 @@ plugins {
 }
 
 dependencies {
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-tensor:0.1.0-SNAPSHOT")
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-core:0.1.0-SNAPSHOT")
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-ir:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-tensor:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-core:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-ir:0.1.0-SNAPSHOT")
     implementation(project(":runtime:tafkir-runtime"))
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")

@@ -68,7 +68,7 @@ final class TrainerModelCheckpointMetadata {
         TrainerCheckpointIO.writePropertiesAtomically(
                 metadataFile,
                 metadata,
-                "Alkhawarizm canonical trainer model checkpoint metadata");
+                "Aljabr canonical trainer model checkpoint metadata");
     }
 
     static String compatibilityMismatch(

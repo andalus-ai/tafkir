@@ -41,7 +41,7 @@ tasks.jar {
     manifest {
         attributes(
             mapOf(
-                "Implementation-Title" to "Alkhawarizm Optimizer Suite",
+                "Implementation-Title" to "Aljabr Optimizer Suite",
                 "Implementation-Version" to "0.1.0-SNAPSHOT"
             )
         )

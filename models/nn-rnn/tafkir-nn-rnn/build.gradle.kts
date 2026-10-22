@@ -39,7 +39,7 @@ tasks.jar {
     manifest {
         attributes(
             mapOf(
-                "Implementation-Title" to "Alkhawarizm RNN SDK",
+                "Implementation-Title" to "Aljabr RNN SDK",
                 "Implementation-Version" to "0.1.0-SNAPSHOT"
             )
         )

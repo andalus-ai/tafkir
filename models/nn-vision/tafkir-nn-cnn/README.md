@@ -1,6 +1,6 @@
-# Alkhawarizm CNN Module
+# Aljabr CNN Module
 
-Comprehensive convolutional neural network (CNN) layers and utilities for the Alkhawarizm SDK.
+Comprehensive convolutional neural network (CNN) layers and utilities for the Aljabr SDK.
 
 ## Features
 
@@ -155,7 +155,7 @@ Upsample up3d = new Upsample(2.0, "trilinear");
 
 ## Architecture Integration
 
-All CNN layers integrate seamlessly with the Alkhawarizm ecosystem:
+All CNN layers integrate seamlessly with the Aljabr ecosystem:
 
 1. **Backend Dispatch**: Operations dispatch through `VisionBackendRegistry` for:
    - GPU acceleration (CUDA, Metal, ROCm when available)
@@ -175,7 +175,7 @@ All CNN layers integrate seamlessly with the Alkhawarizm ecosystem:
 ## Example: Building a Simple CNN
 
 ```java
-import tech.kayys.alkhawarizm.lib.cnn.layers.*;
+import tech.kayys.aljabr.lib.cnn.layers.*;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 
 public class SimpleCNN {
@@ -218,7 +218,7 @@ public class SimpleCNN {
 Run the comprehensive test suite:
 
 ```bash
-mvn test -f alkhawarizm/sdk/lib/tafkir-ml-cnn/pom.xml
+mvn test -f aljabr/sdk/lib/tafkir-ml-cnn/pom.xml
 ```
 
 Tests cover:

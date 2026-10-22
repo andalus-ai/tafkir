@@ -2,18 +2,18 @@ package tech.kayys.tafkir.ml;
 
 import java.util.List;
 import java.util.function.Supplier;
-import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingOptions;
-import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingPreset;
+import tech.kayys.tafkir.ml.Aljabr.DL.TrainingOptions;
+import tech.kayys.tafkir.ml.Aljabr.DL.TrainingPreset;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.ml.nn.NNModule;
 import tech.kayys.tafkir.train.data.DataLoader;
 
 /**
- * Cross-validation helpers exposed through {@link Alkhawarizm.DL}.
+ * Cross-validation helpers exposed through {@link Aljabr.DL}.
  */
 @SuppressWarnings("deprecation")
-public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationFacade {
-    protected AlkhawarizmDlCrossValidationFacade() {
+public class AljabrDlCrossValidationFacade extends AljabrDlEvaluationFacade {
+    protected AljabrDlCrossValidationFacade() {
     }
 
     public static CrossValidationTrainingSummary fitKFold(
@@ -34,7 +34,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitKFold(
@@ -77,7 +77,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitRepeatedKFold(
@@ -121,7 +121,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitGroupKFold(
@@ -161,7 +161,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitTimeSeriesSplit(
@@ -205,7 +205,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitKFold(
@@ -251,7 +251,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitRepeatedKFold(
@@ -298,7 +298,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitGroupKFold(
@@ -341,7 +341,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitTimeSeriesSplit(
@@ -409,7 +409,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitClassificationRepeatedStratifiedKFold(
@@ -456,7 +456,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitClassificationStratifiedGroupKFold(
@@ -524,7 +524,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitBinaryRepeatedStratifiedKFold(
@@ -571,7 +571,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitBinaryStratifiedGroupKFold(
@@ -616,7 +616,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitMultiLabelBinaryStratifiedKFold(
@@ -662,7 +662,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitMultiLabelBinaryRepeatedStratifiedKFold(
@@ -709,7 +709,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitMultiLabelBinaryStratifiedGroupKFold(
@@ -758,7 +758,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitMultiLabelBinaryRepeatedStratifiedGroupKFold(
@@ -800,7 +800,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
                 epochs,
                 learningRate,
                 preset,
-                Alkhawarizm.DL.trainingOptions().build());
+                Aljabr.DL.trainingOptions().build());
     }
 
     public static CrossValidationTrainingSummary fitCrossValidation(
@@ -833,7 +833,7 @@ public class AlkhawarizmDlCrossValidationFacade extends AlkhawarizmDlEvaluationF
             float learningRate,
             TrainingPreset preset,
             TrainingOptions options) {
-        return AlkhawarizmTrainingCrossValidationRuntime.fit(
+        return AljabrTrainingCrossValidationRuntime.fit(
                 modelFactory,
                 folds,
                 batchSize,

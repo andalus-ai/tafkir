@@ -15,8 +15,8 @@ public record TrainingReportComparisonActionPlanExport(
         TrainingReportActionPlan actionPlan,
         TrainingReportRuntimeRegressionSummary runtimeRegression,
         String markdown) {
-    public static final String SCHEMA = "alkhawarizm.training.report.comparison-action-plan.v1";
-    public static final String ARTIFACT_MANIFEST_SCHEMA = "alkhawarizm.training.report.comparison-action-plan-artifacts.v1";
+    public static final String SCHEMA = "aljabr.training.report.comparison-action-plan.v1";
+    public static final String ARTIFACT_MANIFEST_SCHEMA = "aljabr.training.report.comparison-action-plan-artifacts.v1";
 
     public TrainingReportComparisonActionPlanExport {
         actionPlan = Objects.requireNonNull(actionPlan, "actionPlan must not be null");

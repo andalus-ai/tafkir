@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 
 class TrainingReportRuntimeInputProfileGateTest {
         @TempDir
@@ -40,7 +40,7 @@ class TrainingReportRuntimeInputProfileGateTest {
                 TrainingReportRuntimeInputProfileGate.Policy policy = new TrainingReportRuntimeInputProfileGate.Policy(
                                 95.0, 70.0, 20.0);
 
-                TrainingReportRuntimeInputProfileGate.Result result = Alkhawarizm.DL
+                TrainingReportRuntimeInputProfileGate.Result result = Aljabr.DL
                                 .trainingReportRuntimeInputProfileGate(report, policy);
 
                 assertTrue(result.available());
@@ -54,7 +54,7 @@ class TrainingReportRuntimeInputProfileGateTest {
                 assertEquals(90.0, finding.evidence().get("stagePercent"));
                 assertEquals(result.toMap(), report.runtimeInputProfileGate(policy).toMap());
 
-                String markdown = Alkhawarizm.DL.trainingReportRuntimeInputProfileGateMarkdown(report, policy);
+                String markdown = Aljabr.DL.trainingReportRuntimeInputProfileGateMarkdown(report, policy);
                 assertTrue(markdown.startsWith("# Runtime Input Profile Gate\n"));
                 assertTrue(markdown.contains("- Passed: `false`"));
                 assertTrue(markdown.contains("## Policy"));
@@ -65,10 +65,10 @@ class TrainingReportRuntimeInputProfileGateTest {
                 assertTrue(markdown.contains("`runtime-input-dominant-stage`"));
                 assertEquals(markdown, result.markdown());
 
-                String junitXml = Alkhawarizm.DL.trainingReportRuntimeInputProfileGateJUnitXml(report, policy);
+                String junitXml = Aljabr.DL.trainingReportRuntimeInputProfileGateJUnitXml(report, policy);
                 assertTrue(junitXml.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
                 assertTrue(junitXml.contains(
-                                "<testsuite name=\"alkhawarizm.training.runtime.input\" tests=\"1\" failures=\"1\""));
+                                "<testsuite name=\"aljabr.training.runtime.input\" tests=\"1\" failures=\"1\""));
                 assertTrue(junitXml.contains("name=\"gate.findingCodes\" value=\"runtime-input-dominant-stage\""));
                 assertTrue(junitXml.contains("type=\"RUNTIME_INPUT_DOMINANT_STAGE\""));
                 assertTrue(junitXml.contains("<failure type=\"RUNTIME_INPUT_DOMINANT_STAGE\""));
@@ -203,11 +203,11 @@ class TrainingReportRuntimeInputProfileGateTest {
                                 95.0, 70.0, 20.0);
                 TrainingReportRuntimeInputProfileGate.Result result = report.runtimeInputProfileGate(policy);
 
-                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
+                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactBundle bundle = Aljabr.DL
                                 .writeTrainingReportRuntimeInputProfileGateArtifacts(tempDir, result);
-                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
+                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactInspection inspection = Aljabr.DL
                                 .readTrainingReportRuntimeInputProfileGateArtifacts(tempDir);
-                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactVerification verification = Alkhawarizm.DL
+                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactVerification verification = Aljabr.DL
                                 .verifyTrainingReportRuntimeInputProfileGateArtifacts(bundle);
 
                 assertFalse(bundle.passed());
@@ -219,7 +219,7 @@ class TrainingReportRuntimeInputProfileGateTest {
                 assertEquals(bundle.artifactMap(), bundle.toMap().get("artifact"));
                 assertEquals(bundle.artifactMap(), inspection.artifactMap());
                 assertTrue(inspection.markdown().contains("# Runtime Input Profile Gate"));
-                assertTrue(inspection.junitXml().contains("alkhawarizm.training.runtime.input"));
+                assertTrue(inspection.junitXml().contains("aljabr.training.runtime.input"));
                 assertTrue(verification.passed(), verification.message());
                 assertEquals(bundle.artifactMap(), verification.artifactMap());
                 assertEquals(verification.artifactMap(), verification.toMap().get("artifact"));
@@ -228,14 +228,14 @@ class TrainingReportRuntimeInputProfileGateTest {
                 verification.requirePassed();
 
                 Files.writeString(bundle.markdownFile(), inspection.markdown() + "\n<!-- tampered -->\n");
-                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactVerification tampered = Alkhawarizm.DL
+                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactVerification tampered = Aljabr.DL
                                 .verifyTrainingReportRuntimeInputProfileGateArtifacts(tempDir);
                 assertFalse(tampered.passed());
                 assertFalse(tampered.markdownMatchesJson());
                 assertThrows(IllegalStateException.class, tampered::requirePassed);
 
-                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactBundle refreshed = Alkhawarizm.DL
+                TrainingReportRuntimeInputProfileGateArtifacts.ArtifactBundle refreshed = Aljabr.DL
                                 .refreshTrainingReportRuntimeInputProfileGateArtifacts(tempDir);
-                assertTrue(Alkhawarizm.DL.verifyTrainingReportRuntimeInputProfileGateArtifacts(refreshed).passed());
+                assertTrue(Aljabr.DL.verifyTrainingReportRuntimeInputProfileGateArtifacts(refreshed).passed());
         }
 }

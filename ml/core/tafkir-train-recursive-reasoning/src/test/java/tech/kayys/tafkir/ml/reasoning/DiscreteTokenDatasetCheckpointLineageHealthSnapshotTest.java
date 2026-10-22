@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
-        private static final String FIXTURE_ROOT = "tech/kayys/alkhawarizm/ml/reasoning/fixtures/";
+        private static final String FIXTURE_ROOT = "tech/kayys/aljabr/ml/reasoning/fixtures/";
 
         @Test
         void exposesJsonSchemaResource() {
@@ -165,7 +165,7 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
                                 DiscreteTokenDatasetCheckpointLineageHealthSchemaCatalog.catalogSnapshot()
                                                 .toMetadata());
                 assertEquals("checkpoint-lineage-health-schema-catalog", compactSnapshot.kind());
-                assertEquals("alkhawarizm.checkpoint-lineage-health-schema-catalog.v1",
+                assertEquals("aljabr.checkpoint-lineage-health-schema-catalog.v1",
                                 compactSnapshot.schemaVersion());
                 assertEquals(2, compactSnapshot.schemaCount());
                 assertEquals(64, compactSnapshot.schemaSetIdentity().schemaSetSha256().length());
@@ -313,7 +313,7 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
                 assertMetadataEquals(lock,
                                 DiscreteTokenDatasetCheckpointLineageHealthSchemaCatalog.lockSnapshot().toMetadata());
                 assertEquals("checkpoint-lineage-health-schema-lock", lockSnapshot.kind());
-                assertEquals("alkhawarizm.checkpoint-lineage-health-schema-lock.v1", lockSnapshot.schemaVersion());
+                assertEquals("aljabr.checkpoint-lineage-health-schema-lock.v1", lockSnapshot.schemaVersion());
                 assertEquals(2, lockSnapshot.schemaCount());
                 assertEquals(64, lockSnapshot.schemaSetIdentity().schemaSetSha256().length());
                 assertEquals(2, lockSnapshot.schemaSetIdentity().schemaCount());
@@ -444,7 +444,7 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
                                                 .toMetadata());
                 assertTrue(pathReport.valid());
                 assertEquals("valid", pathReport.status());
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_VALID", pathReport.code());
+                assertEquals("ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_VALID", pathReport.code());
                 assertEquals(0, pathReport.mismatchCount());
                 assertEquals(pathReport.expectedSchemaSetIdentity(), pathReport.actualSchemaSetIdentity());
                 assertEquals(lockSnapshot.schemaSetIdentity(), pathReport.actualSchemaSetIdentity());
@@ -459,7 +459,7 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
                 pathReport.requireValid();
                 assertFalse(mismatchReport.valid());
                 assertEquals("invalid", mismatchReport.status());
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH", mismatchReport.code());
+                assertEquals("ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH", mismatchReport.code());
                 assertEquals(1, mismatchReport.mismatchCount());
                 assertFalse(mismatchReport.schemaSetIdentityMatch());
                 assertThrows(IllegalStateException.class, mismatchReport::requireSchemaSetIdentityMatch);
@@ -677,7 +677,7 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
                                 validation.get("validationSchemaResource"));
                 assertEquals("valid", validation.get("status"));
                 assertTrue((Boolean) validation.get("valid"));
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_VALID", validation.get("code"));
+                assertEquals("ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_VALID", validation.get("code"));
                 assertEquals(lock.get("schemaSetSha256"), validation.get("expectedSchemaSetSha256"));
                 assertEquals(lock.get("schemaSetSha256"), validation.get("actualSchemaSetSha256"));
                 assertEquals(lock.get("lockSchemaId"), validation.get("expectedLockSchemaId"));
@@ -701,7 +701,7 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
 
                 assertEquals("invalid", validation.get("status"));
                 assertFalse((Boolean) validation.get("valid"));
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH", validation.get("code"));
+                assertEquals("ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH", validation.get("code"));
                 assertFalse((Boolean) validation.get("schemaSetMatch"));
                 assertEquals(expected.get("schemaSetSha256"), validation.get("expectedSchemaSetSha256"));
                 assertEquals(
@@ -777,10 +777,10 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
                 assertFalse(snapshot.healthy());
                 assertTrue(snapshot.hasFailures());
                 assertEquals("unhealthy", snapshot.status());
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", snapshot.primaryIssueCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", snapshot.primaryIssueCode().orElseThrow());
                 assertEquals("missing-parent", snapshot.primaryIssueType().orElseThrow());
                 assertEquals("parentExists", snapshot.primaryFailingCheckName().orElseThrow());
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", snapshot.primaryFailingCheckCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", snapshot.primaryFailingCheckCode().orElseThrow());
                 assertTrue(snapshot.primaryFailingCheckAction().orElseThrow()
                                 .contains("Restore the parent checkpoint"));
                 assertThrows(IllegalStateException.class, snapshot::requireHealthy);
@@ -810,7 +810,7 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
                 assertEquals(
                                 DiscreteTokenDatasetCheckpointLineageHealthValidationReport.SCHEMA_VERSION,
                                 jsonReport.toMetadata().get("schemaVersion"));
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTH_VALID", jsonReport.code());
+                assertEquals("ALJABR_LINEAGE_HEALTH_VALID", jsonReport.code());
                 assertEquals(DiscreteTokenDatasetCheckpointLineageHealthSnapshot.JSON_SCHEMA_ID, jsonReport.schemaId());
                 assertEquals("missing-parent", jsonReport.payloadSummary().get("primaryIssueType"));
                 assertMetadataEquals(jsonReport.toMetadata(), pathReport.toMetadata());
@@ -836,15 +836,15 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
         @Test
         void reportsInvalidPayloadWithoutThrowing() {
                 Map<String, Object> broken = new LinkedHashMap<>(readFixture("lineage-health-healthy.v1.json"));
-                broken.put("schemaVersion", "alkhawarizm.checkpoint-lineage-health.v2");
+                broken.put("schemaVersion", "aljabr.checkpoint-lineage-health.v2");
 
                 DiscreteTokenDatasetCheckpointLineageHealthValidationReport report = DiscreteTokenDatasetCheckpointLineageHealthSnapshot
                                 .validateMetadata(broken);
 
                 assertFalse(report.valid());
                 assertEquals("invalid", report.status());
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTH_INVALID", report.code());
-                assertEquals("alkhawarizm.checkpoint-lineage-health.v2", report.payloadSummary().get("schemaVersion"));
+                assertEquals("ALJABR_LINEAGE_HEALTH_INVALID", report.code());
+                assertEquals("aljabr.checkpoint-lineage-health.v2", report.payloadSummary().get("schemaVersion"));
                 assertTrue(report.errors().get(0).contains("schemaVersion"));
                 assertThrows(IllegalStateException.class, report::requireValid);
         }
@@ -879,8 +879,8 @@ class DiscreteTokenDatasetCheckpointLineageHealthSnapshotTest {
                                                 "checkpoint lineage health schema lock",
                                                 "checkpoint lineage health schema lock validation")
                                 .codes(
-                                                "ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_VALID",
-                                                "ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH");
+                                                "ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_VALID",
+                                                "ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH");
         }
 
         private static DiscreteTokenDatasetSchemaContract lineageHealthContract() {

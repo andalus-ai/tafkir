@@ -1,4 +1,4 @@
-# Alkhawarizm SDK - Training Pipeline
+# Aljabr SDK - Training Pipeline
 
 Complete training pipeline with PyTorch Lightning-like functionality for Java.
 
@@ -18,9 +18,9 @@ Complete training pipeline with PyTorch Lightning-like functionality for Java.
 ### Basic Training
 
 ```java
-import tech.kayys.alkhawarizm.lib.train.*;
-import tech.kayys.alkhawarizm.lib.autograd.*;
-import tech.kayys.alkhawarizm.lib.data.DataLoader;
+import tech.kayys.aljabr.lib.train.*;
+import tech.kayys.aljabr.lib.autograd.*;
+import tech.kayys.aljabr.lib.data.DataLoader;
 
 // Build trainer
 Trainer trainer = Trainer.builder()
@@ -272,8 +272,8 @@ scaler.update();
 
 ```xml
 <dependency>
-    <groupId>tech.kayys.alkhawarizm</groupId>
-    <artifactId>alkhawarizm-ml-train</artifactId>
+    <groupId>tech.kayys.aljabr</groupId>
+    <artifactId>aljabr-ml-train</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 </dependency>
 ```

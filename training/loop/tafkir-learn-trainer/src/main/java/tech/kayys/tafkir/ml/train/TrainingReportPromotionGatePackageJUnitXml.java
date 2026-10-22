@@ -28,7 +28,7 @@ public final class TrainingReportPromotionGatePackageJUnitXml {
 
                 StringBuilder xml = new StringBuilder();
                 appendLine(xml, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                appendLine(xml, "<testsuite name=\"alkhawarizm.training.promotion.package\" tests=\"3\" failures=\""
+                appendLine(xml, "<testsuite name=\"aljabr.training.promotion.package\" tests=\"3\" failures=\""
                                 + failures + "\" errors=\"0\" skipped=\"0\">");
                 appendLine(xml, "  <properties>");
                 property(xml, "package.directory", inspection.directory().toString());
@@ -92,7 +92,7 @@ public final class TrainingReportPromotionGatePackageJUnitXml {
                         String message,
                         List<String> failures,
                         String markdown) {
-                appendLine(xml, "  <testcase classname=\"alkhawarizm.training.promotion.package\" name=\""
+                appendLine(xml, "  <testcase classname=\"aljabr.training.promotion.package\" name=\""
                                 + escapeXml(name) + "\" time=\"0\">");
                 if (!passed) {
                         appendLine(xml, "    <failure type=\"" + escapeXml(failureType)

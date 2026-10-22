@@ -2,14 +2,14 @@
 
 ## 1. Executive Summary & Vision
 
-**Tafkir** is the dedicated **Machine Learning Training, Neural Modeling, and Fine-Tuning framework** in pure Java. It forms the training pillar of the Wayang ML stack, working symbiotically with **Alkhawarizm** (foundation tensor engine & hardware backends) and **Gollek** (production inference runtime).
+**Tafkir** is the dedicated **Machine Learning Training, Neural Modeling, and Fine-Tuning framework** in pure Java. It forms the training pillar of the Wayang ML stack, working symbiotically with **Aljabr** (foundation tensor engine & hardware backends) and **Aqli** (production inference runtime).
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │                          Wayang Platform                               │
 │                   Agentic AI & Workflow Orchestration                  │
 ├───────────────────────────────────┬────────────────────────────────────┤
-│              Tafkir               │               Gollek               │
+│              Tafkir               │               Aqli               │
 │   (Training & Model Development)  │    (Inference & Serving Runtime)   │
 │  • Dataset & DataLoader Pipelines │  • High-throughput Token Generation│
 │  • Neural Network Modules & Blocks│  • GGUF / ONNX / LiteRT Runners    │
@@ -18,7 +18,7 @@
 │  • Loss Functions & Schedulers    │  • Model Database & Panache Repo   │
 │  • Quantization-Aware Training    │  • Local SDK & REST/gRPC Serving   │
 ├───────────────────────────────────┴────────────────────────────────────┤
-│                       Alkhawarizm Foundation                           │
+│                       Aljabr Foundation                           │
 │  • Canonical Tensor Primitives (Tensor, DefaultTensor, Shape, DType)   │
 │  • Accelerated Hardware Backends (CPU SIMD, Apple Metal, NVIDIA CUDA)  │
 │  • Shared Inference, Model, and Tokenizer SPIs                         │
@@ -29,13 +29,13 @@
 
 ## 2. Platform Comparison & Separation of Concerns
 
-| Concern | Alkhawarizm | Tafkir | Gollek |
+| Concern | Aljabr | Tafkir | Aqli |
 | :--- | :--- | :--- | :--- |
 | **Primary Role** | Compute engine & Hardware backends | Training & Model Development | Production Inference & Serving |
 | **Python Ecosystem Analog** | PyTorch C++/LibTorch / CUDA / Metal | PyTorch Lightning / TorchVision / Keras | vLLM / TensorRT-LLM / llama.cpp server |
-| **Maven Group ID** | `tech.kayys.alkhawarizm` | `tech.kayys.tafkir` | `tech.kayys.gollek` |
-| **Java Package** | `tech.kayys.alkhawarizm.*` | `tech.kayys.tafkir.*` | `tech.kayys.gollek.*` |
-| **Hardware Execution** | ✅ Implements native/SIMD/GPU kernels | ❌ Delegates to Alkhawarizm backends | ❌ Delegates to Alkhawarizm & runners |
+| **Maven Group ID** | `tech.kayys.aljabr` | `tech.kayys.tafkir` | `tech.kayys.aqli` |
+| **Java Package** | `tech.kayys.aljabr.*` | `tech.kayys.tafkir.*` | `tech.kayys.aqli.*` |
+| **Hardware Execution** | ✅ Implements native/SIMD/GPU kernels | ❌ Delegates to Aljabr backends | ❌ Delegates to Aljabr & runners |
 | **Autograd & Gradients** | Base autograd ops | Full dynamic graph tape & backward pass | ❌ Forward-pass only (NoGrad) |
 | **Quantization** | Low-level quantization ops | Quantization-Aware Training (QAT) | Post-Training Quantization (PTQ) serving |
 | **Model Registry** | Basic metadata SPI | Dataset loaders, training checkpoints | Distributed model storage, cache, Panache |
@@ -50,7 +50,7 @@ The canonical dataflow across the three platforms is:
 [Datasets / DataLoaders]
          │
          ▼
-[Tafkir Training Loop] ──(backprop)──► [Alkhawarizm Compute Backends]
+[Tafkir Training Loop] ──(backprop)──► [Aljabr Compute Backends]
          │
          ▼
    (Trained Weights)
@@ -59,7 +59,7 @@ The canonical dataflow across the three platforms is:
 [Model Exporter] ────────► [Export to SafeTensors / GGUF / ONNX]
                                        │
                                        ▼
-                       [Gollek Production Serving Engine]
+                       [Aqli Production Serving Engine]
                                        │
                                        ▼
                          [High-Throughput User APIs]
@@ -78,8 +78,8 @@ trainer.fit(trainLoader, valLoader);
 // 2. Export weights
 ModelExporter.export(trainer.getModel(), Path.of("checkpoints/model.safetensors"));
 
-// 3. Serve in production with Gollek
-// Gollek loads model.safetensors via SafeTensorsRunner and serves at line-rate.
+// 3. Serve in production with Aqli
+// Aqli loads model.safetensors via SafeTensorsRunner and serves at line-rate.
 ```
 
 ---
@@ -103,7 +103,7 @@ ModelExporter.export(trainer.getModel(), Path.of("checkpoints/model.safetensors"
 * `training/optim/tafkir-learn-optim`: First-class optimizers (`Adam`, `AdamW`, `SGD`, `RMSprop`, learning rate schedulers).
 
 ### `runtime/` — Autograd & Graph Engine
-* `runtime/autograd/tafkir-ml-autograd`: Reverse-mode automatic differentiation tape executed over Alkhawarizm tensors.
+* `runtime/autograd/tafkir-ml-autograd`: Reverse-mode automatic differentiation tape executed over Aljabr tensors.
 * `runtime/core/tafkir-distributed`: Data-parallel training primitives (DDP wrapper, gradient synchronization).
 
 ### `inference/quantization/` — Compression & Quantization
@@ -115,7 +115,7 @@ ModelExporter.export(trainer.getModel(), Path.of("checkpoints/model.safetensors"
 
 Tafkir enforces 4 core architectural boundaries checked by `./scripts/check-boundaries.sh`:
 
-1. **No Phantom Stub Directories**: Tafkir does not contain fake `backend/` or `stubs/` directories. All hardware compute is delegated to Alkhawarizm.
-2. **Strict Group ID Isolation**: All Tafkir modules are published exclusively under `group = "tech.kayys.tafkir"`. No module declares foreign groups (`tech.kayys.alkhawarizm` or `tech.kayys.gollek`).
-3. **Canonical Dependency Coordinates**: Tafkir modules depend on Alkhawarizm via published snapshot coordinates (`tech.kayys.alkhawarizm:alkhawarizm-tensor:0.1.0-SNAPSHOT`, etc.), resolved automatically in local development via Gradle composite build substitution.
-4. **Clean Decoupling from Gollek**: Tafkir does not bind directly to Gollek runtime internals, allowing both frameworks to evolve and release independently.
+1. **No Phantom Stub Directories**: Tafkir does not contain fake `backend/` or `stubs/` directories. All hardware compute is delegated to Aljabr.
+2. **Strict Group ID Isolation**: All Tafkir modules are published exclusively under `group = "tech.kayys.tafkir"`. No module declares foreign groups (`tech.kayys.aljabr` or `tech.kayys.aqli`).
+3. **Canonical Dependency Coordinates**: Tafkir modules depend on Aljabr via published snapshot coordinates (`tech.kayys.aljabr:aljabr-tensor:0.1.0-SNAPSHOT`, etc.), resolved automatically in local development via Gradle composite build substitution.
+4. **Clean Decoupling from Aqli**: Tafkir does not bind directly to Aqli runtime internals, allowing both frameworks to evolve and release independently.

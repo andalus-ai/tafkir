@@ -64,7 +64,7 @@ final class ByteLatentCheckpointIO {
             manifest.setProperty("globalStep", String.valueOf(globalStep));
         }
         try (var writer = Files.newBufferedWriter(checkpointDir.resolve(MANIFEST_FILE_NAME), StandardCharsets.UTF_8)) {
-            manifest.store(writer, "Alkhawarizm byte-latent trainer checkpoint manifest");
+            manifest.store(writer, "Aljabr byte-latent trainer checkpoint manifest");
         }
     }
 
@@ -142,7 +142,7 @@ final class ByteLatentCheckpointIO {
             List<ByteLatentHistoryRow> historyRows,
             Path checkpointDir) {
         Map<String, Object> payload = new LinkedHashMap<>();
-        payload.put("schema", "alkhawarizm.byte-latent.report.v1");
+        payload.put("schema", "aljabr.byte-latent.report.v1");
         payload.put("summary", summaryMap(summary));
         payload.put("history", historyRows.stream().map(ByteLatentCheckpointIO::historyMap).toList());
         payload.put("historyCount", historyRows.size());

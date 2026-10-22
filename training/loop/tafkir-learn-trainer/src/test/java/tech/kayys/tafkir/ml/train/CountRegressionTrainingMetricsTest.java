@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 
 class CountRegressionTrainingMetricsTest {
@@ -42,8 +42,8 @@ class CountRegressionTrainingMetricsTest {
     }
 
     @Test
-    void poissonDevianceIsAvailableThroughAlkhawarizmFacadeAndRejectsInvalidDomain() {
-        TrainingMetric metric = Alkhawarizm.DL.meanPoissonDevianceMetric(false, 1e-6).get();
+    void poissonDevianceIsAvailableThroughAljabrFacadeAndRejectsInvalidDomain() {
+        TrainingMetric metric = Aljabr.DL.meanPoissonDevianceMetric(false, 1e-6).get();
         metric.update(
                 GradTensor.of(new float[] {0.0f}, 1),
                 GradTensor.of(new float[] {1.0f}, 1));
@@ -102,8 +102,8 @@ class CountRegressionTrainingMetricsTest {
     }
 
     @Test
-    void tweedieDevianceIsAvailableThroughAlkhawarizmFacadeAndRejectsInvalidDomain() {
-        TrainingMetric metric = Alkhawarizm.DL.meanTweedieDevianceMetric(1.5, false, 1e-6).get();
+    void tweedieDevianceIsAvailableThroughAljabrFacadeAndRejectsInvalidDomain() {
+        TrainingMetric metric = Aljabr.DL.meanTweedieDevianceMetric(1.5, false, 1e-6).get();
         metric.update(
                 GradTensor.of(new float[] {0.0f}, 1),
                 GradTensor.of(new float[] {1.0f}, 1));

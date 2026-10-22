@@ -1,7 +1,7 @@
 package tech.kayys.tafkir.train.diffusion.opd;
 
 import java.util.Objects;
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
+import tech.kayys.aljabr.core.tensor.Tensor;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionScheduler;
 
 /**

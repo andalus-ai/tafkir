@@ -1,9 +1,9 @@
 package tech.kayys.tafkir.ml.multimodal;
 
-import tech.kayys.alkhawarizm.spi.model.MultimodalProcessor;
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
-import tech.kayys.alkhawarizm.spi.model.MultimodalContent;
-import tech.kayys.alkhawarizm.spi.model.MultimodalRequest;
+import tech.kayys.aljabr.spi.model.MultimodalProcessor;
+import tech.kayys.aljabr.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.MultimodalContent;
+import tech.kayys.aljabr.spi.model.MultimodalRequest;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,7 +18,7 @@ import java.util.*;
  * <h3>Example</h3>
  * 
  * <pre>{@code
- * var result = Alkhawarizm.vision("gemini-2.0-flash")
+ * var result = Aljabr.vision("gemini-2.0-flash")
  *         .image(Path.of("photo.jpg"))
  *         .prompt("What's in this image?")
  *         .maxTokens(500)
@@ -30,7 +30,7 @@ import java.util.*;
  * <h3>Multiple Images</h3>
  * 
  * <pre>{@code
- * var result = Alkhawarizm.vision("gpt-4o")
+ * var result = Aljabr.vision("gpt-4o")
  *         .image(Path.of("before.png"))
  *         .image(Path.of("after.png"))
  *         .prompt("What changed between these two images?")

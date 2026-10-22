@@ -7,7 +7,7 @@ group = "tech.kayys.tafkir"
 version = "0.3.0-SNAPSHOT"
 
 dependencies {
-    implementation(project(":ml:tafkir-ml-alkhawarizm"))
+    implementation(project(":ml:tafkir-ml-aljabr"))
 }
 
 java {

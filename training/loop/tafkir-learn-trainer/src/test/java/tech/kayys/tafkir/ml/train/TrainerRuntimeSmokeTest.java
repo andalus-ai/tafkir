@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainerRuntimeSmokeTest {
@@ -19,7 +19,7 @@ class TrainerRuntimeSmokeTest {
 
     @Test
     void trainerRuntimeSmokeRunsCheckpointResumeThroughPublicFacade() throws Exception {
-        TrainerRuntimeSmoke.Result result = Alkhawarizm.DL.trainerRuntimeSmoke(
+        TrainerRuntimeSmoke.Result result = Aljabr.DL.trainerRuntimeSmoke(
                 TrainerRuntimeSmoke.Options.builder()
                         .checkpointDir(tempDir)
                         .device("auto")
@@ -42,7 +42,7 @@ class TrainerRuntimeSmokeTest {
         assertTrue(junitXml.contains("name=\"resumedFromCheckpoint\""));
 
         String markdown = TrainerRuntimeSmoke.renderMarkdown(result);
-        assertTrue(markdown.contains("# Alkhawarizm Trainer Runtime Smoke"));
+        assertTrue(markdown.contains("# Aljabr Trainer Runtime Smoke"));
         assertTrue(markdown.contains("- Status: PASS"));
         assertTrue(markdown.contains("| resumedFromCheckpoint | PASS |"));
         assertTrue(markdown.contains("| Optimizer steps |"));

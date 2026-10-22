@@ -1,6 +1,6 @@
-package tech.kayys.alkhawarizm.safetensor.runner.sd;
+package tech.kayys.aljabr.safetensor.runner.sd;
 
-import tech.kayys.alkhawarizm.safetensor.core.tensor.AccelTensor;
+import tech.kayys.aljabr.safetensor.core.tensor.AccelTensor;
 
 /**
  * Stub — PNDM scheduler from the safetensor Stable Diffusion runner.

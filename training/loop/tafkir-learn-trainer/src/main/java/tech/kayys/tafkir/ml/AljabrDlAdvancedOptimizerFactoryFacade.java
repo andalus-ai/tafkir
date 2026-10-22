@@ -12,10 +12,10 @@ import tech.kayys.tafkir.ml.optim.RAdam;
 import tech.kayys.tafkir.ml.optim.SAM;
 
 /**
- * Advanced optimizer construction helpers inherited by {@link Alkhawarizm.DL}.
+ * Advanced optimizer construction helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlAdvancedOptimizerFactoryFacade extends AlkhawarizmDlAdaptiveOptimizerFactoryFacade {
-    protected AlkhawarizmDlAdvancedOptimizerFactoryFacade() {
+public class AljabrDlAdvancedOptimizerFactoryFacade extends AljabrDlAdaptiveOptimizerFactoryFacade {
+    protected AljabrDlAdvancedOptimizerFactoryFacade() {
     }
 
     public static Optimizer lookahead(Optimizer inner) {

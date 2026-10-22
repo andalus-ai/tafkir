@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportDiagnosticsTest {
@@ -77,19 +77,19 @@ class TrainingReportDiagnosticsTest {
     }
 
     @Test
-    void exposesDiagnosticsThroughAlkhawarizmDlFacade() throws IOException {
+    void exposesDiagnosticsThroughAljabrDlFacade() throws IOException {
         Path reportFile = writeReport(List.of(
                 Map.of("epoch", 0, "trainLoss", 0.75),
                 Map.of("epoch", 1, "trainLoss", 0.75),
                 Map.of("epoch", 2, "trainLoss", 0.749)));
 
-        List<TrainingReportDiagnostics.Finding> findings = Alkhawarizm.DL.analyzeTrainingReport(reportFile);
+        List<TrainingReportDiagnostics.Finding> findings = Aljabr.DL.analyzeTrainingReport(reportFile);
 
         assertTrue(hasCode(findings, "validation.missing"));
         assertTrue(hasCode(findings, "train.loss_plateau"));
-        assertEquals("INFO", Alkhawarizm.DL.trainingReportDiagnosticsSummary(reportFile).get("highestSeverity"));
-        assertEquals(2, Alkhawarizm.DL.trainingReportDiagnosticSummary(reportFile).total());
-        assertTrue(Alkhawarizm.DL.trainingReportDiagnosticGate(
+        assertEquals("INFO", Aljabr.DL.trainingReportDiagnosticsSummary(reportFile).get("highestSeverity"));
+        assertEquals(2, Aljabr.DL.trainingReportDiagnosticSummary(reportFile).total());
+        assertTrue(Aljabr.DL.trainingReportDiagnosticGate(
                 reportFile,
                 TrainingReportDiagnostics.Severity.INFO).passed());
     }

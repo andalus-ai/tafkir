@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
-import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingOptions;
-import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingPreset;
+import tech.kayys.tafkir.ml.Aljabr.DL.TrainingOptions;
+import tech.kayys.tafkir.ml.Aljabr.DL.TrainingPreset;
 import tech.kayys.tafkir.ml.nn.NNModule;
 import tech.kayys.tafkir.train.data.DataLoader;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
@@ -16,8 +16,8 @@ import tech.kayys.tafkir.trainer.api.TrainingSummary;
 /**
  * Executes tensor fold training while keeping the public facade compact.
  */
-final class AlkhawarizmTrainingCrossValidationRuntime {
-    private AlkhawarizmTrainingCrossValidationRuntime() {
+final class AljabrTrainingCrossValidationRuntime {
+    private AljabrTrainingCrossValidationRuntime() {
     }
 
     static CrossValidationTrainingSummary fit(
@@ -40,14 +40,14 @@ final class AlkhawarizmTrainingCrossValidationRuntime {
             throw new IllegalArgumentException("batchSize must be > 0");
         }
 
-        TrainingOptions resolvedOptions = options == null ? Alkhawarizm.DL.trainingOptions().build() : options;
+        TrainingOptions resolvedOptions = options == null ? Aljabr.DL.trainingOptions().build() : options;
         List<CrossValidationTrainingSummary.Fold> foldSummaries = new ArrayList<>(folds.size());
         for (DataLoader.TensorDatasetFold fold : folds) {
             NNModule model = Objects.requireNonNull(
                     modelFactory.get(),
                     "modelFactory returned null for fold " + fold.foldIndex());
             TrainingOptions foldOptions = withFoldCheckpointDir(resolvedOptions, fold);
-            TrainingSummary summary = AlkhawarizmTrainingRuntime.fit(AlkhawarizmTrainingRequests.fromOptions(
+            TrainingSummary summary = AljabrTrainingRuntime.fit(AljabrTrainingRequests.fromOptions(
                     model,
                     fold.trainLoader(batchSize, shuffleTraining, shuffleSeed + fold.foldIndex()),
                     fold.validationLoader(batchSize),

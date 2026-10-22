@@ -97,7 +97,7 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals("info", graph.checkSummary().get("dominantSeverity"));
                 assertEquals("none", graph.checkSummary().get("primaryFailingName"));
                 assertEquals("none", graph.checkSummary().get("primaryFailingType"));
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTHY", graph.checkSummary().get("primaryFailingCode"));
+                assertEquals("ALJABR_LINEAGE_HEALTHY", graph.checkSummary().get("primaryFailingCode"));
                 assertEquals("info", graph.checkSummary().get("primaryFailingSeverity"));
                 assertEquals("No action required.", graph.checkSummary().get("primaryFailingAction"));
                 assertFalse(graph.checkSummary().containsKey("primaryFailingCheck"));
@@ -109,11 +109,11 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertTrue(graph.unresolvedNodes().isEmpty());
                 assertTrue(graph.cycleRunIds().isEmpty());
                 assertEquals("checkpoint-lineage-health", graph.healthMetadata().get("kind"));
-                assertEquals("alkhawarizm.checkpoint-lineage-health.v1", graph.healthMetadata().get("schemaVersion"));
+                assertEquals("aljabr.checkpoint-lineage-health.v1", graph.healthMetadata().get("schemaVersion"));
                 DiscreteTokenDatasetCheckpointLineageHealthSnapshot healthySnapshot = graph.healthSnapshot();
                 assertEquals(graph.healthMetadata(), healthySnapshot.toMetadata());
                 assertEquals("checkpoint-lineage-health", healthySnapshot.kind());
-                assertEquals("alkhawarizm.checkpoint-lineage-health.v1", healthySnapshot.schemaVersion());
+                assertEquals("aljabr.checkpoint-lineage-health.v1", healthySnapshot.schemaVersion());
                 assertTrue(healthySnapshot.isCurrentSchema());
                 healthySnapshot.requireCurrentSchema();
                 healthySnapshot.requireHealthy();
@@ -136,7 +136,7 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals("success", healthyBadge.get("variant"));
                 assertEquals("lineage-health-healthy", healthyBadge.get("token"));
                 assertEquals("pass", healthyBadge.get("checkStatus"));
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTHY", healthyBadge.get("primaryCheckCode"));
+                assertEquals("ALJABR_LINEAGE_HEALTHY", healthyBadge.get("primaryCheckCode"));
                 assertEquals("none", healthyBadge.get("primaryCheckType"));
                 assertEquals("info", healthyBadge.get("primaryCheckSeverity"));
                 assertEquals("No action required.", healthyBadge.get("primaryCheckAction"));
@@ -149,7 +149,7 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(5, healthyCheckSummary.get("passed"));
                 assertEquals(0, healthyCheckSummary.get("failed"));
                 assertEquals(true, healthyCheckSummary.get("allPassed"));
-                assertEquals("ALKHAWARIZM_LINEAGE_HEALTHY", healthyCheckSummary.get("primaryFailingCode"));
+                assertEquals("ALJABR_LINEAGE_HEALTHY", healthyCheckSummary.get("primaryFailingCode"));
                 assertEquals("none", healthyCheckSummary.get("primaryFailingType"));
                 assertEquals("info", healthyCheckSummary.get("primaryFailingSeverity"));
                 assertEquals("No action required.", healthyCheckSummary.get("primaryFailingAction"));
@@ -197,12 +197,12 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(List.of("missing-parent"), graph.issueTypes());
                 assertEquals(1, graph.issueDetailCount());
                 assertEquals(1, graph.blockingIssueCount());
-                assertEquals(List.of("ALKHAWARIZM_LINEAGE_MISSING_PARENT"), graph.issueCodes());
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", graph.primaryIssueCode().orElseThrow());
+                assertEquals(List.of("ALJABR_LINEAGE_MISSING_PARENT"), graph.issueCodes());
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", graph.primaryIssueCode().orElseThrow());
                 assertEquals("missing-parent", graph.primaryIssueType().orElseThrow());
                 assertTrue(graph.primaryIssueAction().orElseThrow().contains("Restore the parent checkpoint"));
                 assertEquals("checkpoint-lineage-health", graph.healthMetadata().get("kind"));
-                assertEquals("alkhawarizm.checkpoint-lineage-health.v1", graph.healthMetadata().get("schemaVersion"));
+                assertEquals("aljabr.checkpoint-lineage-health.v1", graph.healthMetadata().get("schemaVersion"));
                 DiscreteTokenDatasetCheckpointLineageHealthSnapshot unhealthySnapshot = DiscreteTokenDatasetCheckpointLineageHealthSnapshot
                                 .fromMetadata(graph.healthMetadata());
                 assertEquals(graph.healthMetadata(), unhealthySnapshot.toMetadata());
@@ -211,13 +211,13 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertTrue(unhealthySnapshot.hasFailures());
                 assertEquals("unhealthy", unhealthySnapshot.status());
                 assertEquals(1, unhealthySnapshot.failingCheckCount());
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", unhealthySnapshot.primaryIssueCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", unhealthySnapshot.primaryIssueCode().orElseThrow());
                 assertEquals("missing-parent", unhealthySnapshot.primaryIssueType().orElseThrow());
                 assertTrue(unhealthySnapshot.primaryIssueAction().orElseThrow()
                                 .contains("Restore the parent checkpoint"));
                 assertEquals("parentExists", unhealthySnapshot.primaryFailingCheckName().orElseThrow());
                 assertEquals("missing-parent", unhealthySnapshot.primaryFailingCheckType().orElseThrow());
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT",
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT",
                                 unhealthySnapshot.primaryFailingCheckCode().orElseThrow());
                 assertTrue(unhealthySnapshot.primaryFailingCheckAction().orElseThrow()
                                 .contains("Restore the parent checkpoint"));
@@ -234,7 +234,7 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(failingCheck, graph.primaryFailingCheck().orElseThrow());
                 assertEquals("parentExists", graph.primaryFailingCheckName().orElseThrow());
                 assertEquals("missing-parent", graph.primaryFailingCheckType().orElseThrow());
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", graph.primaryFailingCheckCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", graph.primaryFailingCheckCode().orElseThrow());
                 assertEquals("critical", graph.primaryFailingCheckSeverity().orElseThrow());
                 assertTrue(graph.primaryFailingCheckAction().orElseThrow().contains("Restore the parent checkpoint"));
                 assertTrue(graph.primaryFailingCheckMessage().orElseThrow().contains("missing parent"));
@@ -245,7 +245,7 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals("critical", graph.checkSummary().get("dominantSeverity"));
                 assertEquals("parentExists", graph.checkSummary().get("primaryFailingName"));
                 assertEquals("missing-parent", graph.checkSummary().get("primaryFailingType"));
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", graph.checkSummary().get("primaryFailingCode"));
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", graph.checkSummary().get("primaryFailingCode"));
                 assertEquals("critical", graph.checkSummary().get("primaryFailingSeverity"));
                 assertTrue(String.valueOf(graph.checkSummary().get("primaryFailingAction"))
                                 .contains("Restore the parent checkpoint"));
@@ -258,11 +258,11 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(1, issueDetails.size());
                 assertEquals(1, graph.healthMetadata().get("issueDetailCount"));
                 assertEquals(1, graph.healthMetadata().get("blockingIssueCount"));
-                assertEquals(List.of("ALKHAWARIZM_LINEAGE_MISSING_PARENT"), graph.healthMetadata().get("issueCodes"));
+                assertEquals(List.of("ALJABR_LINEAGE_MISSING_PARENT"), graph.healthMetadata().get("issueCodes"));
                 assertEquals("unhealthy", graph.healthMetadata().get("status"));
                 assertEquals(0.0d, graph.healthMetadata().get("healthScore"));
                 assertEquals("critical", graph.healthMetadata().get("alertLevel"));
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", graph.healthMetadata().get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", graph.healthMetadata().get("primaryIssueCode"));
                 assertEquals("missing-parent", graph.healthMetadata().get("primaryIssueType"));
                 assertTrue(String.valueOf(graph.healthMetadata().get("recommendedAction"))
                                 .contains("Restore the parent checkpoint"));
@@ -271,8 +271,8 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals("danger", unhealthyBadge.get("variant"));
                 assertEquals("lineage-health-unhealthy", unhealthyBadge.get("token"));
                 assertEquals("fail", unhealthyBadge.get("checkStatus"));
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", unhealthyBadge.get("primaryIssueCode"));
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", unhealthyBadge.get("primaryCheckCode"));
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", unhealthyBadge.get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", unhealthyBadge.get("primaryCheckCode"));
                 assertEquals("missing-parent", unhealthyBadge.get("primaryCheckType"));
                 assertEquals("critical", unhealthyBadge.get("primaryCheckSeverity"));
                 assertTrue(String.valueOf(unhealthyBadge.get("primaryCheckAction"))
@@ -284,7 +284,7 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(failingCheck, graph.healthMetadata().get("primaryFailingCheck"));
                 assertEquals("parentExists", graph.healthMetadata().get("primaryFailingCheckName"));
                 assertEquals("missing-parent", graph.healthMetadata().get("primaryFailingCheckType"));
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT",
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT",
                                 graph.healthMetadata().get("primaryFailingCheckCode"));
                 assertEquals("critical", graph.healthMetadata().get("primaryFailingCheckSeverity"));
                 assertTrue(String.valueOf(graph.healthMetadata().get("primaryFailingCheckAction"))
@@ -304,7 +304,7 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 Map<?, ?> issueDetail = (Map<?, ?>) issueDetails.get(0);
                 assertEquals(issueDetail, graph.healthMetadata().get("primaryIssue"));
                 assertEquals("missing-parent", issueDetail.get("type"));
-                assertEquals("ALKHAWARIZM_LINEAGE_MISSING_PARENT", issueDetail.get("code"));
+                assertEquals("ALJABR_LINEAGE_MISSING_PARENT", issueDetail.get("code"));
                 assertEquals("error", issueDetail.get("severity"));
                 assertEquals(true, issueDetail.get("blocking"));
                 assertEquals("run-orphan", issueDetail.get("runId"));
@@ -348,46 +348,46 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(List.of("missing-parent"), graph.missingParentRunIds());
                 assertEquals(List.of("duplicate-run-id", "missing-parent"), graph.issueTypes());
                 assertEquals(
-                                List.of("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", "ALKHAWARIZM_LINEAGE_MISSING_PARENT"),
+                                List.of("ALJABR_LINEAGE_DUPLICATE_RUN_ID", "ALJABR_LINEAGE_MISSING_PARENT"),
                                 graph.issueCodes());
                 assertEquals(2, graph.issueCount());
                 assertEquals(2, graph.issueDetailCount());
                 assertEquals(2, graph.blockingIssueCount());
-                assertEquals("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", graph.primaryIssueCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_DUPLICATE_RUN_ID", graph.primaryIssueCode().orElseThrow());
                 assertEquals("duplicate-run-id", graph.primaryIssueType().orElseThrow());
                 assertTrue(graph.primaryIssueAction().orElseThrow().contains("unique run id"));
                 assertEquals(2, graph.failingCheckCount());
                 assertEquals(List.of("uniqueRunIds", "parentExists"), graph.checkSummary().get("failingNames"));
                 assertEquals(
-                                List.of("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", "ALKHAWARIZM_LINEAGE_MISSING_PARENT"),
+                                List.of("ALJABR_LINEAGE_DUPLICATE_RUN_ID", "ALJABR_LINEAGE_MISSING_PARENT"),
                                 graph.checkSummary().get("failingCodes"));
                 assertEquals("uniqueRunIds", graph.checkSummary().get("primaryFailingName"));
                 assertEquals("duplicate-run-id", graph.checkSummary().get("primaryFailingType"));
-                assertEquals("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", graph.checkSummary().get("primaryFailingCode"));
+                assertEquals("ALJABR_LINEAGE_DUPLICATE_RUN_ID", graph.checkSummary().get("primaryFailingCode"));
                 assertEquals("critical", graph.checkSummary().get("primaryFailingSeverity"));
                 assertTrue(String.valueOf(graph.checkSummary().get("primaryFailingAction")).contains("unique run id"));
                 assertEquals("uniqueRunIds", graph.primaryFailingCheckName().orElseThrow());
                 assertEquals("duplicate-run-id", graph.primaryFailingCheckType().orElseThrow());
-                assertEquals("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", graph.primaryFailingCheckCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_DUPLICATE_RUN_ID", graph.primaryFailingCheckCode().orElseThrow());
                 assertTrue(graph.primaryFailingCheckAction().orElseThrow().contains("unique run id"));
-                assertEquals("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", graph.checkSummary().get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_DUPLICATE_RUN_ID", graph.checkSummary().get("primaryIssueCode"));
                 assertTrue(String.valueOf(graph.recommendedAction()).contains("unique run id"));
                 Map<?, ?> health = graph.healthMetadata();
                 assertEquals("checkpoint-lineage-health", health.get("kind"));
-                assertEquals("alkhawarizm.checkpoint-lineage-health.v1", health.get("schemaVersion"));
+                assertEquals("aljabr.checkpoint-lineage-health.v1", health.get("schemaVersion"));
                 assertEquals(graph.primaryIssue().orElseThrow(), health.get("primaryIssue"));
-                assertEquals("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", health.get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_DUPLICATE_RUN_ID", health.get("primaryIssueCode"));
                 assertEquals("duplicate-run-id", health.get("primaryIssueType"));
                 assertEquals("uniqueRunIds", health.get("primaryFailingCheckName"));
                 assertEquals("duplicate-run-id", health.get("primaryFailingCheckType"));
-                assertEquals("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", health.get("primaryFailingCheckCode"));
+                assertEquals("ALJABR_LINEAGE_DUPLICATE_RUN_ID", health.get("primaryFailingCheckCode"));
                 assertTrue(String.valueOf(health.get("primaryFailingCheckAction")).contains("unique run id"));
                 assertEquals(
-                                List.of("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", "ALKHAWARIZM_LINEAGE_MISSING_PARENT"),
+                                List.of("ALJABR_LINEAGE_DUPLICATE_RUN_ID", "ALJABR_LINEAGE_MISSING_PARENT"),
                                 health.get("issueCodes"));
                 Map<?, ?> badge = (Map<?, ?>) health.get("healthBadge");
-                assertEquals("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", badge.get("primaryIssueCode"));
-                assertEquals("ALKHAWARIZM_LINEAGE_DUPLICATE_RUN_ID", badge.get("primaryCheckCode"));
+                assertEquals("ALJABR_LINEAGE_DUPLICATE_RUN_ID", badge.get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_DUPLICATE_RUN_ID", badge.get("primaryCheckCode"));
                 assertEquals("duplicate-run-id", badge.get("primaryCheckType"));
                 assertEquals("critical", badge.get("primaryCheckSeverity"));
                 assertTrue(String.valueOf(badge.get("primaryCheckAction")).contains("unique run id"));
@@ -427,8 +427,8 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(List.of("parent-mismatch"), graph.issueTypes());
                 assertEquals(1, graph.issueDetailCount());
                 assertEquals(1, graph.blockingIssueCount());
-                assertEquals(List.of("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH"), graph.issueCodes());
-                assertEquals("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH", graph.primaryIssueCode().orElseThrow());
+                assertEquals(List.of("ALJABR_LINEAGE_PARENT_MISMATCH"), graph.issueCodes());
+                assertEquals("ALJABR_LINEAGE_PARENT_MISMATCH", graph.primaryIssueCode().orElseThrow());
                 assertEquals("parent-mismatch", graph.primaryIssueType().orElseThrow());
                 assertTrue(graph.primaryIssueAction().orElseThrow().contains("Regenerate the child lineage"));
                 assertEquals(5, graph.checks().size());
@@ -443,12 +443,12 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(failingCheck, graph.primaryFailingCheck().orElseThrow());
                 assertEquals("parentIdentity", graph.primaryFailingCheckName().orElseThrow());
                 assertEquals("parent-mismatch", graph.primaryFailingCheckType().orElseThrow());
-                assertEquals("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH", graph.primaryFailingCheckCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_PARENT_MISMATCH", graph.primaryFailingCheckCode().orElseThrow());
                 assertTrue(graph.primaryFailingCheckAction().orElseThrow().contains("Regenerate the child lineage"));
                 assertEquals(List.of("parentIdentity"), graph.checkSummary().get("failingNames"));
                 assertEquals("parentIdentity", graph.checkSummary().get("primaryFailingName"));
                 assertEquals("parent-mismatch", graph.checkSummary().get("primaryFailingType"));
-                assertEquals("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH", graph.checkSummary().get("primaryFailingCode"));
+                assertEquals("ALJABR_LINEAGE_PARENT_MISMATCH", graph.checkSummary().get("primaryFailingCode"));
                 assertEquals("critical", graph.checkSummary().get("primaryFailingSeverity"));
                 assertTrue(String.valueOf(graph.checkSummary().get("primaryFailingAction"))
                                 .contains("Regenerate the child lineage"));
@@ -458,11 +458,11 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(1, issueDetails.size());
                 assertEquals(1, graph.healthMetadata().get("issueDetailCount"));
                 assertEquals(1, graph.healthMetadata().get("blockingIssueCount"));
-                assertEquals(List.of("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH"), graph.healthMetadata().get("issueCodes"));
+                assertEquals(List.of("ALJABR_LINEAGE_PARENT_MISMATCH"), graph.healthMetadata().get("issueCodes"));
                 assertEquals("unhealthy", graph.healthMetadata().get("status"));
                 assertEquals(0.0d, graph.healthMetadata().get("healthScore"));
                 assertEquals("critical", graph.healthMetadata().get("alertLevel"));
-                assertEquals("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH", graph.healthMetadata().get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_PARENT_MISMATCH", graph.healthMetadata().get("primaryIssueCode"));
                 assertEquals("parent-mismatch", graph.healthMetadata().get("primaryIssueType"));
                 assertTrue(String.valueOf(graph.healthMetadata().get("recommendedAction"))
                                 .contains("Regenerate the child lineage"));
@@ -471,8 +471,8 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals("danger", unhealthyBadge.get("variant"));
                 assertEquals("lineage-health-unhealthy", unhealthyBadge.get("token"));
                 assertEquals("fail", unhealthyBadge.get("checkStatus"));
-                assertEquals("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH", unhealthyBadge.get("primaryIssueCode"));
-                assertEquals("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH", unhealthyBadge.get("primaryCheckCode"));
+                assertEquals("ALJABR_LINEAGE_PARENT_MISMATCH", unhealthyBadge.get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_PARENT_MISMATCH", unhealthyBadge.get("primaryCheckCode"));
                 assertEquals("parent-mismatch", unhealthyBadge.get("primaryCheckType"));
                 assertEquals("critical", unhealthyBadge.get("primaryCheckSeverity"));
                 assertTrue(String.valueOf(unhealthyBadge.get("primaryCheckAction"))
@@ -483,7 +483,7 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 Map<?, ?> issueDetail = (Map<?, ?>) issueDetails.get(0);
                 assertEquals(issueDetail, graph.healthMetadata().get("primaryIssue"));
                 assertEquals("parent-mismatch", issueDetail.get("type"));
-                assertEquals("ALKHAWARIZM_LINEAGE_PARENT_MISMATCH", issueDetail.get("code"));
+                assertEquals("ALJABR_LINEAGE_PARENT_MISMATCH", issueDetail.get("code"));
                 assertEquals("error", issueDetail.get("severity"));
                 assertEquals(true, issueDetail.get("blocking"));
                 assertEquals("run-child", issueDetail.get("runId"));
@@ -594,16 +594,16 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(List.of("missing-parent", "cycle"), graph.issueTypes());
                 assertEquals(2, graph.issueCount());
                 assertEquals(2, graph.failingCheckCount());
-                assertEquals("ALKHAWARIZM_LINEAGE_CYCLE", graph.primaryIssueCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_CYCLE", graph.primaryIssueCode().orElseThrow());
                 assertEquals("cycle", graph.primaryIssueType().orElseThrow());
                 assertTrue(graph.primaryIssueAction().orElseThrow().contains("without loops"));
                 assertEquals(List.of("parentExists", "acyclic"), graph.checkSummary().get("failingNames"));
                 assertEquals(
-                                List.of("ALKHAWARIZM_LINEAGE_MISSING_PARENT", "ALKHAWARIZM_LINEAGE_CYCLE"),
+                                List.of("ALJABR_LINEAGE_MISSING_PARENT", "ALJABR_LINEAGE_CYCLE"),
                                 graph.checkSummary().get("failingCodes"));
                 assertEquals("acyclic", graph.checkSummary().get("primaryFailingName"));
                 assertEquals("cycle", graph.checkSummary().get("primaryFailingType"));
-                assertEquals("ALKHAWARIZM_LINEAGE_CYCLE", graph.checkSummary().get("primaryFailingCode"));
+                assertEquals("ALJABR_LINEAGE_CYCLE", graph.checkSummary().get("primaryFailingCode"));
                 assertTrue(String.valueOf(graph.checkSummary().get("primaryFailingMessage")).contains("lineage cycle"));
                 assertTrue(String.valueOf(graph.checkSummary().get("primaryFailingAction")).contains("without loops"));
                 Map<?, ?> primaryFailingCheck = (Map<?, ?>) graph.checkSummary().get("primaryFailingCheck");
@@ -612,20 +612,20 @@ class DiscreteTokenDatasetTrainerCheckpointInspectionReportTest {
                 assertEquals(primaryFailingCheck, graph.primaryFailingCheck().orElseThrow());
                 assertEquals("acyclic", graph.primaryFailingCheckName().orElseThrow());
                 assertEquals("cycle", graph.primaryFailingCheckType().orElseThrow());
-                assertEquals("ALKHAWARIZM_LINEAGE_CYCLE", graph.primaryFailingCheckCode().orElseThrow());
+                assertEquals("ALJABR_LINEAGE_CYCLE", graph.primaryFailingCheckCode().orElseThrow());
                 assertEquals("critical", graph.primaryFailingCheckSeverity().orElseThrow());
                 assertTrue(graph.primaryFailingCheckAction().orElseThrow().contains("without loops"));
                 assertTrue(graph.primaryFailingCheckMessage().orElseThrow().contains("lineage cycle"));
-                assertEquals("ALKHAWARIZM_LINEAGE_CYCLE", graph.checkSummary().get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_CYCLE", graph.checkSummary().get("primaryIssueCode"));
                 Map<?, ?> badge = (Map<?, ?>) graph.healthMetadata().get("healthBadge");
                 assertEquals(primaryFailingCheck, graph.healthMetadata().get("primaryFailingCheck"));
                 assertEquals("acyclic", graph.healthMetadata().get("primaryFailingCheckName"));
                 assertEquals("cycle", graph.healthMetadata().get("primaryFailingCheckType"));
-                assertEquals("ALKHAWARIZM_LINEAGE_CYCLE", graph.healthMetadata().get("primaryFailingCheckCode"));
+                assertEquals("ALJABR_LINEAGE_CYCLE", graph.healthMetadata().get("primaryFailingCheckCode"));
                 assertTrue(String.valueOf(graph.healthMetadata().get("primaryFailingCheckAction"))
                                 .contains("without loops"));
-                assertEquals("ALKHAWARIZM_LINEAGE_CYCLE", badge.get("primaryIssueCode"));
-                assertEquals("ALKHAWARIZM_LINEAGE_CYCLE", badge.get("primaryCheckCode"));
+                assertEquals("ALJABR_LINEAGE_CYCLE", badge.get("primaryIssueCode"));
+                assertEquals("ALJABR_LINEAGE_CYCLE", badge.get("primaryCheckCode"));
                 assertEquals("cycle", badge.get("primaryCheckType"));
                 assertTrue(String.valueOf(badge.get("primaryCheckAction")).contains("without loops"));
         }

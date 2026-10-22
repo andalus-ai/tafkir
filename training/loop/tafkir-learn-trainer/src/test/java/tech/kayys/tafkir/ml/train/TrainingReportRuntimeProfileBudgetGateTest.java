@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportRuntimeProfileBudgetGateTest {
@@ -52,7 +52,7 @@ class TrainingReportRuntimeProfileBudgetGateTest {
                 TrainingReportRuntimeProfileBudgetGate.Policy policy = new TrainingReportRuntimeProfileBudgetGate.Policy(
                                 80.0, 60.0, 250.0);
 
-                TrainingReportRuntimeProfileBudgetGate.Result result = Alkhawarizm.DL
+                TrainingReportRuntimeProfileBudgetGate.Result result = Aljabr.DL
                                 .trainingReportRuntimeProfileBudgetGate(report, policy);
 
                 assertTrue(result.available());
@@ -73,7 +73,7 @@ class TrainingReportRuntimeProfileBudgetGateTest {
                 assertEquals(result.toMap(), report.runtimeProfileBudgetGate(policy).toMap());
                 assertThrows(IllegalStateException.class, result::requirePassed);
 
-                String markdown = Alkhawarizm.DL.trainingReportRuntimeProfileBudgetGateMarkdown(report, policy);
+                String markdown = Aljabr.DL.trainingReportRuntimeProfileBudgetGateMarkdown(report, policy);
                 assertTrue(markdown.startsWith("# Runtime Profile Budget Gate\n"));
                 assertTrue(markdown.contains("- Passed: `false`"));
                 assertTrue(markdown.contains("| Primary group | `80.000%` |"));
@@ -81,10 +81,10 @@ class TrainingReportRuntimeProfileBudgetGateTest {
                 assertTrue(markdown.contains("`runtime-profile-primary-hotspot-millis-budget`"));
                 assertEquals(markdown, result.markdown());
 
-                String junitXml = Alkhawarizm.DL.trainingReportRuntimeProfileBudgetGateJUnitXml(report, policy);
+                String junitXml = Aljabr.DL.trainingReportRuntimeProfileBudgetGateJUnitXml(report, policy);
                 assertTrue(junitXml.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
                 assertTrue(junitXml.contains(
-                                "<testsuite name=\"alkhawarizm.training.runtime.profile\" tests=\"1\" failures=\"1\""));
+                                "<testsuite name=\"aljabr.training.runtime.profile\" tests=\"1\" failures=\"1\""));
                 assertTrue(junitXml
                                 .contains("name=\"gate.findingCodes\" value=\"runtime-profile-primary-group-budget,"));
                 assertTrue(junitXml.contains("type=\"RUNTIME_PROFILE_PRIMARY_GROUP_BUDGET\""));
@@ -191,11 +191,11 @@ class TrainingReportRuntimeProfileBudgetGateTest {
                                 .runtimeProfileBudgetGate(
                                                 new TrainingReportRuntimeProfileBudgetGate.Policy(80.0, 60.0, 250.0));
 
-                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
+                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactBundle bundle = Aljabr.DL
                                 .writeTrainingReportRuntimeProfileBudgetGateArtifacts(tempDir, result);
-                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
+                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactInspection inspection = Aljabr.DL
                                 .readTrainingReportRuntimeProfileBudgetGateArtifacts(tempDir);
-                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactVerification verification = Alkhawarizm.DL
+                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactVerification verification = Aljabr.DL
                                 .verifyTrainingReportRuntimeProfileBudgetGateArtifacts(bundle);
 
                 assertFalse(bundle.passed());
@@ -207,7 +207,7 @@ class TrainingReportRuntimeProfileBudgetGateTest {
                 assertEquals(bundle.artifactMap(), bundle.toMap().get("artifact"));
                 assertEquals(bundle.artifactMap(), inspection.artifactMap());
                 assertTrue(inspection.markdown().contains("# Runtime Profile Budget Gate"));
-                assertTrue(inspection.junitXml().contains("alkhawarizm.training.runtime.profile"));
+                assertTrue(inspection.junitXml().contains("aljabr.training.runtime.profile"));
                 assertTrue(verification.passed(), verification.message());
                 assertTrue(verification.markdownMatchesJson());
                 assertTrue(verification.junitXmlMatchesJson());
@@ -217,15 +217,15 @@ class TrainingReportRuntimeProfileBudgetGateTest {
                 verification.requirePassed();
 
                 Files.writeString(bundle.markdownFile(), inspection.markdown() + "\n<!-- tampered -->\n");
-                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactVerification tampered = Alkhawarizm.DL
+                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactVerification tampered = Aljabr.DL
                                 .verifyTrainingReportRuntimeProfileBudgetGateArtifacts(tempDir);
                 assertFalse(tampered.passed());
                 assertFalse(tampered.markdownMatchesJson());
                 assertThrows(IllegalStateException.class, tampered::requirePassed);
 
-                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactBundle refreshed = Alkhawarizm.DL
+                TrainingReportRuntimeProfileBudgetGateArtifacts.ArtifactBundle refreshed = Aljabr.DL
                                 .refreshTrainingReportRuntimeProfileBudgetGateArtifacts(tempDir);
-                assertTrue(Alkhawarizm.DL.verifyTrainingReportRuntimeProfileBudgetGateArtifacts(refreshed).passed());
+                assertTrue(Aljabr.DL.verifyTrainingReportRuntimeProfileBudgetGateArtifacts(refreshed).passed());
         }
 
         private static TrainingReport report(

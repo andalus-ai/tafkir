@@ -12,7 +12,7 @@ public final class TrainingReportValidationMarkdown {
     public static String render(TrainingReportValidationPolicy.Result result) {
         Objects.requireNonNull(result, "result must not be null");
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Report Validation");
+        appendLine(markdown, "# Aljabr Training Report Validation");
         appendLine(markdown, "");
         appendLine(markdown, "**Validation:** `" + (result.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, "**Diagnostics:** `"

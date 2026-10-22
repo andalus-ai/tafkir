@@ -6,10 +6,10 @@ import tech.kayys.tafkir.ml.optim.Optimizer;
 import tech.kayys.tafkir.ml.optim.SGD;
 
 /**
- * Core optimizer construction helpers inherited by {@link Alkhawarizm.DL}.
+ * Core optimizer construction helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlCoreOptimizerFactoryFacade extends AlkhawarizmDlTensorFactoryFacade {
-    protected AlkhawarizmDlCoreOptimizerFactoryFacade() {
+public class AljabrDlCoreOptimizerFactoryFacade extends AljabrDlTensorFactoryFacade {
+    protected AljabrDlCoreOptimizerFactoryFacade() {
     }
 
     public static Optimizer sgd(List<Parameter> params, float lr) {

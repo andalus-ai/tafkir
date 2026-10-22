@@ -37,7 +37,7 @@ public final class TrainingReportPortfolioMarkdown {
     public static String render(TrainingReportPortfolioExport export) {
         Objects.requireNonNull(export, "export must not be null");
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Portfolio Export");
+        appendLine(markdown, "# Aljabr Training Portfolio Export");
         appendLine(markdown, "");
         appendLine(markdown, "**Entries:** `" + export.entryCount() + "`");
         appendLine(markdown, "**Comparison metrics:** `" + export.comparisonMetricCount() + "`");
@@ -59,7 +59,7 @@ public final class TrainingReportPortfolioMarkdown {
     public static String render(TrainingReportPortfolioArtifacts.ArtifactVerification verification) {
         Objects.requireNonNull(verification, "verification must not be null");
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Portfolio Artifact Verification");
+        appendLine(markdown, "# Aljabr Training Portfolio Artifact Verification");
         appendLine(markdown, "");
         appendLine(markdown, "**Verification:** `" + (verification.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, verification.message());

@@ -1,7 +1,7 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 25
-//DEPS tech.kayys.tafkir:tafkir-ml-alkhawarizm:0.3.0-SNAPSHOT
-//DEPS tech.kayys.tafkir:tafkir-trainer-alkhawarizm:0.3.0-SNAPSHOT
+//DEPS tech.kayys.tafkir:tafkir-ml-aljabr:0.3.0-SNAPSHOT
+//DEPS tech.kayys.tafkir:tafkir-trainer-aljabr:0.3.0-SNAPSHOT
 //COMPILE_OPTIONS --enable-preview --add-modules jdk.incubator.vector
 //RUNTIME_OPTIONS --enable-preview --add-modules jdk.incubator.vector
 
@@ -29,7 +29,7 @@ public class hello_tafkir {
                 new TafkirReLU(),
                 new TafkirLinear(2, 1));
 
-        System.out.println("XOR Training with Tafkir + Alkhawarizm");
+        System.out.println("XOR Training with Tafkir + Aljabr");
         System.out.println(model);
         System.out.println();
 

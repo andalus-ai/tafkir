@@ -111,7 +111,7 @@ public class QuantizationEngine {
      * line is one tensor row:
      * 
      * <pre>
-     * # alkhawarizm.weights.v1
+     * # aljabr.weights.v1
      * 0.1, -0.2, 0.3
      * tensor dense.bias: 0.01 0.02
      * </pre>
@@ -143,7 +143,7 @@ public class QuantizationEngine {
                 Files.createDirectories(parent);
             }
             StringBuilder text = new StringBuilder();
-            text.append("schema=alkhawarizm.quantized.weights.v1\n");
+            text.append("schema=aljabr.quantized.weights.v1\n");
             text.append("scheme=").append(scheme).append('\n');
             text.append("precision=").append(targetPrecision).append('\n');
             text.append("tensorCount=").append(result.quantizedWeights.length).append('\n');

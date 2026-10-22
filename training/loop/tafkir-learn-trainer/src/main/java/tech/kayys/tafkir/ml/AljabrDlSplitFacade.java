@@ -6,10 +6,10 @@ import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.train.data.DataLoader;
 
 /**
- * Dataset split helpers inherited by {@link Alkhawarizm.DL}.
+ * Dataset split helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlSplitFacade extends AlkhawarizmDlDatasetFacade {
-    protected AlkhawarizmDlSplitFacade() {
+public class AljabrDlSplitFacade extends AljabrDlDatasetFacade {
+    protected AljabrDlSplitFacade() {
     }
 
     public static DataLoader.TensorDatasetSplit split(

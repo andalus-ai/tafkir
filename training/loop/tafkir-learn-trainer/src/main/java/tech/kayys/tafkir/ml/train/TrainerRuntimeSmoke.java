@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.ml.nn.layer.Linear;
 import tech.kayys.tafkir.train.data.DataLoader.Batch;
@@ -36,27 +36,27 @@ public final class TrainerRuntimeSmoke {
         List<Batch> train = regressionTrainBatches();
         List<Batch> validation = regressionValidationBatches();
 
-        TrainingSummary firstRun = Alkhawarizm.DL.fit(
+        TrainingSummary firstRun = Aljabr.DL.fit(
                 new Linear(1, 1),
                 train,
                 validation,
                 resolvedOptions.firstRunEpochs(),
                 resolvedOptions.learningRate(),
-                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Alkhawarizm.DL.trainingOptions()
+                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Aljabr.DL.trainingOptions()
                         .checkpointDir(checkpointDir)
                         .device(resolvedOptions.device())
                         .failOnAcceleratorFallback(resolvedOptions.failOnAcceleratorFallback())
                         .build());
 
-        TrainingSummary resumedRun = Alkhawarizm.DL.fit(
+        TrainingSummary resumedRun = Aljabr.DL.fit(
                 new Linear(1, 1),
                 train,
                 validation,
                 resolvedOptions.resumedEpochs(),
                 resolvedOptions.learningRate(),
-                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                Alkhawarizm.DL.trainingOptions()
+                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                Aljabr.DL.trainingOptions()
                         .checkpointDir(checkpointDir)
                         .resumeFromCheckpoint()
                         .device(resolvedOptions.device())
@@ -78,7 +78,7 @@ public final class TrainerRuntimeSmoke {
                 (resolvedResult.firstRun().durationMs() + resolvedResult.resumedRun().durationMs()) / 1000.0);
         StringBuilder xml = new StringBuilder();
         xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        xml.append("<testsuite name=\"alkhawarizm.trainer.runtime.smoke\" tests=\"")
+        xml.append("<testsuite name=\"aljabr.trainer.runtime.smoke\" tests=\"")
                 .append(resolvedResult.checks().size())
                 .append("\" failures=\"")
                 .append(failures)
@@ -97,7 +97,7 @@ public final class TrainerRuntimeSmoke {
                 .append("\"/>\n");
         xml.append("  </properties>\n");
         for (Check check : resolvedResult.checks()) {
-            xml.append("  <testcase classname=\"alkhawarizm.trainer.runtime.smoke\" name=\"")
+            xml.append("  <testcase classname=\"aljabr.trainer.runtime.smoke\" name=\"")
                     .append(xml(check.name()))
                     .append("\" time=\"0.000\"");
             if (check.passed()) {
@@ -121,7 +121,7 @@ public final class TrainerRuntimeSmoke {
         Map<String, Object> firstMetadata = resolvedResult.firstRun().metadata();
         Map<String, Object> resumedMetadata = resolvedResult.resumedRun().metadata();
         StringBuilder markdown = new StringBuilder();
-        markdown.append("# Alkhawarizm Trainer Runtime Smoke\n\n");
+        markdown.append("# Aljabr Trainer Runtime Smoke\n\n");
         markdown.append("- Status: ").append(status(resolvedResult.passed())).append('\n');
         markdown.append("- Checkpoint dir: `").append(resolvedResult.checkpointDir()).append("`\n");
         markdown.append("- First run epochs: ").append(resolvedResult.firstRun().epochCount()).append('\n');
@@ -424,7 +424,7 @@ public final class TrainerRuntimeSmoke {
 
     private static Path resolvedCheckpointDir(Path checkpointDir) throws IOException {
         Path resolved = checkpointDir == null
-                ? Files.createTempDirectory("alkhawarizm-trainer-runtime-smoke")
+                ? Files.createTempDirectory("aljabr-trainer-runtime-smoke")
                 : checkpointDir.toAbsolutePath().normalize();
         Files.createDirectories(resolved);
         return resolved;

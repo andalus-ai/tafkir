@@ -4,8 +4,8 @@ import tech.kayys.tafkir.quantizer.autoround.AutoRoundConfig;
 import tech.kayys.tafkir.quantizer.autoround.AutoRoundLayer;
 import tech.kayys.tafkir.quantizer.autoround.AutoRoundDequantizer;
 import tech.kayys.tafkir.quantizer.gptq.MemoryAllocator;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorHeader;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorTensorInfo;
+import tech.kayys.aljabr.safetensor.loader.SafetensorHeader;
+import tech.kayys.aljabr.safetensor.loader.SafetensorTensorInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

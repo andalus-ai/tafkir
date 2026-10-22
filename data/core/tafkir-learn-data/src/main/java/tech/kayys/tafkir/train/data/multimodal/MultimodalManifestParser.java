@@ -3,8 +3,8 @@ package tech.kayys.tafkir.train.data.multimodal;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
-import tech.kayys.alkhawarizm.spi.model.MultimodalContent;
+import tech.kayys.aljabr.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.MultimodalContent;
 
 import java.io.IOException;
 import java.util.ArrayList;

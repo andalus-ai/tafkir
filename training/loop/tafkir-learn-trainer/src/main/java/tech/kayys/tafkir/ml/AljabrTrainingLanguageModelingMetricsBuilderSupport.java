@@ -5,56 +5,56 @@ import tech.kayys.tafkir.ml.nn.loss.CausalLanguageModelingLoss;
 /**
  * Fluent next-token language-modeling metric registration for training option builders.
  */
-public abstract class AlkhawarizmTrainingLanguageModelingMetricsBuilderSupport<
-        B extends AlkhawarizmTrainingLanguageModelingMetricsBuilderSupport<B>>
-        extends AlkhawarizmTrainingRegressionMetricsBuilderSupport<B> {
+public abstract class AljabrTrainingLanguageModelingMetricsBuilderSupport<
+        B extends AljabrTrainingLanguageModelingMetricsBuilderSupport<B>>
+        extends AljabrTrainingRegressionMetricsBuilderSupport<B> {
 
     public B causalLanguageModelingTokenAccuracyMetric() {
-        return metric(Alkhawarizm.DL.causalLanguageModelingTokenAccuracyMetric());
+        return metric(Aljabr.DL.causalLanguageModelingTokenAccuracyMetric());
     }
 
     public B causalLanguageModelingTokenAccuracyMetric(float ignoreIndex) {
-        return metric(Alkhawarizm.DL.causalLanguageModelingTokenAccuracyMetric(ignoreIndex));
+        return metric(Aljabr.DL.causalLanguageModelingTokenAccuracyMetric(ignoreIndex));
     }
 
     public B nextTokenAccuracyMetric() {
-        return metric(Alkhawarizm.DL.nextTokenAccuracyMetric());
+        return metric(Aljabr.DL.nextTokenAccuracyMetric());
     }
 
     public B nextTokenAccuracyMetric(float ignoreIndex) {
-        return metric(Alkhawarizm.DL.nextTokenAccuracyMetric(ignoreIndex));
+        return metric(Aljabr.DL.nextTokenAccuracyMetric(ignoreIndex));
     }
 
     public B causalLanguageModelingLogLossMetric() {
-        return metric(Alkhawarizm.DL.causalLanguageModelingLogLossMetric());
+        return metric(Aljabr.DL.causalLanguageModelingLogLossMetric());
     }
 
     public B causalLanguageModelingLogLossMetric(float ignoreIndex) {
-        return metric(Alkhawarizm.DL.causalLanguageModelingLogLossMetric(ignoreIndex));
+        return metric(Aljabr.DL.causalLanguageModelingLogLossMetric(ignoreIndex));
     }
 
     public B causalLanguageModelingCrossEntropyMetric() {
-        return metric(Alkhawarizm.DL.causalLanguageModelingCrossEntropyMetric());
+        return metric(Aljabr.DL.causalLanguageModelingCrossEntropyMetric());
     }
 
     public B causalLanguageModelingCrossEntropyMetric(float ignoreIndex) {
-        return metric(Alkhawarizm.DL.causalLanguageModelingCrossEntropyMetric(ignoreIndex));
+        return metric(Aljabr.DL.causalLanguageModelingCrossEntropyMetric(ignoreIndex));
     }
 
     public B causalLanguageModelingPerplexityMetric() {
-        return metric(Alkhawarizm.DL.causalLanguageModelingPerplexityMetric());
+        return metric(Aljabr.DL.causalLanguageModelingPerplexityMetric());
     }
 
     public B causalLanguageModelingPerplexityMetric(float ignoreIndex) {
-        return metric(Alkhawarizm.DL.causalLanguageModelingPerplexityMetric(ignoreIndex));
+        return metric(Aljabr.DL.causalLanguageModelingPerplexityMetric(ignoreIndex));
     }
 
     public B nextTokenPerplexityMetric() {
-        return metric(Alkhawarizm.DL.nextTokenPerplexityMetric());
+        return metric(Aljabr.DL.nextTokenPerplexityMetric());
     }
 
     public B nextTokenPerplexityMetric(float ignoreIndex) {
-        return metric(Alkhawarizm.DL.nextTokenPerplexityMetric(ignoreIndex));
+        return metric(Aljabr.DL.nextTokenPerplexityMetric(ignoreIndex));
     }
 
     public B causalLanguageModelingMetrics() {
