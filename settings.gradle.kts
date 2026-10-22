@@ -17,7 +17,6 @@ val foundationDir = listOf(
 if (foundationDir != null) {
     includeBuild(foundationDir.absolutePath)
 }
-}
 
 fun includeOptionalProject(projectPath: String, vararg candidatePaths: String) {
     val projectDir = candidatePaths
