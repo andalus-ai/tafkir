@@ -75,10 +75,13 @@ subprojects {
     }
 
     tasks.withType<Javadoc>().configureEach {
+        options.encoding = "UTF-8"
         options {
             this as StandardJavadocDocletOptions
             addBooleanOption("Xdoclint:none", true)
+            addBooleanOption("-enable-preview", true)
             addStringOption("-add-modules", "jdk.incubator.vector")
+            addStringOption("charSet", "UTF-8")
         }
     }
 
@@ -270,3 +273,31 @@ subprojects {
         }
     }
 }
+
+// Unified aggregated Javadoc task for all modules
+tasks.register<Javadoc>("aggregateJavadoc") {
+    group = "documentation"
+    description = "Generates aggregated Javadoc for all subprojects."
+
+    val javaSubprojects = subprojects.filter { it.plugins.hasPlugin("java") }
+    dependsOn(javaSubprojects.map { it.tasks.matching { t -> t.name == "classes" } })
+
+    val mainSourceSets = javaSubprojects.mapNotNull {
+        it.extensions.findByType(SourceSetContainer::class.java)?.findByName("main")
+    }
+
+    source(mainSourceSets.map { it.allJava })
+    classpath = files(mainSourceSets.map { it.compileClasspath })
+    destinationDir = layout.buildDirectory.dir("docs/javadoc").get().asFile
+
+    options.encoding = "UTF-8"
+    (options as StandardJavadocDocletOptions).apply {
+        windowTitle = "Tafkir ML Framework API Documentation"
+        docTitle = "Tafkir ML/AI Training Framework API"
+        addBooleanOption("Xdoclint:none", true)
+        addBooleanOption("-enable-preview", true)
+        addStringOption("-add-modules", "jdk.incubator.vector")
+        addStringOption("charSet", "UTF-8")
+    }
+}
+

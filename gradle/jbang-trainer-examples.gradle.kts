@@ -57,7 +57,7 @@ val jbangTrainerPublicationModules = listOf(
 val publishJbangTrainerExamplesToMavenLocal = tasks.register("publishJbangTrainerExamplesToMavenLocal") {
     group = "publishing"
     description = "Publishes the Gradle-built runtime graph needed by trainer JBang examples."
-    dependsOn(jbangTrainerPublicationModules.map { "$it:publishToMavenLocal" })
+    dependsOn(jbangTrainerPublicationModules.filter { findProject(it) != null }.map { "$it:publishToMavenLocal" })
 }
 
 val jbangAgentBridgePublicationModules = listOf(
@@ -68,7 +68,7 @@ val publishJbangAgentBridgeExamplesToMavenLocal =
     tasks.register("publishJbangAgentBridgeExamplesToMavenLocal") {
         group = "publishing"
         description = "Publishes the local artifact graph needed by agent bridge JBang examples."
-        dependsOn(jbangAgentBridgePublicationModules.map { "$it:publishToMavenLocal" })
+        dependsOn(jbangAgentBridgePublicationModules.filter { findProject(it) != null }.map { "$it:publishToMavenLocal" })
     }
 
 val jbangTrainerDevice = providers.gradleProperty("tafkir.jbang.trainer.device").orElse("auto")
