@@ -1,5 +1,6 @@
 rootProject.name = "tafkir-engine"
 
+<<<<<<< HEAD
 // Composite build resolution for Aljabr foundation
 val aljabrDir = listOf(
     file("../../Aljabr/aljabr"),
@@ -9,6 +10,24 @@ val aljabrDir = listOf(
 
 if (aljabrDir != null) {
     includeBuild(aljabrDir.absolutePath)
+=======
+// Composite build resolution for the canonical Aljabr foundation.
+// In CI, Aqli checks out Aljabr and Tafkir as sibling directories; local workspaces
+// may also use one of the historical Alkhawarizm paths during migration.
+val foundationDir = listOf(
+    file("../aljabr"),
+    file("../../aljabr"),
+    file("../../Alkhawarizm/alkhawarizm"),
+    file("../../alkhawarizm"),
+    file("../alkhawarizm")
+).firstOrNull {
+    it.isDirectory &&
+        (it.resolve("settings.gradle.kts").isFile || it.resolve("settings.gradle").isFile)
+}
+
+if (foundationDir != null) {
+    includeBuild(foundationDir.absolutePath)
+>>>>>>> 702281fb32d666c487c84c312b6b71fc58fc6016
 }
 
 fun includeOptionalProject(projectPath: String, vararg candidatePaths: String) {
@@ -27,6 +46,14 @@ fun includeLegacyAlias(projectPath: String, projectDir: String) {
     if (!file(projectDir).isDirectory) return
     include(projectPath)
     project(":$projectPath").projectDir = file(projectDir)
+}
+
+// Compatibility aliases expose quantizers under :quantizer:* while the maintained
+// modules live under inference/quantization. Map the grouping project to the real
+// directory so Gradle does not try to create a nonexistent tafkir/quantizer folder.
+if (file("inference/quantization").isDirectory) {
+    include("quantizer")
+    project(":quantizer").projectDir = file("inference/quantization")
 }
 
 val staticallyIncludedModelProjects = setOf<String>()
