@@ -23,10 +23,24 @@ on:
       - "ml/**"
       - "trainer/**"
       - "data/**"
+      - "distributed/**"
+      - "checkpoint/**"
       - "tafkir-cli/**"
       - "examples/**"
+      - "quantizer/**"
+      - "compiler/**"
+      - "integration/**"
+      - "training/**"
+      - "inference/**"
+      - "runtime/**"
+      - "extensions/**"
+      - "models/**"
+      - "nlp/**"
+      - "ecosystem/**"
+      - "extensions/**"
       - "build.gradle.kts"
       - "settings.gradle.kts"
+      - "gradle/**"
 
 jobs:
   build:
@@ -40,7 +54,7 @@ jobs:
       - name: Checkout Aljabr dependency
         uses: actions/checkout@v4
         with:
-          repository: n90d1n9/aljabr
+          repository: andalus-ai/aljabr
           path: aljabr
 
       - name: Setup JDK 25
@@ -69,7 +83,7 @@ jobs:
 
       - name: Run XOR training test
         working-directory: tafkir
-        run: ./gradlew :trainer:tafkir-trainer-aljabr:test --tests "XORTrainingTest"
+        run: ./gradlew :extensions:aljabr:tafkir-trainer-aljabr:test --tests "XORTrainingTest"
 
       - name: Run JBang hello_tafkir
         working-directory: tafkir
