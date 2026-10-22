@@ -1,14 +1,21 @@
 rootProject.name = "tafkir-engine"
 
-// Composite build resolution for Alkhawarizm foundation
-val alkhawarizmDir = listOf(
+// Composite build resolution for the canonical Aljabr foundation.
+// In CI, Aqli checks out Aljabr and Tafkir as sibling directories; local workspaces
+// may also use one of the historical Alkhawarizm paths during migration.
+val foundationDir = listOf(
+    file("../aljabr"),
+    file("../../aljabr"),
     file("../../Alkhawarizm/alkhawarizm"),
     file("../../alkhawarizm"),
     file("../alkhawarizm")
-).firstOrNull { it.isDirectory && (it.resolve("build.gradle.kts").isFile || it.resolve("settings.gradle.kts").isFile) }
+).firstOrNull {
+    it.isDirectory &&
+        (it.resolve("settings.gradle.kts").isFile || it.resolve("settings.gradle").isFile)
+}
 
-if (alkhawarizmDir != null) {
-    includeBuild(alkhawarizmDir.absolutePath)
+if (foundationDir != null) {
+    includeBuild(foundationDir.absolutePath)
 }
 
 fun includeOptionalProject(projectPath: String, vararg candidatePaths: String) {
