@@ -18,20 +18,20 @@ repositories {
 }
 
 dependencies {
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-core:0.1.0-SNAPSHOT")
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-spi-tokenizer:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-core:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-spi-tokenizer:0.1.0-SNAPSHOT")
     implementation(project(":ml:tafkir-ml-api"))
     implementation(project(":ml:tafkir-ml-autograd"))
     implementation(project(":ml:tafkir-ml-diffusion-opd"))
     implementation(project(":ml:tafkir-ml-nn"))
     implementation(project(":ml:tafkir-ml-cnn"))
     implementation(project(":ml:tafkir-ml-optimize"))
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-backend-metal:0.1.0-SNAPSHOT")
-    implementation(project(":runner:alkhawarizm-diffusion"))
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-safetensor-loader:0.1.0-SNAPSHOT")
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-safetensor-quantization:0.1.0-SNAPSHOT")
-    implementation(project(":runner:safetensor:alkhawarizm-runner-stable-diffusion"))
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-safetensor-core:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-backend-metal:0.1.0-SNAPSHOT")
+    implementation(project(":runner:aljabr-diffusion"))
+    implementation("tech.kayys.aljabr:aljabr-safetensor-loader:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-safetensor-quantization:0.1.0-SNAPSHOT")
+    implementation(project(":runner:safetensor:aljabr-runner-stable-diffusion"))
+    implementation("tech.kayys.aljabr:aljabr-safetensor-core:0.1.0-SNAPSHOT")
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter")
     testImplementation(group = "org.assertj", name = "assertj-core")
 }

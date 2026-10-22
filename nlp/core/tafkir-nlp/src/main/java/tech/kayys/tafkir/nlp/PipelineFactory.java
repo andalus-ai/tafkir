@@ -38,7 +38,7 @@ import java.util.function.Function;
  * Pipeline<String, String> gen = PipelineFactory.create("text-generation", "Qwen/Qwen2.5-0.5B");
  * Pipeline<String, float[]> embed = PipelineFactory.create("embedding", "all-MiniLM-L6-v2");
  *
- * // Plugin-contributed task (if alkhawarizm-plugin-rag is on classpath):
+ * // Plugin-contributed task (if aljabr-plugin-rag is on classpath):
  * Pipeline<String, String> rag = PipelineFactory.create("rag", "my-rag-model");
  * }</pre>
  */
@@ -166,7 +166,7 @@ public final class PipelineFactory {
                 }
             } catch (Exception e) {
                 // ServiceLoader failure is non-fatal — log and continue with built-in tasks
-                System.err.println("[Alkhawarizm] Warning: Failed to load pipeline plugins: " + e.getMessage());
+                System.err.println("[Aljabr] Warning: Failed to load pipeline plugins: " + e.getMessage());
             }
         }
     }

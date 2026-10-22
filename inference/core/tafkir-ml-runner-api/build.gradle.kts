@@ -15,7 +15,7 @@ java {
 sourceSets {
     named("main") {
         java.srcDir(project.file("../../training/tafkir-train-api/src/main/java"))
-        java.include("tech/kayys/alkhawarizm/ml/runner/**")
+        java.include("tech/kayys/aljabr/ml/runner/**")
     }
 }
 
@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-tensor:0.1.0-SNAPSHOT")
+    implementation("tech.kayys.aljabr:aljabr-tensor:0.1.0-SNAPSHOT")
 }
 
 publishing {

@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
+import tech.kayys.aljabr.core.tensor.Tensor;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionConditioningResolver;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionDenoiser;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionOpdConfig;
@@ -30,7 +30,7 @@ import tech.kayys.tafkir.trainer.api.TrainingSummary;
  * <p>
  * This implementation intentionally focuses on stable module boundaries:
  * task routing, rollout orchestration, transition-mean supervision, and a
- * top-level builder native to Alkhawarizm's training API. It is designed to evolve
+ * top-level builder native to Aljabr's training API. It is designed to evolve
  * into the full DiffusionOPD algorithm without forcing Python-side
  * orchestration.
  *

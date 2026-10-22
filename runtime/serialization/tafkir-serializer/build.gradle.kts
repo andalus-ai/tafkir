@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
 
-   // implementation("tech.kayys.alkhawarizm:alkhawarizm-core:0.1.0-SNAPSHOT")
+   // implementation("tech.kayys.aljabr:aljabr-core:0.1.0-SNAPSHOT")
     implementation(project(":ml:tafkir-ml-core"))
     implementation(project(":ml:tafkir-ml-persistence"))
     implementation(project(":ml:tafkir-ml-estimator"))

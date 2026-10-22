@@ -219,7 +219,7 @@ public record DiscreteTokenDatasetTrainerProvenanceSpec(
         private long seed;
         private long checkpointStep;
         private long createdAtEpochMillis = System.currentTimeMillis();
-        private String createdBy = "alkhawarizm";
+        private String createdBy = "aljabr";
         private Map<String, Object> attributes = Map.of();
         private DiscreteTokenDatasetCheckpointLineage lineage;
         private DiscreteTokenDatasetCheckpointResumeExpectation resumeExpectation = DiscreteTokenDatasetCheckpointResumeExpectation

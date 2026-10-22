@@ -1,6 +1,6 @@
-package tech.kayys.alkhawarizm.diffusion.scheduler;
+package tech.kayys.aljabr.diffusion.scheduler;
 
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
+import tech.kayys.aljabr.core.tensor.Tensor;
 
 /**
  * SPI stub — Java-native diffusion scheduler contract.

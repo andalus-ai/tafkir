@@ -1,4 +1,4 @@
-package tech.kayys.alkhawarizm.safetensor.loader;
+package tech.kayys.aljabr.safetensor.loader;
 
 import java.util.Map;
 

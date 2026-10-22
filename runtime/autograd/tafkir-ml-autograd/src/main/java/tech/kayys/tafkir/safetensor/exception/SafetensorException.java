@@ -3,7 +3,7 @@
  * Copyright (c) 2026 Kayys.tech
  * SPDX-License-Identifier: Apache-2.0
  */
-package tech.kayys.alkhawarizm.safetensor.exception;
+package tech.kayys.aljabr.safetensor.exception;
 
 import java.nio.file.Path;
 

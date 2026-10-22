@@ -16,7 +16,7 @@ import java.util.Optional;
  * profiles.
  */
 public record TrainingReportQualityProfileCatalog(List<TrainingReportQualityProfile> profiles) {
-    public static final String FORMAT = "alkhawarizm.training-report.quality-profiles.v1";
+    public static final String FORMAT = "aljabr.training-report.quality-profiles.v1";
 
     public TrainingReportQualityProfileCatalog {
         profiles = profiles == null || profiles.isEmpty()

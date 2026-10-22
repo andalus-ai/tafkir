@@ -24,7 +24,7 @@
  * SafeTensors stores all multi-byte values in LITTLE-ENDIAN order.
  * All typed accessors in this class explicitly use ByteOrder.LITTLE_ENDIAN.
  */
-package tech.kayys.alkhawarizm.safetensor.loader;
+package tech.kayys.aljabr.safetensor.loader;
 
 import org.slf4j.LoggerFactory;
 

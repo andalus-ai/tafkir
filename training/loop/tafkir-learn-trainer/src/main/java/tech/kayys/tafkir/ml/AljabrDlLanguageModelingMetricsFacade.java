@@ -4,11 +4,11 @@ import java.util.function.Supplier;
 import tech.kayys.tafkir.ml.train.CanonicalTrainer;
 
 /**
- * Public next-token language-modeling metric factories inherited by {@link Alkhawarizm.DL}.
+ * Public next-token language-modeling metric factories inherited by {@link Aljabr.DL}.
  */
 @SuppressWarnings("deprecation")
-public class AlkhawarizmDlLanguageModelingMetricsFacade extends AlkhawarizmDlRegressionMetricsFacade {
-    protected AlkhawarizmDlLanguageModelingMetricsFacade() {
+public class AljabrDlLanguageModelingMetricsFacade extends AljabrDlRegressionMetricsFacade {
+    protected AljabrDlLanguageModelingMetricsFacade() {
     }
 
     public static Supplier<CanonicalTrainer.Metric> causalLanguageModelingTokenAccuracyMetric() {

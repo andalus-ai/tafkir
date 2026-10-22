@@ -85,7 +85,7 @@ public class CPUNNBackend implements NNBackendProvider {
         GradTensor result = GradTensor.of(outData, N, Cout, Hout, Wout);
         // Note: Backend doesn't handle autograd directly here, 
         // the layer will set the gradFn if needed using the backend's metadata if exposed.
-        // For now, we'll let the layer handle autograd registration to stay consistent with Alkhawarizm's design.
+        // For now, we'll let the layer handle autograd registration to stay consistent with Aljabr's design.
         return result;
     }
 

@@ -1,6 +1,6 @@
 package tech.kayys.tafkir.ml.reasoning;
 
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
+import tech.kayys.aljabr.core.tensor.Tensor;
 
 /**
  * Deterministic proposal update before GRAM stochastic guidance is applied.

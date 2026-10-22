@@ -34,7 +34,7 @@ import java.util.Random;
  * GradTensor processed = pipeline.apply(image);
  * }</pre>
  *
- * @author Alkhawarizm Team
+ * @author Aljabr Team
  * @version 0.1.0
  */
 public final class VisionTransforms {

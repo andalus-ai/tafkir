@@ -1,6 +1,6 @@
 package tech.kayys.tafkir.ml;
 
-import static tech.kayys.tafkir.ml.AlkhawarizmTrainingOptionValidators.normalizeBestModelMonitorMetric;
+import static tech.kayys.tafkir.ml.AljabrTrainingOptionValidators.normalizeBestModelMonitorMetric;
 
 import tech.kayys.tafkir.ml.optim.CosineAnnealingLR;
 import tech.kayys.tafkir.ml.optim.CosineAnnealingWarmRestartsLR;
@@ -22,8 +22,8 @@ import java.util.Objects;
 /**
  * Fluent learning-rate scheduler configuration shared by training option builders.
  */
-public abstract class AlkhawarizmTrainingSchedulerBuilderSupport<B extends AlkhawarizmTrainingSchedulerBuilderSupport<B>> {
-    protected Alkhawarizm.DL.SchedulerFactory schedulerFactory;
+public abstract class AljabrTrainingSchedulerBuilderSupport<B extends AljabrTrainingSchedulerBuilderSupport<B>> {
+    protected Aljabr.DL.SchedulerFactory schedulerFactory;
     protected CanonicalTrainer.SchedulerStepUnit schedulerStepUnit =
             CanonicalTrainer.SchedulerStepUnit.BATCH;
     protected String schedulerMonitorMetric;
@@ -33,12 +33,12 @@ public abstract class AlkhawarizmTrainingSchedulerBuilderSupport<B extends Alkha
         return (B) this;
     }
 
-    public B scheduler(Alkhawarizm.DL.SchedulerFactory schedulerFactory) {
+    public B scheduler(Aljabr.DL.SchedulerFactory schedulerFactory) {
         return scheduler(schedulerFactory, CanonicalTrainer.SchedulerStepUnit.BATCH);
     }
 
     public B scheduler(
-            Alkhawarizm.DL.SchedulerFactory schedulerFactory,
+            Aljabr.DL.SchedulerFactory schedulerFactory,
             CanonicalTrainer.SchedulerStepUnit stepUnit) {
         this.schedulerFactory = Objects.requireNonNull(
                 schedulerFactory, "schedulerFactory must not be null");
@@ -146,13 +146,13 @@ public abstract class AlkhawarizmTrainingSchedulerBuilderSupport<B extends Alkha
     }
 
     public B sequentialLr(
-            List<? extends Alkhawarizm.DL.SchedulerFactory> schedulerFactories,
+            List<? extends Aljabr.DL.SchedulerFactory> schedulerFactories,
             int... milestones) {
         return sequentialLrBatches(schedulerFactories, milestones);
     }
 
     public B sequentialLrBatches(
-            List<? extends Alkhawarizm.DL.SchedulerFactory> schedulerFactories,
+            List<? extends Aljabr.DL.SchedulerFactory> schedulerFactories,
             int... milestones) {
         return sequentialLr(
                 schedulerFactories,
@@ -161,7 +161,7 @@ public abstract class AlkhawarizmTrainingSchedulerBuilderSupport<B extends Alkha
     }
 
     public B sequentialLrEpochs(
-            List<? extends Alkhawarizm.DL.SchedulerFactory> schedulerFactories,
+            List<? extends Aljabr.DL.SchedulerFactory> schedulerFactories,
             int... milestones) {
         return sequentialLr(
                 schedulerFactories,
@@ -371,10 +371,10 @@ public abstract class AlkhawarizmTrainingSchedulerBuilderSupport<B extends Alkha
     }
 
     private B sequentialLr(
-            List<? extends Alkhawarizm.DL.SchedulerFactory> schedulerFactories,
+            List<? extends Aljabr.DL.SchedulerFactory> schedulerFactories,
             CanonicalTrainer.SchedulerStepUnit stepUnit,
             int... milestones) {
-        List<Alkhawarizm.DL.SchedulerFactory> factories = copySchedulerFactories(schedulerFactories);
+        List<Aljabr.DL.SchedulerFactory> factories = copySchedulerFactories(schedulerFactories);
         int[] milestoneCopy = milestones == null ? new int[0] : Arrays.copyOf(milestones, milestones.length);
         if (milestoneCopy.length != factories.size() - 1) {
             throw new IllegalArgumentException(
@@ -396,8 +396,8 @@ public abstract class AlkhawarizmTrainingSchedulerBuilderSupport<B extends Alkha
                 stepUnit);
     }
 
-    private static List<Alkhawarizm.DL.SchedulerFactory> copySchedulerFactories(
-            List<? extends Alkhawarizm.DL.SchedulerFactory> schedulerFactories) {
+    private static List<Aljabr.DL.SchedulerFactory> copySchedulerFactories(
+            List<? extends Aljabr.DL.SchedulerFactory> schedulerFactories) {
         Objects.requireNonNull(schedulerFactories, "schedulerFactories must not be null");
         if (schedulerFactories.isEmpty()) {
             throw new IllegalArgumentException("schedulerFactories must contain at least one scheduler factory");

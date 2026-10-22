@@ -24,7 +24,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Renders and persists CI-friendly reports for portfolio package verification.
  */
 public final class TrainingReportPortfolioArtifactPackageReport {
-    public static final String FORMAT = "alkhawarizm.training.report.portfolio-package-verification.v1";
+    public static final String FORMAT = "aljabr.training.report.portfolio-package-verification.v1";
     public static final int SCHEMA_VERSION = 1;
     public static final String DEFAULT_JSON_FILE_NAME = "portfolio-package-verification.json";
     public static final String DEFAULT_MARKDOWN_FILE_NAME = "portfolio-package-verification.md";
@@ -418,7 +418,7 @@ public final class TrainingReportPortfolioArtifactPackageReport {
                 "verification must not be null");
         TrainingReportPortfolioArtifactManifest.ManifestInspection inspection = resolved.inspection();
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Portfolio Package Verification");
+        appendLine(markdown, "# Aljabr Training Portfolio Package Verification");
         appendLine(markdown, "");
         appendLine(markdown, "**Verification:** `" + (resolved.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, resolved.message());
@@ -462,7 +462,7 @@ public final class TrainingReportPortfolioArtifactPackageReport {
 
         StringBuilder xml = new StringBuilder();
         appendLine(xml, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        appendLine(xml, "<testsuite name=\"alkhawarizm.training.portfolio.package\" tests=\"4\" failures=\""
+        appendLine(xml, "<testsuite name=\"aljabr.training.portfolio.package\" tests=\"4\" failures=\""
                 + failures + "\" errors=\"0\" skipped=\"0\">");
         appendLine(xml, "  <properties>");
         property(xml, "package.directory", inspection.directory().toString());
@@ -1346,7 +1346,7 @@ public final class TrainingReportPortfolioArtifactPackageReport {
         boolean passed = Boolean.TRUE.equals(booleanValue(report.get("passed")));
         boolean matches = true;
         matches &= requireMarkdownContains(failures, markdown, "title",
-                "# Alkhawarizm Training Portfolio Package Verification");
+                "# Aljabr Training Portfolio Package Verification");
         matches &= requireMarkdownContains(failures, markdown, "verification status",
                 "**Verification:** `" + passFail(passed) + "`");
         matches &= requireMarkdownContains(failures, markdown, "manifest checksum",
@@ -1426,7 +1426,7 @@ public final class TrainingReportPortfolioArtifactPackageReport {
         Element root = document.getDocumentElement();
         boolean matches = true;
         matches &= compareReportArtifactField(failures, "name", root.getAttribute("name"),
-                "alkhawarizm.training.portfolio.package", "JUnit XML");
+                "aljabr.training.portfolio.package", "JUnit XML");
         matches &= compareReportArtifactField(failures, "tests", root.getAttribute("tests"), "4", "JUnit XML");
         matches &= compareReportArtifactField(
                 failures,
@@ -1605,7 +1605,7 @@ public final class TrainingReportPortfolioArtifactPackageReport {
             String message,
             List<String> failures,
             String markdown) {
-        appendLine(xml, "  <testcase classname=\"alkhawarizm.training.portfolio.package\" name=\""
+        appendLine(xml, "  <testcase classname=\"aljabr.training.portfolio.package\" name=\""
                 + escapeXml(name) + "\" time=\"0\">");
         if (!passed) {
             appendLine(xml, "    <failure type=\"" + escapeXml(failureType)

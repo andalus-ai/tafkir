@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 
 class TrainingReportQualityProfileCiGateTest {
     @TempDir
@@ -24,7 +24,7 @@ class TrainingReportQualityProfileCiGateTest {
         Map<String, Path> reports = reportFiles(Map.of(), Map.of());
 
         TrainingReportQualityProfileCiGate.Result result =
-                Alkhawarizm.DL.runTrainingReportQualityProfileCiGate(
+                Aljabr.DL.runTrainingReportQualityProfileCiGate(
                         reports,
                         "baseline",
                         "local-experiment",
@@ -41,8 +41,8 @@ class TrainingReportQualityProfileCiGateTest {
         assertTrue(Files.isRegularFile(result.validationArtifacts().get("baseline").jsonFile()));
         assertTrue(Files.isRegularFile(result.validationArtifacts().get("candidate").markdownFile()));
         assertTrue(Files.isRegularFile(result.promotionArtifacts().jsonFile()));
-        assertTrue(Alkhawarizm.DL.trainingReportQualityProfileCiGateMarkdown(result)
-                .contains("# Alkhawarizm Training Quality Profile CI Gate"));
+        assertTrue(Aljabr.DL.trainingReportQualityProfileCiGateMarkdown(result)
+                .contains("# Aljabr Training Quality Profile CI Gate"));
         assertDoesNotThrow(result::requirePassed);
         assertEquals(Boolean.TRUE, result.toMap().get("passed"));
     }
@@ -54,7 +54,7 @@ class TrainingReportQualityProfileCiGateTest {
                 TrainingReportQualityProfileTestFixtures.warningDataHealthMetadata());
 
         TrainingReportQualityProfileCiGate.Result result =
-                Alkhawarizm.DL.runTrainingReportQualityProfileCiGate(
+                Aljabr.DL.runTrainingReportQualityProfileCiGate(
                         reports,
                         "baseline",
                         TrainingReportQualityProfile.productionPromotion(),
@@ -92,12 +92,12 @@ class TrainingReportQualityProfileCiGateTest {
                         .withRequireCandidateDataHealthGate(false)
                         .withRequireCandidateDataHealthClean(false));
         TrainingReportQualityProfileArtifacts.ArtifactBundle catalog =
-                Alkhawarizm.DL.writeTrainingReportQualityProfileArtifacts(
+                Aljabr.DL.writeTrainingReportQualityProfileArtifacts(
                         tempDir.resolve("ci-catalog"),
                         List.of(custom));
 
         TrainingReportQualityProfileCiGate.Result result =
-                Alkhawarizm.DL.runTrainingReportQualityProfileCiGate(
+                Aljabr.DL.runTrainingReportQualityProfileCiGate(
                         reports,
                         "baseline",
                         catalog.jsonFile(),
@@ -119,7 +119,7 @@ class TrainingReportQualityProfileCiGateTest {
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> Alkhawarizm.DL.runTrainingReportQualityProfileCiGate(
+                () -> Aljabr.DL.runTrainingReportQualityProfileCiGate(
                         reports,
                         "missing-baseline",
                         "local-experiment",

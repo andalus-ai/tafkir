@@ -37,7 +37,7 @@ jobs:
           cache: gradle
 
       - name: Build Aggregated Javadoc
-        run: ./gradlew aggregateJavadoc --no-daemon -PskipAutograd=true -PskipGollek=true
+        run: ./gradlew aggregateJavadoc --no-daemon -PskipAutograd=true -PskipAqli=true
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3

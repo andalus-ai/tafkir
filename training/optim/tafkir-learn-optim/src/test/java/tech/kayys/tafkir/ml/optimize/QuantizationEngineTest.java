@@ -15,9 +15,9 @@ class QuantizationEngineTest {
 
         @Test
         void quantizeReadsTextWeightsAndWritesActualQuantizedCodes() throws Exception {
-                Path modelPath = Files.createTempDirectory("alkhawarizm-quant-text").resolve("weights.txt");
+                Path modelPath = Files.createTempDirectory("aljabr-quant-text").resolve("weights.txt");
                 Files.writeString(modelPath, String.join("\n",
-                                "# alkhawarizm.weights.v1",
+                                "# aljabr.weights.v1",
                                 "-1.0, -0.5, 0.5, 1.0",
                                 "tensor dense.bias: 0.0 2.0 -2.0 4.0",
                                 ""));
@@ -35,7 +35,7 @@ class QuantizationEngineTest {
                 assertTrue(Files.isRegularFile(model.quantizedPath()));
 
                 String artifact = Files.readString(model.quantizedPath());
-                assertTrue(artifact.contains("schema=alkhawarizm.quantized.weights.v1"));
+                assertTrue(artifact.contains("schema=aljabr.quantized.weights.v1"));
                 assertTrue(artifact.contains("tensorCount=2"));
                 assertTrue(artifact.contains("bits=8"));
                 assertTrue(artifact.contains("q:"));
@@ -50,7 +50,7 @@ class QuantizationEngineTest {
 
         @Test
         void quantizeUsesCopiedInMemoryWeights() throws Exception {
-                Path modelPath = Files.createTempDirectory("alkhawarizm-quant-memory").resolve("direct.weights");
+                Path modelPath = Files.createTempDirectory("aljabr-quant-memory").resolve("direct.weights");
                 float[][] weights = {
                                 { -1.0f, 0.0f, 1.0f },
                                 { 2.0f, 2.0f, 2.0f }
@@ -78,7 +78,7 @@ class QuantizationEngineTest {
 
         @Test
         void quantizeRejectsMissingModelInsteadOfInventingPlaceholderWeights() throws Exception {
-                Path modelPath = Files.createTempDirectory("alkhawarizm-quant-missing").resolve("missing.weights");
+                Path modelPath = Files.createTempDirectory("aljabr-quant-missing").resolve("missing.weights");
                 QuantizationEngine engine = QuantizationEngine.builder()
                                 .modelPath(modelPath)
                                 .scheme(QuantizationScheme.INT8)

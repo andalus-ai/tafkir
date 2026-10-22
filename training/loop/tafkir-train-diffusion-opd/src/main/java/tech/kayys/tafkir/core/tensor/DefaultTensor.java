@@ -1,7 +1,7 @@
-package tech.kayys.alkhawarizm.core.tensor;
+package tech.kayys.aljabr.core.tensor;
 
-import tech.kayys.alkhawarizm.core.backend.ComputeBackend;
-import tech.kayys.alkhawarizm.core.memory.CpuBuffer;
+import tech.kayys.aljabr.core.backend.ComputeBackend;
+import tech.kayys.aljabr.core.memory.CpuBuffer;
 
 /**
  * Stub — default CPU tensor implementation.

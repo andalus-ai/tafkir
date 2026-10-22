@@ -20,7 +20,7 @@
  * References:
  *   https://github.com/huggingface/safetensors/blob/main/safetensors/src/lib.rs
  */
-package tech.kayys.alkhawarizm.safetensor.loader;
+package tech.kayys.aljabr.safetensor.loader;
 
 import java.util.Locale;
 

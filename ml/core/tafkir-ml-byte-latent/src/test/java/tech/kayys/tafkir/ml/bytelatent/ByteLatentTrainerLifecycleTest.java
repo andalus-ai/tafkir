@@ -15,7 +15,7 @@ class ByteLatentTrainerLifecycleTest {
     @Test
     void notifiesListenersAndPersistsCheckpointArtifacts() throws Exception {
         TextByteSequenceDataset dataset = new TextByteSequenceDataset(List.of("ab", "cde"));
-        Path checkpointDir = Files.createTempDirectory("alkhawarizm-byte-latent-checkpoint");
+        Path checkpointDir = Files.createTempDirectory("aljabr-byte-latent-checkpoint");
         ByteLatentTrainerConfig config = ByteLatentTrainerConfig.builder()
                 .modelSpec(new ByteLatentModelSpec(256, 64, 2, 4, 32))
                 .batchSize(1)
@@ -79,7 +79,7 @@ class ByteLatentTrainerLifecycleTest {
         assertTrue(Files.isRegularFile(checkpointDir.resolve("byte-latent-history.csv")));
         assertTrue(Files.isRegularFile(checkpointDir.resolve("byte-latent-report.json")));
         String reportJson = Files.readString(checkpointDir.resolve("byte-latent-report.json"));
-        assertTrue(reportJson.contains("\"schema\":\"alkhawarizm.byte-latent.report.v1\""));
+        assertTrue(reportJson.contains("\"schema\":\"aljabr.byte-latent.report.v1\""));
         assertTrue(reportJson.contains("\"historyCount\":1"));
         assertEquals(checkpointDir.toString(), summary.metadata().get("checkpointDir"));
         assertEquals(checkpointDir.resolve("byte-latent-history.csv").toString(),

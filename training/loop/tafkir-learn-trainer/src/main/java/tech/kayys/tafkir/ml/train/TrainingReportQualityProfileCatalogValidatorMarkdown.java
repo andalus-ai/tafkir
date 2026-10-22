@@ -12,7 +12,7 @@ final class TrainingReportQualityProfileCatalogValidatorMarkdown {
                 ? new TrainingReportQualityProfileCatalogValidator.Result(false, 0, java.util.List.of(), java.util.List.of())
                 : result;
         StringBuilder markdown = new StringBuilder();
-        appendLine(markdown, "# Alkhawarizm Training Quality Profile Catalog Validation");
+        appendLine(markdown, "# Aljabr Training Quality Profile Catalog Validation");
         appendLine(markdown, "");
         appendLine(markdown, "**Status:** `" + (resolved.passed() ? "PASS" : "FAIL") + "`");
         appendLine(markdown, "**Message:** " + escape(resolved.message()));

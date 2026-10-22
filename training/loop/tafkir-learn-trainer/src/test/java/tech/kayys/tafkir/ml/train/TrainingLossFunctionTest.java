@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.ml.nn.NNModule;
 import tech.kayys.tafkir.ml.nn.loss.MSELoss;
@@ -56,19 +56,19 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlPinballPresetUsesConfiguredQuantileLoss() {
+        void aljabrDlPinballPresetUsesConfiguredQuantileLoss() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(new float[] { 1.0f, 3.0f }, 2, 1),
                                 GradTensor.of(new float[] { 2.0f, 1.0f }, 2, 1)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_PINBALL_SGD,
-                                Alkhawarizm.DL.trainingOptions()
+                                Aljabr.DL.TrainingPreset.REGRESSION_PINBALL_SGD,
+                                Aljabr.DL.trainingOptions()
                                                 .pinballQuantile(0.9)
                                                 .device("cpu")
                                                 .build());
@@ -77,7 +77,7 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlIntervalScorePresetUsesConfiguredCoverageLoss() {
+        void aljabrDlIntervalScorePresetUsesConfiguredCoverageLoss() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(
                                                 new float[] {
@@ -88,14 +88,14 @@ class TrainingLossFunctionTest {
                                                 3, 2),
                                 GradTensor.of(new float[] { 1.0f, 1.0f, 4.5f }, 3)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_INTERVAL_SCORE_SGD,
-                                Alkhawarizm.DL.trainingOptions()
+                                Aljabr.DL.TrainingPreset.REGRESSION_INTERVAL_SCORE_SGD,
+                                Aljabr.DL.trainingOptions()
                                                 .intervalScoreAlpha(0.2)
                                                 .intervalCrossingPenalty(12.0)
                                                 .device("cpu")
@@ -105,7 +105,7 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlGaussianNllPresetTrainsMeanAndLogVarianceOutputs() {
+        void aljabrDlGaussianNllPresetTrainsMeanAndLogVarianceOutputs() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(
                                                 new float[] {
@@ -115,20 +115,20 @@ class TrainingLossFunctionTest {
                                                 2, 2),
                                 GradTensor.of(new float[] { 2.0f, 1.0f }, 2)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_GAUSSIAN_NLL_SGD,
-                                Alkhawarizm.DL.trainingOptions().device("cpu").build());
+                                Aljabr.DL.TrainingPreset.REGRESSION_GAUSSIAN_NLL_SGD,
+                                Aljabr.DL.trainingOptions().device("cpu").build());
 
                 assertEquals(0.9232868, summary.latestTrainLoss(), 1e-6);
         }
 
         @Test
-        void alkhawarizmDlClassificationPresetAutoRegistersDefaultMetrics() {
+        void aljabrDlClassificationPresetAutoRegistersDefaultMetrics() {
                 float[] logits = {
                                 3.0f, 0.0f,
                                 0.0f, 3.0f
@@ -137,14 +137,14 @@ class TrainingLossFunctionTest {
                                 GradTensor.of(logits, 2, 2),
                                 GradTensor.of(new float[] { 0.0f, 1.0f }, 2)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
-                                Alkhawarizm.DL.trainingOptions().device("cpu").build());
+                                Aljabr.DL.TrainingPreset.CLASSIFICATION_CROSS_ENTROPY_SGD,
+                                Aljabr.DL.trainingOptions().device("cpu").build());
 
                 Map<String, Double> latestTrainMetrics = metricMap(summary, "latestTrainMetrics");
                 assertEquals(2, latestTrainMetrics.size());
@@ -153,21 +153,21 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlBinaryPresetAutoRegistersDefaultMetrics() {
+        void aljabrDlBinaryPresetAutoRegistersDefaultMetrics() {
                 float[] logits = { 2.0f, -2.0f, 0.5f, -0.5f };
                 float[] labels = { 1.0f, 0.0f, 1.0f, 0.0f };
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(logits, 4),
                                 GradTensor.of(labels, 4)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
-                                Alkhawarizm.DL.trainingOptions().device("cpu").build());
+                                Aljabr.DL.TrainingPreset.BINARY_BCE_WITH_LOGITS_SGD,
+                                Aljabr.DL.trainingOptions().device("cpu").build());
 
                 Map<String, Double> latestTrainMetrics = metricMap(summary, "latestTrainMetrics");
                 assertEquals(2, latestTrainMetrics.size());
@@ -176,19 +176,19 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlSimpleRegressionPresetAutoRegistersDefaultMetrics() {
+        void aljabrDlSimpleRegressionPresetAutoRegistersDefaultMetrics() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(new float[] { 1.0f, 3.0f }, 2, 1),
                                 GradTensor.of(new float[] { 2.0f, 1.0f }, 2, 1)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                                Alkhawarizm.DL.trainingOptions().device("cpu").build());
+                                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                                Aljabr.DL.trainingOptions().device("cpu").build());
 
                 Map<String, Double> latestTrainMetrics = metricMap(summary, "latestTrainMetrics");
                 assertEquals(3, latestTrainMetrics.size());
@@ -198,76 +198,76 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlFitClosesPrefetchedTrainLoaderAfterTraining() {
+        void aljabrDlFitClosesPrefetchedTrainLoaderAfterTraining() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(new float[] { 1.0f, 3.0f }, 2, 1),
                                 GradTensor.of(new float[] { 2.0f, 1.0f }, 2, 1)));
                 PrefetchingIterable<Batch> prefetched = DataLoader.prefetch(train, 1);
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 prefetched,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                                Alkhawarizm.DL.trainingOptions().device("cpu").build());
+                                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                                Aljabr.DL.trainingOptions().device("cpu").build());
 
                 assertEquals(2.5, summary.latestTrainLoss(), 1e-6);
                 assertThrows(IllegalStateException.class, prefetched::iterator);
         }
 
         @Test
-        void alkhawarizmDlFitClosesAnyAutoCloseableTrainLoaderAfterTraining() {
+        void aljabrDlFitClosesAnyAutoCloseableTrainLoaderAfterTraining() {
                 CloseableBatchLoader train = new CloseableBatchLoader(List.of(new Batch(
                                 GradTensor.of(new float[] { 1.0f, 3.0f }, 2, 1),
                                 GradTensor.of(new float[] { 2.0f, 1.0f }, 2, 1))));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_MSE_SGD,
-                                Alkhawarizm.DL.trainingOptions().device("cpu").build());
+                                Aljabr.DL.TrainingPreset.REGRESSION_MSE_SGD,
+                                Aljabr.DL.trainingOptions().device("cpu").build());
 
                 assertEquals(2.5, summary.latestTrainLoss(), 1e-6);
                 assertTrue(train.closed);
         }
 
         @Test
-        void alkhawarizmDlPoissonNllPresetTrainsLogRateOutputs() {
+        void aljabrDlPoissonNllPresetTrainsLogRateOutputs() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(new float[] { 0.0f, 0.6931472f }, 2),
                                 GradTensor.of(new float[] { 1.0f, 3.0f }, 2)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_POISSON_NLL_SGD,
-                                Alkhawarizm.DL.trainingOptions().device("cpu").build());
+                                Aljabr.DL.TrainingPreset.REGRESSION_POISSON_NLL_SGD,
+                                Aljabr.DL.trainingOptions().device("cpu").build());
 
                 assertEquals(0.46027923, summary.latestTrainLoss(), 1e-6);
         }
 
         @Test
-        void alkhawarizmDlTweedieNllPresetUsesConfiguredPower() {
+        void aljabrDlTweedieNllPresetUsesConfiguredPower() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(new float[] { 0.0f, 1.3862944f }, 2),
                                 GradTensor.of(new float[] { 1.0f, 2.0f }, 2)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_TWEEDIE_NLL_SGD,
-                                Alkhawarizm.DL.trainingOptions()
+                                Aljabr.DL.TrainingPreset.REGRESSION_TWEEDIE_NLL_SGD,
+                                Aljabr.DL.trainingOptions()
                                                 .tweediePower(1.5)
                                                 .device("cpu")
                                                 .build());
@@ -276,19 +276,19 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlNegativeBinomialNllPresetSupportsFullCountLikelihood() {
+        void aljabrDlNegativeBinomialNllPresetSupportsFullCountLikelihood() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(new float[] { (float) Math.log(2.0), 0.0f }, 1, 2),
                                 GradTensor.of(new float[] { 2.0f }, 1)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_NEGATIVE_BINOMIAL_NLL_SGD,
-                                Alkhawarizm.DL.trainingOptions()
+                                Aljabr.DL.TrainingPreset.REGRESSION_NEGATIVE_BINOMIAL_NLL_SGD,
+                                Aljabr.DL.trainingOptions()
                                                 .negativeBinomialFullNll()
                                                 .device("cpu")
                                                 .build());
@@ -297,7 +297,7 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlZeroInflatedPoissonNllPresetSupportsExcessZeroCounts() {
+        void aljabrDlZeroInflatedPoissonNllPresetSupportsExcessZeroCounts() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(
                                                 new float[] {
@@ -307,14 +307,14 @@ class TrainingLossFunctionTest {
                                                 2, 2),
                                 GradTensor.of(new float[] { 0.0f, 2.0f }, 2)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_ZERO_INFLATED_POISSON_NLL_SGD,
-                                Alkhawarizm.DL.trainingOptions()
+                                Aljabr.DL.TrainingPreset.REGRESSION_ZERO_INFLATED_POISSON_NLL_SGD,
+                                Aljabr.DL.trainingOptions()
                                                 .device("cpu")
                                                 .build());
 
@@ -322,7 +322,7 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlZeroInflatedNegativeBinomialNllPresetSupportsOverdispersedExcessZeroCounts() {
+        void aljabrDlZeroInflatedNegativeBinomialNllPresetSupportsOverdispersedExcessZeroCounts() {
                 List<Batch> train = List.of(new Batch(
                                 GradTensor.of(
                                                 new float[] {
@@ -332,14 +332,14 @@ class TrainingLossFunctionTest {
                                                 2, 3),
                                 GradTensor.of(new float[] { 0.0f, 2.0f }, 2)));
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.REGRESSION_ZERO_INFLATED_NEGATIVE_BINOMIAL_NLL_SGD,
-                                Alkhawarizm.DL.trainingOptions()
+                                Aljabr.DL.TrainingPreset.REGRESSION_ZERO_INFLATED_NEGATIVE_BINOMIAL_NLL_SGD,
+                                Aljabr.DL.trainingOptions()
                                                 .device("cpu")
                                                 .build());
 
@@ -347,7 +347,7 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlCausalLanguageModelingPresetUsesConfiguredIgnoreIndexAndMetrics() {
+        void aljabrDlCausalLanguageModelingPresetUsesConfiguredIgnoreIndexAndMetrics() {
                 float[] logits = {
                                 3.0f, 1.0f, 0.0f,
                                 -2.0f, 0.0f, 2.0f
@@ -356,17 +356,17 @@ class TrainingLossFunctionTest {
                                 GradTensor.of(logits, 1, 2, 3),
                                 GradTensor.of(new float[] { 0.0f, -1.0f }, 1, 2)));
 
-                Alkhawarizm.DL.TrainingOptions options = Alkhawarizm.DL.causalLanguageModelingTrainingOptions(-1.0f)
+                Aljabr.DL.TrainingOptions options = Aljabr.DL.causalLanguageModelingTrainingOptions(-1.0f)
                                 .device("cpu")
                                 .build();
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.CAUSAL_LM_SGD,
+                                Aljabr.DL.TrainingPreset.CAUSAL_LM_SGD,
                                 options);
 
                 assertEquals(-1.0f, options.causalLanguageModelingIgnoreIndex());
@@ -378,7 +378,7 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlCausalLanguageModelingPresetAutoRegistersDefaultMetrics() {
+        void aljabrDlCausalLanguageModelingPresetAutoRegistersDefaultMetrics() {
                 float[] logits = {
                                 3.0f, 1.0f, 0.0f,
                                 -2.0f, 0.0f, 2.0f
@@ -387,18 +387,18 @@ class TrainingLossFunctionTest {
                                 GradTensor.of(logits, 1, 2, 3),
                                 GradTensor.of(new float[] { 0.0f, -1.0f }, 1, 2)));
 
-                Alkhawarizm.DL.TrainingOptions options = Alkhawarizm.DL.trainingOptions()
+                Aljabr.DL.TrainingOptions options = Aljabr.DL.trainingOptions()
                                 .causalLanguageModelingIgnoreIndex(-1.0f)
                                 .device("cpu")
                                 .build();
 
-                TrainingSummary summary = Alkhawarizm.DL.fit(
+                TrainingSummary summary = Aljabr.DL.fit(
                                 new IdentityModel(),
                                 train,
                                 List.of(),
                                 1,
                                 0.01f,
-                                Alkhawarizm.DL.TrainingPreset.CAUSAL_LANGUAGE_MODELING_SGD,
+                                Aljabr.DL.TrainingPreset.CAUSAL_LANGUAGE_MODELING_SGD,
                                 options);
 
                 assertEquals(0, options.metricFactories().size());
@@ -411,10 +411,10 @@ class TrainingLossFunctionTest {
         }
 
         @Test
-        void alkhawarizmDlCausalLanguageModelingPresetRejectsInvalidIgnoreIndex() {
+        void aljabrDlCausalLanguageModelingPresetRejectsInvalidIgnoreIndex() {
                 assertThrows(
                                 IllegalArgumentException.class,
-                                () -> Alkhawarizm.DL.trainingOptions().causalLanguageModelingIgnoreIndex(Float.NaN));
+                                () -> Aljabr.DL.trainingOptions().causalLanguageModelingIgnoreIndex(Float.NaN));
         }
 
         private static final class IdentityModel extends NNModule {

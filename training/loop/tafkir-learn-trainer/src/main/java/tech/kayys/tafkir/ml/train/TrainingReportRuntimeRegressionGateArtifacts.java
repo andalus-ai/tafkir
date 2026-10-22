@@ -98,7 +98,7 @@ public final class TrainingReportRuntimeRegressionGateArtifacts {
 
         public Map<String, Object> artifactManifest() {
             Map<String, Object> manifest = new LinkedHashMap<>();
-            manifest.put("schema", "alkhawarizm.training.runtime.regression.gate.artifacts.v1");
+            manifest.put("schema", "aljabr.training.runtime.regression.gate.artifacts.v1");
             manifest.put("passed", passed());
             manifest.put("jsonFile", jsonFile.toString());
             manifest.put("markdownFile", markdownFile.toString());
@@ -535,7 +535,7 @@ public final class TrainingReportRuntimeRegressionGateArtifacts {
 
     private static boolean manifestMatchesFiles(ArtifactInspection inspection) {
         Map<String, Object> manifest = inspection.manifest();
-        return "alkhawarizm.training.runtime.regression.gate.artifacts.v1"
+        return "aljabr.training.runtime.regression.gate.artifacts.v1"
                 .equals(String.valueOf(manifest.get("schema")))
                 && inspection.jsonFile().toString().equals(String.valueOf(manifest.get("jsonFile")))
                 && inspection.markdownFile().toString().equals(String.valueOf(manifest.get("markdownFile")))

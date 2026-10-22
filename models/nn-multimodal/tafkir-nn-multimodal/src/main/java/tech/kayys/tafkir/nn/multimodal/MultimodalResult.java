@@ -1,8 +1,8 @@
 package tech.kayys.tafkir.ml.multimodal;
 
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
-import tech.kayys.alkhawarizm.spi.model.MultimodalContent;
-import tech.kayys.alkhawarizm.spi.model.MultimodalResponse;
+import tech.kayys.aljabr.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.MultimodalContent;
+import tech.kayys.aljabr.spi.model.MultimodalResponse;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.Optional;
  * <h3>Example</h3>
  * 
  * <pre>{@code
- * MultimodalResult result = Alkhawarizm.vision("gemini-2.0-flash")
+ * MultimodalResult result = Aljabr.vision("gemini-2.0-flash")
  *         .image(Path.of("cat.jpg"))
  *         .prompt("What animal is this?")
  *         .generate();

@@ -4,10 +4,10 @@ import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.train.data.DataLoader;
 
 /**
- * Dataset construction helpers inherited by {@link Alkhawarizm.DL}.
+ * Dataset construction helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlDatasetFacade extends AlkhawarizmDlLabelFacade {
-    protected AlkhawarizmDlDatasetFacade() {
+public class AljabrDlDatasetFacade extends AljabrDlLabelFacade {
+    protected AljabrDlDatasetFacade() {
     }
 
     public static DataLoader.TensorDataset tensorDataset(GradTensor inputs, GradTensor labels) {

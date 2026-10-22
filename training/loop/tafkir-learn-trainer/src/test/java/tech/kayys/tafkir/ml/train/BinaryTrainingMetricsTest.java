@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 
 class BinaryTrainingMetricsTest {
@@ -159,7 +159,7 @@ class BinaryTrainingMetricsTest {
 
     @Test
     void binaryRecallAtPrecisionFindsHighestRecallThresholdMeetingPrecision() {
-        TrainingMetric metric = Alkhawarizm.DL.binaryRecallAtPrecisionMetric(0.70).get();
+        TrainingMetric metric = Aljabr.DL.binaryRecallAtPrecisionMetric(0.70).get();
 
         metric.update(
                 GradTensor.of(new float[] {0.95f, 0.9f, 0.8f, 0.7f, 0.4f, 0.3f, 0.2f}, 7),

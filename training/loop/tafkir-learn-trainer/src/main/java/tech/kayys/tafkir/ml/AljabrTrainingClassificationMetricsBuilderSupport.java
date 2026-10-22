@@ -3,100 +3,100 @@ package tech.kayys.tafkir.ml;
 /**
  * Fluent multi-class classification metric registration for training option builders.
  */
-public abstract class AlkhawarizmTrainingClassificationMetricsBuilderSupport<
-        B extends AlkhawarizmTrainingClassificationMetricsBuilderSupport<B>>
-        extends AlkhawarizmTrainingMetricRegistrySupport<B> {
+public abstract class AljabrTrainingClassificationMetricsBuilderSupport<
+        B extends AljabrTrainingClassificationMetricsBuilderSupport<B>>
+        extends AljabrTrainingMetricRegistrySupport<B> {
 
     public B accuracyMetric() {
-        return metric(Alkhawarizm.DL.accuracyMetric());
+        return metric(Aljabr.DL.accuracyMetric());
     }
 
     public B confusionMatrixMetric() {
-        return metric(Alkhawarizm.DL.confusionMatrixMetric());
+        return metric(Aljabr.DL.confusionMatrixMetric());
     }
 
     public B classificationConfusionMatrixMetric() {
-        return metric(Alkhawarizm.DL.classificationConfusionMatrixMetric());
+        return metric(Aljabr.DL.classificationConfusionMatrixMetric());
     }
 
     public B topKAccuracyMetric(int k) {
-        return metric(Alkhawarizm.DL.topKAccuracyMetric(k));
+        return metric(Aljabr.DL.topKAccuracyMetric(k));
     }
 
     public B classificationLogLossMetric() {
-        return metric(Alkhawarizm.DL.classificationLogLossMetric());
+        return metric(Aljabr.DL.classificationLogLossMetric());
     }
 
     public B classificationCrossEntropyMetric() {
-        return metric(Alkhawarizm.DL.classificationCrossEntropyMetric());
+        return metric(Aljabr.DL.classificationCrossEntropyMetric());
     }
 
     public B classificationBalancedAccuracyMetric() {
-        return metric(Alkhawarizm.DL.classificationBalancedAccuracyMetric());
+        return metric(Aljabr.DL.classificationBalancedAccuracyMetric());
     }
 
     public B balancedAccuracyMetric() {
-        return metric(Alkhawarizm.DL.balancedAccuracyMetric());
+        return metric(Aljabr.DL.balancedAccuracyMetric());
     }
 
     public B classificationMatthewsCorrelationCoefficientMetric() {
-        return metric(Alkhawarizm.DL.classificationMatthewsCorrelationCoefficientMetric());
+        return metric(Aljabr.DL.classificationMatthewsCorrelationCoefficientMetric());
     }
 
     public B classificationMccMetric() {
-        return metric(Alkhawarizm.DL.classificationMccMetric());
+        return metric(Aljabr.DL.classificationMccMetric());
     }
 
     public B matthewsCorrelationCoefficientMetric() {
-        return metric(Alkhawarizm.DL.matthewsCorrelationCoefficientMetric());
+        return metric(Aljabr.DL.matthewsCorrelationCoefficientMetric());
     }
 
     public B mccMetric() {
-        return metric(Alkhawarizm.DL.mccMetric());
+        return metric(Aljabr.DL.mccMetric());
     }
 
     public B classificationWeightedPrecisionMetric() {
-        return metric(Alkhawarizm.DL.classificationWeightedPrecisionMetric());
+        return metric(Aljabr.DL.classificationWeightedPrecisionMetric());
     }
 
     public B classificationWeightedRecallMetric() {
-        return metric(Alkhawarizm.DL.classificationWeightedRecallMetric());
+        return metric(Aljabr.DL.classificationWeightedRecallMetric());
     }
 
     public B classificationWeightedF1Metric() {
-        return metric(Alkhawarizm.DL.classificationWeightedF1Metric());
+        return metric(Aljabr.DL.classificationWeightedF1Metric());
     }
 
     public B classificationCohensKappaMetric() {
-        return metric(Alkhawarizm.DL.classificationCohensKappaMetric());
+        return metric(Aljabr.DL.classificationCohensKappaMetric());
     }
 
     public B classificationKappaMetric() {
-        return metric(Alkhawarizm.DL.classificationKappaMetric());
+        return metric(Aljabr.DL.classificationKappaMetric());
     }
 
     public B cohensKappaMetric() {
-        return metric(Alkhawarizm.DL.cohensKappaMetric());
+        return metric(Aljabr.DL.cohensKappaMetric());
     }
 
     public B kappaMetric() {
-        return metric(Alkhawarizm.DL.kappaMetric());
+        return metric(Aljabr.DL.kappaMetric());
     }
 
     public B precisionMetric() {
-        return metric(Alkhawarizm.DL.precisionMetric());
+        return metric(Aljabr.DL.precisionMetric());
     }
 
     public B recallMetric() {
-        return metric(Alkhawarizm.DL.recallMetric());
+        return metric(Aljabr.DL.recallMetric());
     }
 
     public B f1Metric() {
-        return metric(Alkhawarizm.DL.f1Metric());
+        return metric(Aljabr.DL.f1Metric());
     }
 
     public B macroF1Metric() {
-        return metric(Alkhawarizm.DL.macroF1Metric());
+        return metric(Aljabr.DL.macroF1Metric());
     }
 
     public B classificationMetrics() {
@@ -108,15 +108,15 @@ public abstract class AlkhawarizmTrainingClassificationMetricsBuilderSupport<
     }
 
     public B classificationMacroRocAucMetric() {
-        return metric(Alkhawarizm.DL.classificationMacroRocAucMetric());
+        return metric(Aljabr.DL.classificationMacroRocAucMetric());
     }
 
     public B classificationMacroAurocMetric() {
-        return metric(Alkhawarizm.DL.classificationMacroAurocMetric());
+        return metric(Aljabr.DL.classificationMacroAurocMetric());
     }
 
     public B classificationMacroAveragePrecisionMetric() {
-        return metric(Alkhawarizm.DL.classificationMacroAveragePrecisionMetric());
+        return metric(Aljabr.DL.classificationMacroAveragePrecisionMetric());
     }
 
     public B classificationRankingMetrics() {
@@ -137,15 +137,15 @@ public abstract class AlkhawarizmTrainingClassificationMetricsBuilderSupport<
     }
 
     public B classificationBrierScoreMetric() {
-        return metric(Alkhawarizm.DL.classificationBrierScoreMetric());
+        return metric(Aljabr.DL.classificationBrierScoreMetric());
     }
 
     public B classificationExpectedCalibrationErrorMetric() {
-        return metric(Alkhawarizm.DL.classificationExpectedCalibrationErrorMetric());
+        return metric(Aljabr.DL.classificationExpectedCalibrationErrorMetric());
     }
 
     public B classificationExpectedCalibrationErrorMetric(int bins) {
-        return metric(Alkhawarizm.DL.classificationExpectedCalibrationErrorMetric(bins));
+        return metric(Aljabr.DL.classificationExpectedCalibrationErrorMetric(bins));
     }
 
     public B classificationCalibrationMetrics() {

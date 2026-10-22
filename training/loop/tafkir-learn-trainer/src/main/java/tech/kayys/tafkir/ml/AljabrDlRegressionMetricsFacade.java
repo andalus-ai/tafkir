@@ -4,11 +4,11 @@ import java.util.function.Supplier;
 import tech.kayys.tafkir.ml.train.CanonicalTrainer;
 
 /**
- * Public regression metric factories inherited by {@link Alkhawarizm.DL}.
+ * Public regression metric factories inherited by {@link Aljabr.DL}.
  */
 @SuppressWarnings("deprecation")
-public class AlkhawarizmDlRegressionMetricsFacade extends AlkhawarizmDlMultiLabelMetricsFacade {
-    protected AlkhawarizmDlRegressionMetricsFacade() {
+public class AljabrDlRegressionMetricsFacade extends AljabrDlMultiLabelMetricsFacade {
+    protected AljabrDlRegressionMetricsFacade() {
     }
 
     public static Supplier<CanonicalTrainer.Metric> meanAbsoluteErrorMetric() {

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPromotionGateTest {
@@ -39,7 +39,7 @@ class TrainingReportPromotionGateTest {
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
 
-        TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+        TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                 reports,
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -75,7 +75,7 @@ class TrainingReportPromotionGateTest {
                         Map.of("epoch", 0, "trainLoss", 0.8, "validationLoss", 0.9),
                         Map.of("epoch", 1, "trainLoss", 0.7, "validationLoss", 0.85))));
 
-        TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+        TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                 reports,
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -109,7 +109,7 @@ class TrainingReportPromotionGateTest {
         TrainingReportPromotionArtifacts.Options artifactOptions =
                 new TrainingReportPromotionArtifacts.Options("ci-promotion.json", "ci-promotion.md");
 
-        TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+        TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                 new TrainingReportPromotionGate.Request(
                         reports,
                         "baseline",
@@ -122,7 +122,7 @@ class TrainingReportPromotionGateTest {
         assertTrue(result.artifacts().markdownFile().endsWith("ci-promotion.md"));
 
         TrainingReportPromotionArtifacts.ArtifactInspection inspection =
-                Alkhawarizm.DL.readTrainingReportPromotionArtifacts(tempDir.resolve("custom"), artifactOptions);
+                Aljabr.DL.readTrainingReportPromotionArtifacts(tempDir.resolve("custom"), artifactOptions);
         assertEquals("PROMOTE", inspection.decisionStatus());
         assertEquals("candidate", inspection.decisionCandidate().orElseThrow());
     }
@@ -142,7 +142,7 @@ class TrainingReportPromotionGateTest {
                 List.of(
                         Map.of("epoch", 0, "trainLoss", 0.7, "validationLoss", 0.8),
                         Map.of("epoch", 1, "trainLoss", 0.4, "validationLoss", 0.45))));
-        TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+        TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                 reports,
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),

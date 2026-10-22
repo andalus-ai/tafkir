@@ -14,7 +14,7 @@ public final class TrainingReportValidationJUnitXml {
         String markdown = result.markdown();
         StringBuilder xml = new StringBuilder();
         appendLine(xml, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        appendLine(xml, "<testsuite name=\"alkhawarizm.training.report.validation\" tests=\"1\" failures=\""
+        appendLine(xml, "<testsuite name=\"aljabr.training.report.validation\" tests=\"1\" failures=\""
                 + (result.passed() ? "0" : "1")
                 + "\" errors=\"0\" skipped=\"0\">");
         appendLine(xml, "  <properties>");
@@ -44,7 +44,7 @@ public final class TrainingReportValidationJUnitXml {
         property(xml, "checkpointIntegrity.failureKeys", String.join(",", result.checkpointIntegrityFailureKeys()));
         appendLine(xml, "  </properties>");
         appendLine(xml,
-                "  <testcase classname=\"alkhawarizm.training.report\" name=\"validate training report\" time=\"0\">");
+                "  <testcase classname=\"aljabr.training.report\" name=\"validate training report\" time=\"0\">");
         if (result.failed()) {
             appendLine(xml, "    <failure type=\"" + escapeXml(failureType(result))
                     + "\" message=\"" + escapeXml(result.message()) + "\">");

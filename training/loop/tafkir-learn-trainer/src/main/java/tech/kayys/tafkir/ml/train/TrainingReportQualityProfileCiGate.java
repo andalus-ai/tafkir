@@ -182,7 +182,7 @@ public final class TrainingReportQualityProfileCiGate {
 
         public String markdown() {
             StringBuilder markdown = new StringBuilder();
-            appendLine(markdown, "# Alkhawarizm Training Quality Profile CI Gate");
+            appendLine(markdown, "# Aljabr Training Quality Profile CI Gate");
             appendLine(markdown, "");
             appendLine(markdown, "**Profile:** `" + profile.id() + "` (" + profile.displayName() + ")");
             appendLine(markdown, "**Gate:** `" + (passed() ? "PASS" : "FAIL") + "`");

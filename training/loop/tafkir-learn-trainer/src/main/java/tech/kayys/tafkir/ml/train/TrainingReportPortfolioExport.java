@@ -14,7 +14,7 @@ public record TrainingReportPortfolioExport(
         List<Map<String, Object>> leaderboardRows,
         List<Map<String, Object>> comparisonMetricRows,
         List<Map<String, Object>> comparisonFindingRows) {
-    public static final String SCHEMA = "alkhawarizm.training.report.portfolio-export.v1";
+    public static final String SCHEMA = "aljabr.training.report.portfolio-export.v1";
 
     private static final List<String> LEADERBOARD_COLUMNS = List.of(
             "rank",

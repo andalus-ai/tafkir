@@ -366,7 +366,7 @@ class DiscreteTokenDatasetCheckpointResumeReportTest {
                 DiscreteTokenDatasetPlan plan = cleanPlan();
                 DiscreteTokenDatasetCheckpointManifest manifest = manifest(
                                 plan.report(DiscreteTokenDatasetPlanReadinessGate.strict()))
-                                .schemaVersion("alkhawarizm.discrete-token-checkpoint-manifest.v2")
+                                .schemaVersion("aljabr.discrete-token-checkpoint-manifest.v2")
                                 .build();
 
                 DiscreteTokenDatasetCheckpointResumeReport resumeReport = DiscreteTokenDatasetCheckpointResumeReport

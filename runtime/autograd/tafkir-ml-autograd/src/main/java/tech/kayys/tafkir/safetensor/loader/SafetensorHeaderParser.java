@@ -23,13 +23,13 @@
  *  - Header JSON is validated to ensure data_offsets are monotonic and
  *    non-overlapping before the caller gets a {@link SafetensorHeader}.
  */
-package tech.kayys.alkhawarizm.safetensor.loader;
+package tech.kayys.aljabr.safetensor.loader;
 
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import tech.kayys.alkhawarizm.safetensor.exception.SafetensorException;
+import tech.kayys.aljabr.safetensor.exception.SafetensorException;
 
 import org.slf4j.Logger;
 

@@ -3,20 +3,20 @@ package tech.kayys.tafkir.ml;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import tech.kayys.tafkir.ml.Alkhawarizm.DL.EvaluationOptions;
-import tech.kayys.tafkir.ml.Alkhawarizm.DL.EvaluationSummary;
-import tech.kayys.tafkir.ml.Alkhawarizm.DL.TrainingPreset;
+import tech.kayys.tafkir.ml.Aljabr.DL.EvaluationOptions;
+import tech.kayys.tafkir.ml.Aljabr.DL.EvaluationSummary;
+import tech.kayys.tafkir.ml.Aljabr.DL.TrainingPreset;
 import tech.kayys.tafkir.ml.nn.NNModule;
 import tech.kayys.tafkir.ml.train.CanonicalTrainer;
 import tech.kayys.tafkir.ml.train.TrainingLossFunction;
 import tech.kayys.tafkir.train.data.DataLoader.Batch;
 
 /**
- * Evaluation helpers exposed through {@link Alkhawarizm.DL}.
+ * Evaluation helpers exposed through {@link Aljabr.DL}.
  */
 @SuppressWarnings("deprecation")
-public class AlkhawarizmDlEvaluationFacade extends AlkhawarizmDlFactoryFacade {
-    protected AlkhawarizmDlEvaluationFacade() {
+public class AljabrDlEvaluationFacade extends AljabrDlFactoryFacade {
+    protected AljabrDlEvaluationFacade() {
     }
 
     public static EvaluationOptions.Builder evaluationOptions() {
@@ -50,7 +50,7 @@ public class AlkhawarizmDlEvaluationFacade extends AlkhawarizmDlFactoryFacade {
             EvaluationOptions options,
             java.util.function.Supplier<? extends CanonicalTrainer.Metric>... metrics) {
         Objects.requireNonNull(preset, "preset must not be null");
-        return evaluate(model, loader, Alkhawarizm.DL.presetLoss(preset), options, metrics);
+        return evaluate(model, loader, Aljabr.DL.presetLoss(preset), options, metrics);
     }
 
     @SafeVarargs
@@ -99,6 +99,6 @@ public class AlkhawarizmDlEvaluationFacade extends AlkhawarizmDlFactoryFacade {
             TrainingLossFunction loss,
             EvaluationOptions options,
             List<java.util.function.Supplier<? extends CanonicalTrainer.Metric>> metricFactories) {
-        return AlkhawarizmEvaluationRuntime.evaluate(model, loader, loss, options, metricFactories);
+        return AljabrEvaluationRuntime.evaluate(model, loader, loss, options, metricFactories);
     }
 }

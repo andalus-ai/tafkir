@@ -21,7 +21,7 @@ class CanonicalTrainerHistoryCsvTest {
 
     @Test
     void canonicalTrainerReportsInvalidHistoryCsvOnResume() throws Exception {
-        Path checkpointDir = Files.createTempDirectory("alkhawarizm-typed-trainer-history-invalid");
+        Path checkpointDir = Files.createTempDirectory("aljabr-typed-trainer-history-invalid");
         Files.writeString(checkpointDir.resolve("canonical-history.csv"), "epoch,trainLoss\n\"unterminated");
 
         Linear model = new Linear(1, 1);
@@ -54,7 +54,7 @@ class CanonicalTrainerHistoryCsvTest {
 
     @Test
     void canonicalTrainerReportsAmbiguousHistoryCsvHeaderOnLenientResume() throws Exception {
-        Path checkpointDir = Files.createTempDirectory("alkhawarizm-typed-trainer-history-duplicate-header");
+        Path checkpointDir = Files.createTempDirectory("aljabr-typed-trainer-history-duplicate-header");
         Files.writeString(
                 checkpointDir.resolve("canonical-history.csv"),
                 "epoch,trainLoss,trainLoss\n0,1.0,2.0\n");
@@ -86,7 +86,7 @@ class CanonicalTrainerHistoryCsvTest {
 
     @Test
     void canonicalTrainerRejectsHistoryCsvRowsWithExtraCellsInStrictResume() throws Exception {
-        Path checkpointDir = Files.createTempDirectory("alkhawarizm-typed-trainer-history-extra-cell");
+        Path checkpointDir = Files.createTempDirectory("aljabr-typed-trainer-history-extra-cell");
         MSELoss mseLoss = new MSELoss();
         List<Batch> train = List.of(batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2));
 
@@ -129,7 +129,7 @@ class CanonicalTrainerHistoryCsvTest {
 
     @Test
     void canonicalTrainerReportsDuplicateHistoryEpochOnLenientResume() throws Exception {
-        Path checkpointDir = Files.createTempDirectory("alkhawarizm-typed-trainer-history-duplicate-epoch");
+        Path checkpointDir = Files.createTempDirectory("aljabr-typed-trainer-history-duplicate-epoch");
         Files.writeString(
                 checkpointDir.resolve("canonical-history.csv"),
                 "epoch,trainLoss\n0,1.0\n0,2.0\n");
@@ -161,7 +161,7 @@ class CanonicalTrainerHistoryCsvTest {
 
     @Test
     void canonicalTrainerRejectsNonIntegerHistoryEpochInStrictResume() throws Exception {
-        Path checkpointDir = Files.createTempDirectory("alkhawarizm-typed-trainer-history-invalid-epoch");
+        Path checkpointDir = Files.createTempDirectory("aljabr-typed-trainer-history-invalid-epoch");
         MSELoss mseLoss = new MSELoss();
         List<Batch> train = List.of(batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2));
 
@@ -204,7 +204,7 @@ class CanonicalTrainerHistoryCsvTest {
 
     @Test
     void canonicalTrainerReportsMalformedStructuredHistoryJsonOnLenientResume() throws Exception {
-        Path checkpointDir = Files.createTempDirectory("alkhawarizm-typed-trainer-history-json-invalid");
+        Path checkpointDir = Files.createTempDirectory("aljabr-typed-trainer-history-json-invalid");
         Files.writeString(
                 checkpointDir.resolve("canonical-history.csv"),
                 "epoch,trainMetrics\n0,\"{\"\"mae\"\":1.0\"\n");
@@ -238,7 +238,7 @@ class CanonicalTrainerHistoryCsvTest {
 
     @Test
     void canonicalTrainerRejectsMalformedStructuredHistoryJsonInStrictResume() throws Exception {
-        Path checkpointDir = Files.createTempDirectory("alkhawarizm-typed-trainer-history-json-strict");
+        Path checkpointDir = Files.createTempDirectory("aljabr-typed-trainer-history-json-strict");
         MSELoss mseLoss = new MSELoss();
         List<Batch> train = List.of(batch(new float[] { 1f, 2f }, new float[] { 2f, 4f }, 2));
 

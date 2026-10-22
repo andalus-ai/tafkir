@@ -8,7 +8,7 @@ import tech.kayys.tafkir.ml.ensemble.*;
 import tech.kayys.tafkir.ml.persistence.ModelPersistence;
 
 /**
- * Bridge for loading Alkhawarizm models in Python.
+ * Bridge for loading Aljabr models in Python.
  * Generates Python code and data files for seamless interoperability.
  */
 public class PythonBridge {
@@ -17,8 +17,8 @@ public class PythonBridge {
      * Export model to Python pickle format with metadata.
      */
     public static void exportToPython(BaseEstimator model, String basePath) throws IOException {
-        // Save model in Alkhawarizm native format
-        String modelPath = basePath + ".alkhawarizm";
+        // Save model in Aljabr native format
+        String modelPath = basePath + ".aljabr";
         ModelPersistence.save(model, modelPath);
 
         // Save as Python pickle
@@ -33,7 +33,7 @@ public class PythonBridge {
         Map<String, Object> metadata = new LinkedHashMap<>();
         metadata.put("model_class", model.getClass().getName());
         metadata.put("pickle_version", "4");
-        metadata.put("alkhawarizm_version", "0.1.0");
+        metadata.put("aljabr_version", "0.1.0");
         metadata.put("feature_count", getFeatureCount(model));
         metadata.put("class_count", getClassCount(model));
 
@@ -53,7 +53,7 @@ public class PythonBridge {
                 # -*- coding: utf-8 -*-
 
                 \"\"\"
-                Alkhawarizm Model Loader for Python
+                Aljabr Model Loader for Python
                 Generated from: %s
                 Model type: %s
                 \"\"\"
@@ -62,11 +62,11 @@ public class PythonBridge {
                 import numpy as np
                 from typing import List, Union
 
-                class AlkhawarizmModelWrapper:
-                    \"\"\"Wrapper for Alkhawarizm model loaded from pickle.\"\"\"
+                class AljabrModelWrapper:
+                    \"\"\"Wrapper for Aljabr model loaded from pickle.\"\"\"
 
                     def __init__(self, model_path: str):
-                        \"\"\"Load Alkhawarizm model from pickle file.\"\"\"
+                        \"\"\"Load Aljabr model from pickle file.\"\"\"
                         with open(model_path, 'rb') as f:
                             self._model = pickle.load(f)
 
@@ -108,13 +108,13 @@ public class PythonBridge {
                         # This would call into Java via JNI or REST
                         return np.zeros((len(X), self._model.n_classes_), dtype=np.float32)
 
-                class %sWrapper(AlkhawarizmModelWrapper):
+                class %sWrapper(AljabrModelWrapper):
                     \"\"\"Wrapper for %s model.\"\"\"
                     pass
 
-                def load_model(model_path: str = "%s.pkl") -> AlkhawarizmModelWrapper:
-                    \"\"\"Load the Alkhawarizm model.\"\"\"
-                    return AlkhawarizmModelWrapper(model_path)
+                def load_model(model_path: str = "%s.pkl") -> AljabrModelWrapper:
+                    \"\"\"Load the Aljabr model.\"\"\"
+                    return AljabrModelWrapper(model_path)
 
                 if __name__ == "__main__":
                     # Example usage

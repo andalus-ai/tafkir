@@ -1,4 +1,4 @@
-package tech.kayys.alkhawarizm.hub;
+package tech.kayys.aljabr.hub;
 
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.ml.nn.NNModule;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * @deprecated Use {@link tech.kayys.tafkir.ml.hub.ModelHub} or
- *             {@link tech.kayys.tafkir.ml.Alkhawarizm.Hub} instead.
+ *             {@link tech.kayys.tafkir.ml.Aljabr.Hub} instead.
  */
 @Deprecated(since = "0.1.1", forRemoval = true)
 @SuppressWarnings("removal")

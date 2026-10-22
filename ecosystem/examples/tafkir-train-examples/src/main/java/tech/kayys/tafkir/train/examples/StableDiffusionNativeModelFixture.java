@@ -13,7 +13,7 @@ import java.util.Objects;
  * native Stable Diffusion runner.
  */
 public final class StableDiffusionNativeModelFixture {
-    private static final String ENV_MODEL_DIR = "ALKHAWARIZM_SD_NATIVE_MODEL_DIR";
+    private static final String ENV_MODEL_DIR = "ALJABR_SD_NATIVE_MODEL_DIR";
 
     private final Path baseDir;
     private final Map<String, Path> requiredPaths;
@@ -35,11 +35,11 @@ public final class StableDiffusionNativeModelFixture {
         }
 
         List<Path> candidates = List.of(
-                Path.of(System.getProperty("user.home"), ".alkhawarizm", "models", "safetensors", "CompVis",
+                Path.of(System.getProperty("user.home"), ".aljabr", "models", "safetensors", "CompVis",
                         "stable-diffusion-v1-4"),
-                Path.of(System.getProperty("user.home"), ".alkhawarizm", "models", "safetensors",
+                Path.of(System.getProperty("user.home"), ".aljabr", "models", "safetensors",
                         "stable-diffusion-v1-4"),
-                Path.of(System.getProperty("user.home"), ".alkhawarizm", "models", "blobs", "CompVis",
+                Path.of(System.getProperty("user.home"), ".aljabr", "models", "blobs", "CompVis",
                         "stable-diffusion-v1-4"));
         for (Path candidate : candidates) {
             if (Files.isDirectory(candidate)) {

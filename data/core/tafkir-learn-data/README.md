@@ -1,4 +1,4 @@
-# Alkhawarizm SDK :: Data Loaders
+# Aljabr SDK :: Data Loaders
 
 The `tafkir-ml-data` module is responsible for bridging incoming data types to memory-efficient `MultiTensor` constructs compatible with the inference engines.
 

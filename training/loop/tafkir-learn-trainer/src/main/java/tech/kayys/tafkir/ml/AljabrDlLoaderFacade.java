@@ -7,10 +7,10 @@ import tech.kayys.tafkir.train.data.MultiLabelBalancedBatchSampler;
 import tech.kayys.tafkir.train.data.StratifiedBatchSampler;
 
 /**
- * Data loader construction helpers inherited by {@link Alkhawarizm.DL}.
+ * Data loader construction helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlLoaderFacade extends AlkhawarizmDlSplitFacade {
-    protected AlkhawarizmDlLoaderFacade() {
+public class AljabrDlLoaderFacade extends AljabrDlSplitFacade {
+    protected AljabrDlLoaderFacade() {
     }
 
     public static DataLoader.TensorBuilder dataLoader(DataLoader.TensorDatasetAdapter dataset) {

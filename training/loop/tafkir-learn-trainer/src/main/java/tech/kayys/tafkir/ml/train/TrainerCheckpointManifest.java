@@ -36,7 +36,7 @@ final class TrainerCheckpointManifest {
                 artifacts,
                 formatVersion,
                 generatedAt,
-                "Alkhawarizm canonical trainer checkpoint manifest");
+                "Aljabr canonical trainer checkpoint manifest");
     }
 
     static CompatibilityCheck checkArtifact(

@@ -18,7 +18,7 @@ class TrainerMetadataSupportTest {
 
     @Test
     void detectsPresentFilesOnly() throws Exception {
-        Path file = Files.createTempFile("alkhawarizm-trainer-metadata", ".txt");
+        Path file = Files.createTempFile("aljabr-trainer-metadata", ".txt");
         Path missing = file.resolveSibling(file.getFileName() + ".missing");
 
         assertTrue(TrainerMetadataSupport.filePresent(file));

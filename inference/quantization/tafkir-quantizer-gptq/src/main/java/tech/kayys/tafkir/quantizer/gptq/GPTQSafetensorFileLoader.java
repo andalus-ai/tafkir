@@ -2,9 +2,9 @@ package tech.kayys.tafkir.quantizer.gptq;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorHeader;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorHeaderParser;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorLoadResult;
+import tech.kayys.aljabr.safetensor.loader.SafetensorHeader;
+import tech.kayys.aljabr.safetensor.loader.SafetensorHeaderParser;
+import tech.kayys.aljabr.safetensor.loader.SafetensorLoadResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

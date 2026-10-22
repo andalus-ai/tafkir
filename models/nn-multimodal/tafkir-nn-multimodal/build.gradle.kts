@@ -18,12 +18,12 @@ repositories {
 }
 
 dependencies {
-   // implementation(project(":sdk:alkhawarizm-sdk-api"))
+   // implementation(project(":sdk:aljabr-sdk-api"))
     implementation(project(":ml:tafkir-ml-autograd"))
     implementation(project(":ml:tafkir-ml-nn"))
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-spi-model:0.1.0-SNAPSHOT")
-  //  implementation(project(":spi:alkhawarizm-spi-multimodal"))
-   // implementation(project(":spi:alkhawarizm-spi-inference"))
+    implementation("tech.kayys.aljabr:aljabr-spi-model:0.1.0-SNAPSHOT")
+  //  implementation(project(":spi:aljabr-spi-multimodal"))
+   // implementation(project(":spi:aljabr-spi-inference"))
     implementation(group = "org.slf4j", name = "slf4j-api", version = "2.0.13")
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter")
 }
@@ -43,7 +43,7 @@ tasks.jar {
     manifest {
         attributes(
             mapOf(
-                "Automatic-Module-Name" to "tech.kayys.alkhawarizm.lib.multimodal"
+                "Automatic-Module-Name" to "tech.kayys.aljabr.lib.multimodal"
             )
         )
     }

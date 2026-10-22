@@ -28,9 +28,9 @@ import tech.kayys.tafkir.ml.svm.SVC;
 import tech.kayys.tafkir.ml.util.CrossValidation;
 
 /**
- * Shared implementation for the scikit-learn style Alkhawarizm facade namespace.
+ * Shared implementation for the scikit-learn style Aljabr facade namespace.
  */
-class AlkhawarizmClassicML {
+class AljabrClassicML {
     public static RandomForestClassifier randomForest() {
         return new RandomForestClassifier();
     }
@@ -98,7 +98,7 @@ class AlkhawarizmClassicML {
     }
 }
 
-class AlkhawarizmModelSelectionFacade {
+class AljabrModelSelectionFacade {
     public static double crossValScore(BaseEstimator estimator, float[][] x, int[] y, int nFolds) {
         return CrossValidation.crossValScore(estimator, x, y, nFolds, "accuracy");
     }
@@ -120,7 +120,7 @@ class AlkhawarizmModelSelectionFacade {
     }
 }
 
-class AlkhawarizmModelHubFacade {
+class AljabrModelHubFacade {
     public static HubConfig.Builder config() {
         return HubConfig.builder();
     }
@@ -142,7 +142,7 @@ class AlkhawarizmModelHubFacade {
     }
 }
 
-class AlkhawarizmModelExportFacade {
+class AljabrModelExportFacade {
     public static ModelExporter.Builder model(NNModule model) {
         return ModelExporter.builder().model(model);
     }

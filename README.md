@@ -4,7 +4,7 @@
 [![Java 25](https://img.shields.io/badge/Java-25+-orange.svg)](https://adoptium.net/)
 [![JDK Vector API](https://img.shields.io/badge/JDK-Vector%20API-5E5E5E)](https://openjdk.org/jeps/438)
 
-A comprehensive machine learning, neural modeling, and deep learning training framework in pure Java, built on top of the **[Alkhawarizm](https://github.com/bhangun/alkhawarizm)** foundation engine.
+A comprehensive machine learning, neural modeling, and deep learning training framework in pure Java, built on top of the **[Aljabr](https://github.com/bhangun/aljabr)** foundation engine.
 
 ---
 
@@ -16,7 +16,7 @@ Tafkir is the **Training & Modeling framework** of the Wayang ML stack:
 ┌────────────────────────────────────────────────────────────────────────┐
 │                          Wayang Platform                               │ ← Agent orchestration, MCP tools
 ├───────────────────────────────────┬────────────────────────────────────┤
-│              Tafkir               │               Gollek               │
+│              Tafkir               │               Aqli               │
 │   (Training & Model Development)  │    (Inference & Serving Runtime)   │
 │  • Datasets & DataLoaders         │  • GGUF / ONNX / LiteRT Runners    │
 │  • Neural Network Modules         │  • KV Cache & Continuous Batching  │
@@ -24,7 +24,7 @@ Tafkir is the **Training & Modeling framework** of the Wayang ML stack:
 │  • Autograd Graph & Tape Engine   │  • Local SDK & Serving APIs        │
 │  • Quantization-Aware Training    │  • Post-Training Quantization      │
 ├───────────────────────────────────┴────────────────────────────────────┤
-│                       Alkhawarizm Foundation                           │
+│                       Aljabr Foundation                           │
 │  • Tensor primitives (DefaultTensor, Shape, DType, Memory Layout)      │
 │  • Hardware Backends (CPU Vector SIMD, Apple Metal, NVIDIA CUDA)      │
 │  • Core Serving & Inference SPIs                                       │
@@ -84,6 +84,6 @@ trainer.fit(trainDataLoader, validationDataLoader);
 ## 🛡️ Architectural Boundaries
 
 To ensure clean architecture across the ecosystem:
-1. **Foundation Dependency**: Tafkir consumes Alkhawarizm foundation artifacts (`tech.kayys.alkhawarizm:alkhawarizm-tensor`, etc.) without maintaining duplicate backend implementations.
-2. **Serving Separation**: Real-time production inference serving is owned by Gollek; Tafkir focuses on training, evaluation, and model synthesis.
+1. **Foundation Dependency**: Tafkir consumes Aljabr foundation artifacts (`tech.kayys.aljabr:aljabr-tensor`, etc.) without maintaining duplicate backend implementations.
+2. **Serving Separation**: Real-time production inference serving is owned by Aqli; Tafkir focuses on training, evaluation, and model synthesis.
 3. **Automated Verification**: Run `./scripts/check-boundaries.sh` to enforce boundary rules in CI.

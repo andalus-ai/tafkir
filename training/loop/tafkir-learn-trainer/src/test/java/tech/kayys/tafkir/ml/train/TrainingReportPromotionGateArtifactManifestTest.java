@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPromotionGateArtifactManifestTest {
@@ -30,7 +30,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
         Instant generatedAt = Instant.parse("2026-05-21T09:10:11Z");
 
         TrainingReportPromotionGateArtifactManifest.ManifestBundle manifest =
-                Alkhawarizm.DL.writeTrainingReportPromotionGateArtifactManifest(artifacts, generatedAt);
+                Aljabr.DL.writeTrainingReportPromotionGateArtifactManifest(artifacts, generatedAt);
 
         assertTrue(Files.isRegularFile(manifest.manifestFile()));
         assertEquals(64, manifest.manifestSha256().length());
@@ -47,7 +47,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
         assertTrue(properties.contains("gate.promotable=true"));
 
         TrainingReportPromotionGateArtifactManifest.ManifestInspection inspection =
-                Alkhawarizm.DL.readTrainingReportPromotionGateArtifactManifest(artifacts.directory());
+                Aljabr.DL.readTrainingReportPromotionGateArtifactManifest(artifacts.directory());
         assertEquals(TrainingReportPromotionGateArtifactManifest.FORMAT_VERSION, inspection.formatVersion());
         assertEquals(generatedAt, inspection.generatedAt());
         assertEquals(manifest.manifestSha256(), inspection.manifestSha256());
@@ -59,12 +59,12 @@ class TrainingReportPromotionGateArtifactManifestTest {
         assertEquals(artifacts.junitXmlFile(), inspection.artifact("junitXml").orElseThrow().file());
 
         TrainingReportPromotionGateArtifacts.ArtifactInspection gateArtifacts =
-                Alkhawarizm.DL.readTrainingReportPromotionGateArtifacts(inspection);
+                Aljabr.DL.readTrainingReportPromotionGateArtifacts(inspection);
         assertTrue(gateArtifacts.passed());
         assertEquals("candidate", gateArtifacts.decisionCandidate().orElseThrow());
 
         TrainingReportPromotionGateArtifactManifest.ManifestVerification verification =
-                Alkhawarizm.DL.verifyTrainingReportPromotionGateArtifactManifest(manifest);
+                Aljabr.DL.verifyTrainingReportPromotionGateArtifactManifest(manifest);
         assertTrue(verification.passed());
         assertTrue(verification.manifestSha256Matches());
         assertTrue(verification.artifactBytesMatch());
@@ -77,7 +77,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
     void detectsArtifactTamperingThroughManifestVerification() throws IOException {
         TrainingReportPromotionGateArtifacts.ArtifactBundle artifacts = writeGateArtifacts("tampered-artifact");
         TrainingReportPromotionGateArtifactManifest.ManifestBundle manifest =
-                Alkhawarizm.DL.writeTrainingReportPromotionGateArtifactManifest(
+                Aljabr.DL.writeTrainingReportPromotionGateArtifactManifest(
                         artifacts,
                         Instant.parse("2026-05-21T09:10:11Z"));
 
@@ -88,7 +88,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
                 StandardOpenOption.APPEND);
 
         TrainingReportPromotionGateArtifactManifest.ManifestVerification verification =
-                Alkhawarizm.DL.verifyTrainingReportPromotionGateArtifactManifest(manifest);
+                Aljabr.DL.verifyTrainingReportPromotionGateArtifactManifest(manifest);
 
         assertFalse(verification.passed());
         assertTrue(verification.manifestSha256Matches());
@@ -106,7 +106,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
     void detectsManifestTamperingWhenExpectedManifestChecksumIsAvailable() throws IOException {
         TrainingReportPromotionGateArtifacts.ArtifactBundle artifacts = writeGateArtifacts("tampered-manifest");
         TrainingReportPromotionGateArtifactManifest.ManifestBundle manifest =
-                Alkhawarizm.DL.writeTrainingReportPromotionGateArtifactManifest(
+                Aljabr.DL.writeTrainingReportPromotionGateArtifactManifest(
                         artifacts,
                         Instant.parse("2026-05-21T09:10:11Z"));
 
@@ -117,7 +117,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
                 StandardCharsets.UTF_8);
 
         TrainingReportPromotionGateArtifactManifest.ManifestVerification verification =
-                Alkhawarizm.DL.verifyTrainingReportPromotionGateArtifactManifest(manifest);
+                Aljabr.DL.verifyTrainingReportPromotionGateArtifactManifest(manifest);
 
         assertFalse(verification.passed());
         assertFalse(verification.manifestSha256Matches());
@@ -143,7 +143,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
     void rejectsUnsafeArtifactFileNamesInsideManifest() throws IOException {
         TrainingReportPromotionGateArtifacts.ArtifactBundle artifacts = writeGateArtifacts("unsafe-manifest-path");
         TrainingReportPromotionGateArtifactManifest.ManifestBundle manifest =
-                Alkhawarizm.DL.writeTrainingReportPromotionGateArtifactManifest(
+                Aljabr.DL.writeTrainingReportPromotionGateArtifactManifest(
                         artifacts,
                         Instant.parse("2026-05-21T09:10:11Z"));
 
@@ -155,7 +155,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
 
         IOException error = assertThrows(
                 IOException.class,
-                () -> Alkhawarizm.DL.readTrainingReportPromotionGateArtifactManifest(artifacts.directory()));
+                () -> Aljabr.DL.readTrainingReportPromotionGateArtifactManifest(artifacts.directory()));
         assertTrue(error.getMessage().contains("unsafe artifact manifest file name for json"));
     }
 
@@ -163,7 +163,7 @@ class TrainingReportPromotionGateArtifactManifestTest {
     void rejectsMalformedSha256InsideManifest() throws IOException {
         TrainingReportPromotionGateArtifacts.ArtifactBundle artifacts = writeGateArtifacts("bad-sha-manifest");
         TrainingReportPromotionGateArtifactManifest.ManifestBundle manifest =
-                Alkhawarizm.DL.writeTrainingReportPromotionGateArtifactManifest(
+                Aljabr.DL.writeTrainingReportPromotionGateArtifactManifest(
                         artifacts,
                         Instant.parse("2026-05-21T09:10:11Z"));
 
@@ -175,17 +175,17 @@ class TrainingReportPromotionGateArtifactManifestTest {
 
         IOException error = assertThrows(
                 IOException.class,
-                () -> Alkhawarizm.DL.readTrainingReportPromotionGateArtifactManifest(artifacts.directory()));
+                () -> Aljabr.DL.readTrainingReportPromotionGateArtifactManifest(artifacts.directory()));
         assertTrue(error.getMessage().contains("invalid artifact manifest sha256 for json"));
     }
 
     private TrainingReportPromotionGateArtifacts.ArtifactBundle writeGateArtifacts(String prefix) throws IOException {
-        TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+        TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                 promotionReports(prefix),
                 "baseline",
                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
                 tempDir.resolve(prefix + "-review-artifacts"));
-        return Alkhawarizm.DL.writeTrainingReportPromotionGateArtifacts(
+        return Aljabr.DL.writeTrainingReportPromotionGateArtifacts(
                 tempDir.resolve(prefix + "-gate-artifacts"),
                 result);
     }

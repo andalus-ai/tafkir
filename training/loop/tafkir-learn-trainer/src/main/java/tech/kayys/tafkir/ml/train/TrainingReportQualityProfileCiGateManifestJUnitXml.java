@@ -12,7 +12,7 @@ import java.util.Objects;
  * JUnit XML renderer for quality-profile CI manifest verification.
  */
 public final class TrainingReportQualityProfileCiGateManifestJUnitXml {
-    public static final String SUITE_NAME = "alkhawarizm.training.quality-profile.ci-gate.manifest";
+    public static final String SUITE_NAME = "aljabr.training.quality-profile.ci-gate.manifest";
 
     private TrainingReportQualityProfileCiGateManifestJUnitXml() {
     }

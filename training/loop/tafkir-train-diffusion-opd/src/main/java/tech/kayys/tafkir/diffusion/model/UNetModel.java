@@ -1,6 +1,6 @@
-package tech.kayys.alkhawarizm.diffusion.model;
+package tech.kayys.aljabr.diffusion.model;
 
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
+import tech.kayys.aljabr.core.tensor.Tensor;
 
 /**
  * SPI stub — Java-native UNet model contract.

@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.alkhawarizm.tokenizer.spi.DecodeOptions;
-import tech.kayys.alkhawarizm.tokenizer.spi.EncodeOptions;
-import tech.kayys.alkhawarizm.tokenizer.spi.Tokenizer;
+import tech.kayys.aljabr.tokenizer.spi.DecodeOptions;
+import tech.kayys.aljabr.tokenizer.spi.EncodeOptions;
+import tech.kayys.aljabr.tokenizer.spi.Tokenizer;
 
 class TokenizedDatasetTest {
 

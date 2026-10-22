@@ -64,11 +64,11 @@ import tech.kayys.tafkir.ml.train.TrainingReportValidationMarkdown;
 import tech.kayys.tafkir.ml.train.TrainingReportValidationPolicy;
 
 /**
- * Public one-call training/evaluation facade inherited by {@link Alkhawarizm.DL}.
+ * Public one-call training/evaluation facade inherited by {@link Aljabr.DL}.
  */
 @SuppressWarnings("deprecation")
-public class AlkhawarizmDlTrainingFacade extends AlkhawarizmDlFitFacade {
-    protected AlkhawarizmDlTrainingFacade() {
+public class AljabrDlTrainingFacade extends AljabrDlFitFacade {
+    protected AljabrDlTrainingFacade() {
     }
 
     public static TrainerRuntimeSmoke.Result trainerRuntimeSmoke() throws IOException {

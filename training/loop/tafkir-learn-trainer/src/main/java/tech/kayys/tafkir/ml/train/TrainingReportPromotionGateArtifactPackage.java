@@ -23,13 +23,13 @@ public final class TrainingReportPromotionGateArtifactPackage {
     public static final String DEFAULT_VERIFICATION_REPORT_BUNDLE_RECEIPT_FILE_NAME = "promotion-gate-package-verification.reports.receipt.json";
     public static final String DEFAULT_VERIFICATION_EVIDENCE_FILE_NAME = "promotion-gate-package-verification.evidence.json";
     public static final String DEFAULT_VERIFICATION_EVIDENCE_RECEIPT_FILE_NAME = "promotion-gate-package-verification.evidence.receipt.json";
-    public static final String VERIFICATION_INDEX_FORMAT = "alkhawarizm.training.promotion.package.verification.index.v1";
-    public static final String VERIFICATION_INDEX_RECEIPT_FORMAT = "alkhawarizm.training.promotion.package.verification.index.receipt.v1";
-    public static final String VERIFICATION_INDEX_PACKAGE_AUDIT_FORMAT = "alkhawarizm.training.promotion.package.verification.index.package-audit.v1";
-    public static final String VERIFICATION_REPORT_FORMAT = "alkhawarizm.training.promotion.package.verification.report.v1";
-    public static final String VERIFICATION_REPORT_BUNDLE_RECEIPT_FORMAT = "alkhawarizm.training.promotion.package.verification.reports.receipt.v1";
-    public static final String VERIFICATION_EVIDENCE_FORMAT = "alkhawarizm.training.promotion.package.verification.evidence.v1";
-    public static final String VERIFICATION_EVIDENCE_RECEIPT_FORMAT = "alkhawarizm.training.promotion.package.verification.evidence.receipt.v1";
+    public static final String VERIFICATION_INDEX_FORMAT = "aljabr.training.promotion.package.verification.index.v1";
+    public static final String VERIFICATION_INDEX_RECEIPT_FORMAT = "aljabr.training.promotion.package.verification.index.receipt.v1";
+    public static final String VERIFICATION_INDEX_PACKAGE_AUDIT_FORMAT = "aljabr.training.promotion.package.verification.index.package-audit.v1";
+    public static final String VERIFICATION_REPORT_FORMAT = "aljabr.training.promotion.package.verification.report.v1";
+    public static final String VERIFICATION_REPORT_BUNDLE_RECEIPT_FORMAT = "aljabr.training.promotion.package.verification.reports.receipt.v1";
+    public static final String VERIFICATION_EVIDENCE_FORMAT = "aljabr.training.promotion.package.verification.evidence.v1";
+    public static final String VERIFICATION_EVIDENCE_RECEIPT_FORMAT = "aljabr.training.promotion.package.verification.evidence.receipt.v1";
 
     private TrainingReportPromotionGateArtifactPackage() {
     }

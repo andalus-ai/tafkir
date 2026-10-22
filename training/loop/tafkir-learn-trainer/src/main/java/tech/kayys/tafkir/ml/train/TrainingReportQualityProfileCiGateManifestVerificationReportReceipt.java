@@ -16,7 +16,7 @@ import java.util.Objects;
  * bundle.
  */
 public final class TrainingReportQualityProfileCiGateManifestVerificationReportReceipt {
-    public static final String FORMAT = "alkhawarizm.training.quality-profile.ci-gate.manifest.verification.receipt.v1";
+    public static final String FORMAT = "aljabr.training.quality-profile.ci-gate.manifest.verification.receipt.v1";
     public static final String DEFAULT_FILE_NAME = "quality-profile-ci-gate-manifest-verification.receipt.json";
 
     private TrainingReportQualityProfileCiGateManifestVerificationReportReceipt() {

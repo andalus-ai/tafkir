@@ -1,6 +1,6 @@
 package tech.kayys.tafkir.nlp;
 
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.ModalityType;
 
 import java.util.Set;
 
@@ -37,7 +37,7 @@ import java.util.Set;
  * Once registered, the pipeline becomes available via:
  * 
  * <pre>{@code
- * var rag = Alkhawarizm.pipeline("rag", "my-rag-model");
+ * var rag = Aljabr.pipeline("rag", "my-rag-model");
  * }</pre>
  */
 public interface PipelineProvider {

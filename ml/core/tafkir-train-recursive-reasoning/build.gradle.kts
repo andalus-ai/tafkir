@@ -18,8 +18,8 @@ repositories {
 }
 
 dependencies {
-    api("tech.kayys.alkhawarizm:alkhawarizm-tensor:0.1.0-SNAPSHOT")
-    api(project(":trainer:alkhawarizm-trainer-api"))
+    api("tech.kayys.aljabr:aljabr-tensor:0.1.0-SNAPSHOT")
+    api(project(":trainer:aljabr-trainer-api"))
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter")
     testRuntimeOnly(group = "org.junit.platform", name = "junit-platform-launcher", version = "1.10.2")
 }

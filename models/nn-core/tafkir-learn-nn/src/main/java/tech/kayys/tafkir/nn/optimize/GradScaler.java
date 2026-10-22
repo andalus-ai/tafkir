@@ -33,7 +33,7 @@ import java.util.Objects;
  * }
  * }</pre>
  *
- * @author Alkhawarizm Team
+ * @author Aljabr Team
  * @version 0.1.0
  */
 public class GradScaler {

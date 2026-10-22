@@ -1,11 +1,11 @@
 package tech.kayys.tafkir.ml;
 
-import static tech.kayys.tafkir.ml.AlkhawarizmTrainingOptionValidators.*;
+import static tech.kayys.tafkir.ml.AljabrTrainingOptionValidators.*;
 
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.ml.autograd.NoGrad;
 import tech.kayys.tafkir.ml.nn.NNModule;
-import tech.kayys.alkhawarizm.core.tensor.DeviceType;
+import tech.kayys.aljabr.core.tensor.DeviceType;
 import tech.kayys.tafkir.ml.optim.GradScaler;
 import tech.kayys.tafkir.ml.optim.LRScheduler;
 import tech.kayys.tafkir.ml.optim.Optimizer;
@@ -20,20 +20,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Main entry point for the Alkhawarizm ML framework.
+ * Main entry point for the Aljabr ML framework.
  *
  * <p>
  * Provides static factory methods for creating tensors, building neural
  * networks, and querying device availability — mirroring the top-level
- * {@code torch} namespace in PyTorch, while {@code Alkhawarizm.ML} provides
+ * {@code torch} namespace in PyTorch, while {@code Aljabr.ML} provides
  * a scikit-learn style API for traditional machine learning.
  */
-public final class Alkhawarizm {
+public final class Aljabr {
 
     /** Framework version. */
     public static final String VERSION = "0.1.1";
 
-    private Alkhawarizm() {
+    private Aljabr() {
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -41,7 +41,7 @@ public final class Alkhawarizm {
     // ══════════════════════════════════════════════════════════════════════
 
     @SuppressWarnings("deprecation")
-    public static class DL extends AlkhawarizmDlQualityProfileFacade {
+    public static class DL extends AljabrDlQualityProfileFacade {
         public enum TrainingPreset {
             REGRESSION_MSE_ADAMW,
             REGRESSION_MSE_SGD,
@@ -226,7 +226,7 @@ public final class Alkhawarizm {
                 return new Builder();
             }
 
-            public static final class Builder extends AlkhawarizmTrainingCoreBuilderSupport<Builder> {
+            public static final class Builder extends AljabrTrainingCoreBuilderSupport<Builder> {
                 private Builder() {
                 }
 
@@ -360,11 +360,11 @@ public final class Alkhawarizm {
         }
 
         static Optimizer presetOptimizer(NNModule model, float learningRate, TrainingPreset preset) {
-            return AlkhawarizmTrainingPresetSupport.presetOptimizer(model, learningRate, preset);
+            return AljabrTrainingPresetSupport.presetOptimizer(model, learningRate, preset);
         }
 
         static TrainingLossFunction presetLoss(TrainingPreset preset) {
-            return AlkhawarizmTrainingPresetSupport.presetLoss(preset);
+            return AljabrTrainingPresetSupport.presetLoss(preset);
         }
 
         static TrainingLossFunction presetLoss(
@@ -390,7 +390,7 @@ public final class Alkhawarizm {
                 Boolean zeroInflatedNegativeBinomialLogInput,
                 Boolean zeroInflatedNegativeBinomialIncludeConstant,
                 Float zeroInflatedNegativeBinomialEps) {
-            return AlkhawarizmTrainingPresetSupport.presetLoss(
+            return AljabrTrainingPresetSupport.presetLoss(
                     preset,
                     crossEntropyClassWeights,
                     focalGamma,
@@ -421,28 +421,28 @@ public final class Alkhawarizm {
     // Traditional ML (Scikit-Learn Style)
     // ══════════════════════════════════════════════════════════════════════
 
-    public static class ML extends AlkhawarizmClassicML {
+    public static class ML extends AljabrClassicML {
     }
 
     // ══════════════════════════════════════════════════════════════════════
     // Model Selection & Utilities
     // ══════════════════════════════════════════════════════════════════════
 
-    public static class Selection extends AlkhawarizmModelSelectionFacade {
+    public static class Selection extends AljabrModelSelectionFacade {
     }
 
     // ══════════════════════════════════════════════════════════════════════
     // Model Hub
     // ══════════════════════════════════════════════════════════════════════
 
-    public static class Hub extends AlkhawarizmModelHubFacade {
+    public static class Hub extends AljabrModelHubFacade {
     }
 
     // ══════════════════════════════════════════════════════════════════════
     // Model Export
     // ══════════════════════════════════════════════════════════════════════
 
-    public static class Export extends AlkhawarizmModelExportFacade {
+    public static class Export extends AljabrModelExportFacade {
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -563,7 +563,7 @@ public final class Alkhawarizm {
     public static void printInfo() {
         var device = defaultDevice();
         System.out.println("╔══════════════════════════════════════════════════════╗");
-        System.out.println("║          Alkhawarizm ML Framework                         ║");
+        System.out.println("║          Aljabr ML Framework                         ║");
         System.out.println("║          Version " + String.format("%-32s", VERSION) + "║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║  Device:  " + String.format("%-32s", device) + "║");

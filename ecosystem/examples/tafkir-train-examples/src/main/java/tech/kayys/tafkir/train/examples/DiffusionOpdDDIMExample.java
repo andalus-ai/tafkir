@@ -2,10 +2,10 @@ package tech.kayys.tafkir.train.examples;
 
 import java.nio.file.Path;
 import java.util.List;
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
-import tech.kayys.alkhawarizm.diffusion.model.UNetModel;
-import tech.kayys.alkhawarizm.diffusion.scheduler.DDIMScheduler;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.aljabr.core.tensor.Tensor;
+import tech.kayys.aljabr.diffusion.model.UNetModel;
+import tech.kayys.aljabr.diffusion.scheduler.DDIMScheduler;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionOpdListener;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionPromptSample;
 import tech.kayys.tafkir.train.diffusion.api.DiffusionSamplerType;
@@ -16,7 +16,7 @@ import tech.kayys.tafkir.trainer.api.TrainingSummary;
 import tech.kayys.tafkir.train.diffusion.opd.adapter.RunnerDiffusionAdapters;
 
 /**
- * Minimal Java-first DiffusionOPD example using the Alkhawarizm diffusion runner
+ * Minimal Java-first DiffusionOPD example using the Aljabr diffusion runner
  * adapters and a DDIM-style scheduler.
  *
  * <p>
@@ -43,13 +43,13 @@ public final class DiffusionOpdDDIMExample {
         var diffusionScheduler = RunnerDiffusionAdapters.scheduler(ddimScheduler);
 
         List<DiffusionPromptSample> ocrPrompts = List.of(
-                new DiffusionPromptSample("street sign that clearly reads ALKHAWARIZM", "", 7L, null),
+                new DiffusionPromptSample("street sign that clearly reads ALJABR", "", 7L, null),
                 new DiffusionPromptSample("receipt with bold total amount and crisp text", "", 11L, null));
         List<DiffusionPromptSample> aestheticsPrompts = List.of(
                 new DiffusionPromptSample("cinematic portrait with dramatic rim lighting", "", 13L, null),
                 new DiffusionPromptSample("editorial product shot on textured marble", "", 17L, null));
 
-        var trainer = Alkhawarizm.DL.diffusionOpdTrainer()
+        var trainer = Aljabr.DL.diffusionOpdTrainer()
                 .samplerType(DiffusionSamplerType.ODE)
                 .student(RunnerDiffusionAdapters.denoiser(studentUnet))
                 .teacher("ocr-early", RunnerDiffusionAdapters.denoiser(ocrEarlyTeacher))

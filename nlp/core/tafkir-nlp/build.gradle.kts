@@ -20,13 +20,13 @@ repositories {
 dependencies {
     implementation(project(":ml:tafkir-ml-nn"))
     implementation(project(":ml:tafkir-ml-autograd"))
-    implementation("tech.kayys.alkhawarizm:alkhawarizm-spi-tokenizer:0.1.0-SNAPSHOT")
-   // implementation(project(":sdk:alkhawarizm-sdk-api"))
+    implementation("tech.kayys.aljabr:aljabr-spi-tokenizer:0.1.0-SNAPSHOT")
+   // implementation(project(":sdk:aljabr-sdk-api"))
     implementation(project(":ml:tafkir-ml-optimize"))
     implementation(project(":ml:tafkir-ml-selection"))
     implementation(project(":ml:tafkir-ml-data"))
-   // implementation(project(":spi:alkhawarizm-spi-inference"))
-   // implementation(project(":spi:alkhawarizm-spi-multimodal"))
+   // implementation(project(":spi:aljabr-spi-inference"))
+   // implementation(project(":spi:aljabr-spi-multimodal"))
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter")
 }
 

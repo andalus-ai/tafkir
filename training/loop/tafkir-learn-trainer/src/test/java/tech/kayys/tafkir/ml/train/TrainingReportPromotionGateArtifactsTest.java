@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tech.kayys.tafkir.ml.Alkhawarizm;
+import tech.kayys.tafkir.ml.Aljabr;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 class TrainingReportPromotionGateArtifactsTest {
@@ -24,13 +24,13 @@ class TrainingReportPromotionGateArtifactsTest {
 
         @Test
         void writesGateJsonMarkdownAndJUnitXmlArtifactsWithChecksums() throws IOException {
-                TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+                TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                                 promotionReports(),
                                 "baseline",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
                                 tempDir.resolve("review-artifacts"));
 
-                TrainingReportPromotionGateArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactBundle bundle = Aljabr.DL
                                 .writeTrainingReportPromotionGateArtifacts(
                                                 tempDir.resolve("gate-artifacts"),
                                                 result);
@@ -52,13 +52,13 @@ class TrainingReportPromotionGateArtifactsTest {
                 assertTrue(json.contains("\"candidate\":\"candidate\""));
 
                 String markdown = Files.readString(bundle.markdownFile());
-                assertTrue(markdown.startsWith("# Alkhawarizm Training Promotion Gate\n"));
+                assertTrue(markdown.startsWith("# Aljabr Training Promotion Gate\n"));
                 assertTrue(markdown.contains("**Gate:** `PASS`"));
 
                 String junitXml = Files.readString(bundle.junitXmlFile());
                 assertTrue(junitXml.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"));
                 assertTrue(junitXml.contains(
-                                "<testsuite name=\"alkhawarizm.training.promotion\" tests=\"1\" failures=\"0\""));
+                                "<testsuite name=\"aljabr.training.promotion\" tests=\"1\" failures=\"0\""));
                 assertTrue(junitXml.contains("name=\"artifacts.verified\" value=\"true\""));
 
                 Map<String, Object> map = bundle.toMap();
@@ -67,7 +67,7 @@ class TrainingReportPromotionGateArtifactsTest {
                 assertEquals(bundle.artifactMap(), map.get("artifact"));
                 bundle.requirePassed();
 
-                TrainingReportPromotionGateArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactInspection inspection = Aljabr.DL
                                 .readTrainingReportPromotionGateArtifacts(bundle.directory());
                 assertTrue(inspection.passed());
                 assertTrue(inspection.promotable());
@@ -78,7 +78,7 @@ class TrainingReportPromotionGateArtifactsTest {
                 assertEquals(bundle.junitXmlSha256(), inspection.junitXmlSha256());
                 assertEquals(bundle.artifactMap(), inspection.artifactMap());
 
-                TrainingReportPromotionGateArtifacts.ArtifactVerification verification = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactVerification verification = Aljabr.DL
                                 .verifyTrainingReportPromotionGateArtifacts(bundle);
                 assertTrue(verification.passed());
                 assertTrue(verification.jsonSha256Matches());
@@ -94,7 +94,7 @@ class TrainingReportPromotionGateArtifactsTest {
 
         @Test
         void supportsCustomSafeGateArtifactNames() throws IOException {
-                TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+                TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                                 promotionReports(),
                                 "baseline",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
@@ -104,7 +104,7 @@ class TrainingReportPromotionGateArtifactsTest {
                                 "gate.md",
                                 "gate.xml");
 
-                TrainingReportPromotionGateArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactBundle bundle = Aljabr.DL
                                 .writeTrainingReportPromotionGateArtifacts(
                                                 tempDir.resolve("custom-gate-artifacts"),
                                                 result,
@@ -117,22 +117,22 @@ class TrainingReportPromotionGateArtifactsTest {
                 assertTrue(Files.exists(bundle.markdownFile()));
                 assertTrue(Files.exists(bundle.junitXmlFile()));
 
-                TrainingReportPromotionGateArtifacts.ArtifactInspection inspection = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactInspection inspection = Aljabr.DL
                                 .readTrainingReportPromotionGateArtifacts(
                                                 tempDir.resolve("custom-gate-artifacts"),
                                                 options);
                 assertEquals("candidate", inspection.decisionCandidate().orElseThrow());
-                assertTrue(inspection.junitXml().contains("<testsuite name=\"alkhawarizm.training.promotion\""));
+                assertTrue(inspection.junitXml().contains("<testsuite name=\"aljabr.training.promotion\""));
         }
 
         @Test
         void refreshDerivedArtifactsRebuildsReportsFromJsonResult() throws IOException {
-                TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+                TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                                 promotionReports(),
                                 "baseline",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
                                 tempDir.resolve("refresh-review-artifacts"));
-                TrainingReportPromotionGateArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactBundle bundle = Aljabr.DL
                                 .writeTrainingReportPromotionGateArtifacts(
                                                 tempDir.resolve("refresh-gate-artifacts"),
                                                 result);
@@ -148,15 +148,15 @@ class TrainingReportPromotionGateArtifactsTest {
                                 StandardCharsets.UTF_8,
                                 java.nio.file.StandardOpenOption.APPEND);
 
-                TrainingReportPromotionGateArtifacts.ArtifactVerification stale = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactVerification stale = Aljabr.DL
                                 .verifyTrainingReportPromotionGateArtifacts(bundle.directory(), null, null, null);
                 assertFalse(stale.passed());
                 assertFalse(stale.markdownMatchesJson());
                 assertFalse(stale.junitXmlMatchesJson());
 
-                TrainingReportPromotionGateArtifacts.ArtifactInspection refreshed = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactInspection refreshed = Aljabr.DL
                                 .refreshTrainingReportPromotionGateArtifacts(bundle.directory());
-                TrainingReportPromotionGateArtifacts.ArtifactVerification verification = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactVerification verification = Aljabr.DL
                                 .verifyTrainingReportPromotionGateArtifacts(bundle.directory(), null, null, null);
 
                 assertEquals(bundle.jsonSha256(), refreshed.jsonSha256());
@@ -171,12 +171,12 @@ class TrainingReportPromotionGateArtifactsTest {
 
         @Test
         void detectsTamperedGateArtifactsAndMalformedJUnitXml() throws IOException {
-                TrainingReportPromotionGate.Result result = Alkhawarizm.DL.runTrainingReportPromotionGate(
+                TrainingReportPromotionGate.Result result = Aljabr.DL.runTrainingReportPromotionGate(
                                 promotionReports(),
                                 "baseline",
                                 TrainingReportPortfolio.PromotionPolicy.defaultPolicy(),
                                 tempDir.resolve("tampered-review-artifacts"));
-                TrainingReportPromotionGateArtifacts.ArtifactBundle bundle = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactBundle bundle = Aljabr.DL
                                 .writeTrainingReportPromotionGateArtifacts(
                                                 tempDir.resolve("tampered-gate-artifacts"),
                                                 result);
@@ -186,7 +186,7 @@ class TrainingReportPromotionGateArtifactsTest {
                                 "<testsuite><broken></testsuite>",
                                 StandardCharsets.UTF_8);
 
-                TrainingReportPromotionGateArtifacts.ArtifactVerification verification = Alkhawarizm.DL
+                TrainingReportPromotionGateArtifacts.ArtifactVerification verification = Aljabr.DL
                                 .verifyTrainingReportPromotionGateArtifacts(bundle);
 
                 assertFalse(verification.passed());

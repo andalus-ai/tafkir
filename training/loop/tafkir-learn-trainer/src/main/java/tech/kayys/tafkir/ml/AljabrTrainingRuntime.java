@@ -14,11 +14,11 @@ import tech.kayys.tafkir.train.data.DataLoader.Batch;
 import tech.kayys.tafkir.trainer.api.TrainingSummary;
 
 /**
- * Runs the high-level Alkhawarizm.DL.fit convenience path without bloating the
+ * Runs the high-level Aljabr.DL.fit convenience path without bloating the
  * public facade.
  */
-final class AlkhawarizmTrainingRuntime {
-    private AlkhawarizmTrainingRuntime() {
+final class AljabrTrainingRuntime {
+    private AljabrTrainingRuntime() {
     }
 
     static TrainingSummary fit(Request request) {
@@ -28,8 +28,8 @@ final class AlkhawarizmTrainingRuntime {
         Objects.requireNonNull(request.preset(), "preset must not be null");
 
         float learningRate = request.learningRate() > 0 ? request.learningRate() : 1e-3f;
-        Optimizer optimizer = Alkhawarizm.DL.presetOptimizer(request.model(), learningRate, request.preset());
-        TrainingLossFunction loss = Alkhawarizm.DL.presetLoss(
+        Optimizer optimizer = Aljabr.DL.presetOptimizer(request.model(), learningRate, request.preset());
+        TrainingLossFunction loss = Aljabr.DL.presetLoss(
                 request.preset(),
                 request.crossEntropyClassWeights(),
                 request.focalGamma(),
@@ -58,7 +58,7 @@ final class AlkhawarizmTrainingRuntime {
                         request.schedulerFactory().create(optimizer),
                         "scheduler factory returned null");
 
-        CanonicalTrainer.Builder trainerBuilder = Alkhawarizm.DL.trainer()
+        CanonicalTrainer.Builder trainerBuilder = Aljabr.DL.trainer()
                 .model(request.model())
                 .optimizer(optimizer)
                 .loss(loss)
@@ -114,7 +114,7 @@ final class AlkhawarizmTrainingRuntime {
         if (configured != null && !configured.isEmpty()) {
             return configured;
         }
-        return AlkhawarizmTrainingPresetSupport.defaultMetricFactories(
+        return AljabrTrainingPresetSupport.defaultMetricFactories(
                 request.preset(),
                 request.causalLanguageModelingIgnoreIndex());
     }
@@ -125,7 +125,7 @@ final class AlkhawarizmTrainingRuntime {
             Iterable<Batch> validationLoader,
             int epochs,
             float learningRate,
-            Alkhawarizm.DL.TrainingPreset preset,
+            Aljabr.DL.TrainingPreset preset,
             double gradientClip,
             double gradientClipValue,
             int earlyStoppingPatience,
@@ -146,7 +146,7 @@ final class AlkhawarizmTrainingRuntime {
             boolean failOnAcceleratorFallback,
             boolean dataDistributionDiagnostics,
             List<? extends java.util.function.Supplier<? extends TrainingMetric>> metricFactories,
-            Alkhawarizm.DL.SchedulerFactory schedulerFactory,
+            Aljabr.DL.SchedulerFactory schedulerFactory,
             CanonicalTrainer.SchedulerStepUnit schedulerStepUnit,
             String schedulerMonitorMetric,
             float[] crossEntropyClassWeights,

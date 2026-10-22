@@ -1,8 +1,8 @@
 package tech.kayys.tafkir.training.integration;
 
 import org.junit.jupiter.api.Test;
-import tech.kayys.alkhawarizm.core.memory.UnifiedMemoryStore;
-import tech.kayys.alkhawarizm.core.memory.helixdb.HelixDbMemoryStore;
+import tech.kayys.aljabr.core.memory.UnifiedMemoryStore;
+import tech.kayys.aljabr.core.memory.helixdb.HelixDbMemoryStore;
 import tech.kayys.tafkir.training.strategy.FineTuningStrategy;
 import tech.kayys.tafkir.training.strategy.LoRAStrategy;
 
@@ -24,7 +24,7 @@ public class ZeroCopyIntegrationTest {
             byte[] contextKey = "agent_context_1".getBytes();
             byte[] modelKey = "agent_adapter_1".getBytes();
 
-            // 2. Put simulated data into the store (mimics Alkhawarizm saving state)
+            // 2. Put simulated data into the store (mimics Aljabr saving state)
             try (Arena tempArena = Arena.ofConfined()) {
                 MemorySegment contextData = tempArena.allocate(1024);
                 MemorySegment modelData = tempArena.allocate(1024);

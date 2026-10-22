@@ -1,6 +1,6 @@
 package tech.kayys.tafkir.train.diffusion.opd;
 
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
+import tech.kayys.aljabr.core.tensor.Tensor;
 
 /**
  * Converts model outputs into scheduler-aware transition means.

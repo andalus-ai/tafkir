@@ -114,7 +114,7 @@ class DiscreteTokenDatasetCheckpointManifestTest {
                 assertEquals("default", manifest.experimentName());
                 assertEquals(report.fingerprint().shortValue(), manifest.runId());
                 assertEquals("recursive-reasoning", manifest.modelFamily());
-                assertEquals("alkhawarizm", manifest.createdBy());
+                assertEquals("aljabr", manifest.createdBy());
                 assertEquals(0L, manifest.seed());
                 assertEquals(0L, manifest.checkpointStep());
                 assertEquals(report.fingerprint().shortValue(), manifest.lineage().originRunId());

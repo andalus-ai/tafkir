@@ -59,7 +59,7 @@ class TrainerRuntimeArtifactPersistenceTest {
 
         assertTrue(result.artifact().saved());
         assertTrue(result.manifest().saved());
-        assertTrue(Files.readString(report).contains("\"schema\":\"alkhawarizm.canonical-trainer.report.v1\""));
+        assertTrue(Files.readString(report).contains("\"schema\":\"aljabr.canonical-trainer.report.v1\""));
         assertTrue(Files.readString(manifest).contains("artifact.report.file=report.json"));
     }
 

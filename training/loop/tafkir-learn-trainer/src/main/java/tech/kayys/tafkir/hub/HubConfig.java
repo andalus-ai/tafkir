@@ -1,4 +1,4 @@
-package tech.kayys.alkhawarizm.hub;
+package tech.kayys.aljabr.hub;
 
 import java.nio.file.Path;
 

@@ -9,10 +9,10 @@ import tech.kayys.tafkir.ml.optim.Optimizer;
 import tech.kayys.tafkir.ml.optim.RMSprop;
 
 /**
- * Adaptive optimizer construction helpers inherited by {@link Alkhawarizm.DL}.
+ * Adaptive optimizer construction helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlAdaptiveOptimizerFactoryFacade extends AlkhawarizmDlCoreOptimizerFactoryFacade {
-    protected AlkhawarizmDlAdaptiveOptimizerFactoryFacade() {
+public class AljabrDlAdaptiveOptimizerFactoryFacade extends AljabrDlCoreOptimizerFactoryFacade {
+    protected AljabrDlAdaptiveOptimizerFactoryFacade() {
     }
 
     public static Optimizer adam(List<Parameter> params, float lr) {

@@ -1,9 +1,9 @@
 package tech.kayys.tafkir.ml.multimodal;
 
-import tech.kayys.alkhawarizm.spi.model.MultimodalProcessor;
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
-import tech.kayys.alkhawarizm.spi.model.MultimodalContent;
-import tech.kayys.alkhawarizm.spi.model.MultimodalRequest;
+import tech.kayys.aljabr.spi.model.MultimodalProcessor;
+import tech.kayys.aljabr.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.MultimodalContent;
+import tech.kayys.aljabr.spi.model.MultimodalRequest;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,7 +19,7 @@ import java.util.*;
  * <h3>Example — Image Comparison</h3>
  * 
  * <pre>{@code
- * var result = Alkhawarizm.multimodal("gpt-4o")
+ * var result = Aljabr.multimodal("gpt-4o")
  *         .text("Compare these two images and describe the differences")
  *         .image(Path.of("before.png"))
  *         .image(Path.of("after.png"))
@@ -30,7 +30,7 @@ import java.util.*;
  * <h3>Example — Document + Image Analysis</h3>
  * 
  * <pre>{@code
- * var result = Alkhawarizm.multimodal("gemini-2.0-flash")
+ * var result = Aljabr.multimodal("gemini-2.0-flash")
  *         .text("Extract the table data from this document")
  *         .document(Path.of("report.pdf"), "pdf")
  *         .generate();
@@ -39,7 +39,7 @@ import java.util.*;
  * <h3>Example — Auto-detect from files</h3>
  * 
  * <pre>{@code
- * var result = Alkhawarizm.multimodal("gemini-2.0-pro")
+ * var result = Aljabr.multimodal("gemini-2.0-pro")
  *         .text("Analyze all these inputs")
  *         .file(Path.of("photo.jpg"))
  *         .file(Path.of("recording.wav"))

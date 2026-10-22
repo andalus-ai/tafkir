@@ -31,7 +31,7 @@ import tech.kayys.tafkir.ml.vision.ops.ElementWiseOps;
  * GradTensor logits = model.forward(x); // Shape: [1, 1000]
  * }</pre>
  *
- * @author Alkhawarizm Team
+ * @author Aljabr Team
  * @version 0.1.0
  */
 public class ResNet extends NNModule {

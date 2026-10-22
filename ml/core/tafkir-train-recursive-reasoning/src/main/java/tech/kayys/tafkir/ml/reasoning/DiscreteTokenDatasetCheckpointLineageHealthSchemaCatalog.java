@@ -10,17 +10,17 @@ import java.util.Map;
  */
 public final class DiscreteTokenDatasetCheckpointLineageHealthSchemaCatalog {
     public static final String KIND = "checkpoint-lineage-health-schema-catalog";
-    public static final String SCHEMA_VERSION = "alkhawarizm.checkpoint-lineage-health-schema-catalog.v1";
+    public static final String SCHEMA_VERSION = "aljabr.checkpoint-lineage-health-schema-catalog.v1";
     public static final String LOCK_KIND = "checkpoint-lineage-health-schema-lock";
-    public static final String LOCK_SCHEMA_VERSION = "alkhawarizm.checkpoint-lineage-health-schema-lock.v1";
+    public static final String LOCK_SCHEMA_VERSION = "aljabr.checkpoint-lineage-health-schema-lock.v1";
     public static final String LOCK_VALIDATION_KIND = "checkpoint-lineage-health-schema-lock-validation";
-    public static final String LOCK_VALIDATION_SCHEMA_VERSION = "alkhawarizm.checkpoint-lineage-health-schema-lock-validation.v1";
-    public static final String JSON_SCHEMA_ID = "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-schema-catalog.v1.schema.json";
-    public static final String JSON_SCHEMA_RESOURCE = "tech/kayys/alkhawarizm/ml/reasoning/schemas/checkpoint-lineage-health-schema-catalog.v1.schema.json";
-    public static final String LOCK_JSON_SCHEMA_ID = "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-schema-lock.v1.schema.json";
-    public static final String LOCK_JSON_SCHEMA_RESOURCE = "tech/kayys/alkhawarizm/ml/reasoning/schemas/checkpoint-lineage-health-schema-lock.v1.schema.json";
-    public static final String LOCK_VALIDATION_JSON_SCHEMA_ID = "https://alkhawarizm.ai/schemas/training/checkpoint-lineage-health-schema-lock-validation.v1.schema.json";
-    public static final String LOCK_VALIDATION_JSON_SCHEMA_RESOURCE = "tech/kayys/alkhawarizm/ml/reasoning/schemas/checkpoint-lineage-health-schema-lock-validation.v1.schema.json";
+    public static final String LOCK_VALIDATION_SCHEMA_VERSION = "aljabr.checkpoint-lineage-health-schema-lock-validation.v1";
+    public static final String JSON_SCHEMA_ID = "https://aljabr.ai/schemas/training/checkpoint-lineage-health-schema-catalog.v1.schema.json";
+    public static final String JSON_SCHEMA_RESOURCE = "tech/kayys/aljabr/ml/reasoning/schemas/checkpoint-lineage-health-schema-catalog.v1.schema.json";
+    public static final String LOCK_JSON_SCHEMA_ID = "https://aljabr.ai/schemas/training/checkpoint-lineage-health-schema-lock.v1.schema.json";
+    public static final String LOCK_JSON_SCHEMA_RESOURCE = "tech/kayys/aljabr/ml/reasoning/schemas/checkpoint-lineage-health-schema-lock.v1.schema.json";
+    public static final String LOCK_VALIDATION_JSON_SCHEMA_ID = "https://aljabr.ai/schemas/training/checkpoint-lineage-health-schema-lock-validation.v1.schema.json";
+    public static final String LOCK_VALIDATION_JSON_SCHEMA_RESOURCE = "tech/kayys/aljabr/ml/reasoning/schemas/checkpoint-lineage-health-schema-lock-validation.v1.schema.json";
 
     private static final DiscreteTokenDatasetSchemaContract HEALTH_CONTRACT = new DiscreteTokenDatasetSchemaContract(
             DiscreteTokenDatasetCheckpointLineageHealthSnapshot.class,
@@ -54,8 +54,8 @@ public final class DiscreteTokenDatasetCheckpointLineageHealthSchemaCatalog {
                     "checkpoint lineage health schema lock",
                     "checkpoint lineage health schema lock validation")
             .codes(
-                    "ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_VALID",
-                    "ALKHAWARIZM_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH")
+                    "ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_VALID",
+                    "ALJABR_LINEAGE_HEALTH_SCHEMA_LOCK_MISMATCH")
             .addContract(HEALTH_CONTRACT)
             .addContract(HEALTH_VALIDATION_CONTRACT)
             .build();

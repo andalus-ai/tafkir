@@ -1,4 +1,4 @@
-package tech.kayys.alkhawarizm.safetensor.core.tensor;
+package tech.kayys.aljabr.safetensor.core.tensor;
 
 /**
  * Stub — accelerator-native tensor used by the safetensor Stable Diffusion

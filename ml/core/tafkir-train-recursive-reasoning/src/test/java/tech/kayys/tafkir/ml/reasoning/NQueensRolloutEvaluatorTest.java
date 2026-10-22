@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import tech.kayys.alkhawarizm.core.backend.ComputeBackend;
-import tech.kayys.alkhawarizm.core.tensor.DType;
-import tech.kayys.alkhawarizm.core.tensor.DeviceType;
-import tech.kayys.alkhawarizm.core.tensor.Shape;
-import tech.kayys.alkhawarizm.core.tensor.Tensor;
+import tech.kayys.aljabr.core.backend.ComputeBackend;
+import tech.kayys.aljabr.core.tensor.DType;
+import tech.kayys.aljabr.core.tensor.DeviceType;
+import tech.kayys.aljabr.core.tensor.Shape;
+import tech.kayys.aljabr.core.tensor.Tensor;
 
 class NQueensRolloutEvaluatorTest {
     @Test

@@ -5,14 +5,14 @@ import tech.kayys.tafkir.ml.nn.NNModule;
 import tech.kayys.tafkir.ml.nn.layer.Sequential;
 
 /**
- * Tensor and module construction helpers inherited by {@link Alkhawarizm.DL}.
+ * Tensor and module construction helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlTensorFactoryFacade extends AlkhawarizmDlDataFacade {
-    protected AlkhawarizmDlTensorFactoryFacade() {
+public class AljabrDlTensorFactoryFacade extends AljabrDlDataFacade {
+    protected AljabrDlTensorFactoryFacade() {
     }
 
     public static GradTensor tensor(float[] data, long... shape) {
-        return Alkhawarizm.tensor(data, shape);
+        return Aljabr.tensor(data, shape);
     }
 
     public static NNModule sequential(NNModule... layers) {

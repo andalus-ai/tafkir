@@ -4,11 +4,11 @@ import java.util.function.Supplier;
 import tech.kayys.tafkir.ml.train.CanonicalTrainer;
 
 /**
- * Public multi-class classification metric factories inherited by {@link Alkhawarizm.DL}.
+ * Public multi-class classification metric factories inherited by {@link Aljabr.DL}.
  */
 @SuppressWarnings("deprecation")
-public class AlkhawarizmDlClassificationMetricsFacade {
-    protected AlkhawarizmDlClassificationMetricsFacade() {
+public class AljabrDlClassificationMetricsFacade {
+    protected AljabrDlClassificationMetricsFacade() {
     }
 
     public static Supplier<CanonicalTrainer.Metric> accuracyMetric() {

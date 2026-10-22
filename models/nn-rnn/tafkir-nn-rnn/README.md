@@ -1,4 +1,4 @@
-# Alkhawarizm RNN Module
+# Aljabr RNN Module
 
 Comprehensive Recurrent Neural Network (RNN) layers for sequence processing.
 
@@ -286,7 +286,7 @@ public class LanguageModel {
 Run the comprehensive test suite:
 
 ```bash
-mvn test -f alkhawarizm/sdk/lib/tafkir-ml-rnn/pom.xml
+mvn test -f aljabr/sdk/lib/tafkir-ml-rnn/pom.xml
 ```
 
 ## Future Enhancements

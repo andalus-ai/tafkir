@@ -29,7 +29,7 @@ class TrainerCheckpointManifestTest {
 
         @Test
         void buildIncludesOnlyRegularArtifactsWithFileSizeAndSha256() throws Exception {
-                Path dir = Files.createTempDirectory("alkhawarizm-checkpoint-manifest");
+                Path dir = Files.createTempDirectory("aljabr-checkpoint-manifest");
                 Path runtime = writeFile(dir.resolve("canonical-runtime.state"), "abc");
                 Path optimizer = writeFile(dir.resolve("canonical-optimizer.state"), "xyz");
                 Path nestedDirectory = Files.createDirectory(dir.resolve("not-a-file"));
@@ -63,7 +63,7 @@ class TrainerCheckpointManifestTest {
 
         @Test
         void writeAndCheckArtifactRoundTrip() throws Exception {
-                Path dir = Files.createTempDirectory("alkhawarizm-checkpoint-manifest-roundtrip");
+                Path dir = Files.createTempDirectory("aljabr-checkpoint-manifest-roundtrip");
                 Path manifest = dir.resolve("canonical-manifest.properties");
                 Path optimizer = writeFile(dir.resolve("canonical-optimizer.state"), "abc");
 
@@ -87,7 +87,7 @@ class TrainerCheckpointManifestTest {
 
         @Test
         void checkArtifactReportsMissingManifestAsCompatible() throws Exception {
-                Path dir = Files.createTempDirectory("alkhawarizm-checkpoint-manifest-missing");
+                Path dir = Files.createTempDirectory("aljabr-checkpoint-manifest-missing");
                 Path optimizer = writeFile(dir.resolve("canonical-optimizer.state"), "abc");
 
                 TrainerCheckpointManifest.CompatibilityCheck check = TrainerCheckpointManifest.checkArtifact(
@@ -105,7 +105,7 @@ class TrainerCheckpointManifestTest {
 
         @Test
         void checkArtifactReportsIntegrityMismatch() throws Exception {
-                Path dir = Files.createTempDirectory("alkhawarizm-checkpoint-manifest-mismatch");
+                Path dir = Files.createTempDirectory("aljabr-checkpoint-manifest-mismatch");
                 Path optimizer = writeFile(dir.resolve("canonical-optimizer.state"), "abc");
                 Path manifest = dir.resolve("canonical-manifest.properties");
                 Properties properties = new Properties();
@@ -133,7 +133,7 @@ class TrainerCheckpointManifestTest {
 
         @Test
         void checkRequiredArtifactReportsMissingManifestEntry() throws Exception {
-                Path dir = Files.createTempDirectory("alkhawarizm-checkpoint-manifest-required-missing");
+                Path dir = Files.createTempDirectory("aljabr-checkpoint-manifest-required-missing");
                 Path scheduler = writeFile(dir.resolve("canonical-scheduler.state"), "abc");
                 Path manifest = dir.resolve("canonical-manifest.properties");
                 Properties properties = new Properties();

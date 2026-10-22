@@ -40,7 +40,7 @@ tasks.jar {
     manifest {
         attributes(
             mapOf(
-                "Implementation-Title" to "Alkhawarizm Computer Vision SDK",
+                "Implementation-Title" to "Aljabr Computer Vision SDK",
                 "Implementation-Version" to "0.1.0-SNAPSHOT"
             )
         )

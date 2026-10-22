@@ -29,7 +29,7 @@ import tech.kayys.tafkir.ml.nn.Parameter;
  * GradTensor y = gru.forward(x, h); // [32, 128]
  * }</pre>
  *
- * @author Alkhawarizm Team
+ * @author Aljabr Team
  * @version 0.1.0
  */
 public class GRUCell extends NNModule implements RNNCell {

@@ -9,10 +9,10 @@ import tech.kayys.tafkir.ml.nn.loss.PredictionIntervalLoss;
 import tech.kayys.tafkir.ml.nn.loss.SmoothL1Loss;
 
 /**
- * Regression and probabilistic regression loss helpers inherited by {@link Alkhawarizm.DL}.
+ * Regression and probabilistic regression loss helpers inherited by {@link Aljabr.DL}.
  */
-public class AlkhawarizmDlRegressionLossFactoryFacade extends AlkhawarizmDlClassificationLossFactoryFacade {
-    protected AlkhawarizmDlRegressionLossFactoryFacade() {
+public class AljabrDlRegressionLossFactoryFacade extends AljabrDlClassificationLossFactoryFacade {
+    protected AljabrDlRegressionLossFactoryFacade() {
     }
 
     public static MSELoss mseLoss() {

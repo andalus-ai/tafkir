@@ -21,8 +21,8 @@ dependencies {
     implementation(project(":ml:tafkir-ml-autograd"))
     implementation(project(":ml:tafkir-ml-nn"))
     /* implementation(project(":runner:onnx:tafkir-ml-export-onnx"))
-    implementation(project(":runner:gguf:alkhawarizm-gguf-core"))
-    implementation(project(":runner:litert:alkhawarizm-litert-core")) */
+    implementation(project(":runner:gguf:aljabr-gguf-core"))
+    implementation(project(":runner:litert:aljabr-litert-core")) */
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter")
 }
 

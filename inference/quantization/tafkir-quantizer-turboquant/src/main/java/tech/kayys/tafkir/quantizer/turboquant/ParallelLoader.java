@@ -1,10 +1,10 @@
 package tech.kayys.tafkir.quantizer.turboquant;
 
 import tech.kayys.tafkir.quantizer.gptq.MemoryAllocator;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorFFMLoader;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorLoadResult;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorHeader;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorTensor;
+import tech.kayys.aljabr.safetensor.loader.SafetensorFFMLoader;
+import tech.kayys.aljabr.safetensor.loader.SafetensorLoadResult;
+import tech.kayys.aljabr.safetensor.loader.SafetensorHeader;
+import tech.kayys.aljabr.safetensor.loader.SafetensorTensor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

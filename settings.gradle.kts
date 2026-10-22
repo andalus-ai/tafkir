@@ -1,14 +1,14 @@
 rootProject.name = "tafkir-engine"
 
-// Composite build resolution for Alkhawarizm foundation
-val alkhawarizmDir = listOf(
-    file("../../Alkhawarizm/alkhawarizm"),
-    file("../../alkhawarizm"),
-    file("../alkhawarizm")
+// Composite build resolution for Aljabr foundation
+val aljabrDir = listOf(
+    file("../../Aljabr/aljabr"),
+    file("../../aljabr"),
+    file("../aljabr")
 ).firstOrNull { it.isDirectory && (it.resolve("build.gradle.kts").isFile || it.resolve("settings.gradle.kts").isFile) }
 
-if (alkhawarizmDir != null) {
-    includeBuild(alkhawarizmDir.absolutePath)
+if (aljabrDir != null) {
+    includeBuild(aljabrDir.absolutePath)
 }
 
 fun includeOptionalProject(projectPath: String, vararg candidatePaths: String) {
@@ -90,8 +90,8 @@ includeLegacyAlias("ecosystem:jupyter:tafkir-jupyter-kernel", "ecosystem/jupyter
 includeLegacyAlias("ecosystem:integrations:integration:tafkir-langchain4j", "ecosystem/integrations/integration/langchain4j/tafkir-langchain4j")
 
 includeLegacyAlias("extensions:aljabr:tafkir-ml-aljabr", "extensions/aljabr/tafkir-ml-aljabr")
-includeLegacyAlias("extensions:alkhawarizm:tafkir-alkhawarizm-integration", "extensions/alkhawarizm/tafkir-alkhawarizm-integration")
-includeLegacyAlias("extensions:alkhawarizm:tafkir-trainer-aljabr", "extensions/alkhawarizm/tafkir-trainer-aljabr")
+includeLegacyAlias("extensions:aljabr:tafkir-aljabr-integration", "extensions/aljabr/tafkir-aljabr-integration")
+includeLegacyAlias("extensions:aljabr:tafkir-trainer-aljabr", "extensions/aljabr/tafkir-trainer-aljabr")
 
 // Compatibility aliases kept for legacy names that still show up in tooling or scripts.
 includeLegacyAlias("quantizer:tafkir-quantizer-autoround", "inference/quantization/tafkir-quantizer-autoround")
@@ -101,7 +101,7 @@ includeLegacyAlias("quantizer:tafkir-quantizer-quip", "inference/quantization/ta
 includeLegacyAlias("quantizer:tafkir-quantizer-turboquant", "inference/quantization/tafkir-quantizer-turboquant")
 
 includeLegacyAlias("ml:tafkir-ml-api", "training/api/tafkir-learn-api")
-includeLegacyAlias("ml:tafkir-ml-alkhawarizm", "extensions/alkhawarizm/tafkir-alkhawarizm-integration")
+includeLegacyAlias("ml:tafkir-ml-aljabr", "extensions/aljabr/tafkir-aljabr-integration")
 includeLegacyAlias("ml:tafkir-ml-autograd", "runtime/autograd/tafkir-ml-autograd")
 includeLegacyAlias("ml:tafkir-ml-cnn", "models/nn-vision/tafkir-nn-cnn")
 includeLegacyAlias("ml:tafkir-ml-core", "ml/core/tafkir-ml-core")

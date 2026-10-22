@@ -39,7 +39,7 @@ import java.util.List;
  * 
  * <pre>{@code
  * // Run training
- * $ mvn exec:java -Dexec.mainClass="tech.kayys.alkhawarizm.examples.MNISTCNNExample"
+ * $ mvn exec:java -Dexec.mainClass="tech.kayys.aljabr.examples.MNISTCNNExample"
  *
  * // Expected output:
  * // Epoch 1/10 | Loss: 0.287 | Acc: 91.2% | Val Loss: 0.112 | Val Acc: 96.5%
@@ -122,7 +122,7 @@ public class MNISTCNNExample {
 
     public static void main(String[] args) throws Exception {
         System.out.println("╔════════════════════════════════════════════════════╗");
-        System.out.println("║     Alkhawarizm SDK: MNIST CNN Training Example         ║");
+        System.out.println("║     Aljabr SDK: MNIST CNN Training Example         ║");
         System.out.println("║     CNN model for digit classification             ║");
         System.out.println("╚════════════════════════════════════════════════════╝\n");
 

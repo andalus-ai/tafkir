@@ -10,10 +10,10 @@ public class NLPFeatureTest {
     @Test
     public void testBasicPipeline() {
         Language nlp = LanguageFactory.load("en_core_web_sm");
-        Doc doc = nlp.process("Alkhawarizm is a powerful ML framework");
+        Doc doc = nlp.process("Aljabr is a powerful ML framework");
 
         assertEquals(6, doc.length());
-        assertEquals("Alkhawarizm", doc.get(0).getText());
+        assertEquals("Aljabr", doc.get(0).getText());
         assertEquals("framework", doc.get(5).getText());
         assertTrue(doc.get(0).isAlpha());
     }

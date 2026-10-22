@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
-import tech.kayys.alkhawarizm.spi.tensor.weights.Dequantizer;
+import tech.kayys.aljabr.spi.tensor.weights.Dequantizer;
 
 /**
  * Comprehensive tests for TurboQuant multi-format quantizer.

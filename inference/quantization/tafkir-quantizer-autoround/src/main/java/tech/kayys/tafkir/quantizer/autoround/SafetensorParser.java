@@ -1,8 +1,8 @@
 package tech.kayys.tafkir.quantizer.autoround;
 
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorHeader;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorTensorInfo;
-import tech.kayys.alkhawarizm.safetensor.loader.SafetensorDType;
+import tech.kayys.aljabr.safetensor.loader.SafetensorHeader;
+import tech.kayys.aljabr.safetensor.loader.SafetensorTensorInfo;
+import tech.kayys.aljabr.safetensor.loader.SafetensorDType;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

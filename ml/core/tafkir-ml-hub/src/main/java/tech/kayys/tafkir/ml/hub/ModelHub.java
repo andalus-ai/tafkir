@@ -2,12 +2,12 @@ package tech.kayys.tafkir.ml.hub;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tech.kayys.alkhawarizm.core.model.ModelFormat;
+import tech.kayys.aljabr.core.model.ModelFormat;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
 import tech.kayys.tafkir.ml.nn.NNModule;
 import tech.kayys.tafkir.ml.nn.Parameter;
-import tech.kayys.alkhawarizm.model.core.ModelRepository;
-import tech.kayys.alkhawarizm.spi.model.ModelManifest;
+import tech.kayys.aljabr.model.core.ModelRepository;
+import tech.kayys.aljabr.spi.model.ModelManifest;
 
 import java.io.IOException;
 import java.nio.file.Files;

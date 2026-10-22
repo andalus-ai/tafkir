@@ -12,7 +12,7 @@ import java.util.Map;
  * <p>
  * Resolution order for each task:
  * 1. Task-specific env var such as
- * {@code ALKHAWARIZM_SD_NATIVE_MODEL_DIR_TEXT_OCR}
+ * {@code ALJABR_SD_NATIVE_MODEL_DIR_TEXT_OCR}
  * 2. A {@code text-<taskId>} subdirectory under the shared base dir
  * 3. Shared base fixture fallback
  */
@@ -63,7 +63,7 @@ public final class StableDiffusionNativeTextFixtures {
     }
 
     public static String envNameForTask(String taskId) {
-        return "ALKHAWARIZM_SD_NATIVE_MODEL_DIR_TEXT_" + taskId.toUpperCase().replace('-', '_');
+        return "ALJABR_SD_NATIVE_MODEL_DIR_TEXT_" + taskId.toUpperCase().replace('-', '_');
     }
 
     private static StableDiffusionNativeModelFixture resolveTaskFixture(

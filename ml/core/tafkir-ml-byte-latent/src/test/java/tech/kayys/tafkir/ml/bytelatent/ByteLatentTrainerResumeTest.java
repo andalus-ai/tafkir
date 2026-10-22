@@ -14,7 +14,7 @@ class ByteLatentTrainerResumeTest {
         @Test
         void resumesFromCheckpointManifestAndContinuesEpochs() throws Exception {
                 TextByteSequenceDataset dataset = new TextByteSequenceDataset(List.of("ab", "cde", "fghi"));
-                Path checkpointDir = Files.createTempDirectory("alkhawarizm-byte-latent-resume");
+                Path checkpointDir = Files.createTempDirectory("aljabr-byte-latent-resume");
 
                 ByteLatentTrainerConfig firstConfig = ByteLatentTrainerConfig.builder()
                                 .modelSpec(new ByteLatentModelSpec(256, 64, 2, 4, 32))

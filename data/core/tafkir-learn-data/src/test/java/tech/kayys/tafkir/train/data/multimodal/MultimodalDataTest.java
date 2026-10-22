@@ -19,8 +19,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import tech.kayys.tafkir.ml.autograd.GradTensor;
-import tech.kayys.alkhawarizm.spi.model.ModalityType;
-import tech.kayys.alkhawarizm.spi.model.MultimodalContent;
+import tech.kayys.aljabr.spi.model.ModalityType;
+import tech.kayys.aljabr.spi.model.MultimodalContent;
 import tech.kayys.tafkir.train.data.DataLoader;
 import tech.kayys.tafkir.train.data.Dataset;
 
