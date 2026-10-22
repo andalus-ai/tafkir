@@ -29,6 +29,14 @@ fun includeLegacyAlias(projectPath: String, projectDir: String) {
     project(":$projectPath").projectDir = file(projectDir)
 }
 
+// Compatibility aliases expose quantizers under :quantizer:* while the maintained
+// modules live under inference/quantization. Map the grouping project to the real
+// directory so Gradle does not try to create a nonexistent tafkir/quantizer folder.
+if (file("inference/quantization").isDirectory) {
+    include("quantizer")
+    project(":quantizer").projectDir = file("inference/quantization")
+}
+
 val staticallyIncludedModelProjects = setOf<String>()
 
 includeOptionalProject("suling", "../extensions/audio/suling")
