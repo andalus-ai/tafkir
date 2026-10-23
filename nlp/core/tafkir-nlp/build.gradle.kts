@@ -22,7 +22,6 @@ dependencies {
     implementation(project(":ml:tafkir-ml-autograd"))
     implementation("tech.kayys.aljabr:aljabr-spi-tokenizer:0.1.0-SNAPSHOT")
    // implementation(project(":sdk:aljabr-sdk-api"))
-    implementation(project(":ml:tafkir-ml-optimize"))
     implementation(project(":ml:tafkir-ml-selection"))
     implementation(project(":ml:tafkir-ml-data"))
    // implementation(project(":spi:aljabr-spi-inference"))
