@@ -1,16 +1,5 @@
 rootProject.name = "tafkir-engine"
 
-<<<<<<< HEAD
-// Composite build resolution for Aljabr foundation
-val aljabrDir = listOf(
-    file("../../Aljabr/aljabr"),
-    file("../../aljabr"),
-    file("../aljabr")
-).firstOrNull { it.isDirectory && (it.resolve("build.gradle.kts").isFile || it.resolve("settings.gradle.kts").isFile) }
-
-if (aljabrDir != null) {
-    includeBuild(aljabrDir.absolutePath)
-=======
 // Composite build resolution for the canonical Aljabr foundation.
 // In CI, Aqli checks out Aljabr and Tafkir as sibling directories; local workspaces
 // may also use one of the historical Alkhawarizm paths during migration.
@@ -27,7 +16,6 @@ val foundationDir = listOf(
 
 if (foundationDir != null) {
     includeBuild(foundationDir.absolutePath)
->>>>>>> 702281fb32d666c487c84c312b6b71fc58fc6016
 }
 
 fun includeOptionalProject(projectPath: String, vararg candidatePaths: String) {
@@ -141,7 +129,6 @@ includeLegacyAlias("ml:tafkir-ml-hub", "ml/core/tafkir-ml-hub")
 includeLegacyAlias("ml:tafkir-ml-multimodal", "models/nn-multimodal/tafkir-nn-multimodal")
 includeLegacyAlias("ml:tafkir-ml-nlp", "nlp/core/tafkir-nlp")
 includeLegacyAlias("ml:tafkir-ml-nn", "models/nn-core/tafkir-learn-nn")
-includeLegacyAlias("ml:tafkir-ml-optimize", "models/nn-core/tafkir-nn-optimize")
 includeLegacyAlias("ml:tafkir-ml-persistence", "ml/core/tafkir-ml-persistence")
 includeLegacyAlias("ml:tafkir-ml-preprocessing", "ml/preprocessing")
 includeLegacyAlias("ml:tafkir-ml-runner-api", "inference/core/tafkir-ml-runner-api")
