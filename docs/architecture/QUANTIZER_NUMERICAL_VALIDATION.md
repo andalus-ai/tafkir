@@ -12,7 +12,7 @@ round-trip behavior are validated against a trusted reference implementation.
 | AWQ | Disabled | The adapter used simplified min/max rather than activation-aware scaling and did not fully validate packed layout/edge dimensions. Add calibration-driven scaling, canonical AutoAWQ-compatible serialization, and reference parity. |
 | AutoRound | Disabled | The adapter used naive min/max rounding and its packed dimensions/metadata were not proven compatible with AutoRound. Implement the optimization loop and canonical format, then verify reference parity. |
 | TurboQuant | Disabled | The adapter stored codebook indices as one byte per element without persisting all codebook/rotation/scale state needed for reliable decoding. Define a stable serialized representation and verify deterministic round trips. |
-| BitsAndBytes NF4 | Experimental / available for NF4 only | The adapter currently advertises only 4-bit BNB/NF4. INT8 is deliberately not advertised. Validate codebook mapping, block absmax handling, odd element counts, partial blocks, and parity with bitsandbytes reference vectors before production claims. |
+| BitsAndBytes NF4 | Disabled | The in-repository encoder/decoder uses high-nibble-first packing, while the documented bitsandbytes byte layout is low-nibble-first. The adapter also lacks committed reference fixtures and verified tensor metadata/round-trip behavior. Correct the byte layout and prove parity for codebook mapping, block absmax, odd element counts, partial blocks, and serialization before re-enabling. |
 
 ## Required validation contract
 
@@ -28,5 +28,5 @@ Every enabled quantizer must pass all of the following:
 ## Release policy
 
 - Disabled providers must not be selected by QuantizerRegistry or QuantizationEngine.
-- NF4 availability is experimental, not a production-quality claim.
+- NF4 is disabled until its packed representation, metadata lifecycle, and numerical parity pass the same acceptance gates.
 - Enabling a provider requires committed reference fixtures, numerical tests, format documentation, and CI evidence on the supported JDK/runtime.
