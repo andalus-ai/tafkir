@@ -20,41 +20,7 @@ public class TurboQuantAdapter implements Quantizer {
 
     @Override
     public AccelTensor quantizeTensor(AccelTensor tensor, QuantConfig config) {
-        if (tensor == null) throw new IllegalArgumentException("Tensor cannot be null");
-        
-        log.infof("TurboQuant: quantizing tensor %s (bits=%d)", 
-                 Arrays.toString(tensor.shape()), config.getBits());
-
-        // Map runner QuantConfig to TurboQuantConfig
-        int dim = (int) (tensor.numel());
-        TurboQuantConfig tqConfig = new TurboQuantConfig(
-            config.getBits(),
-            dim,
-            TurboQuantConfig.Variant.MSE,
-            TurboQuantConfig.RotationStrategy.HADAMARD,
-            false, // splitOutliers
-            0,     // outlierChannels
-            42L    // seed
-        );
-
-        TurboQuantEngine engine = new TurboQuantEngine(tqConfig);
-        float[] data = tensor.toFloatArray();
-        int[] indices = new int[dim];
-        
-        // Execute Algorithms 1: TurboQuant_mse
-        engine.quantizeMse(data, indices);
-        
-        // Wrap indices in AccelTensor.
-        // We pack indices into a byte[] if bits <= 8
-        byte[] packed = new byte[dim];
-        for (int i = 0; i < dim; i++) {
-            packed[i] = (byte) indices[i];
-        }
-        
-        AccelTensor quantized = AccelTensor.fromByteArray(packed, tensor.shape());
-        quantized.withQuantization(AccelTensor.QuantType.INT8, null, null, -1);
-        
-        return quantized;
+        throw new UnsupportedOperationException("TurboQuant adapter is disabled until its algorithm has reference-backed numerical validation.");
     }
 
     @Override
@@ -92,7 +58,6 @@ public class TurboQuantAdapter implements Quantizer {
 
     @Override
     public boolean supports(QuantConfig config) {
-        // TurboQuant specialized in 2-4 bit vector quantization
-        return config.getBits() <= 4;
+        return false; // Deliberately unavailable until validated against a reference implementation.
     }
 }
