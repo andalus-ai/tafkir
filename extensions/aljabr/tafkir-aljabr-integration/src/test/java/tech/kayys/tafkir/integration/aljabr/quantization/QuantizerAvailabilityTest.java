@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-/** Prevents incomplete adapters from being selected by Aljabr. */
+/** Prevents unvalidated adapters from being selected or called directly. */
 class QuantizerAvailabilityTest {
     @Test
     void incompleteAdaptersRemainUnavailable() {
@@ -23,6 +23,14 @@ class QuantizerAvailabilityTest {
                 () -> new AutoRoundQuantizerAdapter().quantizeTensor(null, QuantConfig.autoRound()));
         assertThrows(UnsupportedOperationException.class,
                 () -> new TurboQuantAdapter().quantizeTensor(null, QuantConfig.turbo()));
+        assertThrows(UnsupportedOperationException.class,
+                () -> new GPTQQuantizerAdapter().dequantizeTensor(null, QuantConfig.int4Gptq()));
+        assertThrows(UnsupportedOperationException.class,
+                () -> new AWQQuantizerAdapter().dequantizeTensor(null, QuantConfig.awq(4, 128)));
+        assertThrows(UnsupportedOperationException.class,
+                () -> new AutoRoundQuantizerAdapter().dequantizeTensor(null, QuantConfig.autoRound()));
+        assertThrows(UnsupportedOperationException.class,
+                () -> new TurboQuantAdapter().dequantizeTensor(null, QuantConfig.turbo()));
     }
 
     @Test

@@ -29,51 +29,8 @@ public class AWQQuantizerAdapter implements Quantizer {
 
     @Override
     public AccelTensor dequantizeTensor(AccelTensor quantizedTensor, QuantConfig config) {
-        int inF = (int) quantizedTensor.size(0);
-        int outF = (int) quantizedTensor.size(1);
-        int bits = config.getBits();
-        int groupSize = quantizedTensor.groupSize();
-        
-        AWQConfig awqConfig = new AWQConfig(bits, groupSize, AWQConfig.KernelFormat.GEMM, true, "float32", false, 128, 2048, true, null);
-        AWQDequantizer dequantizer = new AWQDequantizer(awqConfig);
-        
-        MemorySegment dataSeg = quantizedTensor.dataSegment();
-        int[] qweightInts = new int[(int) (dataSeg.byteSize() / 4)];
-        for (int i = 0; i < qweightInts.length; i++) {
-            qweightInts[i] = dataSeg.get(ValueLayout.JAVA_INT_UNALIGNED.withOrder(ByteOrder.LITTLE_ENDIAN), (long) i * 4);
-        }
-        
-        float[] scales = quantizedTensor.scales().toArray(ValueLayout.JAVA_FLOAT);
-        float[] zeros = quantizedTensor.zeros().toArray(ValueLayout.JAVA_FLOAT);
-        
-        // AutoAWQ uses (q - zero) * scale, core expects FP16 scales and packed zeros.
-        // We'll use a simplified dequantization loop if the core dequantizer doesn't match our storage exactly.
-        // But the AWQDequantizer.dequantize is SIMD optimized.
-        
-        int numGroups = (inF + groupSize - 1) / groupSize;
-        int packFactor = 32 / bits;
-        int mask = (1 << bits) - 1;
-
-        float[] output = new float[inF * outF];
-
-        for (int g = 0; g < numGroups; g++) {
-            int iStart = g * groupSize;
-            int iEnd = Math.min(iStart + groupSize, inF);
-
-            for (int j = 0; j < outF; j++) {
-                float scale = scales[g * outF + j];
-                float zero = zeros[g * outF + j];
-
-                for (int i = iStart; i < iEnd; i++) {
-                    int pi = i / packFactor;
-                    int b = i % packFactor;
-                    int q = (qweightInts[pi * outF + j] >>> (b * bits)) & mask;
-                    output[i * outF + j] = (q - zero) * scale;
-                }
-            }
-        }
-
-        return AccelTensor.fromFloatArray(output, quantizedTensor.shape());
+        throw new UnsupportedOperationException(
+                "AWQ adapter is disabled until its serialized format and numerical behavior are reference-validated.");
     }
 
     private short floatToFp16(float v) {

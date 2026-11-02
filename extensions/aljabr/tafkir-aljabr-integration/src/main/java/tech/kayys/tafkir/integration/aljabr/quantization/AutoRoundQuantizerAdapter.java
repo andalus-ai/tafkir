@@ -29,27 +29,8 @@ public class AutoRoundQuantizerAdapter implements Quantizer {
 
     @Override
     public AccelTensor dequantizeTensor(AccelTensor quantizedTensor, QuantConfig config) {
-        int outF = (int) quantizedTensor.size(0);
-        int inF = (int) quantizedTensor.size(1);
-        int bits = config.getBits();
-        int groupSize = quantizedTensor.groupSize();
-        
-        AutoRoundConfig arConfig = new AutoRoundConfig(bits, groupSize, true, AutoRoundConfig.ScaleDtype.FLOAT32, AutoRoundConfig.PackFormat.AUTOROUND_NATIVE, "float32", 200, 0.001, false, 128, 2048, "exllamav2", null);
-        AutoRoundDequantizer dequantizer = new AutoRoundDequantizer(arConfig);
-        
-        MemorySegment dataSeg = quantizedTensor.dataSegment();
-        int[] qweightInts = new int[(int) (dataSeg.byteSize() / 4)];
-        for (int i = 0; i < qweightInts.length; i++) {
-            qweightInts[i] = dataSeg.get(ValueLayout.JAVA_INT_UNALIGNED.withOrder(ByteOrder.LITTLE_ENDIAN), (long) i * 4);
-        }
-        
-        float[] scales = quantizedTensor.scales().toArray(ValueLayout.JAVA_FLOAT);
-        int[] zp = quantizedTensor.zeros().toArray(ValueLayout.JAVA_INT);
-        
-        float[] output = new float[outF * inF];
-        dequantizer.dequantize(qweightInts, scales, zp, inF, outF, output);
-        
-        return AccelTensor.fromFloatArray(output, quantizedTensor.shape());
+        throw new UnsupportedOperationException(
+                "AutoRound adapter is disabled until its serialized format and numerical behavior are reference-validated.");
     }
 
     @Override
