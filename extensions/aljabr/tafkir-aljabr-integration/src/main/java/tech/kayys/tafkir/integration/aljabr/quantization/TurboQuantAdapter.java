@@ -25,30 +25,8 @@ public class TurboQuantAdapter implements Quantizer {
 
     @Override
     public AccelTensor dequantizeTensor(AccelTensor quantizedTensor, QuantConfig config) {
-        log.infof("TurboQuant: dequantizing tensor %s", Arrays.toString(quantizedTensor.shape()));
-        
-        int dim = (int) quantizedTensor.numel();
-        byte[] packed = quantizedTensor.dataSegment().toArray(java.lang.foreign.ValueLayout.JAVA_BYTE);
-        int[] indices = new int[dim];
-        for (int i = 0; i < dim; i++) {
-            indices[i] = packed[i] & 0xFF;
-        }
-        
-        TurboQuantConfig tqConfig = new TurboQuantConfig(
-            config.getBits(),
-            dim,
-            TurboQuantConfig.Variant.MSE,
-            TurboQuantConfig.RotationStrategy.HADAMARD,
-            false,
-            0,
-            42L
-        );
-        
-        TurboQuantEngine engine = new TurboQuantEngine(tqConfig);
-        float[] output = new float[dim];
-        engine.dequantizeMse(indices, output);
-        
-        return AccelTensor.fromFloatArray(output, quantizedTensor.shape());
+        throw new UnsupportedOperationException(
+                "TurboQuant adapter is disabled until its serialized format and numerical behavior are reference-validated.");
     }
 
     @Override
