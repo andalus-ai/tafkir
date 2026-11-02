@@ -301,3 +301,6 @@ tasks.register<Javadoc>("aggregateJavadoc") {
     }
 }
 
+
+// Verify the optional Aljabr SPI bridge and its ServiceLoader provider declarations.
+apply(from = rootProject.file("gradle/verify-aljabr-integration-boundary.gradle.kts"))
