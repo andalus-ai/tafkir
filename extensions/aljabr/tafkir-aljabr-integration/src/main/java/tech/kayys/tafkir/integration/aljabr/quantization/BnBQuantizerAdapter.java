@@ -159,7 +159,8 @@ public class BnBQuantizerAdapter implements Quantizer {
 
     @Override
     public boolean supports(QuantConfig config) {
-        return config.getStrategy() == tech.kayys.aljabr.safetensor.quantization.QuantizationEngine.QuantStrategy.INT8
-                || config.getBits() == 4; // NF4
+        return config != null
+                && config.getStrategy() == tech.kayys.aljabr.safetensor.quantization.QuantizationEngine.QuantStrategy.BNB
+                && config.getBits() == 4; // This adapter currently implements NF4 only.
     }
 }
