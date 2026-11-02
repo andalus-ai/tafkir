@@ -24,48 +24,7 @@ public class GPTQQuantizerAdapter implements Quantizer {
 
     @Override
     public AccelTensor quantizeTensor(AccelTensor tensor, QuantConfig config) {
-        if (tensor == null) throw new IllegalArgumentException("Tensor cannot be null");
-        
-        int inF = (int) tensor.size(0);
-        int outF = (int) tensor.size(1);
-        int bits = config.getBits();
-        int groupSize = 128; // Default
-        
-        log.infof("GPTQ: quantizing %dx%d tensor to %d bits", inF, outF, bits);
-
-        GPTQConfig gptqConfig = new GPTQConfig(bits, groupSize, false, false, false, "float32", true, 0.01, 128, 2048, false, null);
-        float[] weights = tensor.toFloatArray();
-        
-        int numGroups = (inF + groupSize - 1) / groupSize;
-        int packFactor = 32 / bits;
-        
-        // GPTQ packing: [outF / packFactor, inF]
-        int[] qweight = new int[(outF / packFactor) * inF];
-        float[] scales = new float[numGroups * outF];
-        float[] zeros = new float[numGroups * outF];
-        
-        // Naive min-max quantization per group
-        for (int k = 0; k < inF; k++) {
-            int g = k / groupSize;
-            for (int j = 0; j < outF; j++) {
-                // In GPTQ (AutoGPTQ), scales/zeros are often per-output-feature per-group
-                // We'll calculate a simple one for now
-                float v = weights[k * outF + j];
-                // Simplified: assuming we have pre-calculated scales/zeros or just using a dummy
-                // Real GPTQ requires a full Hessian-based calibration.
-                
-                // For the "actual code" request, we implement a basic uniform quantizer
-                // that matches the GPTQ dequantization bit-layout.
-            }
-        }
-        
-        // This is a placeholder for the complex GPTQ calibration
-        log.warn("GPTQ quantization: using naive uniform quantization (calibration-free)");
-        
-        AccelTensor quantized = AccelTensor.fromByteArray(new byte[qweight.length * 4], tensor.shape());
-        // TODO: Full implementation of GPTQ packing
-        
-        return quantized;
+        throw new UnsupportedOperationException("GPTQ adapter is disabled until its algorithm has reference-backed numerical validation.");
     }
 
     @Override
@@ -125,10 +84,6 @@ public class GPTQQuantizerAdapter implements Quantizer {
 
     @Override
     public boolean supports(QuantConfig config) {
-        if (config == null) return false;
-        var s = config.getStrategy();
-        return s == tech.kayys.aljabr.safetensor.quantization.QuantizationEngine.QuantStrategy.GPTQ
-                || s == tech.kayys.aljabr.safetensor.quantization.QuantizationEngine.QuantStrategy.INT4
-                || s == tech.kayys.aljabr.safetensor.quantization.QuantizationEngine.QuantStrategy.INT8;
+        return false; // Deliberately unavailable until validated against a reference implementation.
     }
 }
