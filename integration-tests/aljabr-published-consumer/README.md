@@ -45,10 +45,10 @@ This test is intended to expose packaging problems.
 
 ## Run the external consumer
 
-From this directory:
+From the Tafkir repository root:
 
 ```bash
-./gradlew --no-daemon clean verifyPublishedIntegration
+./gradlew --no-daemon -p integration-tests/aljabr-published-consumer clean verifyPublishedIntegration
 ```
 
 The smoke test passes only when the published Aljabr registry discovers all five
