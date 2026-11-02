@@ -29,35 +29,8 @@ public class GPTQQuantizerAdapter implements Quantizer {
 
     @Override
     public AccelTensor dequantizeTensor(AccelTensor quantizedTensor, QuantConfig config) {
-        int inF = (int) quantizedTensor.size(0);
-        int outF = (int) quantizedTensor.size(1);
-        int bits = config.getBits();
-        int groupSize = quantizedTensor.groupSize();
-        
-        GPTQConfig gptqConfig = new GPTQConfig(bits, groupSize, false, false, false, "float32", true, 0.01, 128, 2048, false, null);
-        VectorDequantizer dequantizer = new VectorDequantizer(gptqConfig);
-        
-        MemorySegment dataSeg = quantizedTensor.dataSegment();
-        int[] qweightInts = new int[(int) (dataSeg.byteSize() / 4)];
-        for (int i = 0; i < qweightInts.length; i++) {
-            qweightInts[i] = dataSeg.get(ValueLayout.JAVA_INT_UNALIGNED.withOrder(ByteOrder.LITTLE_ENDIAN), (long) i * 4);
-        }
-        
-        float[] scales = quantizedTensor.scales().toArray(ValueLayout.JAVA_FLOAT);
-        float[] zeros = quantizedTensor.zeros().toArray(ValueLayout.JAVA_FLOAT);
-        
-        // Convert scales to short[] (FP16) as expected by VectorDequantizer
-        short[] scalesShorts = new short[scales.length];
-        for (int i = 0; i < scales.length; i++) scalesShorts[i] = (short) Float.floatToFloat16(scales[i]);
-        
-        // Unpack zeros to packed int[] if needed, or core might have a helper
-        // VectorDequantizer.dequantize expects packed qzerosInts
-        int[] qzerosInts = packZeros(zeros, (inF + groupSize - 1) / groupSize, outF, bits);
-        
-        float[] output = new float[inF * outF];
-        dequantizer.dequantize(qweightInts, qzerosInts, scalesShorts, null, inF, outF, output);
-        
-        return AccelTensor.fromFloatArray(output, quantizedTensor.shape());
+        throw new UnsupportedOperationException(
+                "GPTQ adapter is disabled until its serialized format and numerical behavior are reference-validated.");
     }
 
     private int[] packZeros(float[] zeros, int numGroups, int outF, int bits) {
