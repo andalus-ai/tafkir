@@ -53,7 +53,7 @@ val verifyAljabrIntegrationBoundary = tasks.register("verifyAljabrIntegrationBou
                 val source = rootProject.file("extensions/aljabr/tafkir-aljabr-integration/src/main/java/$sourcePath")
                 if (!source.isFile) {
                     errors += "ServiceLoader provider source does not exist: $sourcePath"
-                } else if (!Regex("""implements\\s+Quantizer""").containsMatchIn(source.readText())) {
+                } else if (!Regex("""implements\s+Quantizer""").containsMatchIn(source.readText())) {
                     errors += "Provider does not implement Aljabr's Quantizer SPI: $provider"
                 }
             }
