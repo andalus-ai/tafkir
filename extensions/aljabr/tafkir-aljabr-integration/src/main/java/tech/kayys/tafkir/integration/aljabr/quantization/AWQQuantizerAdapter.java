@@ -24,79 +24,7 @@ public class AWQQuantizerAdapter implements Quantizer {
 
     @Override
     public AccelTensor quantizeTensor(AccelTensor tensor, QuantConfig config) {
-        if (tensor == null) throw new IllegalArgumentException("Tensor cannot be null");
-        
-        int inF = (int) tensor.size(0);
-        int outF = (int) tensor.size(1);
-        int bits = config.getBits();
-        int groupSize = 128; // Default AWQ group size
-        
-        log.infof("AWQ: quantizing %dx%d tensor to %d bits (groupSize=%d)", inF, outF, bits, groupSize);
-
-        // Map to AWQConfig
-        AWQConfig awqConfig = new AWQConfig(bits, groupSize, AWQConfig.KernelFormat.GEMM, true, "float32", false, 128, 2048, true, null);
-        float[] weights = tensor.toFloatArray();
-        
-        int numGroups = (inF + groupSize - 1) / groupSize;
-        int packFactor = 32 / bits;
-        int packedInF = (inF + packFactor - 1) / packFactor;
-        
-        int[] qweight = new int[packedInF * outF];
-        float[] scales = new float[numGroups * outF];
-        float[] zeros = new float[numGroups * outF];
-        
-        // Simple Min-Max quantization (Note: Actual AWQ requires calibration for scales)
-        for (int g = 0; g < numGroups; g++) {
-            int iStart = g * groupSize;
-            int iEnd = Math.min(iStart + groupSize, inF);
-            
-            for (int j = 0; j < outF; j++) {
-                float min = Float.MAX_VALUE;
-                float max = -Float.MAX_VALUE;
-                
-                for (int i = iStart; i < iEnd; i++) {
-                    float v = weights[i * outF + j];
-                    min = Math.min(min, v);
-                    max = Math.max(max, v);
-                }
-                
-                float scale = (max - min) / ((1 << bits) - 1);
-                float zero = -min / (scale == 0 ? 1 : scale);
-                
-                scales[g * outF + j] = scale;
-                zeros[g * outF + j] = Math.round(zero);
-                
-                float invScale = scale == 0 ? 0 : 1.0f / scale;
-                
-                for (int i = iStart; i < iEnd; i++) {
-                    float v = weights[i * outF + j];
-                    int q = Math.max(0, Math.min((1 << bits) - 1, Math.round((v - min) * invScale)));
-                    
-                    int pi = i / packFactor;
-                    int b = i % packFactor;
-                    qweight[pi * outF + j] |= (q << (b * bits));
-                }
-            }
-        }
-
-        // Store in AccelTensor
-        byte[] packedBytes = new byte[qweight.length * 4];
-        MemorySegment.ofArray(packedBytes).copyFrom(MemorySegment.ofArray(qweight));
-        
-        AccelTensor quantized = AccelTensor.fromByteArray(packedBytes, tensor.shape());
-        
-        Arena arena = Arena.ofAuto();
-        MemorySegment scaleSeg = arena.allocateFrom(ValueLayout.JAVA_FLOAT, scales);
-        MemorySegment zeroSeg = arena.allocateFrom(ValueLayout.JAVA_FLOAT, zeros);
-        
-        quantized.withQuantization(
-            bits == 4 ? AccelTensor.QuantType.INT4 : AccelTensor.QuantType.INT8,
-            scaleSeg,
-            zeroSeg,
-            groupSize
-        );
-        
-        return quantized;
+        throw new UnsupportedOperationException("AWQ adapter is disabled until its algorithm has reference-backed numerical validation.");
     }
 
     @Override
@@ -173,6 +101,6 @@ public class AWQQuantizerAdapter implements Quantizer {
 
     @Override
     public boolean supports(QuantConfig config) {
-        return config.getStrategy() == tech.kayys.aljabr.safetensor.quantization.QuantizationEngine.QuantStrategy.AWQ;
+        return false; // Deliberately unavailable until validated against a reference implementation.
     }
 }
