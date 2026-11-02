@@ -1,0 +1,5 @@
+tech.kayys.tafkir.integration.aljabr.quantization.GPTQQuantizerAdapter
+tech.kayys.tafkir.integration.aljabr.quantization.AWQQuantizerAdapter
+tech.kayys.tafkir.integration.aljabr.quantization.AutoRoundQuantizerAdapter
+tech.kayys.tafkir.integration.aljabr.quantization.BnBQuantizerAdapter
+tech.kayys.tafkir.integration.aljabr.quantization.TurboQuantAdapter
