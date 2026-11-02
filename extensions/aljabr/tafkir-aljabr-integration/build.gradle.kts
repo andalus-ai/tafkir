@@ -7,6 +7,7 @@ description = "Optional Tafkir quantizer providers for the Aljabr SafeTensors qu
 dependencies {
     // Aljabr owns the tensor-level SPI; this extension is the optional implementation bridge.
     api("tech.kayys.aljabr:aljabr-safetensor-quantization:0.1.0-SNAPSHOT")
+    api("tech.kayys.aljabr:aljabr-safetensor-core:0.1.0-SNAPSHOT")
 
     implementation(project(":inference:quantization:tafkir-quantizer-gptq"))
     implementation(project(":inference:quantization:tafkir-quantizer-awq"))
