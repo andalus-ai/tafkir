@@ -16,7 +16,7 @@ Tafkir is the **Training & Modeling framework** of the Wayang ML stack:
 ┌────────────────────────────────────────────────────────────────────────┐
 │                          Wayang Platform                               │ ← Agent orchestration, MCP tools
 ├───────────────────────────────────┬────────────────────────────────────┤
-│              Tafkir               │               Aqli               │
+│              Tafkir               │               AQLI               │
 │   (Training & Model Development)  │    (Inference & Serving Runtime)   │
 │  • Datasets & DataLoaders         │  • GGUF / ONNX / LiteRT Runners    │
 │  • Neural Network Modules         │  • KV Cache & Continuous Batching  │
@@ -24,10 +24,10 @@ Tafkir is the **Training & Modeling framework** of the Wayang ML stack:
 │  • Autograd Graph & Tape Engine   │  • Local SDK & Serving APIs        │
 │  • Quantization-Aware Training    │  • Post-Training Quantization      │
 ├───────────────────────────────────┴────────────────────────────────────┤
-│                       Aljabr Foundation                           │
+│                       Aljabr Foundation                            │
 │  • Tensor primitives (DefaultTensor, Shape, DType, Memory Layout)      │
 │  • Hardware Backends (CPU Vector SIMD, Apple Metal, NVIDIA CUDA)      │
-│  • Core Serving & Inference SPIs                                       │
+│  • Core compute, model and backend SPIs                                │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -87,3 +87,16 @@ To ensure clean architecture across the ecosystem:
 1. **Foundation Dependency**: Tafkir consumes Aljabr foundation artifacts (`tech.kayys.aljabr:aljabr-tensor`, etc.) without maintaining duplicate backend implementations.
 2. **Serving Separation**: Real-time production inference serving is owned by Aqli; Tafkir focuses on training, evaluation, and model synthesis.
 3. **Automated Verification**: Run `./scripts/check-boundaries.sh` to enforce boundary rules in CI.
+
+ 
+## Position in the Java AI/ML ecosystem
+
+Tafkir is the training and adaptation component of the **AQLI + Aljabr + Tafkir** Java-first AI/ML ecosystem. The shared goal is practical capability coverage for workflows developers commonly assemble from PyTorch, Hugging Face Transformers, scikit-learn, training toolkits, and inference servers. This is a roadmap direction, not a claim of complete or drop-in parity.
+
+- **Aljabr** supplies the independently usable ML/compute foundation: tensors, operators, model foundations, autograd/optimizer primitives, formats, and execution providers.
+- **Tafkir** owns training, fine-tuning, adaptation, evaluation, dataset pipelines, and training lifecycle on top of Aljabr.
+- **AQLI** owns inference, model lifecycle, deployment, scheduling, serving APIs, streaming, and production runtime.
+
+Tafkir should be usable as embedded Java libraries and through Java APIs, CLI, JBang/scripts, and notebook/Jupyter workflows where supported. Training artifacts should be portable and handoff cleanly to Aljabr model APIs and AQLI deployment, without making AQLI a dependency of training.
+
+See the [Triad Ecosystem Vision](https://github.com/andalus-ai/aqli/blob/main/docs/architecture/TRIAD_ECOSYSTEM_VISION.md) for the shared architecture, project boundaries, consumption modes, capability maturity rules, and acceptance criteria.
