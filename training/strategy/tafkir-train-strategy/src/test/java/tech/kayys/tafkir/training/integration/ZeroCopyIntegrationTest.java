@@ -8,10 +8,10 @@ import tech.kayys.aljabr.core.memory.helixdb.HelixDbMemoryStore;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Verifies that Tafkir can consume Aljabr-owned memory through the scoped
@@ -21,8 +21,8 @@ class ZeroCopyIntegrationTest {
 
     @Test
     void borrowsAljabrMemoryForTrainingWithoutCopyingTheReadView() {
-        byte[] contextKey = "agent_context_1".getBytes(java.nio.charset.StandardCharsets.UTF_8);
-        byte[] modelKey = "agent_adapter_1".getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        byte[] contextKey = "agent_context_1".getBytes(StandardCharsets.UTF_8);
+        byte[] modelKey = "agent_adapter_1".getBytes(StandardCharsets.UTF_8);
 
         try (BorrowableMemoryStore store = new HelixDbMemoryStore("unused-test-path")) {
             // The provider copies input into its own arena. Closing this source
@@ -49,8 +49,11 @@ class ZeroCopyIntegrationTest {
                 assertFalse(adapterLease.isClosed());
             }
 
-            assertTrue(store.borrow(contextKey).isPresent(),
-                    "Closing a lease releases the borrow but does not delete the stored value");
+            // A closed lease releases the borrow, not the stored value.
+            try (MemoryStoreLease verificationLease = store.borrow(contextKey).orElseThrow()) {
+                assertEquals((byte) 0x2A,
+                        verificationLease.segment().get(ValueLayout.JAVA_BYTE, 0));
+            }
         }
     }
 }
