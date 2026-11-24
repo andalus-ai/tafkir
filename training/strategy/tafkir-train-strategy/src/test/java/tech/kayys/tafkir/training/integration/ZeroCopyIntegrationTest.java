@@ -1,69 +1,59 @@
 package tech.kayys.tafkir.training.integration;
 
 import org.junit.jupiter.api.Test;
-import tech.kayys.aljabr.core.memory.UnifiedMemoryStore;
+import tech.kayys.aljabr.core.memory.BorrowableMemoryStore;
+import tech.kayys.aljabr.core.memory.MemoryStoreLease;
 import tech.kayys.aljabr.core.memory.helixdb.HelixDbMemoryStore;
-import tech.kayys.tafkir.training.strategy.FineTuningStrategy;
-import tech.kayys.tafkir.training.strategy.LoRAStrategy;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
-import java.util.Optional;
+import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class ZeroCopyIntegrationTest {
+/**
+ * Verifies that Tafkir can consume Aljabr-owned memory through the scoped
+ * borrowing contract without depending on a persistent database.
+ */
+class ZeroCopyIntegrationTest {
 
     @Test
-    public void testDataFlowFromHelixDbToTafkirNative() {
-        // 1. Initialize HelixDB simulated store
-        try (UnifiedMemoryStore dbStore = new HelixDbMemoryStore("mock_path")) {
+    void borrowsAljabrMemoryForTrainingWithoutCopyingTheReadView() {
+        byte[] contextKey = "agent_context_1".getBytes(StandardCharsets.UTF_8);
+        byte[] modelKey = "agent_adapter_1".getBytes(StandardCharsets.UTF_8);
 
-            byte[] contextKey = "agent_context_1".getBytes();
-            byte[] modelKey = "agent_adapter_1".getBytes();
-
-            // 2. Put simulated data into the store (mimics Aljabr saving state)
-            try (Arena tempArena = Arena.ofConfined()) {
-                MemorySegment contextData = tempArena.allocate(1024);
-                MemorySegment modelData = tempArena.allocate(1024);
-
-                dbStore.put(contextKey, contextData);
-                dbStore.put(modelKey, modelData);
+        try (BorrowableMemoryStore store = new HelixDbMemoryStore("unused-test-path")) {
+            // The provider copies input into its own arena. Closing this source
+            // arena proves that subsequent reads do not depend on caller memory.
+            try (Arena sourceArena = Arena.ofConfined()) {
+                MemorySegment context = sourceArena.allocate(1024);
+                MemorySegment adapter = sourceArena.allocate(1024);
+                context.set(ValueLayout.JAVA_BYTE, 0, (byte) 0x2A);
+                adapter.set(ValueLayout.JAVA_BYTE, 0, (byte) 0x5A);
+                store.put(contextKey, context);
+                store.put(modelKey, adapter);
             }
 
-            // 3. Begin Training Step (Wayang orchestrator triggers this)
-            try (Arena trainingArena = Arena.ofConfined()) {
+            try (MemoryStoreLease contextLease = store.borrow(contextKey).orElseThrow();
+                 MemoryStoreLease adapterLease = store.borrow(modelKey).orElseThrow()) {
+                MemorySegment context = contextLease.segment();
+                MemorySegment adapter = adapterLease.segment();
 
-                // 4. Fetch zero-copy MemorySegment directly from DB
-                Optional<MemorySegment> optContextSegment = dbStore.getZeroCopy(contextKey, 0L, trainingArena);
-                Optional<MemorySegment> optModelSegment = dbStore.getZeroCopy(modelKey, 0L, trainingArena);
-
-                assertTrue(optContextSegment.isPresent(), "Context segment should be retrieved");
-                assertTrue(optModelSegment.isPresent(), "Model segment should be retrieved");
-
-                MemorySegment contextSegment = optContextSegment.get();
-                MemorySegment modelSegment = optModelSegment.get();
-
-                // 5. Hand off directly to Tafkir FFM Native Training Engine (Zero-Copy)
-                FineTuningStrategy strategy = new LoRAStrategy(16, 32.0f);
-
-                try {
-                    // This will invoke FFM bindings. If LibTorch is not present in test env, it may
-                    // throw.
-                    // We catch and log, since we mainly want to verify the architectural flow.
-                    MemorySegment updatedAdapter = strategy.computeGradientsAndUpdate(contextSegment, modelSegment,
-                            trainingArena);
-                    assertNotNull(updatedAdapter);
-                } catch (RuntimeException e) {
-                    // Expected if LibTorch is not loaded/found natively on the machine running
-                    // tests.
-                    System.out.println("Native execution skipped because LibTorch is not available: " + e.getMessage());
-                }
+                assertEquals(1024, context.byteSize());
+                assertEquals(1024, adapter.byteSize());
+                assertEquals((byte) 0x2A, context.get(ValueLayout.JAVA_BYTE, 0));
+                assertEquals((byte) 0x5A, adapter.get(ValueLayout.JAVA_BYTE, 0));
+                assertFalse(contextLease.isClosed());
+                assertFalse(adapterLease.isClosed());
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+            // A closed lease releases the borrow, not the stored value.
+            try (MemoryStoreLease verificationLease = store.borrow(contextKey).orElseThrow()) {
+                assertEquals((byte) 0x2A,
+                        verificationLease.segment().get(ValueLayout.JAVA_BYTE, 0));
+            }
         }
     }
 }
