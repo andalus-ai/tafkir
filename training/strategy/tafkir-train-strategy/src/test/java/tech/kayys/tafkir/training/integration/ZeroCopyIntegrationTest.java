@@ -3,7 +3,7 @@ package tech.kayys.tafkir.training.integration;
 import org.junit.jupiter.api.Test;
 import tech.kayys.aljabr.core.memory.BorrowableMemoryStore;
 import tech.kayys.aljabr.core.memory.MemoryStoreLease;
-import tech.kayys.aljabr.core.memory.helixdb.HelixDbMemoryStore;
+import tech.kayys.aljabr.core.memory.offheap.OffHeapMemoryStore;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -24,7 +24,7 @@ class ZeroCopyIntegrationTest {
         byte[] contextKey = "agent_context_1".getBytes(StandardCharsets.UTF_8);
         byte[] modelKey = "agent_adapter_1".getBytes(StandardCharsets.UTF_8);
 
-        try (BorrowableMemoryStore store = new HelixDbMemoryStore("unused-test-path")) {
+        try (BorrowableMemoryStore store = new OffHeapMemoryStore()) {
             // The provider copies input into its own arena. Closing this source
             // arena proves that subsequent reads do not depend on caller memory.
             try (Arena sourceArena = Arena.ofConfined()) {
