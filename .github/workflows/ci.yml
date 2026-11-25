@@ -81,7 +81,7 @@ jobs:
 
       - name: Build Aljabr
         working-directory: aljabr
-        run: ./gradlew publishToMavenLocal
+        run: ./gradlew -PwithHelixDb=true publishToMavenLocal
 
       - name: Build Tafkir
         working-directory: tafkir

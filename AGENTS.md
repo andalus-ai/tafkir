@@ -52,3 +52,12 @@ These are entry points over shared APIs, not separate training implementations. 
 - The same training semantics are available through relevant Java, CLI, script, and notebook entry points.
 - Aljabr remains independent of Tafkir; AQLI's ordinary inference path remains independent of Tafkir.
 - Documentation distinguishes demonstrated capability from roadmap intent and records limitations honestly.
+
+## Shared memory and zero-copy consumption
+
+- Aljabr owns the memory-store and borrow/lease contract. Tafkir must not invent a parallel allocator or depend on Aljabr provider implementation internals beyond explicitly optional provider modules.
+- When a provider exposes memory through `MemoryStoreLease`, keep the lease open for the entire period in which Java code, FFM downcalls, or native code can access the borrowed segment. Close it deterministically with try-with-resources after the final access.
+- Never retain a `MemorySegment` obtained from a lease after that lease closes. Do not pass the segment to asynchronous work unless the lease lifetime is transferred and managed for that work.
+- Do not use the legacy unleased `getZeroCopy(...)` API for new code. Prefer a provider capability such as `BorrowableMemoryStore`; if a provider cannot guarantee the borrow lifetime, copy into caller-owned memory and describe that copy honestly.
+- A memory-store borrow is not a checkpoint, durable artifact, dataset store, or training-state persistence mechanism. Tafkir owns checkpoint lifecycle and should use portable filesystem/object-store artifact formats for durable training outputs.
+- Keep native LibTorch execution tests separate from portable memory-contract tests. Do not catch broad runtime exceptions and report the test as successful; explicitly skip native tests when their required native runtime is not provisioned.
