@@ -1,57 +1,59 @@
 package tech.kayys.tafkir.training.integration;
 
 import org.junit.jupiter.api.Test;
+import tech.kayys.aljabr.core.memory.BorrowableMemoryStore;
 import tech.kayys.aljabr.core.memory.MemoryStoreLease;
 import tech.kayys.aljabr.core.memory.helixdb.HelixDbMemoryStore;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
- * Verifies the Aljabr-to-Tafkir memory handoff contract without requiring a
- * native LibTorch installation. Native execution belongs in a separately
- * provisioned integration-test profile.
+ * Verifies that Tafkir can consume Aljabr-owned memory through the scoped
+ * borrowing contract without depending on a persistent database.
  */
 class ZeroCopyIntegrationTest {
 
     @Test
-    void borrowedTrainingInputsRemainValidUntilTheTrainingScopeEnds() {
-        try (HelixDbMemoryStore store = new HelixDbMemoryStore("unused-in-memory-path");
-                Arena inputArena = Arena.ofConfined()) {
-            byte[] contextKey = "agent_context_1".getBytes();
-            byte[] adapterKey = "agent_adapter_1".getBytes();
+    void borrowsAljabrMemoryForTrainingWithoutCopyingTheReadView() {
+        byte[] contextKey = "agent_context_1".getBytes(StandardCharsets.UTF_8);
+        byte[] modelKey = "agent_adapter_1".getBytes(StandardCharsets.UTF_8);
 
-            MemorySegment contextInput = inputArena.allocate(1024);
-            MemorySegment adapterInput = inputArena.allocate(1024);
-            contextInput.set(ValueLayout.JAVA_FLOAT, 0, 0.25f);
-            adapterInput.set(ValueLayout.JAVA_FLOAT, 0, 0.75f);
-            store.put(contextKey, contextInput);
-            store.put(adapterKey, adapterInput);
-
-            // Keep both provider-owned borrows alive for the complete native
-            // training operation. A real FFM call receives lease.segment().
-            try (MemoryStoreLease contextLease = store.borrow(contextKey).orElseThrow();
-                    MemoryStoreLease adapterLease = store.borrow(adapterKey).orElseThrow()) {
-                MemorySegment contextSegment = contextLease.segment();
-                MemorySegment adapterSegment = adapterLease.segment();
-
-                assertEquals(1024, contextSegment.byteSize());
-                assertEquals(1024, adapterSegment.byteSize());
-                assertEquals(0.25f, contextSegment.get(ValueLayout.JAVA_FLOAT, 0));
-                assertEquals(0.75f, adapterSegment.get(ValueLayout.JAVA_FLOAT, 0));
-
-                // The FFM consumer must complete before these leases close.
-                // The segment aliases provider storage; no readback copy occurs.
+        try (BorrowableMemoryStore store = new HelixDbMemoryStore("unused-test-path")) {
+            // The provider copies input into its own arena. Closing this source
+            // arena proves that subsequent reads do not depend on caller memory.
+            try (Arena sourceArena = Arena.ofConfined()) {
+                MemorySegment context = sourceArena.allocate(1024);
+                MemorySegment adapter = sourceArena.allocate(1024);
+                context.set(ValueLayout.JAVA_BYTE, 0, (byte) 0x2A);
+                adapter.set(ValueLayout.JAVA_BYTE, 0, (byte) 0x5A);
+                store.put(contextKey, context);
+                store.put(modelKey, adapter);
             }
 
-            // Closed leases no longer expose the borrowed segment.
-            var closedLease = store.borrow(contextKey).orElseThrow();
-            closedLease.close();
-            assertThrows(IllegalStateException.class, closedLease::segment);
+            try (MemoryStoreLease contextLease = store.borrow(contextKey).orElseThrow();
+                 MemoryStoreLease adapterLease = store.borrow(modelKey).orElseThrow()) {
+                MemorySegment context = contextLease.segment();
+                MemorySegment adapter = adapterLease.segment();
+
+                assertEquals(1024, context.byteSize());
+                assertEquals(1024, adapter.byteSize());
+                assertEquals((byte) 0x2A, context.get(ValueLayout.JAVA_BYTE, 0));
+                assertEquals((byte) 0x5A, adapter.get(ValueLayout.JAVA_BYTE, 0));
+                assertFalse(contextLease.isClosed());
+                assertFalse(adapterLease.isClosed());
+            }
+
+            // A closed lease releases the borrow, not the stored value.
+            try (MemoryStoreLease verificationLease = store.borrow(contextKey).orElseThrow()) {
+                assertEquals((byte) 0x2A,
+                        verificationLease.segment().get(ValueLayout.JAVA_BYTE, 0));
+            }
         }
     }
 }
